@@ -7,8 +7,9 @@ namespace Biathlon.Unity.Presentation
     /// <summary>Shared national kits, bound to saved nationality rather than bib number. Presentation only.</summary>
     public sealed class AthleteAppearancePresentation : MonoBehaviour
     {
-        [Serializable] private sealed class Palette { public int schema_version;public string id;public string[] nations,kits,trims; }
-        private static Color[] kits,trims;
+        [Serializable] private sealed class Palette { public int schema_version;public string id;public string[] nations,kits,trims,accents;public bool[] national_panels;public float panel_outer_x_m,panel_cuff_y_m; }
+        private static Color[] kits,trims,accents;
+        private static bool[] nationalPanels;private static Vector4 panelBounds;
         private static string[] nations;
         private static Material[][] variants;
         private static Material[] skinVariants;
@@ -105,6 +106,11 @@ namespace Biathlon.Unity.Presentation
             if(string.IsNullOrWhiteSpace(nation))throw new ArgumentException("A saved nationality is required.",nameof(nation));
             LoadPalette();ApplyVariant(NationIndex(nation));Nation=nation;
         }
+        public static Color NationGarmentColor(string nation,Vector3 bindPosition)
+        {
+            LoadPalette();int index=NationIndex(nation);
+            return nationalPanels[index]&&Mathf.Abs(bindPosition.x)>panelBounds.x?(bindPosition.y<panelBounds.y?accents[index]:trims[index]):kits[index];
+        }
         private static int NationIndex(string nation)
         {for(int i=0;i<nations.Length;i++)if(nations[i]==nation)return i;return kits.Length-1;}
         private static void LoadPalette()
@@ -117,6 +123,10 @@ namespace Biathlon.Unity.Presentation
                 for(int i=0;i<k.Length;i++)if(!ColorUtility.TryParseHtmlString(p.kits[i],out k[i])||!ColorUtility.TryParseHtmlString(p.trims[i],out t[i]))throw new ArgumentException("Invalid kit color.");
                 for(int i=0;i<p.nations.Length;i++)
                 {if(string.IsNullOrWhiteSpace(p.nations[i]))throw new ArgumentException("Missing kit nationality.");for(int j=0;j<i;j++)if(p.nations[i]==p.nations[j]||k[i]==k[j])throw new ArgumentException("National kits must be distinct.");}
+                accents=new Color[k.Length];nationalPanels=p.national_panels??new bool[k.Length];
+                if(nationalPanels.Length!=k.Length||p.accents!=null&&p.accents.Length!=k.Length)throw new ArgumentException("Kit pattern palette mismatch.");
+                for(int i=0;i<k.Length;i++)accents[i]=p.accents==null?t[i]:ColorUtility.TryParseHtmlString(p.accents[i],out var accent)?accent:throw new ArgumentException("Invalid national accent.");
+                panelBounds=new Vector4(p.panel_outer_x_m,p.panel_cuff_y_m,0,0);
                 nations=p.nations;kits=k;trims=t;
             }
         }
@@ -136,7 +146,7 @@ namespace Biathlon.Unity.Presentation
                     {
                         if(slot==2||slot==3||slot==4||slot==5||slot==7)continue;
                         var mat=new Material(source[slot]){name=source[slot].name+" kit "+v,hideFlags=HideFlags.DontSave};
-                        mat.SetColor("_KitColor",kits[v]);mat.SetColor("_TrimColor",trims[v]);variants[v][slot]=mat;
+                        mat.SetColor("_KitColor",kits[v]);mat.SetColor("_TrimColor",trims[v]);mat.SetColor("_NationalAccent",accents[v]);mat.SetFloat("_NationalPanels",nationalPanels[v]?1:0);mat.SetVector("_NationalPanelBounds",panelBounds);variants[v][slot]=mat;
                     }
                 }
             }

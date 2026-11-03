@@ -45,7 +45,7 @@ namespace Biathlon.Career
         /// Existing saves are selected from their persisted calendar ID instead.</summary>
         public static CareerDefinitions ForNewProductionCareer(Func<string,string> read)
         {
-            var selected=new CareerDefinitions(read,WoodlandCalendarResource);
+            var selected=new CareerDefinitions(read,WoodlandCalendarResource,"career_roster_v2.json");
             if(selected.Calendar.Id!=WoodlandCalendarId)
                 throw new InvalidOperationException("Production calendar resource has an unexpected ID.");
             return selected;
@@ -53,7 +53,7 @@ namespace Biathlon.Career
         public static CareerDefinitions ForNewProductionCareer(Func<string,string> read,string startProfileId)
         {
             var p=CareerStartDefinition.FromJson(read("career_start_v1.json")).Get(startProfileId);
-            return new CareerDefinitions(read,p.CalendarResource);
+            return new CareerDefinitions(read,p.CalendarResource,"career_roster_v2.json");
         }
         public static CareerDefinitions ForSave(Func<string,string> read,CareerSave save)
         {
@@ -64,16 +64,17 @@ namespace Biathlon.Career
                 save.CalendarId=="woodland_development_calendar_v1"?"woodland_development_calendar_v1.json":
                 save.CalendarId=="woodland_world_cup_calendar_v1"?"woodland_world_cup_calendar_v1.json":null;
             if(resource==null)throw new ArgumentException("Unknown saved career calendar.",nameof(save));
-            var selected=new CareerDefinitions(read,resource);
+            var selected=new CareerDefinitions(read,resource,save.RulesId=="career_roster_v2"?"career_roster_v2.json":"career_roster_v1.json");
             if(selected.Calendar.Id!=save.CalendarId)
                 throw new InvalidOperationException("Saved calendar ID does not match its loaded definition.");
             return selected;
         }
-        public CareerDefinitions(Func<string,string> read,string calendarResource)
+        public CareerDefinitions(Func<string,string> read,string calendarResource):this(read,calendarResource,"career_roster_v1.json") { }
+        public CareerDefinitions(Func<string,string> read,string calendarResource,string rosterResource)
         {
             if(read==null)throw new ArgumentNullException(nameof(read));
             if(string.IsNullOrWhiteSpace(calendarResource))throw new ArgumentException("Explicit calendar resource required.",nameof(calendarResource));
-            Roster=CareerRosterDefinition.FromJson(read("career_roster_v1.json"));Calendar=CareerCalendar.FromJson(read(calendarResource));
+            Roster=CareerRosterDefinition.FromJson(read(rosterResource));Calendar=CareerCalendar.FromJson(read(calendarResource));
             Training=CareerTrainingDefinition.FromJson(read("career_training_v1.json"));Policy=CareerTrainingPolicy.FromJson(read("career_training_policy_v1.json"));Adaptation=CareerAdaptationDefinition.FromJson(read("career_adaptation_v1.json"));
             Fatigue=CareerFatigueDefinition.FromJson(read("career_fatigue_v1.json"));Form=CareerFormDefinition.FromJson(read("career_form_v1.json"));Mental=CareerMentalDefinition.FromJson(read("career_mental_v1.json"));Health=CareerHealthDefinition.FromJson(read("career_health_v1.json"));
             Generation=CareerGenerationDefinition.FromJson(read("career_generation_v1.json"));Economy=CareerEconomyDefinition.FromJson(read("career_economy_v1.json"));Scoring=CareerScoringDefinition.FromJson(read(Calendar.Circuit==CareerCircuit.WorldCup?"career_scoring_ibu_2026_v1.json":"career_scoring_v1.json"));History=CareerHistoryDefinition.FromJson(read("career_history_v1.json"));Progression=CareerProgressionDefinition.FromJson(read("career_progression_v1.json"));

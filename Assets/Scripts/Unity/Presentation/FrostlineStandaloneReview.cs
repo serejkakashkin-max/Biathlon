@@ -23,7 +23,7 @@ namespace Biathlon.Unity.Presentation
             public string id="frostline_standalone_native_review",unity,output,results_source="isolated recorded-result boundary fixture";
             public bool success,career_preserved,isolated_profile_store=true,real_race_loaded,real_race_started;
             public bool menu_art_only,menu_ux_only,pulse_review,fullscreen;
-            public string game_title_ru,game_title_en,storage_product;
+            public string game_title_ru,game_title_en,storage_product,player_nation,roster_rules;
             public int artwork_checked;
             public string fullscreen_mode;
             public int width,height,transition_frames;
@@ -194,7 +194,9 @@ namespace Biathlon.Unity.Presentation
                 Require(evidence.storage_product=="Biathlon","Legacy persistence identity must remain stable.");
                 menu.ApplyPreferences("ru",0);yield return Settle();
             }
-            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_menu_art_review","Александр Северин","NOR",11);
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_menu_art_review","Александр Северин","RUS",11);
+            evidence.player_nation=menu.Session.Player.Nation;evidence.roster_rules=menu.Session.Career.RulesId;
+            Require(evidence.player_nation=="RUS"&&evidence.roster_rules=="career_roster_v2","Russian career and saved roster version must be available in the player.");
             string before=menu.Session.Career.ToJson();
             if(evidence.menu_ux_only){menu.RefreshFrontEnd();yield return Capture("00-dashboard");}
             menu.Session.OpenCareerPage(FrontEndScreen.Training);menu.RefreshFrontEnd();yield return Settle();

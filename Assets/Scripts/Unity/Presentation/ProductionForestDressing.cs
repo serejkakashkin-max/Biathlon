@@ -24,6 +24,9 @@ namespace Biathlon.Unity.Presentation
     /// Geometry and placement are presentation only; no collider or race-path mutation.</summary>
     public sealed class ProductionForestDressing:MonoBehaviour
     {
+        private StableSceneryShadows stableShadows;
+        public Light ShadowLight{get;set;}
+        public int ShadowCasters=>stableShadows?.Count??0;
         private WinterDressingDefinition definition;
         private ProductionVisibility visibility;
         private readonly Mesh[] near=new Mesh[6],far=new Mesh[6];private readonly Material[] materials=new Material[6];
@@ -76,6 +79,7 @@ namespace Biathlon.Unity.Presentation
             }
             placements=matrixList.ToArray();types=typeList.ToArray();bounds=boundList.ToArray();submitted=new Matrix4x4[12][];
             for(int i=0;i<12;i++)submitted[i]=new Matrix4x4[d.max_instances];
+            if(visibility!=null)stableShadows=new StableSceneryShadows(near,materials,d.max_instances);
         }
         public void Render(Camera camera,string tier)
         {
@@ -83,9 +87,11 @@ namespace Biathlon.Unity.Presentation
             Array.Clear(counts,0,counts.Length);Visible=0;SubmittedTriangles=0;GeometryUtility.CalculateFrustumPlanes(camera,planes);
             float limit=definition.cull_m*(tier=="low"?.65f:tier=="balanced"?.85f:1);
             var worldBounds=new Bounds(camera.transform.position,Vector3.one*limit*2);
+            stableShadows?.Begin(camera,tier,ShadowLight);
             var fogFrame=visibility!=null?visibility.Frame(camera):default;bool firstBounds=true;
             for(int i=0;i<placements.Length;i++)
             {
+                stableShadows?.Add(types[i],placements[i],bounds[i]);
                 float distance=Vector3.Distance(camera.transform.position,Position(i));if(visibility==null&&distance>limit||visibility!=null&&fogFrame.Hidden(bounds[i])||!GeometryUtility.TestPlanesAABB(planes,bounds[i]))continue;
                 if(visibility!=null){if(firstBounds){worldBounds=bounds[i];firstBounds=false;}else worldBounds.Encapsulate(bounds[i]);}
                 int lod=distance*ProjectionAwareLod.Scale(camera)<definition.near_m?0:1,group=types[i]*2+lod;
@@ -93,9 +99,10 @@ namespace Biathlon.Unity.Presentation
             }
             for(int group=0;group<12;group++)if(counts[group]>0)
             {
-                int type=group/2;var parameters=new RenderParams(materials[type]){camera=camera,worldBounds=worldBounds,shadowCastingMode=group%2==0?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,layer=gameObject.layer};
+                int type=group/2;var parameters=new RenderParams(materials[type]){camera=camera,worldBounds=worldBounds,shadowCastingMode=stableShadows==null&&group%2==0?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,layer=gameObject.layer};
                 Graphics.RenderMeshInstanced(parameters,group%2==0?near[type]:far[type],0,submitted[group],counts[group]);
             }
+            stableShadows?.Render(camera,null,gameObject.layer);
         }
     }
 }

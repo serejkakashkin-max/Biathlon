@@ -18,7 +18,7 @@ namespace Biathlon.PlayModeTests
     public sealed class NationBibReviewTests
     {
         private GameObject root;
-        private static string Folder=>Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/nation-bibs-20261012"));
+        private static string Folder=>Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m16-6/russia-shadows/kits"));
         private static string Read(string file)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(file));
         private static string FixtureRead(string file)
         {
@@ -34,7 +34,7 @@ namespace Biathlon.PlayModeTests
         [TearDown] public void Cleanup(){if(root!=null)Object.DestroyImmediate(root);}
         [Test] public void WorldCupFieldBindsActualNationalityAndPreStartClassificationsWithoutAuthorityChanges()
         {
-            var definitions=new CareerDefinitions(FixtureRead,"woodland_world_cup_calendar_v1.json");
+            var definitions=new CareerDefinitions(FixtureRead,"woodland_world_cup_calendar_v1.json","career_roster_v2.json");
             var save=CareerFactory.Create(definitions.Roster,definitions.Calendar,"bib_start","Alex","NOR","appearance_default",new SeededRandomSource(71000));
             Register(save,definitions,0,0,1,2);Register(save,definitions,1,1,2,0);
             var e=definitions.Calendar.Get(3);var race=new CareerRaceProvider(Read,definitions,ProductionVenueHost.ReadResource).Prepare(save,e,71000);
@@ -50,7 +50,7 @@ namespace Biathlon.PlayModeTests
                 var material=rig.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterials[1];
                 if(materialByNation.TryGetValue(athlete.Nation,out var shared))Assert.That(material,Is.SameAs(shared));else materialByNation.Add(athlete.Nation,material);
             }
-            Assert.That(materialByNation.Count,Is.EqualTo(6));
+            Assert.That(materialByNation.Count,Is.EqualTo(7));
             Assert.That(host.Proxies.GetRig(save.Athlete(0).Id).GetComponent<AthleteBibPresentation>().LeaderRole,Is.EqualTo(CareerLeaderBib.Discipline));
             Assert.That(host.Proxies.GetRig(save.Athlete(1).Id).GetComponent<AthleteBibPresentation>().LeaderRole,Is.EqualTo(CareerLeaderBib.Total));
             Assert.That(host.Proxies.GetRig(save.Athlete(2).Id).GetComponent<AthleteBibPresentation>().LeaderRole,Is.EqualTo(CareerLeaderBib.None));
@@ -126,7 +126,7 @@ namespace Biathlon.PlayModeTests
             try
             {
                 menu.Session.OpenCareerPage(FrontEndScreen.Standings);menu.ApplyPreferences("en",2);for(int i=0;i<6;i++)yield return null;
-                Assert.That(menu.Root.Q("national_kit_legend").childCount,Is.EqualTo(6));Assert.That(menu.Root.Q("kit_swatch"),Is.Null);Capture("kit-legend-en-large");
+                Assert.That(menu.Root.Q("national_kit_legend").childCount,Is.EqualTo(7));Assert.That(menu.Root.Q("kit_swatch"),Is.Null);Capture("kit-legend-en-large");
                 menu.Session.Back();for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();menu.ApplyPreferences("en",2);for(int i=0;i<6;i++)yield return null;
                 Assert.That(menu.Root.Q("pre_race_kit").Q("national_kit_FRA"),Is.Not.Null);
                 Assert.That(menu.Root.Q("kit_swatch"),Is.Null,"Country identity uses the flag/code, without a suit-colour marker.");

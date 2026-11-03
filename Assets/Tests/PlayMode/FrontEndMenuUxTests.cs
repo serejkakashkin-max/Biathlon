@@ -29,7 +29,7 @@ namespace Biathlon.PlayModeTests
                     Assert.That(menu.Root.Q<Button>("new_career").worldBound.yMin,Is.GreaterThan(title.worldBound.yMax));
                     Assert.That(Application.productName,Is.EqualTo(product));Assert.That(Application.persistentDataPath,Is.EqualTo(path));
                     RenderTexture.active=target;image=new Texture2D(1024,768,TextureFormat.RGBA32,false);image.ReadPixels(new Rect(0,0,1024,768),0,0);image.Apply();
-                    string folder=Path.GetFullPath("docs/quality/m16-6/pulse");Directory.CreateDirectory(folder);
+                    string folder=Path.GetFullPath("docs/quality/m16-6/russia-shadows/menu");Directory.CreateDirectory(folder);
                     File.WriteAllBytes(Path.Combine(folder,"title-"+locale+"-1024-large.png"),image.EncodeToPNG());
                 }
                 finally{RenderTexture.active=previous;if(image!=null)Object.Destroy(image);settings.targetTexture=null;Object.Destroy(target);}
@@ -104,7 +104,7 @@ namespace Biathlon.PlayModeTests
                     }
                     RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
                     pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
-                    string folder=Path.GetFullPath("docs/quality/m16-6/pulse/menu");Directory.CreateDirectory(folder);
+                    string folder=Path.GetFullPath("docs/quality/m16-6/russia-shadows/menu/menu");Directory.CreateDirectory(folder);
                     File.WriteAllBytes(Path.Combine(folder,page+"-"+locale+"-"+width+".png"),pixels.EncodeToPNG());
                     Object.Destroy(pixels);pixels=null;
                 }

@@ -142,6 +142,7 @@ namespace Biathlon.Presentation
             Require(FrontEndScreen.NewCareer);if(draft==null)throw new ArgumentNullException(nameof(draft));
             var definitions=CareerDefinitions.ForNewProductionCareer(read,draft.StartProfileId);
             var candidate=draft.Confirm(id,definitions.Calendar,restoreRandom);
+            definitions=CareerDefinitions.ForSave(read,candidate);
             candidate=CareerWorld.Initialize(candidate,definitions,restoreRandom);
             definitions.RivalAppearance.InitializeNewWorld(candidate);
             CareerDevelopment.InitializeWorld(candidate,definitions.Growth,definitions.Ratings,restoreRandom,draft.Tier.BaselineStat);

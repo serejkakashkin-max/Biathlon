@@ -7,6 +7,10 @@ namespace Biathlon.Unity.Presentation
     /// <summary>Bounded, explicit-camera visual forest. No colliders or authoritative wind/terrain.</summary>
     public sealed class VegetationPresentation : MonoBehaviour
     {
+        private StableSceneryShadows stableShadows;
+        public Light ShadowLight{get;set;}
+        public int ShadowCasters=>stableShadows?.Count??0;
+        public long StableShadowTriangles=>stableShadows?.Triangles??0;
         private VegetationDefinition definition;
         private float? productionHighFogEndMeters;
         private ProductionVisibility visibility;
@@ -119,6 +123,7 @@ namespace Biathlon.Unity.Presentation
                     new Bounds(tree.Position+Vector3.up*((low+high)*.5f),new Vector3(reach*2,high-low,reach*2)):
                     new Bounds(tree.Position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale));
             }
+            if(visibility!=null){var shadowMeshes=new Mesh[groups/3];for(int i=0;i<shadowMeshes.Length;i++)shadowMeshes[i]=meshes[i*3+1];stableShadows=new StableSceneryShadows(shadowMeshes,materials,definition.max_instances);}
             properties=new MaterialPropertyBlock();
             worldPositions=new Vector3[instances.Length];worldCanopies=new Bounds[instances.Length];worldMatrices=new Matrix4x4[instances.Length];
         }
@@ -145,13 +150,14 @@ namespace Biathlon.Unity.Presentation
             float density=definition.Density(tier);for(int i=0;i<counts.Length;i++){counts[i]=0;primaryCounts[i]=0;}
             pinnedCounts[0]=pinnedCounts[1]=0;TransitionInstances=RenderedInstances=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
             preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
+            stableShadows?.Begin(camera,tier,ShadowLight);
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
             var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);bool firstBounds=true;
             // Whole-grove rejection precedes the per-tree LOD/frustum loop.
             // The sphere encloses every species, LOD and wind excursion.
             Vector3 forestCentre=world.MultiplyPoint3x4(localForestBounds.center);
             float forestRadius=localForestBounds.extents.magnitude;
-            for(int p=0;p<planes.Length;p++)if(planes[p].GetDistanceToPoint(forestCentre)<-forestRadius)return;
+            if(stableShadows==null)for(int p=0;p<planes.Length;p++)if(planes[p].GetDistanceToPoint(forestCentre)<-forestRadius)return;
             PrepareWorldGeometry(world);
             bool fogBounded=visibility!=null||productionHighFogEndMeters.HasValue&&tier=="high";
             // The shader's clip-Z fog remap is certified for the standard perspective
@@ -162,6 +168,7 @@ namespace Biathlon.Unity.Presentation
             for(int index=0;index<instances.Length;index++)
             {
                 var tree=instances[index];
+                stableShadows?.Add(species[index],worldMatrices[index],worldCanopies[index]);
                 if(visibility==null&&tree.DensityRank>=density)continue;
                 var position=worldPositions[index];float distance=Vector3.Distance(position,eye);
                 if(!fogBounded&&definition.Lod(distance)<0)continue;
@@ -198,6 +205,7 @@ namespace Biathlon.Unity.Presentation
                     else Add(group,worldMatrices[index]);
                 }
             }
+            if(stableShadows!=null)ShadowSourceTriangles=stableShadows.Triangles;
             var direction=observedWind.HasValue?observedWind.Value.normalized:new Vector2(1,.35f);
             float strength=observedWind.HasValue?Mathf.Clamp01(observedWind.Value.magnitude/5):1;
             properties.SetVector(Wind,new Vector4(presentationTime,definition.wind_amplitude_m*strength,definition.wind_frequency,0));
@@ -220,19 +228,20 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<groups;i++)if(counts[i]>0)
             {
                 properties.SetFloat(LodEnabled,BlendsForest?1:0);properties.SetFloat(LodLevel,i%3);
-                var p=new RenderParams(materials[i/3]){camera=camera,matProps=properties,shadowCastingMode=!SimplifyingCurrentShadows&&i%3<2?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,
+                var p=new RenderParams(materials[i/3]){camera=camera,matProps=properties,shadowCastingMode=stableShadows==null&&!SimplifyingCurrentShadows&&i%3<2?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,
                     worldBounds=UsesExplicitSpecies?preparedWorldBounds:new Bounds(transform.position,new Vector3(500,50,500)),layer=gameObject.layer};
                 // Default instancing includes inverse matrices; stay below the 511-instance limit
                 // without relying on platform-dependent uniform-scaling shader optimizations.
                 for(int offset=0;offset<counts[i];offset+=500)
                     Graphics.RenderMeshInstanced(p,meshes[i],0,matrices[i],Math.Min(500,counts[i]-offset),offset);
-                if(SimplifyingCurrentShadows&&i%3<2)
+                if(stableShadows==null&&SimplifyingCurrentShadows&&i%3<2)
                 {
                     p.shadowCastingMode=ShadowCastingMode.ShadowsOnly;p.receiveShadows=false;
                     for(int offset=0;offset<counts[i];offset+=500)
                         Graphics.RenderMeshInstanced(p,meshes[i+1],0,matrices[i],Math.Min(500,counts[i]-offset),offset);
                 }
             }
+            if(stableShadows!=null){properties.SetFloat(LodEnabled,0);stableShadows.Render(camera,properties,gameObject.layer);}
             if(BlendsForest)for(int type=0;type<groups/3;type++)if(pinnedCounts[type]>0)
             {
                 properties.SetFloat(LodEnabled,0);

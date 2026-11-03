@@ -23,7 +23,7 @@ namespace Biathlon.PlayModeTests
             var d=Definition();var e=Venue();var layout=d.Layout(e.range);
             Assert.That(layout.ClearsCourses(e.route_corridors,d.route_clearance_m),Is.True);
             Assert.That(layout.Top,Is.GreaterThanOrEqualTo(.3f));Assert.That(layout.Front-layout.Back,Is.GreaterThanOrEqualTo(2));
-            Assert.That(d.coaches.Length,Is.EqualTo(12));Assert.That(new HashSet<string>(Array.ConvertAll(d.coaches,c=>c.nation)).Count,Is.EqualTo(6));
+            Assert.That(d.coaches.Length,Is.EqualTo(13));Assert.That(new HashSet<string>(Array.ConvertAll(d.coaches,c=>c.nation)).Count,Is.EqualTo(7));
             Assert.That(new HashSet<string>(Array.ConvertAll(d.coaches,c=>c.face)).Count,Is.EqualTo(6));
             Assert.That(new HashSet<string>(Array.ConvertAll(d.coaches,c=>c.skin)).Count,Is.GreaterThanOrEqualTo(6));
         }
@@ -34,7 +34,7 @@ namespace Biathlon.PlayModeTests
             foreach(var bank in e.range.banks){bank.position=q*bank.position+offset;bank.mat_position=q*bank.mat_position+offset;}
             foreach(var path in e.route_corridors)foreach(var k in path.knots){var p=q*k.Position+offset;k.x=p.x;k.y=p.y;k.z=p.z;}
             var second=d.Layout(e.range,_=>5);
-            for(int i=0;i<12;i++)Assert.That(Vector3.Distance(second.CoachPosition(i,12),q*first.CoachPosition(i,12)+offset),Is.LessThan(.0001f));
+            for(int i=0;i<13;i++)Assert.That(Vector3.Distance(second.CoachPosition(i,13),q*first.CoachPosition(i,13)+offset),Is.LessThan(.0001f));
             Assert.That(second.ClearsCourses(e.route_corridors,3),Is.True);
             var crossing=new ProductionRouteCorridor{knots=new[]{new ProductionRouteKnot{x=-200,z=-18},new ProductionRouteKnot{x=200,z=-18}},widths_m=new[]{1f,1f}};
             Assert.That(first.ClearsCourses(new[]{crossing},3),Is.False,"Both endpoints can clear while a segment crosses the whole enclosure.");
@@ -52,10 +52,10 @@ namespace Biathlon.PlayModeTests
             try
             {
                 var e=Venue();view.Initialize(Definition(),e,_=>-.03f);yield return null;
-                Assert.That(view.Count,Is.EqualTo(12));Assert.That(view.ScopeCount,Is.EqualTo(12));Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);
+                Assert.That(view.Count,Is.EqualTo(13));Assert.That(view.ScopeCount,Is.EqualTo(13));Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);
                 Assert.That(root.GetComponentsInChildren<Animator>(),Is.Empty);Assert.That(root.GetComponentsInChildren<SkinnedMeshRenderer>(),Is.Empty);
-                Assert.That(root.GetComponentsInChildren<MonoBehaviour>().Length,Is.EqualTo(13),"Only the enclosure owner and twelve data-only eye anchors; no athlete frame scripts.");
-                for(int i=0;i<12;i++)
+                Assert.That(root.GetComponentsInChildren<MonoBehaviour>().Length,Is.EqualTo(14),"Only the enclosure owner and thirteen data-only eye anchors; no athlete frame scripts.");
+                for(int i=0;i<13;i++)
                 {
                     var art=view.Coach(i);var p=view.Layout.Local(art.transform.position);Assert.That(p.y,Is.EqualTo(view.Layout.Top).Within(.0001));
                     Assert.That(Vector3.Distance(view.ScopeEye(i),art.Eye),Is.EqualTo(.025f).Within(.0001));
@@ -76,7 +76,7 @@ namespace Biathlon.PlayModeTests
         }
         [UnityTest] public IEnumerator NativeHeroCoachFacesAndProductionPlacementViews()
         {
-            const string output="artifacts/m16-4/coaches/views/";Directory.CreateDirectory(output);
+            const string output="docs/quality/m16-6/russia-shadows/venue/";Directory.CreateDirectory(output);
             var root=new GameObject("Native coaches' venue review");BenchmarkRenderTarget target=null;
             try
             {
@@ -87,16 +87,18 @@ namespace Biathlon.PlayModeTests
                 var course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route,sharedApron:plan.SharedApron,snowShoulders:ProductionSnowShoulderDefinition.FromJson(Read(e.terrain.snow_shoulders_resource),plan));
                 var view=root.AddComponent<ProductionVenueEnvironment>();view.AutomaticRendering=false;view.Initialize(plan,e,Read,root.AddComponent<RacePresentationFeed>(),camera,apron:course.Apron);
                 course.JoinGround(view,view.TerrainGridSpacing,view.TerrainGridOrigin);
-                Assert.That(view.Coaches.Count,Is.EqualTo(12));Assert.That(view.Coaches.Layout.ClearsCourses(e.route_corridors,3),Is.True);
+                Assert.That(view.Coaches.Count,Is.EqualTo(13));Assert.That(view.Coaches.Layout.ClearsCourses(e.route_corridors,3),Is.True);
                 for(int i=0;i<view.Dressing.Count;i++)Assert.That(view.Coaches.Layout.DistanceToFootprint(view.Dressing.Position(i)),Is.GreaterThan(3));
                 target=new BenchmarkRenderTarget(1600,900);
                 yield return Capture("overview",new Vector3(-55,11,-36),new Vector3(0,1,4));
                 yield return Capture("coach-row",new Vector3(-20,2.8f,-11),new Vector3(-17,1.2f,-18.1f));
-                foreach(int i in new[]{0,1,3,8})
+                foreach(int i in new[]{0,1,3,8,12})
                 {
                     var coach=view.Coaches.Coach(i);var eye=coach.Eye;
                     yield return Capture("face-"+i,eye+new Vector3(-.65f,.12f,1.15f),eye-Vector3.up*.15f);
                 }
+                var russian=view.Coaches.Coach(12);yield return Capture("russia-coach-scope",russian.transform.position+new Vector3(-1.7f,1.4f,3.1f),russian.transform.position+Vector3.up*1.1f);
+                var flag=view.RangeFlags.Fabric(6);yield return Capture("russia-flag",flag.transform.position+new Vector3(0,1,-12),flag.transform.position);
                 File.WriteAllText(output+"review.json","{\"schema_version\":1,\"id\":\"m16_4_coaches_native_views\",\"coaches\":"+view.Coaches.Count+",\"scopes\":"+view.Coaches.ScopeCount+",\"excluded_trees\":"+view.CoachClearanceExcludedTrees+",\"colliders\":"+root.GetComponentsInChildren<Collider>().Length+",\"skinned_renderers\":"+root.GetComponentsInChildren<SkinnedMeshRenderer>().Length+"}");
                 IEnumerator Capture(string name,Vector3 position,Vector3 look)
                 {

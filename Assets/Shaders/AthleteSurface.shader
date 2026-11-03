@@ -5,6 +5,9 @@ Shader "Biathlon/AthleteSurface"
   [MainColor] _BaseColor("Surface color",Color)=(.08,.12,.18,1)
   _KitColor("Fictional kit",Color)=(.08,.3,.45,1)
   _TrimColor("Seam trim",Color)=(.7,.8,.9,1)
+  _NationalAccent("National cuff accent",Color)=(1,0,0,1)
+  _NationalPanels("National sleeve panels",Float)=0
+  _NationalPanelBounds("National panel bind coordinates",Vector)=(.22,1.13,0,0)
   _KitWeight("Kit influence",Range(0,1))=0
   _SurfaceKind("Cloth 0 / skin 1 / lens 2 / rubber 3 / boot 4",Float)=0
   _Smoothness("Smoothness",Range(0,1))=.3
@@ -35,6 +38,7 @@ Shader "Biathlon/AthleteSurface"
   TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
   TEXTURE2D(_RoughnessMap);SAMPLER(sampler_RoughnessMap);
   CBUFFER_START(UnityPerMaterial)
+  half4 _NationalAccent;float4 _NationalPanelBounds;float _NationalPanels;
   half4 _BaseColor,_KitColor,_TrimColor,_EyeColor,_HairColor,_ScalpColor,_GloveColor,_BootColor,_LensColor;float _KitWeight,_SurfaceKind,_Smoothness,_BumpScale,_SkinVariation,_DetailTiling,_HeadwearMode,_CosmeticOverride,_GogglesHidden;
   CBUFFER_END
   struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;float3 rest:TEXCOORD1;float2 cosmetic:TEXCOORD2;UNITY_VERTEX_INPUT_INSTANCE_ID};
@@ -59,6 +63,7 @@ Shader "Biathlon/AthleteSurface"
    half smoothness=_Smoothness,metal=0;
    if(_SurfaceKind<.5)
    {
+    if(_NationalPanels>.5&&abs(p.x)>_NationalPanelBounds.x)base=p.y<_NationalPanelBounds.y?_NationalAccent.rgb:_TrimColor.rgb;
     // Bind-space garment seams remain attached through deformation; no world-space swimming.
     float path=lerp(.105,.212,smoothstep(1.0,1.2,p.y));
     float stripe=(1-smoothstep(.0015,.003+fwidth(p.x),abs(abs(p.x)-path)))*smoothstep(.015,.035,p.z);

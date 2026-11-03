@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "career_roster_v2",
+  "population": 30,
+  "player_age": 19,
+  "player_skill_min": 40000,
+  "player_skill_max": 55000,
+  "ai_age_min": 18,
+  "ai_age_max": 34,
+  "ai_skill_min": 35000,
+  "ai_skill_max": 85000,
+  "potential_min": 75000,
+  "potential_max": 100000,
+  "initial_state": 7000,
+  "starting_money_minor": 50000,
+  "nations": [
+    "NOR",
+    "SWE",
+    "FIN",
+    "GER",
+    "FRA",
+    "ITA",
+    "RUS"
+  ],
+  "given_names": [
+    "Arne",
+    "Mika",
+    "Leo",
+    "Emil",
+    "Noel",
+    "Luca",
+    "Anton",
+    "Elias"
+  ],
+  "family_names": [
+    "Lind",
+    "Berg",
+    "Vale",
+    "Rossi",
+    "Falk",
+    "Marin",
+    "Holm",
+    "Salo"
+  ],
+  "personalities": [
+    "ai_personality_attacker_v1",
+    "ai_personality_patient_v1"
+  ]
+}

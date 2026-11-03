@@ -14,6 +14,9 @@ namespace Biathlon.PlayModeTests
         private static RangeFlagDefinition Flags()=>RangeFlagDefinition.FromJson(Resources.Load<TextAsset>(Prefix+"range_flags_v1").text);
         private static ProductionEnvironmentDefinition Venue()=>ProductionEnvironmentDefinition.FromJson(Resources.Load<TextAsset>(Prefix+"environment").text);
 
+        [TestCase("RUS",.5f,.85f,"#FFFFFF")]
+        [TestCase("RUS",.5f,.5f,"#0039A6")]
+        [TestCase("RUS",.5f,.15f,"#D52B1E")]
         [TestCase("NOR",.1f,.1f,"#BA0C2F")]
         [TestCase("NOR",.36f,.1f,"#00205B")]
         [TestCase("NOR",.29f,.1f,"#FFFFFF")]
@@ -80,7 +83,7 @@ namespace Biathlon.PlayModeTests
             try
             {
                 view.Initialize(flags,recipe,_=>0);yield return null;
-                Assert.That(view.Count,Is.EqualTo(6));
+                Assert.That(view.Count,Is.EqualTo(7));
                 Assert.That(root.GetComponentsInChildren<Collider>().Length,Is.Zero,"Decoration cannot obstruct skiers or shooting.");
                 for(int i=0;i<view.Count;i++)
                 {

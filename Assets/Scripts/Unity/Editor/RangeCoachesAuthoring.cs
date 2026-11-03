@@ -29,6 +29,14 @@ namespace Biathlon.Unity
             for(int i=0;i<d.coaches.Length;i++)Bake(d.coaches[i],i,shared);
             AssetDatabase.SaveAssets();AssetDatabase.Refresh();
         }
+        public static void GenerateCoach(string id)
+        {
+            var d=RangeCoachesDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/Venues/woodland_basin_v1/range_coaches_v1").text);
+            int index=Array.FindIndex(d.coaches,c=>c.id==id);if(index<0)throw new ArgumentException("Unknown coach.");
+            var material=AssetDatabase.LoadAssetAtPath<Material>(Root+"CoachSurface.mat");
+            if(material==null)throw new InvalidOperationException("Generate shared coach material first.");
+            Bake(d.coaches[index],index,material);AssetDatabase.SaveAssets();AssetDatabase.Refresh();
+        }
         private static void Bake(RangeCoachesDefinition.Coach c,int index,Material material)
         {
             var rig=AthleteRigFactory.Create(null);var art=new GameObject(c.id);var meshes=new List<Mesh>();
@@ -76,6 +84,7 @@ namespace Biathlon.Unity
                         {
                             if(flags[v])continue;flags[v]=true;
                             var color=sub==3?skinColor:sub==4||sub==5?new Color(.045f,.055f,.065f):sub==6?AthleteAppearancePresentation.NationColor(c.nation):coat;
+                            if(c.nation=="RUS"&&(sub==0||sub==1||sub==2))color=AthleteAppearancePresentation.NationGarmentColor(c.nation,rest[v]);
                             color=color.linear;
                             color.a=c.headwear=="none"?1:c.headwear=="headband"?.5f:0;colors[v]=color;
                             var m=metadata[v];m.z=sub==3?1:sub==4?3:sub==5?4:0;m.w=c.beard?age:-age;metadata[v]=m;

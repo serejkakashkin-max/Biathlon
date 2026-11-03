@@ -241,6 +241,7 @@ namespace Biathlon.Unity.Presentation
                 if(data.venue_id=="woodland_basin_v1"&&!string.IsNullOrEmpty(composition.dressing_resource))
                 {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround,(point,radius)=>Coaches==null||Coaches.Layout.DistanceToFootprint(point)>radius+3,prepared.Visibility);}
                 var keyObject=Child("Production directional light",Vector3.zero,Quaternion.identity);var key=keyObject.AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;
+                foreach(var forest in forests)forest.ShadowLight=key;foreach(var crowd in crowds)crowd.ShadowLight=key;if(dressing!=null)dressing.ShadowLight=key;
                 weather=generated.AddComponent<WeatherPresentation>();weather.Initialize(chase,key,prepared.Sky);
                 Impacts=gameObject.AddComponent<ShotImpactPresentation>();Impacts.Initialize(feed,geometry,banks);
                 RefreshBanks();

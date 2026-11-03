@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "m166_russia_shadow_delivery",
+  "source_base": "9c1ac7bcbeaed7a44725feea5cf38bf1ed65934a",
+  "build": "Builds/M16_6_9_Russia_Shadow_Review",
+  "source_sha256": {
+    "Assets/Scripts/Career/CareerSeasonEngine.cs": "3e98d764e03633d0318c1313311bf069ea5e34b61b3569b3d3aa406020631c52",
+    "Assets/Scripts/Presentation/FrontEndSession.cs": "c064e671bc86910afd8f20e4b3fafb1e6dc7ab1de4a515efc1c0a962cf09724b",
+    "Assets/Scripts/Unity/Presentation/StableSceneryShadows.cs": "13fcd74375a9ae04f23e4ce938ea860271dcfca8e8f28ab3eba5555008703783",
+    "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs": "c62ed38ff320414dac8e49052ea4477132cebf73052d39845ed4d2d83891814f",
+    "Assets/Scripts/Unity/Presentation/SpectatorCrowd.cs": "22e79858526230c48d9fe433148f15bff57a54b59ab1f9e3e2727062d7b9922a",
+    "Assets/Scripts/Unity/Presentation/ProductionForestDressing.cs": "14a0b940ee2a4b96cc4a31a5b4492a9f14e26c5a001de45bcfa5a9ec1e989ea3",
+    "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs": "a4406b9de6b49596eceb5a7b468ab6823956a17be6df1f93fec7889556d76fc7",
+    "Assets/Scripts/Unity/Presentation/AthleteAppearancePresentation.cs": "0cf1d2f533f9baadba59cc68c2136c2474e4f80ea9381034071b7fc53bd0859d",
+    "Assets/Scripts/Unity/Presentation/SportVisuals.cs": "7604b03887134776e8062f1a1381dd40fb41e3171595977c2ed26157b030deaa",
+    "Assets/Scripts/Unity/Presentation/FrostlineStandaloneReview.cs": "9d5a9a4d5bfd8adc88c049087736008142a1dc9feff817de1221d7bdb2319f06",
+    "Assets/Scripts/Unity/Editor/PlayerBuildM16_6.cs": "81e0ff3eabaeaf7ba6dfd3052288ebf62a41c9f5073bda741a055c712abc1d34",
+    "Assets/Scripts/Unity/Editor/RangeCoachesAuthoring.cs": "52874c9f6f9586c5d8f8dfe42a758c8162106b1f7aa68a131658504f1c6154ec",
+    "Assets/Shaders/AthleteSurface.shader": "1a807bd4a7a7d8f6bb1812c29c8e1f8352cfc213b530fb49f76c1937624943c7",
+    "Assets/Resources/Biathlon/career_roster_v2.json": "5fb30fc761c805b481b85c98d3c3958063e879b7d73ecc57b44c1f87855d1d56",
+    "Assets/Resources/Biathlon/athlete_appearance_v1.json": "b53ae94a73813dd5762945ddc1019025aa388e41af01ebc7f71ad73e859416df",
+    "Assets/Resources/Biathlon/UI/front_end_text_v1.json": "8cdfb1a43a318fd0162928c1396d58dbf9f0f77d9c60a76d6ab6ec02457287b6",
+    "Assets/Resources/Biathlon/Venues/woodland_basin_v1/range_flags_v1.json": "c6f95ad0baf25bfee638f0ff80a12c374aac86c02f962176a842f336a0c42b9a",
+    "Assets/Resources/Biathlon/Venues/woodland_basin_v1/range_coaches_v1.json": "ba58a81fbd5cb8a3266753df6ec7f077b273d25e8f01e474b0409f2b70fc3bc5"
+  },
+  "binary_sha256": {
+    "Biathlon.exe": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+    "Biathlon_Data/Managed/Biathlon.Unity.Presentation.dll": "fb7a1cbd52b0c8e0704c6122d929237d0ebf83b143a07368d55b0a982d46e763",
+    "Biathlon_Data/Managed/Biathlon.Career.dll": "0de4103b48c4f35713c383fb455e9c4c5929f71770ffbca9addf36d659cf25b0",
+    "Biathlon_Data/Managed/Biathlon.Presentation.dll": "5b81454e4c78cfa70fe980f0a259b7b633cb868321ea28f32df9d477cd0ead03"
+  },
+  "native_playmode_pass": 81,
+  "dotnet_release_pass": 37,
+  "native_editmode_pass": 3,
+  "unique_cases": 119,
+  "console_errors_exceptions_asserts": 0,
+  "standalone_exit_code": 0,
+  "balance_changed": false,
+  "legacy_roster_sha256": "0780c8fd30bc5e850505377b4d961645e400ff5784bc41b6767db9df86689931",
+  "new_coach_assets_sha256": {
+    "Assets/Resources/Biathlon/Stadium/Coaches/coach_12.prefab": "d1d49fd53c8360f2af78a2ab6b1cb17daa61973a6428d8759ea4dfedcb65d03c",
+    "Assets/Resources/Biathlon/Stadium/Coaches/coach_12_LOD0.asset": "94d2a26ae6387c0eceadb0e683df6ecf859d4ebbd030f85324d6d39d57cae303",
+    "Assets/Resources/Biathlon/Stadium/Coaches/coach_12_LOD1.asset": "fdd368873e9ae45d802e8fbc50146818d07f4c41d300ee50c0add69f0ba1fda9",
+    "Assets/Resources/Biathlon/Stadium/Coaches/coach_12_LOD2.asset": "784394eb7b8022facc81c518da0d2db2063f9c2ef83685e5f79175d308b18a66"
+  }
+}

@@ -38,3 +38,6 @@ current code. Next review build M16.6.5 pending qualification and GitHub push.
 
 
 2026-11-02 owner-directed M16.6.8: stadium timing glyphs fit actual header; shared gantry blank at launch/seek0. Official BIATHLON: PULSE / Биатлон: Пульс гонки integrated in localized menu/window/launcher.58unique focused testsPASS,final2affectedmenu rerunPASS,fullscreen2560x1440probePASS,bothlocalizedtitles/ownerprofilesunchanged. Finalbuild0errors/520warnings. Review:Builds/M16_6_8_Pulse_Review/START_TEST.cmd; evidence:docs/quality/m16-6/pulse. Stable persistence identity and balance preserved. M16.6OPEN for ownerreview;M17notstarted.
+
+
+2026-11-03 owner-directed M16.6.9: Russia available in new roster_v2careers, blue/white/red kit, UI/range flags, thirteenth coach+scope. Existing v1saves/drafts and numeric generation/RNG preserved. Independent production tree/crowd/dressing shadow casters repair offscreen/farLOD disappearances without changing visible geometry or quality shadow distance.81nativePlay+37.NET+3nativeEditPASS(119distinct cases),fullscreen2560x1440RUSprobePASS/ownerprofilesunchanged. Finalbuild0errors/520warnings. Review:Builds/M16_6_9_Russia_Shadow_Review/START_TEST.cmd;evidence:docs/quality/m16-6/russia-shadows;ADR0091. M16.6OPEN for ownerreview;M17notstarted.

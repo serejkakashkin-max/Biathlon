@@ -36,6 +36,7 @@ namespace Biathlon.Unity.Presentation
                 case "NOR":Rect(0,0,w,h,"#BA0C2F");Rect(w*6/22,0,w*4/22,h,"#FFFFFF");Rect(0,h*6/16,w,h*4/16,"#FFFFFF");Rect(w*7/22,0,w*2/22,h,"#00205B");Rect(0,h*7/16,w,h*2/16,"#00205B");break;
                 case "SWE":Rect(0,0,w,h,"#006AA7");Rect(w*5/16,0,w*2/16,h,"#FECC00");Rect(0,h*4/10,w,h*2/10,"#FECC00");break;
                 case "FIN":Rect(0,0,w,h,"#FFFFFF");Rect(w*5/18,0,w*3/18,h,"#002F6C");Rect(0,h*4/11,w,h*3/11,"#002F6C");break;
+                case "RUS":Rect(0,0,w,h/3,"#FFFFFF");Rect(0,h/3,w,h/3,"#0039A6");Rect(0,h*2/3,w,h/3,"#D52B1E");break;
                 case "GER":Rect(0,0,w,h/3,"#151515");Rect(0,h/3,w,h/3,"#DD0000");Rect(0,h*2/3,w,h/3,"#FFCE00");break;
                 case "FRA":case "ITA":Rect(0,0,w/3,h,Nation=="FRA"?"#002395":"#009246");Rect(w/3,0,w/3,h,"#FFFFFF");Rect(w*2/3,0,w/3,h,"#ED2939");break;
                 default:Rect(0,0,w,h,"#69818D");Rect(3,h/2-1,w-6,2,"#DCE8ED");break;
