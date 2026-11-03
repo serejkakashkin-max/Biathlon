@@ -41,3 +41,5 @@ current code. Next review build M16.6.5 pending qualification and GitHub push.
 
 
 2026-11-03 owner-directed M16.6.9: Russia available in new roster_v2careers, blue/white/red kit, UI/range flags, thirteenth coach+scope. Existing v1saves/drafts and numeric generation/RNG preserved. Independent production tree/crowd/dressing shadow casters repair offscreen/farLOD disappearances without changing visible geometry or quality shadow distance.81nativePlay+37.NET+3nativeEditPASS(119distinct cases),fullscreen2560x1440RUSprobePASS/ownerprofilesunchanged. Finalbuild0errors/520warnings. Review:Builds/M16_6_9_Russia_Shadow_Review/START_TEST.cmd;evidence:docs/quality/m16-6/russia-shadows;ADR0091. M16.6OPEN for ownerreview;M17notstarted.
+
+2026-11-03 publication confirmed: M16.6.9 commit 5b3b590e29e6636a871b7dd7b7fc1372c85aa99e pushed to GitHub; owner review build ready. M16.6OPEN for owner testing.
