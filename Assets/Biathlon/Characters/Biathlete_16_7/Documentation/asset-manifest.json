@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "id": "biathlete_16_7_v1",
+  "blender": "4.5.15 LTS",
+  "height_m": 1.8,
+  "bones": 24,
+  "material_color_space": "scene-linear",
+  "source_license": "CC0 Grab3D; original tailored garments/equipment",
+  "meshes": [
+    {
+      "name": "Rifle_Prop",
+      "triangles": 4004,
+      "vertices": 2040,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "Spine"
+    },
+    {
+      "name": "Left_Pole_Prop",
+      "triangles": 880,
+      "vertices": 488,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "LeftHand"
+    },
+    {
+      "name": "Left_Ski_Prop",
+      "triangles": 1418,
+      "vertices": 770,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "LeftFoot"
+    },
+    {
+      "name": "Right_Pole_Prop",
+      "triangles": 880,
+      "vertices": 488,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "RightHand"
+    },
+    {
+      "name": "Right_Ski_Prop",
+      "triangles": 1418,
+      "vertices": 770,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "RightFoot"
+    },
+    {
+      "name": "Biathlete_Body_LOD0",
+      "triangles": 159171,
+      "vertices": 83687,
+      "uv_layers": 1,
+      "skinned": true,
+      "bone_parent": ""
+    },
+    {
+      "name": "Biathlete_Body_LOD1",
+      "triangles": 63668,
+      "vertices": 35583,
+      "uv_layers": 1,
+      "skinned": true,
+      "bone_parent": ""
+    },
+    {
+      "name": "Biathlete_Body_LOD2",
+      "triangles": 22282,
+      "vertices": 14251,
+      "uv_layers": 1,
+      "skinned": true,
+      "bone_parent": ""
+    }
+  ],
+  "materials": [
+    {
+      "name": "PULSE_Race_Red",
+      "color": [
+        0.27000001072883606,
+        0.003000000026077032,
+        0.009999999776482582,
+        1.0
+      ],
+      "roughness": 0.4300000071525574,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Stretch_Graphite",
+      "color": [
+        0.006000000052154064,
+        0.008999999612569809,
+        0.014000000432133675,
+        1.0
+      ],
+      "roughness": 0.5400000214576721,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Scarlet_Accent",
+      "color": [
+        0.47999998927116394,
+        0.009999999776482582,
+        0.017999999225139618,
+        1.0
+      ],
+      "roughness": 0.4000000059604645,
+      "metallic": 0.0
+    },
+    {
+      "name": "Bib_Ivory",
+      "color": [
+        0.7900000214576721,
+        0.8199999928474426,
+        0.800000011920929,
+        1.0
+      ],
+      "roughness": 0.6899999976158142,
+      "metallic": 0.0
+    },
+    {
+      "name": "Printed_Graphite",
+      "color": [
+        0.012000000104308128,
+        0.017000000923871994,
+        0.024000000208616257,
+        1.0
+      ],
+      "roughness": 0.6200000047683716,
+      "metallic": 0.0
+    },
+    {
+      "name": "Rubber_Grip",
+      "color": [
+        0.012000000104308128,
+        0.014000000432133675,
+        0.017000000923871994,
+        1.0
+      ],
+      "roughness": 0.6399999856948853,
+      "metallic": 0.0
+    },
+    {
+      "name": "Carbon_Satin",
+      "color": [
+        0.02500000037252903,
+        0.03500000014901161,
+        0.0430000014603138,
+        1.0
+      ],
+      "roughness": 0.3199999928474426,
+      "metallic": 0.2800000011920929
+    },
+    {
+      "name": "Brushed_Aluminium",
+      "color": [
+        0.47999998927116394,
+        0.5299999713897705,
+        0.5699999928474426,
+        1.0
+      ],
+      "roughness": 0.25,
+      "metallic": 0.8600000143051147
+    },
+    {
+      "name": "Gunmetal",
+      "color": [
+        0.09000000357627869,
+        0.11999999731779099,
+        0.14000000059604645,
+        1.0
+      ],
+      "roughness": 0.28999999165534973,
+      "metallic": 0.800000011920929
+    },
+    {
+      "name": "Amber_Mirror",
+      "color": [
+        0.7799999713897705,
+        0.20000000298023224,
+        0.017999999225139618,
+        1.0
+      ],
+      "roughness": 0.10499999672174454,
+      "metallic": 0.7799999713897705
+    },
+    {
+      "name": "Flatlock_Thread",
+      "color": [
+        0.12999999523162842,
+        0.017000000923871994,
+        0.02500000037252903,
+        1.0
+      ],
+      "roughness": 0.6200000047683716,
+      "metallic": 0.0
+    },
+    {
+      "name": "Silver_Stitch",
+      "color": [
+        0.30000001192092896,
+        0.33000001311302185,
+        0.3400000035762787,
+        1.0
+      ],
+      "roughness": 0.699999988079071,
+      "metallic": 0.0
+    },
+    {
+      "name": "Sport_Laminate",
+      "color": [
+        0.10999999940395355,
+        0.03799999877810478,
+        0.020999999716877937,
+        1.0
+      ],
+      "roughness": 0.3400000035762787,
+      "metallic": 0.0
+    },
+    {
+      "name": "Anatomical_Skin_2K",
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "roughness": 0.5,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Tailored_Textile",
+      "color": [
+        0.27000001072883606,
+        0.003000000026077032,
+        0.009999999776482582,
+        1.0
+      ],
+      "roughness": 0.5199999809265137,
+      "metallic": 0.0
+    }
+  ],
+  "sockets": [
+    "Rifle_Back_Socket",
+    "Rifle_Hand_Socket",
+    "Ski_Left_Socket",
+    "Ski_Right_Socket",
+    "Pole_Left_Socket",
+    "Pole_Right_Socket"
+  ],
+  "triangles": 253721,
+  "active_lod0_triangles": 167771
+}

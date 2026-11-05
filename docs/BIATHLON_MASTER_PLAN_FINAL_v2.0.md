@@ -2744,3 +2744,9 @@ after each task. Current branch codex/m16-6-equipment-weather-training.
 
 
 2026-11-05 M16.6.12 owner crash repair: occupied Sprint/Pursuit start now waits for physical spawn clearance under version3; original clock ticks and old0/1/2 replay behavior preserved(ADR0096). Exact owner1294 and portable44 ContactGeometry repros fixed. Affected.NET185PASS including original16-event season with same finish ticks; final23PASS(overlap), explicit actual-owner full30-field Pursuit1PASS at22211/release1526. Native81distinctEdit+6affected rerun+5PlayPASS;Console0errors. Finalbuild0errors/526warnings;actual owner-copy player scenario and2560x1440fullscreenPASS,ownerprofilespreserved,25settingsbyteexact. Review:Builds/M16_6_12_Start_Contact_Review/START_TEST.cmd. Evidence:docs/quality/m16-6/start-contact/acceptance.json. Only blocked-start waiting can change time/order; physics/shooting unchanged. Full assembly not rerun. M16.6OPEN FOR OWNER REVIEW;M17notstarted.
+
+
+2026-11-05 owner directive: M16.6 CLOSED by owner. M16.7 realistic hero-biathlete task AUTHORIZED and IN PROGRESS; specification docs/M16_7_OWNER_TASK.md, tracker docs/M16_7_WP_STATUS.md. Historical entries retained. M17 not started.
+
+
+2026-11-05 M16.7 technical checkpoint: separate editableBlend/FBX/Humanoid/prefab/PBR/orbitstudio and fullscreen review build available. Native10PASS,Console0errors,build0errors;actual6Blender+9player model/UI captures. ActiveLOD0167771tris. Art fidelity remains below professional reference; cloth/skin/collar/grips and fullnewrig skating/ground/aim/contact adaptation OPEN. ExistingG2raceathlete retained. ADR0097;docs/quality/m16-7/qualification.json and M16_7_WP_STATUS.md. M16.6CLOSEDbyowner;M16.7INPROGRESS;M17notstarted.

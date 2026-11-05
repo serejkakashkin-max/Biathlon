@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "id": "m16_7_hero_asset_studio_checkpoint",
+  "date": "2026-11-05",
+  "m16_6": "CLOSED_BY_OWNER",
+  "m16_7": "IN_PROGRESS",
+  "m17": "NOT_STARTED",
+  "technical_pass": true,
+  "visual_goal_met": false,
+  "owner_visual_approval": false,
+  "source_parent_commit": "7ffa72248e844afc50a7cb22ce1ab6077061c2b7",
+  "asset_root": "Assets/Biathlon/Characters/Biathlete_16_7",
+  "editable_blender": "Models/Source~/Biathlete_16_7.blend",
+  "prefab": "Prefabs/Biathlete_16_7.prefab",
+  "preview_scene": "Preview/Biathlete_16_7_Preview.unity",
+  "geometry": {
+    "active_lod0_triangles": 167771,
+    "stored_all_lods_triangles": 253721,
+    "meshes": [
+      {
+        "name": "Rifle_Prop",
+        "triangles": 4004,
+        "vertices": 2040,
+        "uv_layers": 1,
+        "skinned": false,
+        "bone_parent": "Spine"
+      },
+      {
+        "name": "Left_Pole_Prop",
+        "triangles": 880,
+        "vertices": 488,
+        "uv_layers": 1,
+        "skinned": false,
+        "bone_parent": "LeftHand"
+      },
+      {
+        "name": "Left_Ski_Prop",
+        "triangles": 1418,
+        "vertices": 770,
+        "uv_layers": 1,
+        "skinned": false,
+        "bone_parent": "LeftFoot"
+      },
+      {
+        "name": "Right_Pole_Prop",
+        "triangles": 880,
+        "vertices": 488,
+        "uv_layers": 1,
+        "skinned": false,
+        "bone_parent": "RightHand"
+      },
+      {
+        "name": "Right_Ski_Prop",
+        "triangles": 1418,
+        "vertices": 770,
+        "uv_layers": 1,
+        "skinned": false,
+        "bone_parent": "RightFoot"
+      },
+      {
+        "name": "Biathlete_Body_LOD0",
+        "triangles": 159171,
+        "vertices": 83687,
+        "uv_layers": 1,
+        "skinned": true,
+        "bone_parent": ""
+      },
+      {
+        "name": "Biathlete_Body_LOD1",
+        "triangles": 63668,
+        "vertices": 35583,
+        "uv_layers": 1,
+        "skinned": true,
+        "bone_parent": ""
+      },
+      {
+        "name": "Biathlete_Body_LOD2",
+        "triangles": 22282,
+        "vertices": 14251,
+        "uv_layers": 1,
+        "skinned": true,
+        "bone_parent": ""
+      }
+    ],
+    "bones": 24,
+    "equipment_sockets": 6,
+    "lod_groups": 1,
+    "texture_sizes": {
+      "textile": 4096,
+      "skin": 2048
+    }
+  },
+  "native_tests": {
+    "Status": "Passed",
+    "TotalTests": 10,
+    "PassedTests": 10,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:02.8721002"
+  },
+  "new_cases": 7,
+  "existing_g2_cases": 3,
+  "full_dotnet_suite_rerun": false,
+  "console_error_assert_exception_count": 0,
+  "build": {
+    "schema_version": 1,
+    "id": "biathlete_16_7_studio_build",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 526,
+    "bytes": 607220878,
+    "seconds": 22.563486299999997
+  },
+  "launcher": "Builds/M16_7_Biathlete_Studio_Review/START_TEST.cmd",
+  "standalone": {
+    "exit_code": 0,
+    "review": "player/review.json",
+    "frame_count": 9,
+    "width": 2560,
+    "height": 1440,
+    "fullscreen_mode": "FullScreenWindow",
+    "ui_and_world_separately_captured": true,
+    "model_area_gate": "model-area-check.json",
+    "pose_image_gate": {
+      "pose3": 1,
+      "pose2": 90
+    }
+  },
+  "visual_review": {
+    "real_blender_render_count": 6,
+    "image_generator_used": false,
+    "source_and_export_inspected": true,
+    "paid_reference_content_incorporated": false,
+    "manual_native_window_observed": true,
+    "all_professional_art_criteria_passed": false
+  },
+  "settings": {
+    "byte_exact_to_task_start": 24,
+    "independent_resolver_gate_exception": 1,
+    "exception": "Installed Unity-MCP package requires UNITY_MCP_DEPS_34; original gate30 not restored, all ProjectSettings excluded from Git."
+  },
+  "race_balance_determinism": "No authoritative system/stat/physics/shooting/RNG/save/replay policy files changed by M16.7. Existing G2 race appearance retained. Full deterministic suite not rerun.",
+  "remaining": [
+    "Reference-equivalent photorealism has NOT been achieved; stage M16.7 remains IN PROGRESS.",
+    "Cloth topology and silhouettes need manual retopology/sculpting, particularly underarms/crotch/collar. Panel borders remain jagged; bib fit is still too band-like; collar/skin junction has visible overlap.",
+    "Available anatomical skin maps are2K, without a new scan, facial rig, fine pores or qualified subsurface skin shading.",
+    "Glove fingers are static source-derived curled geometry without finger bones; side silhouette and hand/pole/weapon contact need redesign and a broader pose matrix.",
+    "Four illustrative poses are not a qualified skating/aim cycle. Pole-to-snow contact in the inspection poses is not solved. The source walk/run file is explicitly not ski animation.",
+    "Existing G2 race factory/controllers are retained. New rig ground/contact/grip/weapon-transfer/skating adapters and30-athlete GPU/frame-time qualification remain work.",
+    "Model is Read/Write enabled for current validation. Full simulation assembly was not rerun; this asset checkpoint changes no authoritative gameplay.",
+    "Build uses the existing owner checkout, including pre-existing package/render/venue settings. Those unrelated local changes are excluded from this commit; a clean-clone equivalence is not claimed."
+  ],
+  "next": "Manual sculpt/retopology and skin/fabric/material refinement, repeat the six-angle review, then adapt and qualify the new rig against existing ski/ground/grip/aim presentation before replacing G2."
+}

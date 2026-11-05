@@ -1,0 +1,1 @@
+{"query":"console | where logType == \"Error\" or logType == \"Exception\" or logType == \"Assert\" | count"}

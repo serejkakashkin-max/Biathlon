@@ -55,3 +55,6 @@ current code. Next review build M16.6.5 pending qualification and GitHub push.
 
 
 2026-11-05 M16.6.12 owner crash repair: occupied Sprint/Pursuit start now waits for physical spawn clearance under version3; original clock ticks and old0/1/2 replay behavior preserved(ADR0096). Exact owner1294 and portable44 ContactGeometry repros fixed. Affected.NET185PASS including original16-event season with same finish ticks; final23PASS(overlap), explicit actual-owner full30-field Pursuit1PASS at22211/release1526. Native81distinctEdit+6affected rerun+5PlayPASS;Console0errors. Finalbuild0errors/526warnings;actual owner-copy player scenario and2560x1440fullscreenPASS,ownerprofilespreserved,25settingsbyteexact. Review:Builds/M16_6_12_Start_Contact_Review/START_TEST.cmd. Evidence:docs/quality/m16-6/start-contact/acceptance.json. Only blocked-start waiting can change time/order; physics/shooting unchanged. Full assembly not rerun. M16.6OPEN FOR OWNER REVIEW;M17notstarted.
+
+
+2026-11-05 owner directive: M16.6 CLOSED by owner. M16.7 realistic hero-biathlete task AUTHORIZED and IN PROGRESS; specification docs/M16_7_OWNER_TASK.md, tracker docs/M16_7_WP_STATUS.md. Historical entries retained. M17 not started.

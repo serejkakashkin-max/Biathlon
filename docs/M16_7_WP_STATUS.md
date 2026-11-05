@@ -1,0 +1,69 @@
+# M16.7 — Hero biathlete
+
+2026-11-05. Owner closed M16.6 and authorized M16.7. Owner specification:
+`M16_7_OWNER_TASK.md`. This is a real editable 3D asset and Unity integration
+task; beauty images cannot substitute for geometry or validation.
+
+| Stage | State | Evidence / next gate |
+|---|---|---|
+|16.7.1 Project/source analysis|COMPLETE|Unity6000.6.0f1/URP17.6; G2 typed read-only presentation;11 imported source files audited in Blender4.5.15; licenses/provenance below|
+|16.7.2 Body/face/skeleton|IMPLEMENTED; ART OPEN|1.80m CC0 anatomical base, repaired24bones, valid Humanoid;2K skin, further face/neck refinement needed|
+|16.7.3 Tailored race suit|IMPLEMENTED; ART OPEN|Separate continuous weighted shell, seams/collar/zip/bib27; manual topology/folds/joint cleanup remains|
+|16.7.4 Cap/glasses/gloves/boots|IMPLEMENTED; ART OPEN|Original sports silhouettes; static curled fingers, no articulated finger rig; full grip/pose matrix pending|
+|16.7.5 Nordic skis/poles|IMPLEMENTED; RACE OPEN|1.94m skis/44mm waist, bindings/boots, pole grips/straps/baskets; moving ground/contact integration pending|
+|16.7.6 Sporting rifle/harness|IMPLEMENTED; RACE OPEN|Independent original prop, straps, back/hand sockets; full transfer/aim cycle pending|
+|16.7.7 Rig assembly|TECHNICAL PASS|Humanoid/six sockets/root motion off, four finite repeatable poses, foot-preserving knee flexion; full ski animation not qualified|
+|16.7.8 PBR|IMPLEMENTED; ART OPEN|Actual4K textile/2K skin, normal import and URP metallic/smoothness; reference-quality skin/fabric not achieved|
+|16.7.9 Actual3D visual review|ITERATED; OPEN|Six Blender renders plus native/player views; geometry/material/parenting/UV/bib defects corrected; professional art gate remains|
+|16.7.10 Unity integration|STUDIO READY; RACE OPEN|Editable.blend/FBX/prefab/orbit scene/Windows build; existing G2 race athlete retained pending animation adaptation|
+|16.7.11 Qualification|TECHNICAL PASS; STAGE OPEN|Native10PASS, build0errors, Console/standalone/image gates; exact receipts in docs/quality/m16-7; no whole-suite or final art approval claim|
+
+## Analysis
+
+Source folder is already extracted and normalized. No extraction necessary.
+The downloader did not obtain valid `.blend` files. No model is missing from the
+required GLB/FBX set. Readme warning about an empty archive predates the successful
+download report and is not the current state. Nothing in that source folder is
+an instruction to change the Unity game.
+
+The source man is262348 triangles before importer triangulation; one packed
+2K material,24 bones, walk/run actions. Face has detailed geometry/base color,
+but skin lacks scanned microdetail. The model wears a loose T-shirt and shorts:
+it cannot be recolored as a race suit. Head/neck supply the anatomical base;
+new separate garments/accessories are required. Imported bone heads fit1.80m,
+but displayed tails extend tens of metres: correct tail orientation/lengths
+before Humanoid qualification. Original walk/run remain source locomotion only.
+
+Alpine skis11954tris, beanie8688tris, safety goggles10560tris, poles184tris,
+placeholder rifle4420tris and PolyHaven rifle19985tris have been imported and
+measured. None is accepted as final professional biathlon equipment. PolyHaven
+FBX references texture filenames different from downloaded names: missing-file
+repair is needed if reusing it. Prefer original sporting prop geometry and keep
+these files as measured references. Source4K claims do not describe these actual
+downloaded packed maps: they measure2048x2048.
+
+Current presentation uses G2 Hero,17 typed bones,7 typed sockets, procedural hybrid
+skiing, ground/contact/grip/rifle adapters and LOD. Animation cannot change race
+state/root motion. Retain existing assets and global rendering settings. New
+resources belong under `Assets/Biathlon/Characters/Biathlete_16_7/`.
+
+## Sources and quality reference
+
+- Owner-provided CC0 base: https://grab3d.com/models/characters/man-base-character/
+- Other original downloaded sources/licenses are retained in source audit.
+- Art direction only: https://www.cgtrader.com/3d-models/character/man/biathlete-fully-equipped-rigged
+- Official portable Blender4.5.15 downloaded and SHA256 verified; toolchain
+  manifest and actual source Blender renders retained in local analysis.
+
+The paid reference's geometry, textures, logos and design are not redistributed.
+Its silhouette, fabric layering, sport-specific boots and vertical harness carry
+guide the review. New character uses original PULSE branding and bib27. No claim
+of reference-equivalent photorealism or owner visual approval has been made.
+
+## Current checkpoint — 2026-11-05
+
+Editable asset, scripts, studio and review build are available. ADR-0097 records
+the boundary and the rejected UI-only capture. Technical qualification is recorded
+in `quality/m16-7/qualification.json`; art quality and race motion remain OPEN.
+See the asset's `Documentation/README_RU.md` for paths, regeneration and specific
+remaining work. M16.6 CLOSED by owner; M16.7 IN PROGRESS; M17 not started.
