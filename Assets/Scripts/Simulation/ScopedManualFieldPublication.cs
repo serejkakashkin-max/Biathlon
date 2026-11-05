@@ -35,6 +35,8 @@ namespace Biathlon.Simulation
         private ManualScopedWorldRoster manualScopedWorld;
         private readonly ManualRacePathActorFrame[] manualScopedFrames;
         public bool HasManualScopedWorldState=>manualScopedWorld!=null;
+        public bool IsStartReleaseHeld(int index)=>manualScopedWorld!=null&&manualScopedWorld.IsStartReleaseHeld(index);
+        internal bool HasEnteredManualStart(int index)=>manualScopedWorld==null||!manualScopedWorld.HasStartReleaseGate||manualScopedWorld.GetStartReleaseTick(index)>=0;
         public SkiImpactObservation GetManualScopedImpact(int index)=>manualScopedWorld==null?default:manualScopedWorld.GetAcceptedImpact(index);
         public bool IsRangeTransitYielding(int index)=>manualScopedWorld!=null&&manualScopedWorld.IsRangeTransitYielding(index);
         internal DraftOutput EvaluateScopedWorldDraft(ManualSkiContactBody follower,ReadOnlySpan<ManualSkiContactBody> roster,

@@ -9,7 +9,7 @@ namespace Biathlon.Tests
     public sealed class M166TrafficVersionTests
     {
         private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
-        [TestCase(0)][TestCase(1)][TestCase(2)]
+        [TestCase(0)][TestCase(1)][TestCase(2)][TestCase(3)]
         public void StartProofUnionCapturesContactGeometryWithoutAwardingPaidRouteScopeAndPreservesVersionOne(int version)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
@@ -21,7 +21,7 @@ namespace Biathlon.Tests
             var field=runner.Field;var point=field.GetPhysicalPoint(0);
             var world=(PhysicalRangeWorldTrafficMap)typeof(PackSprintFieldSession).GetField("rangeWorldTraffic",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(field);
             Assert.That(field.StartContinuationVersion,Is.EqualTo(version));
-            Assert.That(world.Contains(point),Is.EqualTo(version==2));
+            Assert.That(world.Contains(point),Is.EqualTo(version>=2));
             Assert.That(field.HasPaidRouteWorldGeometry(point),Is.False,"Start contact geometry must not become paid race distance/bypass scope.");
             if(version==1)
             {

@@ -34,6 +34,7 @@ namespace Biathlon.Simulation
         public int PendingPenaltyLoops { get; }
         public int TotalPenaltyLoops { get; }
         public bool OnCourse { get; }
+        public bool StartReleaseHeld {get;}
         public int RangeLane { get; }
         public bool ShootingActive { get; }
         public ShootingPhase ShootingPhase { get; }
@@ -94,7 +95,7 @@ namespace Biathlon.Simulation
             }
             Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
-            OnCourse=field.IsOnCourse(index);RangeLane=field.GetAssignedRangeLane(index);ShootingActive=shooting!=null;
+            OnCourse=field.IsOnCourse(index)&&field.HasEnteredManualStart(index);StartReleaseHeld=field.IsStartReleaseHeld(index);RangeLane=field.GetAssignedRangeLane(index);ShootingActive=shooting!=null;
             ShootingPhase=shooting?.Phase??ShootingPhase.Outside;
             ShootingPhaseDurationTicks=shooting?.PhaseDurationTicks??0;
             ShootingPhaseRemainingTicks=shooting?.PhaseRemainingTicks??0;

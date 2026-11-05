@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "id": "m16612_start_contact_acceptance",
+  "date": "2026-11-05",
+  "base_source_commit": "34157850905403f80cbb58e03426de0d2c01e73c",
+  "success": true,
+  "cause": "Pursuit start slots repeat after seven entrants; a stationary already-released player occupied the later entrant spawn. SAT gap -0.7m, not rounding or contact-cache reuse.",
+  "policy": "start_continuation_version3: occupied initial spawn waits off course; original official start and elapsed clock remain; no teleport, tolerance inflation or exclusion of a released body.",
+  "red": {
+    "actual_owner_failure_tick": 1294,
+    "portable_eight_body_failure_tick": 44,
+    "cache_enabled_and_disabled_legacy_v2_controls": "PASS (each confirms historical ContactGeometry rejection at44)"
+  },
+  "dotnet": {
+    "affected_regression": 185,
+    "final_visible_gate_metadata_recheck": 23,
+    "groups_overlap": true,
+    "actual_owner_explicit_separate": 1,
+    "all_passed": true,
+    "entire_test_assembly_rerun": false
+  },
+  "native": {
+    "edit_distinct": 81,
+    "final_affected_edit_rerun": 6,
+    "play": 5,
+    "groups_overlap": true,
+    "console_errors_exceptions_asserts": 0,
+    "script_compilation_failed": false
+  },
+  "owner_complete": {
+    "format": "world_cup_open_pursuit",
+    "seed": "11102549472688935809",
+    "player": 21,
+    "scheduled_start": 825,
+    "field_count": 30,
+    "finish_tick": 22211,
+    "entrant28_release_tick": 1526,
+    "authority_sha256": "4fdd61d26f8b6204011ca2202959f35cbbb863e8263ac84fd7f8a74fffc24cf3",
+    "profile_fixture": "private local read-only copy; not published"
+  },
+  "season": {
+    "events": 16,
+    "all_complete": true,
+    "finish_ticks": [
+      29583,
+      18783,
+      18811,
+      29163,
+      18532,
+      18558,
+      29925,
+      18695,
+      18947,
+      29279,
+      19738,
+      29835,
+      18105,
+      19039,
+      28540,
+      17792
+    ],
+    "finish_ticks_match_m16610": true,
+    "new_release_event_hashes_expected": true
+  },
+  "standalone": {
+    "owner_probe": "standalone-owner-review.json",
+    "fullscreen_probe": "standalone-fullscreen-review.json",
+    "both_exit_codes": 0,
+    "inspected_captures": [
+      "occupied-start.png",
+      "released-start.png",
+      "fullscreen-home.png"
+    ]
+  },
+  "build": {
+    "launcher": "Builds\\M16_6_12_Start_Contact_Review\\START_TEST.cmd",
+    "errors": 0,
+    "warnings": 526,
+    "bytes": 484849496,
+    "seconds": 40.861265499999995,
+    "player_exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+    "managed_assembly_sha256": "eba755c38885ec31c7544a90a84f70a52f822e129838402bac1d4b11135ec4b2",
+    "simulation_assembly_sha256": "c582f3d5a3829cca620073ac3f29c6dc1c7bb2db661c7287ccb8bfc7dc9c8128"
+  },
+  "preservation": {
+    "all_project_settings_byte_exact": 25,
+    "owner_save_unchanged": true,
+    "state_append_only": true,
+    "unrelated_dirty_work_excluded": true
+  },
+  "impact": "No stat, propulsion, geometry, shooting RNG or official-distance changes. Only blocked interval starts pay their new physical wait; resulting time/order can change. Historical replay versions0/1/2 preserved.",
+  "limit": "Assigned line waits until clear; no automatic reassignment. Bounded affected regression, not a fresh entire-assembly or all-hardware performance qualification. M16.6 remains open for owner review; M17 not started."
+}

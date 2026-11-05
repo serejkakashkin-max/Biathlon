@@ -14,7 +14,7 @@ namespace Biathlon.AI
             RaceRoutePlan routePlan, RaceSnowConditions conditions, Func<string,string> read, IRaceEventSink events, IAiDecisionSink telemetry,
             PursuitQualificationSnapshot qualification=null, int count=30, int frequency=20, ulong seed=123,
             SprintEntrant[] suppliedEntrants=null, AiPersonalityDefinition[] suppliedPersonalities=null,
-            double[] raceForms=null, ShootingPressureContext[] racePressures=null,WindVector raceWind=default,bool massStartNumberFromRight=false,bool completeStartCorridorProof=true,int startContinuationVersion=2)
+            double[] raceForms=null, ShootingPressureContext[] racePressures=null,WindVector raceWind=default,bool massStartNumberFromRight=false,bool completeStartCorridorProof=true,int startContinuationVersion=3)
         {
             if(venue==null||profile==null||routePlan==null||conditions==null||read==null||events==null||telemetry==null)
                 throw new ArgumentNullException();

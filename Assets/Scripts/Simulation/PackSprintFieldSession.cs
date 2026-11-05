@@ -168,7 +168,7 @@ namespace Biathlon.Simulation
             if(geometry!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"weather_route_heading_v2:"+ManualContextIdentity.Sha256(geometry.ToJson()));
         }
         public SprintAthleteSession GetAthlete(int index) => field.GetAthlete(index);
-        public bool IsOnCourse(int index) => onCourse[index] && !GetAthlete(index).HasFinished;
+        public bool IsOnCourse(int index) => onCourse[index] && !GetAthlete(index).HasFinished&&!IsStartReleaseHeld(index);
         public double GetLateral(int index) => lateral[index];
         /// <summary>Choose stationary departure lines before signed-world
         /// binding. Exact Pursuit starts and all athlete capabilities remain.
@@ -373,7 +373,7 @@ namespace Biathlon.Simulation
             PhysicalDirectedPassageDefinition directedPassages = null,
             PhysicalSharedApronDefinition sharedApron = null, TrackVisualDefinition sharedApronVisual = null, VenueRangeLayout sharedApronRange = null,bool completeStartCorridorProof=false,int startContinuationVersion=2)
         {
-            if(startContinuationVersion<0||startContinuationVersion>2)throw new ArgumentOutOfRangeException(nameof(startContinuationVersion));
+            if(startContinuationVersion<0||startContinuationVersion>3)throw new ArgumentOutOfRangeException(nameof(startContinuationVersion));
             startProofVersion=completeStartCorridorProof?startContinuationVersion:0;
             this.completeStartCorridorProof=startProofVersion>0;
             this.junctionDefinition=junctionDefinition;

@@ -1,0 +1,6 @@
+{
+  "testMode": "EditMode",
+  "query": "tests | where mode == \"EditMode\" and (fullName contains \"PhysicalStartContinuationTests\" or fullName contains \"RaceReplayLibraryTests\")",
+  "includePassingTests": true,
+  "includeStacktrace": true
+}

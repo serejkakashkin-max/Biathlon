@@ -38,7 +38,7 @@ namespace Biathlon.Presentation
             Lap=F("lap",h.Lap,h.LapCount);
             Timing=h.Rank==0?T("timing_pending"):F(h.Final?"final_rank":"split_rank",h.Rank,h.ComparedAthletes,
                 h.GapSeconds.HasValue?FormatGap(h.GapSeconds.Value,culture):"—",h.CheckpointOrdinal+1);
-            Phase=a.PendingPenaltyLoops>0?F("penalty",a.PendingPenaltyLoops):T("phase."+(int)a.Phase);
+            Phase=a.StartReleaseHeld?T("phase.start_held"):a.PendingPenaltyLoops>0?F("penalty",a.PendingPenaltyLoops):T("phase."+(int)a.Phase);
             Speed=F("speed",a.SpeedMetersPerSecond*3.6);HeartRate=F("heart_rate",a.Physiology.HeartRateBpm);
             ReservePercent=(float)Math.Clamp(a.Physiology.AnaerobicReserve*100,0,100);
             FatiguePercent=(float)Math.Clamp(a.Physiology.MuscularFatigue*100,0,100);

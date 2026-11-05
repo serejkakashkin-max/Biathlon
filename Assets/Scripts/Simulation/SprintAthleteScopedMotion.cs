@@ -226,6 +226,8 @@ namespace Biathlon.Simulation
             int contacts=ledger.GetCourseEdgeResponses(index),captures=ledger.GetMatCaptures(index);
             if(contacts>0)events.Record(new RaceEvent(Tick,config.TickFrequency,AthleteId,RaceEventType.CourseBoundaryContact,contacts));
             if(captures>0)events.Record(new RaceEvent(Tick,config.TickFrequency,AthleteId,RaceEventType.ShootingMatCaptured,captures));
+            int start=ledger.GetStartReleaseChange(index);
+            if(start>0)events.Record(new RaceEvent(Tick,config.TickFrequency,AthleteId,start==1?RaceEventType.StartReleaseHeld:RaceEventType.StartReleased,ledger.GetStartReleaseWaitTicks(index)));
         }
         private void CommitScopedStart(SprintStepPreview preview)
         {

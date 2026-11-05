@@ -185,7 +185,7 @@ namespace Biathlon.Simulation
             }
             var extra=ShootingModelDefinitions.EncodeContext(starts);
             ContextJson=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
-            UpdatePhysicalParticipants(Tick.Next());
+            BindStartReleaseGate(field);UpdatePhysicalParticipants(Tick.Next());
         }
         public int Count=>accepted.Length;
         private ManualRangeApronSnowRegion rangeApronSnow;
@@ -328,6 +328,13 @@ namespace Biathlon.Simulation
         /// cannot hide a live skier to bypass collision admission.</summary>
         public bool IsPhysicalParticipant(int index,SimulationTick tick)
         {
+            if(!HasScheduledPhysicalPresence(index,tick))return false;
+            if(!HasStartReleaseGate)return true;
+            if(tick.Value==Tick.Value+1){PreviewStartReleases(tick);return pendingStartReleaseTicks[index]>=0;}
+            return startReleaseTicks[index]>=0;
+        }
+        private bool HasScheduledPhysicalPresence(int index,SimulationTick tick)
+        {
             if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
             var cursor=cursors[index];var catalog=catalogs[index];var finish=catalog.FinishRunoutDefinition;
             if(finish!=null&&finish.ClearAfterRest&&catalog.Get(cursor.OccurrenceIndex).Kind==ManualRacePathKind.FinishRunout&&
@@ -346,6 +353,7 @@ namespace Biathlon.Simulation
         public bool IsRangeTransitYielding(int actor)=>rangeTransitYield[actor];
         private void UpdatePhysicalParticipants(SimulationTick tick)
         {
+            PreviewStartReleases(tick);
             double clearance=occupiedBody.LongitudinalSeparation*occupiedBody.LongitudinalSeparation+
                 occupiedBody.LateralSeparation*occupiedBody.LateralSeparation;
             for(int i=0;i<Count;i++)physicalParticipants[i]=IsPhysicalParticipant(i,tick);
@@ -370,6 +378,8 @@ namespace Biathlon.Simulation
         {
             if(!ready||!ReferenceEquals(proposal.Owner,this)||proposal.Revision!=revision||proposal.Tick.Value!=checked(Tick.Value+1))
                 throw new ArgumentException("Missing, foreign, stale or consumed scoped world proposal.");
+            if(HasStartReleaseGate&&startReleasePreviewTick!=proposal.Tick.Value)
+                throw new ArgumentException("Missing attested scheduled-start release preview.");
         }
         public ManualRacePathActorFrame GetProposedActor(ManualScopedWorldPreview proposal,int index)
         {ValidatePrepared(proposal);return staged[index];}
@@ -698,7 +708,7 @@ namespace Biathlon.Simulation
             ValidatePrepared(proposal);ready=false;
             for(int i=0;i<Count;i++){accepted[i]=staged[i];cursors[i]=proposedCursors[i];motion[i]=stagedMotion[i];}
             for(int i=0;i<Count;i++)acceptedImpacts[i]=impactTick==proposal.Tick.Value?workingImpacts[i]:default;
-            CommitPathChoices();Tick=proposal.Tick;
+            CommitStartReleases(proposal.Tick);CommitPathChoices();Tick=proposal.Tick;
         }
         public bool TryHandoffOrdinary(ReadOnlySpan<int> actorIndexes)
         {

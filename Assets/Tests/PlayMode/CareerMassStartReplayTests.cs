@@ -31,7 +31,8 @@ namespace Biathlon.PlayModeTests
         [UnityTest,Timeout(300000)]public IEnumerator VersionOneStartCorridorJournalRetainsOriginalContextAndBackwardSeek()=>Run(false,false,true);
         [UnityTest,Timeout(300000)]public IEnumerator MovingOvertakePolicyAndBackwardSeekRestoreRecordedVersion()=>Run(false,movingPass:true);
         [UnityTest,Timeout(300000)]public IEnumerator MatApproachMarginAndBackwardSeekRestoreRecordedVersion()=>Run(false,movingPass:true,matMargin:true);
-        private IEnumerator Run(bool legacyV2,bool oldWeather=false,bool oldStart=false,bool movingPass=false,bool matMargin=false)
+        [UnityTest,Timeout(300000)]public IEnumerator VersionThreeStartReleaseJournalRetainsContextAndBackwardSeek()=>Run(false,movingPass:true,matMargin:true,safeStart:true);
+        private IEnumerator Run(bool legacyV2,bool oldWeather=false,bool oldStart=false,bool movingPass=false,bool matMargin=false,bool safeStart=false)
         {
             var d=new CareerDefinitions(Read,"woodland_development_calendar_v1.json");var s=CareerFactory.Create(d.Roster,d.Calendar,"mass_seek","Alex","NOR","default",new SeededRandomSource(71000));
             for(int e=0;e<2;e++)CareerStandings.Register(s,new CareerRaceRecord("seek_result_"+e,s.SeasonId,d.Calendar.Get(e).Id,d.Calendar.Get(e).Format,123,new string('a',64),
@@ -43,7 +44,7 @@ namespace Biathlon.PlayModeTests
                 snapshot=System.Text.RegularExpressions.Regex.Replace(snapshot,"(\"save_version\"\\s*:\\s*)[0-9]+","${1}2");
                 Assert.That(snapshot,Does.Not.Contain("appearance_profile"));
             }
-            var race=d.Calendar.Get(2);var p=new CareerRaceProvider(Read,d,ProductionVenueHost.ReadResource).Prepare(s,race,123,legacyStartContinuation:oldWeather,legacyWeatherHeading:oldWeather,startContinuationVersion:oldStart?1:2,legacyAiSnowSearch:oldWeather||oldStart);
+            var race=d.Calendar.Get(2);var p=new CareerRaceProvider(Read,d,ProductionVenueHost.ReadResource).Prepare(s,race,123,legacyStartContinuation:oldWeather,legacyWeatherHeading:oldWeather,startContinuationVersion:safeStart?3:oldStart?1:2,legacyAiSnowSearch:oldWeather||oldStart);
             var source=ManualProductionFieldComposition.Create(p.Runner.Field,p.Venue,p.ManualRead);
             int policyVersion=matMargin?2:movingPass?1:0;
             p.Runner.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(Read(ManualAiSteeringDefinition.ResourceForVersion(policyVersion))),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")),completeSnowSearch:p.AiSnowSearchVersion==1);
@@ -60,11 +61,13 @@ namespace Biathlon.PlayModeTests
             var replay=menu.Replays;Assert.That(replay.Active,Is.True,menu.LastMessage);replay.TogglePause();Assert.That(replay.Paused,Is.True);
             Assert.That(replay.Host.PlayerIndex,Is.EqualTo(p.PlayerIndex));Assert.That(replay.Host.ManualStepper.World.ContextJson,Does.Contain("manual_course_contact_ice_v1"));
             Assert.That(replay.Host.Runner.MovingOvertakeVersion,Is.EqualTo(policyVersion));
+            Assert.That(replay.Host.Runner.Field.StartContinuationVersion,Is.EqualTo(p.Runner.Field.StartContinuationVersion));
             replay.Seek(100);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
             replay.Seek(60);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
             Assert.That(replay.LastFailure,Is.Null);Assert.That(replay.Tick,Is.EqualTo(60));
             Assert.That(replay.Host.ManualStepper.World.GetActor(p.PlayerIndex).Pose,Is.EqualTo(pose));
             Assert.That(replay.Host.Runner.MovingOvertakeVersion,Is.EqualTo(policyVersion));
+            Assert.That(replay.Host.Runner.Field.StartContinuationVersion,Is.EqualTo(p.Runner.Field.StartContinuationVersion));
             Assert.That(replay.Host.ManualStepper.World.ContextJson,Does.Contain("manual_course_contact_ice_v1"));
             Assert.That(store.Json,Is.EqualTo(snapshot));replay.Close();yield return null;
         }

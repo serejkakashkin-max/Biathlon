@@ -344,7 +344,8 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(propulsionMultiplier, 0, 1, nameof(propulsionMultiplier));
             if (extraEffort < 0 || extraEffort > 1000) throw new ArgumentOutOfRangeException(nameof(extraEffort));
             var tick = input.Ski.Effort.Tick;
-            bool started = tick.Value > ScheduledStart.Value;
+            bool started = tick.Value > ScheduledStart.Value&&
+                !(scopedWorld?.IsStartReleaseHeld(scopedIndex,tick)??false);
             int rangeIndex = FirstUncompletedRange();
             var range = rangeIndex >= 0 ? ranges[rangeIndex] : null;
             var candidatePath=physicalRangePath;var candidateLane=lane;bool choosing=choice.Owner!=null;

@@ -75,7 +75,7 @@ namespace Biathlon.AI
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
             ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false,
-            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=2,bool legacyAiSnowSearch=false,int movingOvertakeVersion=2)
+            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=3,bool legacyAiSnowSearch=false,int movingOvertakeVersion=2)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             ManualAiSteeringDefinition.ResourceForVersion(movingOvertakeVersion);
