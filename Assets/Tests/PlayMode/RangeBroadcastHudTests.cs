@@ -47,10 +47,18 @@ namespace Biathlon.PlayModeTests
             var prepared=new CareerRaceProvider(Read,menu.Session.Definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(week.RaceSnapshotJson),mass,week.RaceSeed);
             race=new GameObject("Range board production field");var host=race.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.InitializeCareer(prepared);
             var hud=host.GameplayHud;hud.SetBroadcastRoster(menu.Session.Career);host.Proxies.ConfigureCareerAppearance(menu.Session.Career,menu.Session.Definitions.Calendar,menu.Session.Definitions.Scoring,mass);
-            menu.gameObject.SetActive(false);bool opened=false,flashed=false,completed=false,closed=false;int ticks=0;
+            menu.gameObject.SetActive(false);bool opened=false,flashed=false,completed=false,closed=false;int ticks=0,aimingFrames=0;
             while(ticks++<16000&&!closed)
             {
-                host.Runner.Step();var s=RacePresentationSnapshot.Capture(host.Runner.Field);host.Feed.Publish(s);hud.Refresh();
+                // Exercise a real miss through normal player aim/trigger/bolt
+                // commands. An AI seed no longer guarantees a miss in this
+                // particular first-window view after versioned tactical changes.
+                var actor=host.Runner.Field.GetAthlete(host.PlayerIndex);var next=host.Runner.Field.Tick.Next();var shooting=actor.ActiveShooting;
+                aimingFrames=shooting?.Phase==ShootingPhase.Aiming?aimingFrames+1:0;
+                var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(next,actor.AthleteId,1000),1,1,0),
+                    new WeaponAimCommand(next,actor.AthleteId,0,1000),aimingFrames>=40,false,host.Runner.RaceWind,cycleBolt:shooting?.NeedsBoltCycle==true,manualBoltCycle:true);
+                host.Runner.StepWithManualPlayer(host.PlayerIndex,input,0,true);
+                var s=RacePresentationSnapshot.Capture(host.Runner.Field);host.Feed.Publish(s);hud.Refresh();
                 var player=s.Get(host.PlayerIndex);var row=hud.RangeBroadcast.Get(host.PlayerIndex);
                 if(!opened&&hud.RangeBroadcastVisible){opened=true;Assert.That(player.RouteMeters,Is.GreaterThanOrEqualTo(505.553));}
                 if(hud.RangeBroadcastVisible&&hud.RangeBroadcastRows>0&&!flashed)
@@ -71,6 +79,7 @@ namespace Biathlon.PlayModeTests
                 if(player.CompletedBouts==1&&!player.ShootingActive&&!completed)
                 {
                     completed=true;Assert.That(row.Shots,Is.EqualTo(5));Assert.That(row.ClosedMask,Is.EqualTo(player.LastCompletedBoutClosedMask));
+                    Assert.That(row.Misses,Is.GreaterThan(0),"The ordinary off-target controls must produce an actual accepted miss.");
                     Assert.That(hud.RangeBroadcastVisible,Is.True,"Completed series stays visible after leaving the mat, including penalty transit.");
                 }
                 if(opened&&completed&&player.RouteMeters>1160.005){closed=true;Assert.That(hud.RangeBroadcastVisible,Is.False);}
@@ -97,6 +106,7 @@ namespace Biathlon.PlayModeTests
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 if(width==1920&&size==0)Assert.That(hud.RangeBroadcastCapacity,Is.EqualTo(20),"1080p target composition has20readable rails.");
                 if(width==1280&&size==0)Assert.That(hud.RangeBroadcastCapacity,Is.LessThan(20));
+                Assert.That(hud.RangeBroadcastRows,Is.LessThanOrEqualTo(hud.RangeBroadcastCapacity),"A resized board must recompose its retained rows even without a new accepted tick.");
                 string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m16-2"));Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());
             }
             finally{panel.targetTexture=null;RenderTexture.active=prior;if(pixels!=null)Object.DestroyImmediate(pixels);target.Release();Object.DestroyImmediate(target);}

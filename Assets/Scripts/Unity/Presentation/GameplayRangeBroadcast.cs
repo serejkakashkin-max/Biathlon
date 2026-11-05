@@ -49,6 +49,7 @@ namespace Biathlon.Unity.Presentation
         private int paintedRangeWindow=-1,rangeOverflow=-1,rangeActive=-1;
         private float rangeLayoutWidth,rangeLayoutHeight;
         private static readonly string[] ShotScores={"0/5","1/5","2/5","3/5","4/5","5/5"};
+        private string[] rangeVisitLabels;
         private void InitializeRangeBroadcast()
         {
             rangeBroadcastPolicy=RangeBroadcastDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/range_broadcast_v1"));
@@ -69,6 +70,12 @@ namespace Biathlon.Unity.Presentation
         private void BuildRangeBroadcast()
         {
             paintedRangeWindow=-1;rangeOverflow=rangeActive=-1;rangeLayoutWidth=rangeLayoutHeight=0;RangeBroadcastVisible=false;
+            int bouts=host?.Runner?.Field.Profile.BoutCount??0;rangeVisitLabels=new string[bouts];
+            for(int i=0;i<bouts;i++)
+            {
+                bool prone=host.Runner.Field.Profile.GetBout(i).Stance==Biathlon.Domain.ShootingStance.Prone;
+                rangeVisitLabels[i]=L("РУБЕЖ ","RANGE ")+(i+1)+"  /  "+L(prone?"ЛЁЖА":"СТОЯ",prone?"PRONE":"STANDING");
+            }
             rangeBoard=Card("range_broadcast",false,true,rangeBroadcastPolicy.PanelWidth);
             rangeBoard.style.maxWidth=Length.Percent(35);rangeBoard.style.top=settings.edge;
             rangeBoard.style.paddingTop=8;rangeBoard.style.paddingBottom=7;rangeBoard.style.paddingLeft=rangeBoard.style.paddingRight=9;
@@ -77,7 +84,7 @@ namespace Biathlon.Unity.Presentation
             var heading=Row(rangeBoard);heading.style.height=23*Scale;
             rangeBoardTitle=Text(heading,"range_broadcast_title",L("СТРЕЛЬБИЩЕ","LIVE SHOOTING"),18,true);rangeBoardTitle.style.color=accent;rangeBoardTitle.style.marginBottom=0;
             var live=Text(heading,"range_broadcast_live","● LIVE",10,true);live.style.color=accent;live.style.marginBottom=0;live.style.flexShrink=0;
-            rangeBoardVisit=Text(rangeBoard,"range_broadcast_visit","",11);rangeBoardVisit.style.color=muted;rangeBoardVisit.style.marginBottom=6;
+            rangeBoardVisit=Text(rangeBoard,"range_broadcast_visit",bouts>0?rangeVisitLabels[0]:"",11);rangeBoardVisit.style.color=muted;rangeBoardVisit.style.marginBottom=6;
             var columns=Row(rangeBoard);columns.style.height=18*Scale;columns.style.marginBottom=3;
             var captions=Text(columns,"range_broadcast_columns",L("№     КОВР.     СПОРТСМЕН","BIB   MAT        ATHLETE"),9);captions.style.color=muted;captions.style.marginBottom=0;
             var captionShots=Text(columns,"range_broadcast_shots_label",L("ВЫСТРЕЛЫ        ИТОГ","SHOTS           SCORE"),9);captionShots.style.color=muted;captionShots.style.marginBottom=0;
@@ -103,9 +110,19 @@ namespace Biathlon.Unity.Presentation
                 rangeBoardStates[i]=Fixed("range_rival_state_"+i,15,muted);
                 card.style.display=DisplayStyle.None;
             }
-            rangeBoardMore=Text(rangeBoard,"range_broadcast_more","",11);rangeBoardMore.style.color=muted;rangeBoardMore.style.marginTop=5;rangeBoardMore.style.marginBottom=0;
-            rangeBoard.style.display=DisplayStyle.None;
-            rangeBoard.RegisterCallback<GeometryChangedEvent>(_=>{if(feed?.Current!=null&&selectedIndex>=0)RefreshRangeBroadcast(feed.Current,selectedIndex);});
+            rangeBoardMore=Text(rangeBoard,"range_broadcast_more",L("СТРЕЛЯЮТ 0","SHOOTING 0"),11);rangeBoardMore.style.color=muted;rangeBoardMore.style.marginTop=5;rangeBoardMore.style.marginBottom=0;
+            // Keep this absolute overlay measured while unseen. Display.None
+            // deferred first text/layout work until the player reached the range.
+            rangeBoard.style.visibility=Visibility.Hidden;
+            rangeBoard.RegisterCallback<GeometryChangedEvent>(_=>
+            {
+                if(!isActiveAndEnabled||Root==null||panel==null)return;
+                int capacity=RangeBroadcastCapacity;LayoutRangeBroadcast();
+                // A resize can change the readable rail count without another
+                // accepted tick. Recompose only for that actual capacity change.
+                if(capacity!=RangeBroadcastCapacity&&feed?.Current!=null&&selectedIndex>=0)
+                    RefreshRangeBroadcast(feed.Current,selectedIndex);
+            });
         }
         private void LayoutRangeBroadcast()
         {
@@ -143,12 +160,11 @@ namespace Biathlon.Unity.Presentation
             // During live range coverage, place the existing readiness card beside
             // the bottom pulse card. The board then has its own uninterrupted rail.
             if(readinessPanel!=null){readinessPanel.style.right=visible?settings.edge+rangeBroadcastPolicy.PanelWidth*Scale+12:settings.edge;readinessPanel.style.bottom=visible?settings.edge:settings.edge+168*Scale;}
-            if(visible!=RangeBroadcastVisible){RangeBroadcastVisible=visible;rangeBoard.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;}
+            if(visible!=RangeBroadcastVisible){RangeBroadcastVisible=visible;rangeBoard.style.visibility=visible?Visibility.Visible:Visibility.Hidden;}
             if(!visible){RangeBroadcastRows=0;return;}
             if(window!=paintedRangeWindow)
             {
-                paintedRangeWindow=window;var stance=host.Runner.Field.Profile.GetBout(window).Stance;
-                rangeBoardVisit.text=L("РУБЕЖ ","RANGE ")+(window+1)+"  /  "+L(stance==Biathlon.Domain.ShootingStance.Prone?"ЛЁЖА":"СТОЯ",stance==Biathlon.Domain.ShootingStance.Prone?"PRONE":"STANDING");
+                paintedRangeWindow=window;rangeBoardVisit.text=rangeVisitLabels[window];
             }
             RangeBroadcastRows=RangeBroadcast.Compose(window,RangeBroadcastCapacity);
             rangeBoardEmpty.style.display=RangeBroadcastRows==0?DisplayStyle.Flex:DisplayStyle.None;

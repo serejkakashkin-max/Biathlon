@@ -204,13 +204,14 @@ namespace Biathlon.Unity.Presentation
             float activity=Mathf.Clamp01(pose.arm_swing_m/.2f);
             float transfer=settings.curves[0].At(phase)*blended.hip_transfer_m*activity;
             float compression=settings.curves[2].At(pole)*blended.arm_scale*activity;
-            rig.Offset(AthleteBone.Hips,new Vector3(transfer,-pose.hip_drop_m-settings.hip_compression_m*compression,-pose.hip_back_m));
+            rig.Offset(AthleteBone.Hips,new Vector3(transfer,-pose.hip_drop_m-settings.hip_compression_m*compression,-pose.hip_back_m)+AthleteCornerPose.PelvisOffset(fallback.CornerLeanDegrees));
             float lean=pose.torso_lean_deg+blended.compression_deg*compression,hinge=lean*pose.hip_hinge_fraction;
             float twist=settings.curves[0].At(phase)*blended.torso_twist_deg*activity;
-            rig.Rotate(AthleteBone.Hips,Quaternion.Euler(hinge,twist*.25f,-fallback.CornerLeanDegrees));
+            rig.Rotate(AthleteBone.Hips,Quaternion.Euler(hinge,twist*.25f,0));
             rig.Rotate(AthleteBone.Spine,Quaternion.Euler((lean-hinge)*.6f,twist*.5f,0));
             rig.Rotate(AthleteBone.Chest,Quaternion.Euler((lean-hinge)*.4f,twist*.25f,0));
             rig.Rotate(AthleteBone.Neck,Quaternion.Euler(-pose.torso_lean_deg*.7f,-twist,0));
+            AthleteCornerPose.Apply(rig,fallback.CornerLeanDegrees);
             Leg(false,phase);Leg(true,Mathf.Repeat(phase+.5f,1));Arm(false);Arm(true);
             void Leg(bool right,float at)
             {

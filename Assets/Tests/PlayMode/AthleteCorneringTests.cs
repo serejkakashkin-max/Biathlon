@@ -47,7 +47,11 @@ namespace Biathlon.PlayModeTests
                 driver.Sample(rig, right, 0);
                 var head = rig.Bone(AthleteBone.Head); var foot = rig.Bone(AthleteBone.LeftFoot);
                 var prior = head.position; var placement = rig.transform.position; var rotation = rig.transform.rotation;
-                Assert.That(Vector3.Dot(rig.Bone(AthleteBone.Hips).up, rig.transform.right), Is.GreaterThan(.3f));
+                // Owner-reviewed pose now shares the bank across pelvis/spine;
+                // the old minimum required the excessive whole28deg hip roll.
+                var turn=AthleteCornerPoseSettings.Load();
+                Assert.That(Vector3.Dot(rig.Bone(AthleteBone.Hips).up, rig.transform.right),
+                    Is.EqualTo(Mathf.Sin(turn.maximum_bank_degrees*turn.hips_bank_fraction*Mathf.Deg2Rad)).Within(.002f));
                 driver.Sample(rig, left, 0);
                 Assert.That(Vector3.Distance(head.position, prior), Is.LessThan(.0001f));
                 for (int i = 1; i <= 120; i++)

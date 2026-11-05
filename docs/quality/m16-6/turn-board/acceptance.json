@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "m16611_turn_and_first_range_acceptance",
+  "date": "2026-11-05",
+  "stage": "M16.6.11",
+  "status": "qualified local build ready; owner review pending",
+  "native_play": {
+    "passed": 45,
+    "failed": 0,
+    "receipt": "regression-final-native.json",
+    "final_affected_range_rerun_passed": 1,
+    "final_affected_range_receipt": "responsive-final-native.json",
+    "note": "overlapping executions; final resize-only follow-up reruns the affected full real-field HUD case"
+  },
+  "headless_presentation": {
+    "passed": 40,
+    "failed": 0,
+    "receipt": "presentation-core.trx"
+  },
+  "first_reveal": {
+    "same_tick": 1712,
+    "same_route_m": 510.790815835,
+    "before_layout_ms": 0.3179,
+    "after_layout_ms": 0.1527,
+    "before_snapshot_publish_ms": 0.5828,
+    "after_snapshot_publish_ms": 0.496,
+    "before_frame_ms": 16.348000000000695,
+    "after_frame_ms": 16.672700000000873,
+    "same_hardware": "9950X3D / RTX5080",
+    "limits": "One paired capped1280x720RT run. Baseline had no visible whole-frame first-reveal hitch on this machine. Local cold layout cost is reduced, not an all-hardware stall-free claim."
+  },
+  "build": {
+    "schema_version": 1,
+    "id": "m15_5_visual_review",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 524,
+    "bytes": 484836810,
+    "seconds": 26.6345957
+  },
+  "launcher": "Builds/M16_6_11_Turn_Range_Review/START_TEST.cmd",
+  "fullscreen": "2560x1440 FullScreenWindow;18artresources;isolated profiles/owner career preserved",
+  "console_errors": 0,
+  "settings": "All25ProjectSettings files byte-identical to task-start backup",
+  "scope": "Unity presentation only; physics, AI, shooting, save and replay command systems unchanged. No new complete-simulation-suite claim.",
+  "evidence": [
+    "turn-before.png",
+    "turn-after.png",
+    "turn-red.json",
+    "board-red.json",
+    "old-range-control.json"
+  ],
+  "known_limits": [
+    "M16.6 remains open for owner review.",
+    "GPU timings and uncapped frame-rate qualification not claimed."
+  ]
+}
