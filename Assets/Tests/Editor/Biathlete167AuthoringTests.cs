@@ -71,6 +71,10 @@ namespace Biathlon.EditorTests
                 var remaps=importer.GetExternalObjectMap();
                 foreach(string glove in new[]{"Race_Glove_Softshell","Race_Glove_Palm_Grip"})
                     Assert.That(remaps.Any(pair=>pair.Key.name==glove&&pair.Value is Material material&&material.shader.name=="Universal Render Pipeline/Lit"),Is.True);
+                var walnut=remaps.Single(pair=>pair.Key.name=="Rifle_Race_Laminate").Value;
+                var walnutPath=AssetDatabase.GetAssetPath(walnut);
+                Assert.That(walnutPath,Does.EndWith("PULSE_Natural_Rifle_Walnut.mat"));
+                Assert.That(System.IO.File.ReadAllText(model+".meta"),Does.Contain(AssetDatabase.AssetPathToGUID(walnutPath)),"Current equipment remaps must reach disk, not only the loaded importer cache.");
                 Assert.That(SceneManager.GetSceneByPath(Preview).isDirty,Is.False);
                 LogAssert.NoUnexpectedReceived();
             }

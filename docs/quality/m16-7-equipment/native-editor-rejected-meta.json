@@ -1,0 +1,30 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 3,
+      "PassedTests": 2,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:07.5429614"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegeneratingAnOpenedPreviewKeepsOneSavedStudio",
+        "Status": "Passed",
+        "Duration": "00:00:00.5870000"
+      },
+      {
+        "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegenerationPreservesAnUnsavedPreview",
+        "Status": "Passed",
+        "Duration": "00:00:00.2700000"
+      },
+      {
+        "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RepeatedNaturalAuthoringPersistsTheLoadedImporter",
+        "Status": "Failed",
+        "Duration": "00:00:06.0050000",
+        "Message": "Unhandled log message: '[Error] Cannot open file 'Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx.meta' for write.\n'. Use UnityEngine.TestTools.LogAssert.Expect"
+      }
+    ]
+  }
+}

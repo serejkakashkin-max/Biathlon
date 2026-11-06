@@ -92,6 +92,12 @@ namespace Biathlon.Unity.Presentation
             string[] views={"Спереди","Сбоку","Сзади","Лицо и очки","Винтовка и ремни","Ботинки и крепления"};
             for(int i=0;i<views.Length;i++){int at=i;Button(views[i],()=>SetView(at));}
             Button("Вращать автоматически",()=>rotating=!rotating);
+            if(rig.HasEyewearChoice)
+            {
+                var eyewear=new DropdownField("Очки / маска",new List<string>{"Спортивные очки","Лыжная маска"},(int)rig.Eyewear){name="athlete-eyewear"};
+                eyewear.RegisterValueChangedCallback(_=>rig.SetEyewear((Biathlete167Eyewear)eyewear.index));rail.Add(eyewear);
+                Line("Маска: Skiing Lady · lancehuang526 · CC BY 4.0",11,new Color(.60f,.72f,.78f));
+            }
             Line("Проверка поз",16);
             string[] poses={"1   Стойка","2   Согнутые колени","3   Руки вверх","4   Подготовка к стрельбе"};
             for(int i=0;i<poses.Length;i++){int at=i;Button(poses[i],()=>Pose(at));}

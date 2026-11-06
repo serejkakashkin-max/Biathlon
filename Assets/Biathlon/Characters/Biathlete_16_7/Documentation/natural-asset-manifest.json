@@ -1,49 +1,65 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "4a50583c883e5a9f886850fcd7c250cddaaf32f3832355497f9abf20c749298f",
+  "export_fbx_sha256": "f76309faf66ec0195b4d248335f99c52a7b2114dcdaf115dc1440c52286788e3",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
   "material_color_space": "scene-linear",
-  "source_license": "CC0 MakeHuman hm08 anatomy/skin and CC0 Poly Haven rifle (Mateusz Sadek); project-authored garments/equipment adaptations",
+  "source_license": "CC0 MakeHuman hm08 anatomy/skin and CC0 Poly Haven rifle (Mateusz Sadek); mask adapted from Skiing Lady by lancehuang526, CC-BY-4.0; project-authored garments/equipment adaptations",
   "meshes": [
     {
+      "name": "Eyewear_Glasses",
+      "triangles": 6204,
+      "vertices": 3253,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "Head"
+    },
+    {
+      "name": "Eyewear_Mask",
+      "triangles": 7152,
+      "vertices": 3952,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "Head"
+    },
+    {
       "name": "Rifle_Prop",
-      "triangles": 17471,
-      "vertices": 9425,
+      "triangles": 15100,
+      "vertices": 8253,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "Spine"
     },
     {
       "name": "Left_Pole_Prop",
-      "triangles": 1308,
-      "vertices": 728,
+      "triangles": 1448,
+      "vertices": 888,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "LeftHand"
     },
     {
       "name": "Left_Ski_Prop",
-      "triangles": 1578,
-      "vertices": 920,
+      "triangles": 1332,
+      "vertices": 676,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "LeftFoot"
     },
     {
       "name": "Right_Pole_Prop",
-      "triangles": 1308,
-      "vertices": 728,
+      "triangles": 1448,
+      "vertices": 888,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "RightHand"
     },
     {
       "name": "Right_Ski_Prop",
-      "triangles": 1578,
-      "vertices": 920,
+      "triangles": 1332,
+      "vertices": 676,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "RightFoot"
@@ -82,24 +98,24 @@
     },
     {
       "name": "Biathlete_Body_LOD0",
-      "triangles": 98539,
-      "vertices": 51383,
+      "triangles": 92335,
+      "vertices": 48130,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD1",
-      "triangles": 39415,
-      "vertices": 21345,
+      "triangles": 36934,
+      "vertices": 19971,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 13795,
-      "vertices": 8052,
+      "triangles": 12926,
+      "vertices": 7522,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
@@ -316,6 +332,83 @@
       "metallic": 0.0
     },
     {
+      "name": "PULSE_Mask_Graphite_Frame",
+      "color": [
+        0.017999999225139618,
+        0.026000000536441803,
+        0.03400000184774399,
+        1.0
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Mask_Amber_Lens",
+      "color": [
+        0.6499999761581421,
+        0.18000000715255737,
+        0.02199999988079071,
+        1.0
+      ],
+      "roughness": 0.11999999731779099,
+      "metallic": 0.7200000286102295
+    },
+    {
+      "name": "PULSE_Mask_Contact_Foam",
+      "color": [
+        0.008999999612569809,
+        0.010999999940395355,
+        0.014000000432133675,
+        1.0
+      ],
+      "roughness": 0.9300000071525574,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Mask_Woven_Strap",
+      "color": [
+        0.02500000037252903,
+        0.03200000151991844,
+        0.041999999433755875,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Mask_Strap_Accent",
+      "color": [
+        0.4000000059604645,
+        0.00800000037997961,
+        0.020999999716877937,
+        1.0
+      ],
+      "roughness": 0.6100000143051147,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Ski_Printed_Topsheet",
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "roughness": 0.3100000023841858,
+      "metallic": 0.1599999964237213
+    },
+    {
+      "name": "PULSE_Pole_Carbon_Weave",
+      "color": [
+        0.04500000178813934,
+        0.054999999701976776,
+        0.06499999761581421,
+        1.0
+      ],
+      "roughness": 0.3400000035762787,
+      "metallic": 0.3799999952316284
+    },
+    {
       "name": "PULSE_Natural_Tailored_Textile",
       "color": [
         0.27000001072883606,
@@ -340,12 +433,12 @@
     {
       "name": "Rifle_Race_Laminate",
       "color": [
-        0.1599999964237213,
-        0.054999999701976776,
-        0.024000000208616257,
+        0.18000000715255737,
+        0.06499999761581421,
+        0.02500000037252903,
         1.0
       ],
-      "roughness": 0.36000001430511475,
+      "roughness": 0.3799999952316284,
       "metallic": 0.0
     },
     {
@@ -371,6 +464,17 @@
       "metallic": 0.8799999952316284
     },
     {
+      "name": "PULSE_Rifle_Magazine_Red",
+      "color": [
+        0.47999998927116394,
+        0.006000000052154064,
+        0.012000000104308128,
+        1.0
+      ],
+      "roughness": 0.3400000035762787,
+      "metallic": 0.0
+    },
+    {
       "name": "PULSE_Bib_Printed_Textile",
       "color": [
         1.0,
@@ -390,6 +494,30 @@
     "Pole_Left_Socket",
     "Pole_Right_Socket"
   ],
+  "equipment_detail_definition_sha256": "abb894b7ba57eb753dcc63dcce5ac2328f90827fcc2eb7b375e5300b3f8a7243",
+  "eyewear_variants": [
+    "glasses",
+    "mask"
+  ],
+  "mask_provenance": {
+    "schema_version": 1,
+    "id": "skiing_lady_selected_goggles",
+    "source_url": "https://sketchfab.com/3d-models/skiing-lady-52aabb1e0773487b93a6e56d0f0b875b",
+    "author": "lancehuang526",
+    "license": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "owner_input_sha256": "60b6bea9070e0ab5efab9da9387cf2c2a25aebf8aaf7e7610bd4077ad33720c5",
+    "selected_objects": [
+      "goggles_coated_white_0",
+      "goggles_glass_pink_0",
+      "goggles_fabric_woolen_black_0",
+      "goggles_fabric_tex.goggles_0",
+      "goggles_fabric_white_0"
+    ],
+    "extraction": "evaluated initial goggle meshes, original topology/UVs, world transform baked",
+    "selected_blend_sha256": "bf8e90c5e502bf93e24e6dd58cf2b32f43f91226a845ce565e44e977b398af44"
+  },
+  "rifle_reference_usage": "view-only visual reference; independently authored external stock/fittings, no source model copied",
   "rifle_cc0_reused_visible_components": 30,
   "contact_frames": [
     "Left_Pole_Grip_Contact",
@@ -772,7 +900,7 @@
       }
     }
   },
-  "triangles": 229616,
-  "stored_lod0_triangles": 176406,
-  "active_lod0_triangles": 149094
+  "triangles": 230835,
+  "stored_lod0_triangles": 180975,
+  "active_lod0_triangles": 146511
 }

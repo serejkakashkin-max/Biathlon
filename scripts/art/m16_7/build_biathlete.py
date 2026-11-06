@@ -13,6 +13,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 from equipment_refine import CONTACT_SETTINGS, HANDLE_PROFILE, grip_frame, tuck_grip_frame, sporting_rifle, grip_finger_matrices
 from refine_garments import GARMENT_SETTINGS, race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness
 from bib_print import apply_bib_print
+from equipment_detail import SETTINGS as EQUIPMENT_SETTINGS, SETTINGS_PATH as EQUIPMENT_SETTINGS_PATH, mask_parts, ski_and_pole_materials, pole_details, reference_rifle
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -282,6 +283,10 @@ strap=[]
 for i in range(97):
     t=i/96*math.tau;strap.append((.083*math.cos(t),.032+.09*math.sin(t),1.707))
 tube('Goggle_Elastic_Strap',strap,.006,black,'Head')
+glasses_parts=[o for o in objects if o.name.startswith(('Panoramic_Amber_Lens','Goggle_'))]
+mask_meshes=mask_parts(anatomy_path.parents[2]/'SkiingLady',material,mesh,rigid,materials)
+for obj in mask_meshes:obj.hide_render=True
+ski_print,pole_weave=ski_and_pole_materials(material,materials,out)
 
 # Clean CC0 anatomical topology: the suit has real torso/hip/joint loops rather
 # than voxelized T-shirt/short hems. Keep the source head as a separate skin asset.
@@ -421,15 +426,18 @@ for side in [-1,1]:
         t=j/96;y=-1.03+t*1.94;w=.022*(.62+.38*math.sin(math.pi*t)**.15);z=.021+.068*max(0,1-t/.115)**2+.008*max(0,(t-.94)/.06)**2
         for dx,dz in [(-w,0),(w,0),(-w,-.008),(w,-.008)]:vs.append((x+dx,y,z+dz));uv.append(((dx/w+1)/2,t))
         if j<96:
-            k=j*4;fs.extend([(k,k+4,k+5,k+1),(k+2,k+3,k+7,k+6),(k,k+2,k+6,k+4),(k+1,k+5,k+7,k+3)]);mi.extend([0 if j%40<28 else 1,1,2,2])
-    ski=mesh(pre+'_Nordic_Ski_194',vs,fs,[scarlet,black,alloy],mi,uv);rigid(ski,pre+'Foot')
+            k=j*4;fs.extend([(k,k+4,k+5,k+1),(k+2,k+3,k+7,k+6),(k,k+2,k+6,k+4),(k+1,k+5,k+7,k+3)]);mi.extend([0,1,2,2])
+    ski=mesh(pre+'_Nordic_Ski_194',vs,fs,[ski_print,black,alloy],mi,uv);rigid(ski,pre+'Foot')
     block(pre+'_Binding_Plate',(x,-.014,.036),(.040,.24,.016),carbon,.003,pre+'Foot')
     block(pre+'_Binding_Toe_Clamp',(x,-.183,.046),(.045,.024,.026),titanium,.004,pre+'Foot')
     block(pre+'_Binding_Release_Tab',(x,-.203,.043),(.035,.024,.014),scarlet,.003,pre+'Foot')
-    text(pre+'_Ski_Brand','PULSE',(x,-.60,.026),.22,white,pre+'Foot',horizontal=True)
     # Pole shaft/grip/basket/strap are independently parented below a hand socket.
     wrist=heads[pre+'Hand'];grip,axis,palm_normal=grip_frame(anatomy_metadata,side);tip=grip+axis*1.46
-    tube(pre+'_Carbon_Pole',[grip,tip],.0043,carbon,pre+'Hand')
+    shaft=tube(pre+'_Carbon_Pole',[grip,tip],.0043,pole_weave,pre+'Hand')
+    if not shaft.data.uv_layers:shaft.data.uv_layers.new(name='CarbonUV')
+    for loop in shaft.data.loops:
+        p=shaft.matrix_world@shaft.data.vertices[loop.vertex_index].co-grip
+        shaft.data.uv_layers.active.data[loop.index].uv=(math.atan2(p.dot(axis.cross(palm_normal)),p.dot(palm_normal))/math.tau+.5,p.dot(axis)/1.46)
     # Rounded upper cap; the contact section remains 24 mm in diameter.
     radial=palm_normal;across=axis.cross(radial).normalized();handle_vertices=[];handle_faces=[]
     rings=HANDLE_PROFILE
@@ -442,7 +450,9 @@ for side in [-1,1]:
     tube(pre+'_Pole_Inlay',[grip+axis*.10,grip+axis*.47],.0047,scarlet,pre+'Hand')
     tube(pre+'_Pole_Tip',[tip,tip+axis*.04],.0027,alloy,pre+'Hand')
     basket=tip-axis*.055
-    tube(pre+'_Small_Pole_Basket',[basket+Vector((math.cos(t*math.tau/48)*.021,math.sin(t*math.tau/48)*.021,0)) for t in range(49)],.003,rubber,pre+'Hand')
+    across=axis.cross(palm_normal).normalized()
+    tube(pre+'_Small_Pole_Basket',[basket+(palm_normal*math.cos(t*math.tau/48)+across*math.sin(t*math.tau/48))*.021 for t in range(49)],.003,rubber,pre+'Hand')
+    pole_details(pre,grip,axis,palm_normal,tip,tube,mesh,rigid,alloy,rubber,pole_weave)
     # The strap follows the glove, not a rigid triangle on the pole. Each
     # grip posture has its own broad webbing path around the back of the hand.
     longitudinal=(Vector(anatomy_metadata['finger_bones']['finger3-1'+('.L' if side>0 else '.R')]['head'])-wrist).normalized()
@@ -498,6 +508,7 @@ for side in [-1,1]:
 # Licensed CC0 visible metal plus original sport-specific external geometry.
 rifleparts,reused_rifle_parts=sporting_rifle(anatomy_path.parents[2]/'PolyHavenRifle',material,mesh,tube,block,rigid,materials,out)
 materials.extend([bpy.data.materials[n] for n in ['Rifle_PolyHaven_CC0_Metal','Rifle_Race_Laminate','Rifle_Padded_Composite','Rifle_Satin_Hardware']])
+rifleparts=reference_rifle(rifleparts,material,mesh,tube,block,rigid,materials,out,objects)
 # Broad webbing with tension-following shoulder routes, weighted along the torso.
 for side in [-1,1]:
     controls=[(side*.09,.175,1.11),(side*.145,.14,1.30),(side*.15,.08,1.405),(side*.13,.00,1.425),(side*.12,-.065,1.35),(side*.14,-.076,1.19),(side*.10,.00,1.08)]
@@ -616,6 +627,8 @@ def join_meshes(name,parts,bone=None,origin=None):
         mod=obj.modifiers.new('Humanoid skin','ARMATURE');mod.object=arm
     return obj
 allmesh=[o for o in scene.objects if o.type=='MESH'];gear=[];rigged=[]
+glasses=join_meshes('Eyewear_Glasses',glasses_parts,'Head',heads['Head']);gear.append(glasses)
+mask=join_meshes('Eyewear_Mask',mask_meshes,'Head',heads['Head']);mask.hide_render=True;gear.append(mask)
 rifle=join_meshes('Rifle_Prop',rifleparts,'Spine',(.045,.188,1.36));gear.append(rifle)
 for pre in ['Left','Right']:
     poleparts=[o for o in scene.objects if o.type=='MESH' and o.name.startswith(pre+'_') and ('_Pole' in o.name or '_Carbon_Pole' in o.name)]
@@ -641,7 +654,11 @@ bpy.context.view_layer.objects.active=arm
 bpy.ops.export_scene.fbx(filepath=str(out/'Models/Biathlete_16_7_Natural.fbx'),use_selection=True,object_types={'ARMATURE','MESH','EMPTY'},add_leaf_bones=False,bake_anim=False,apply_scale_options='FBX_SCALE_UNITS',axis_forward='-Z',axis_up='Y',path_mode='RELATIVE',use_mesh_modifiers=True)
 # Source walk/run preserved verbatim and explicitly labelled, not ski animation.
 shutil.copyfile(src/'01_Character/man-base-character-rigged.fbx',out/'Animations/Source_Walk_Run_Not_Ski.fbx')
-manifest={'schema_version':1,'id':'biathlete_16_7_natural_v1','export_fbx_sha256':hashlib.sha256((out/'Models/Biathlete_16_7_Natural.fbx').read_bytes()).hexdigest(),'blender':bpy.app.version_string,'height_m':1.8,'bones':len(arm.data.bones),'material_color_space':'scene-linear','source_license':'CC0 MakeHuman hm08 anatomy/skin and CC0 Poly Haven rifle (Mateusz Sadek); project-authored garments/equipment adaptations','meshes':[],'materials':[],'sockets':[x[0] for x in sockets]}
+manifest={'schema_version':1,'id':'biathlete_16_7_natural_v1','export_fbx_sha256':hashlib.sha256((out/'Models/Biathlete_16_7_Natural.fbx').read_bytes()).hexdigest(),'blender':bpy.app.version_string,'height_m':1.8,'bones':len(arm.data.bones),'material_color_space':'scene-linear','source_license':'CC0 MakeHuman hm08 anatomy/skin and CC0 Poly Haven rifle (Mateusz Sadek); mask adapted from Skiing Lady by lancehuang526, CC-BY-4.0; project-authored garments/equipment adaptations','meshes':[],'materials':[],'sockets':[x[0] for x in sockets]}
+manifest['equipment_detail_definition_sha256']=hashlib.sha256(EQUIPMENT_SETTINGS_PATH.read_bytes()).hexdigest()
+manifest['eyewear_variants']=['glasses','mask']
+manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/provenance.json').read_text())
+manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
 for obj in character_objects:
     if obj.type=='MESH':obj.data.calc_loop_triangles();manifest['meshes'].append({'name':obj.name,'triangles':len(obj.data.loop_triangles),'vertices':len(obj.data.vertices),'uv_layers':len(obj.data.uv_layers),'skinned':any(m.type=='ARMATURE' for m in obj.modifiers),'bone_parent':obj.parent_bone})
 for m in materials:manifest['materials'].append({'name':m.name,'color':list(m.diffuse_color),'roughness':m.node_tree.nodes.get('Principled BSDF').inputs['Roughness'].default_value,'metallic':m.node_tree.nodes.get('Principled BSDF').inputs['Metallic'].default_value})
@@ -672,7 +689,7 @@ manifest['power_grip_finger_pose']={pre:{str(digit):solve_finger(anatomy_metadat
 
 manifest['triangles']=sum(x['triangles'] for x in manifest['meshes'])
 manifest['stored_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')))
-manifest['active_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')) and not x['name'].endswith('Tuck_Glove'))
+manifest['active_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')) and not x['name'].endswith('Tuck_Glove') and x['name']!='Eyewear_Mask')
 (out/'Documentation/natural-asset-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 (review/'model-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 # Studio render, actual model only. World/light floor are not exported with the rig.

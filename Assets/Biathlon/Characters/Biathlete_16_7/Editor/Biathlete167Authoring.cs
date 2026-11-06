@@ -23,6 +23,7 @@ namespace Biathlon.Unity
         [Serializable] private class MaterialRecord {public string name;public float[] color;public float roughness,metallic;}
         [Serializable] private class Manifest {public MaterialRecord[] materials;}
         [Serializable] private class GarmentRecord {public int schema_version;public string id;public float textile_normal_strength,bib_normal_strength;}
+        [Serializable] private class EquipmentRecord {public int schema_version;public string id;public float rifle_walnut_roughness,rifle_walnut_normal_strength;}
         private static readonly (string human,string bone)[] Mapping={
             ("Hips","Hips"),("Spine","Spine02"),("Chest","Spine01"),("UpperChest","Spine"),("Neck","neck"),("Head","Head"),
             ("LeftShoulder","LeftShoulder"),("RightShoulder","RightShoulder"),("LeftUpperArm","LeftArm"),("RightUpperArm","RightArm"),
@@ -46,20 +47,29 @@ namespace Biathlon.Unity
             }
             var manifest=JsonUtility.FromJson<Manifest>(File.ReadAllText(Root+(natural?"/Documentation/natural-asset-manifest.json":"/Documentation/asset-manifest.json")));
             var garment=natural?JsonUtility.FromJson<GarmentRecord>(File.ReadAllText(Root+"/Documentation/garment-detail-v1.json")):null;
+            var equipmentDetail=natural?JsonUtility.FromJson<EquipmentRecord>(File.ReadAllText(Root+"/Documentation/equipment-detail-v1.json")):null;
+            if(natural&&(equipmentDetail.schema_version!=1||string.IsNullOrWhiteSpace(equipmentDetail.id)||equipmentDetail.rifle_walnut_normal_strength<=0||equipmentDetail.rifle_walnut_roughness<=0||equipmentDetail.rifle_walnut_roughness>1))throw new InvalidDataException("Invalid equipment detail definition.");
             if(natural&&(garment.schema_version!=1||string.IsNullOrWhiteSpace(garment.id)||garment.textile_normal_strength<=0||garment.bib_normal_strength<=0))throw new InvalidDataException("Invalid garment definition.");
             var materials=new Dictionary<string,Material>(StringComparer.Ordinal);
             foreach(var data in manifest.materials)
             {
-                string path=Root+"/Materials/"+data.name+".mat";var material=AssetDatabase.LoadAssetAtPath<Material>(path);
+                string materialFile=natural&&data.name=="Rifle_Race_Laminate"?"PULSE_Natural_Rifle_Walnut":data.name;
+                string path=Root+"/Materials/"+materialFile+".mat";var material=AssetDatabase.LoadAssetAtPath<Material>(path);
                 if(material==null){material=new Material(Shader.Find("Universal Render Pipeline/Lit"));AssetDatabase.CreateAsset(material,path);}
-                material.shader=Shader.Find("Universal Render Pipeline/Lit");material.name=data.name;
+                material.shader=Shader.Find("Universal Render Pipeline/Lit");material.name=materialFile;
                 // bpy shader colors are scene-linear. Unity's serialized Color
                 // properties are sRGB and become linear when supplied to shaders.
                 material.SetColor("_BaseColor",new Color(data.color[0],data.color[1],data.color[2],1).gamma);material.SetFloat("_Smoothness",1-data.roughness);material.SetFloat("_Metallic",data.metallic);
                 if(data.name=="Rifle_PolyHaven_CC0_Metal")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Rifle_CC0_BaseColor_2K");Normal(material,"Rifle_CC0_Normal_2K",.65f);Map(material,"_MetallicGlossMap","Rifle_CC0_MetallicSmoothness_2K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name=="Rifle_Race_Laminate")
-                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Rifle_CC0_Laminate_BaseColor_2K");Normal(material,"Rifle_CC0_Normal_2K",.5f);material.SetFloat("_Smoothness",.45f);}
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap",natural?"Rifle_PULSE_Walnut_BaseColor_2K":"Rifle_CC0_Laminate_BaseColor_2K");Normal(material,natural?"Rifle_PULSE_Walnut_Normal_2K":"Rifle_CC0_Normal_2K",natural?equipmentDetail.rifle_walnut_normal_strength:.5f);material.SetFloat("_Smoothness",natural?1-equipmentDetail.rifle_walnut_roughness:.45f);}
+                else if(data.name=="PULSE_Ski_Printed_Topsheet")
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Ski_PULSE_Topsheet_BaseColor_4K");}
+                else if(data.name=="PULSE_Pole_Carbon_Weave")
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Pole_PULSE_Carbon_BaseColor_2K");}
+                else if(data.name=="PULSE_Mask_Woven_Strap")
+                {Normal(material,"Textile_Normal_4K",.08f);}
                 else if(data.name=="Anatomical_Skin_CC0_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","MakeHuman_Skin_BaseColor_2K");material.SetFloat("_Smoothness",.38f);}
                 else if(data.name=="PULSE_Bib_Printed_Textile")
@@ -92,6 +102,16 @@ namespace Biathlon.Unity
             importer.animationType=ModelImporterAnimationType.Human;importer.avatarSetup=ModelImporterAvatarSetup.CreateFromThisModel;importer.humanDescription=description;
             // Release cached handles before explicitly persisting and importing.
             AssetDatabase.ReleaseCachedFileHandles();EditorUtility.SetDirty(importer);
+            // On Windows the loaded model's meta can remain memory-mapped even
+            // after ReleaseCachedFileHandles (ERROR_USER_MAPPED_FILE/1224).
+            // Swap a byte-identical snapshot immediately before Unity truncates
+            // and writes it; keep the GUID and every existing setting intact.
+            if(Application.platform==RuntimePlatform.WindowsEditor)
+            {
+                string meta=Path.GetFullPath(modelPath+".meta"),snapshot=Path.Combine(Path.GetFullPath("Library"),"m167-meta-"+Guid.NewGuid().ToString("N")+".tmp");
+                try{File.Copy(meta,snapshot,true);File.Replace(snapshot,meta,null);}
+                finally{if(File.Exists(snapshot))File.Delete(snapshot);}
+            }
             AssetDatabase.WriteImportSettingsIfDirty(modelPath);
             AssetDatabase.ImportAsset(modelPath,ImportAssetOptions.ForceUpdate|ImportAssetOptions.ForceSynchronousImport);
             model=AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
@@ -107,7 +127,9 @@ namespace Biathlon.Unity
                     var mapped=renderer.sharedMaterials;
                     for(int i=0;i<mapped.Length;i++)
                     {
-                        if(mapped[i]==null||!materials.TryGetValue(mapped[i].name,out var approved))
+                        if(mapped[i]==null)throw new InvalidOperationException("Missing imported material on "+renderer.name);
+                        if(!materials.TryGetValue(mapped[i].name,out var approved))approved=materials.Values.FirstOrDefault(m=>m==mapped[i]);
+                        if(approved==null)
                             throw new InvalidOperationException("Unqualified imported material on "+renderer.name);
                         mapped[i]=approved;
                     }
@@ -126,6 +148,7 @@ namespace Biathlon.Unity
                 for(int i=0;i<3;i++)levels[i]=new LOD(thresholds[i],equipment.Cast<Renderer>().Concat(skin.Where(s=>s.name.EndsWith("LOD"+i,StringComparison.Ordinal))).ToArray());
                 var lodGroup=root.AddComponent<LODGroup>();lodGroup.SetLODs(levels);lodGroup.fadeMode=LODFadeMode.None;lodGroup.RecalculateBounds();
                 var binding=root.AddComponent<Biathlete167Rig>();binding.Configure(animator,sockets,weapon,equipment.Where(r=>r.name.Contains("Pole_Prop")).Cast<Renderer>().ToArray(),lodGroup,natural);
+                if(natural)binding.ConfigureEyewear(Find("Eyewear_Glasses").gameObject,Find("Eyewear_Mask").gameObject);
                 if(natural)binding.ConfigureContacts(Find("Left_Pole_Grip_Contact"),Find("Right_Pole_Grip_Contact"),Find("Left_Toe_Hinge_Contact"),Find("Right_Toe_Hinge_Contact"),AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/contact-adaptation-v1.json"));
                 if(natural)binding.ConfigureGripVariants(Find("Left_Tuck_Grip_Contact"),Find("Right_Tuck_Grip_Contact"),
                     new[]{Find("Left_Skate_Glove").gameObject,Find("Right_Skate_Glove").gameObject},

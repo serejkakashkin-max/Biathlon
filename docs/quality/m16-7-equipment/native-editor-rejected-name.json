@@ -1,0 +1,30 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 3,
+      "PassedTests": 2,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:07.6827915"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegeneratingAnOpenedPreviewKeepsOneSavedStudio",
+        "Status": "Passed",
+        "Duration": "00:00:00.5240000"
+      },
+      {
+        "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegenerationPreservesAnUnsavedPreview",
+        "Status": "Passed",
+        "Duration": "00:00:00.2690000"
+      },
+      {
+        "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RepeatedNaturalAuthoringPersistsTheLoadedImporter",
+        "Status": "Failed",
+        "Duration": "00:00:06.2060000",
+        "Message": "Unhandled log message: '[Warning] Main Object Name 'Rifle_Race_Laminate' does not match filename 'PULSE_Natural_Rifle_Walnut''. Use UnityEngine.TestTools.LogAssert.Expect"
+      }
+    ]
+  }
+}

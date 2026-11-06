@@ -62,8 +62,38 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PULSE_Mask_Amber_Lens
+    second: {fileID: 2100000, guid: aabd18a146c7f484695fdf2941788c9f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PULSE_Mask_Contact_Foam
+    second: {fileID: 2100000, guid: f4abac75e5df60f4980ce3fe35801497, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PULSE_Mask_Graphite_Frame
+    second: {fileID: 2100000, guid: 60dee85b16a809d4db4a3793a4ad8554, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PULSE_Mask_Strap_Accent
+    second: {fileID: 2100000, guid: bedcbc6cfa383b04d904d4ea4497843f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PULSE_Mask_Woven_Strap
+    second: {fileID: 2100000, guid: e8b83fa129813bf44afec843729c7609, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PULSE_Natural_Tailored_Textile
     second: {fileID: 2100000, guid: 2ac725e4b67170146af87fabbe6c14ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PULSE_Pole_Carbon_Weave
+    second: {fileID: 2100000, guid: b4e3da5524099254b89b2a4d9976776f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -72,8 +102,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PULSE_Rifle_Magazine_Red
+    second: {fileID: 2100000, guid: 7f2536157cc4f924abe9d3bb27c23a90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PULSE_Scarlet_Accent
     second: {fileID: 2100000, guid: e9b83989a5a95d1489250f03048a7f80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PULSE_Ski_Printed_Topsheet
+    second: {fileID: 2100000, guid: 33826d6ddde90404aaa4e8861d5301ff, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -108,7 +148,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Rifle_Race_Laminate
-    second: {fileID: 2100000, guid: 419da160c7957a242a6f22251d3d2847, type: 2}
+    second: {fileID: 2100000, guid: 4e8de719a124c6442bad43eb77e0c3a0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -594,6 +634,16 @@ ModelImporter:
       position: {x: -0, y: 0.1045961, z: -0.0000000037252903}
       rotation: {x: -0.16101846, y: 0, z: -0, w: 0.9869514}
       scale: {x: 1, y: 1, z: 1}
+    - name: Eyewear_Glasses
+      parentName:
+      position: {x: -0, y: -0.00000025331974, z: -0.000000011175871}
+      rotation: {x: -0.7059454, y: 0, z: -0, w: 0.70826626}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
+    - name: Eyewear_Mask
+      parentName:
+      position: {x: -0, y: -0.00000025331974, z: -0.000000011175871}
+      rotation: {x: -0.7059454, y: 0, z: -0, w: 0.70826626}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
     - name: head_end
       parentName:
       position: {x: -0, y: 0.15843143, z: 0}

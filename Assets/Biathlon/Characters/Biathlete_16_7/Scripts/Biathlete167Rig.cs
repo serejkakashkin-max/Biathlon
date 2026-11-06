@@ -5,6 +5,7 @@ namespace Biathlon.Unity.Presentation
 {
     public enum Biathlete167Socket { RifleBack,RifleHand,SkiLeft,SkiRight,PoleLeft,PoleRight }
     public enum Biathlete167HandPoint { Palm,Dorsal,MiddleKnuckle,IndexKnuckle,LittleKnuckle }
+    public enum Biathlete167Eyewear { Glasses,Mask }
 
     /// <summary>Imported Humanoid visual asset. No race/session or root-motion authority.</summary>
     public sealed class Biathlete167Rig:MonoBehaviour
@@ -19,6 +20,22 @@ namespace Biathlon.Unity.Presentation
         [SerializeField] private Transform leftTuckGripContact,rightTuckGripContact;
         [SerializeField] private Transform[] anatomicalHands;
         [SerializeField] private GameObject[] skateGloves,tuckGloves;
+        [SerializeField] private GameObject glasses,mask;
+        [SerializeField] private Biathlete167Eyewear eyewear;
+        public Biathlete167Eyewear Eyewear=>eyewear;
+        public bool HasEyewearChoice=>glasses!=null&&mask!=null;
+        public void ConfigureEyewear(GameObject glassesOption,GameObject maskOption)
+        {
+            if(glassesOption==null||maskOption==null||glassesOption==maskOption||!glassesOption.transform.IsChildOf(transform)||!maskOption.transform.IsChildOf(transform))
+                throw new InvalidOperationException("Two distinct athlete eyewear options are required.");
+            glasses=glassesOption;mask=maskOption;SetEyewear(Biathlete167Eyewear.Glasses);
+        }
+        public void SetEyewear(Biathlete167Eyewear value)
+        {
+            if(value!=Biathlete167Eyewear.Glasses&&value!=Biathlete167Eyewear.Mask)throw new ArgumentOutOfRangeException(nameof(value));
+            if(!HasEyewearChoice)throw new InvalidOperationException("Eyewear options are not configured.");
+            eyewear=value;glasses.SetActive(value==Biathlete167Eyewear.Glasses);mask.SetActive(value==Biathlete167Eyewear.Mask);
+        }
         private bool tuckGrip;
         [SerializeField] private TextAsset contactDefinition;
         public TextAsset ContactDefinition=>contactDefinition;
