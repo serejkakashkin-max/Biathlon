@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "m167_both_grips_source_regression",
+  "pass": true,
+  "positive_checks": 6,
+  "negative_checks": 2,
+  "art_acceptance": false,
+  "checks": [
+    {
+      "name": "distal-pads",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\distal-pads.json"
+    },
+    {
+      "name": "handle-and-straps",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\handle-and-straps.json"
+    },
+    {
+      "name": "finger-clearance",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\finger-clearance.json"
+    },
+    {
+      "name": "thumb-side",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\thumb-side.json"
+    },
+    {
+      "name": "surface-parity",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\surface-parity.json"
+    },
+    {
+      "name": "anatomy",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\anatomy.json"
+    },
+    {
+      "name": "rejected_claw_grip",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\rejected_claw_grip.json"
+    },
+    {
+      "name": "rejected_working_grip",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "qualified": true,
+      "receipt": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-7-rifle-scale-20261106\\grip-final\\rejected_working_grip.json"
+    }
+  ]
+}

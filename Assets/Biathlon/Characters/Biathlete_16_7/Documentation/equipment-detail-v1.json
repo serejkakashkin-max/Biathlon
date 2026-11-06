@@ -4,7 +4,11 @@
   "eyewear_default": "glasses",
   "mask_width_m": 0.184,
   "mask_height_m": 0.067,
-  "mask_lens_centre_m": [0, -0.115, 1.686],
+  "mask_lens_centre_m": [
+    0,
+    -0.115,
+    1.686
+  ],
   "mask_subdivision_levels": 2,
   "mask_strap_width_m": 0.024,
   "mask_strap_thickness_m": 0.0016,
@@ -12,9 +16,22 @@
   "mask_strap_rear_height_m": 1.712,
   "rifle_reference_url": "https://sketchfab.com/3d-models/biathlon-rifle-f5824220b27a4470acf0e022fa7e4acf",
   "rifle_reference_usage": "view-only visual reference; independently authored external stock/fittings, no source model copied",
+  "rifle_visual_profile_scale": 0.55,
+  "rifle_visual_thickness_scale": 0.72,
+  "rifle_visual_length_scale": 0.92,
+  "rifle_visual_carry_origin_m": [
+    -0.115,
+    0.16,
+    0.83
+  ],
+  "rifle_visual_carry_angle_degrees": -1.5,
   "rifle_walnut_roughness": 0.44,
   "rifle_walnut_normal_strength": 0.12,
-  "rifle_walnut_linear_tint": [0.38, 0.21, 0.095],
+  "rifle_walnut_linear_tint": [
+    0.38,
+    0.21,
+    0.095
+  ],
   "ski_topsheet_roughness": 0.31,
   "pole_carbon_roughness": 0.34
 }

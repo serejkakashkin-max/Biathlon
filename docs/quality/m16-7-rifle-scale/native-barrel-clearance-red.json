@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.2099833\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedBarrelClearsTheActualHeadAndNeckInAllMotionStates\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.1030000\",\"Message\":\"  Carried barrel crosses actual head/neck: Flat, phase 0, ray 0, triangle 10254.\\r\\n  Expected: True\\r\\n  But was:  False\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 1,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.2099833"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedBarrelClearsTheActualHeadAndNeckInAllMotionStates",
+          "Status": "Failed",
+          "Duration": "00:00:00.1030000",
+          "Message": "  Carried barrel crosses actual head/neck: Flat, phase 0, ray 0, triangle 10254.\r\n  Expected: True\r\n  But was:  False\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

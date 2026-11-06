@@ -18,6 +18,58 @@ namespace Biathlon.PlayModeTests
     {
         private const string Root="Assets/Biathlon/Characters/Biathlete_16_7";
         private Biathlete167Rig Create()=>Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/Prefabs/Biathlete_16_7_Natural.prefab")).GetComponent<Biathlete167Rig>();
+        [Test] public void CarriedBarrelClearsTheActualHeadAndNeckInAllMotionStates()
+        {
+            var rig=Create();var baked=new Mesh();try
+            {
+                var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();
+                int skinIndex=Array.FindIndex(skin.sharedMaterials,m=>m.name=="Anatomical_Skin_CC0_2K");Assert.That(skinIndex,Is.GreaterThanOrEqualTo(0));
+                var triangles=skin.sharedMesh.GetTriangles(skinIndex);
+                var barrel=rig.Rifle.GetComponent<MeshFilter>().sharedMesh;
+                int barrelIndex=Array.FindIndex(rig.Rifle.GetComponent<Renderer>().sharedMaterials,m=>m.name=="PULSE_Rifle_Barrel_Satin");Assert.That(barrelIndex,Is.GreaterThanOrEqualTo(0));
+                var vertices=barrel.vertices;var points=barrel.GetTriangles(barrelIndex).Distinct().Select(i=>vertices[i]).ToArray();
+                var centre=points.Aggregate(Vector3.zero,(sum,p)=>sum+p)/points.Length;var axis=Vector3.up;
+                // Measure the real imported cylinder's long axis, independent of
+                // the generator's carry transform and authored length constants.
+                for(int pass=0;pass<12;pass++)axis=points.Aggregate(Vector3.zero,(sum,p)=>sum+(p-centre)*Vector3.Dot(p-centre,axis)).normalized;
+                var across=Vector3.Cross(axis,Vector3.right).normalized;var vertical=Vector3.Cross(axis,across);
+                float low=points.Min(p=>Vector3.Dot(p-centre,axis)),high=points.Max(p=>Vector3.Dot(p-centre,axis));
+                float radius=points.Max(p=>Vector3.ProjectOnPlane(p-centre,axis).magnitude)+.002f;
+                using(var motion=new Biathlete167MainMotion(rig))foreach(SkiMotionState state in Enum.GetValues(typeof(SkiMotionState)))for(int phase=0;phase<4;phase++)
+                {
+                    motion.State=state;motion.Evaluate(phase/4f);skin.BakeMesh(baked);var body=baked.vertices;
+                    for(int i=0;i<body.Length;i++)body[i]=skin.transform.TransformPoint(body[i]);
+                    for(int ray=0;ray<9;ray++)
+                    {
+                        float angle=(ray-1)*Mathf.PI/4;var offset=ray==0?Vector3.zero:(across*Mathf.Cos(angle)+vertical*Mathf.Sin(angle))*radius;
+                        var start=rig.Rifle.TransformPoint(centre+axis*low+offset);var end=rig.Rifle.TransformPoint(centre+axis*high+offset);var direction=(end-start).normalized;
+                        for(int i=0;i<triangles.Length;i+=3)
+                        {
+                            var a=body[triangles[i]];var edge=body[triangles[i+1]]-a;var other=body[triangles[i+2]]-a;var cross=Vector3.Cross(direction,other);float determinant=Vector3.Dot(edge,cross);
+                            if(Mathf.Abs(determinant)<1e-9f)continue;
+                            var delta=start-a;float u=Vector3.Dot(delta,cross)/determinant;if(u<0||u>1)continue;
+                            var q=Vector3.Cross(delta,edge);float v=Vector3.Dot(direction,q)/determinant;if(v<0||u+v>1)continue;
+                            float distance=Vector3.Dot(other,q)/determinant;
+                            Assert.That(distance<=0||distance>=Vector3.Distance(start,end),Is.True,$"Carried barrel crosses actual head/neck: {state}, phase {phase}, ray {ray}, triangle {i}.");
+                        }
+                    }
+                }
+            }finally{Object.DestroyImmediate(baked);Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Test] public void CarriedRifleFitsTheAthletesVisualProportions()
+        {
+            var rig=Create();var baked=new Mesh();try
+            {
+                rig.SetPose(0);var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();skin.BakeMesh(baked);
+                var body=baked.vertices.Select(v=>rig.transform.InverseTransformPoint(skin.transform.TransformPoint(v))).ToArray();
+                var mesh=rig.Rifle.GetComponent<MeshFilter>().sharedMesh;var rifle=mesh.vertices.Select(v=>rig.transform.InverseTransformPoint(rig.Rifle.TransformPoint(v))).ToArray();
+                float shoulders=Mathf.Abs(rig.transform.InverseTransformPoint(rig.Bone(HumanBodyBones.LeftUpperArm).position).x-rig.transform.InverseTransformPoint(rig.Bone(HumanBodyBones.RightUpperArm).position).x);
+                float height=body.Max(v=>v.y)-body.Min(v=>v.y),rifleHeight=rifle.Max(v=>v.y)-rifle.Min(v=>v.y),width=rifle.Max(v=>v.x)-rifle.Min(v=>v.x),depth=rifle.Max(v=>v.z)-rifle.Min(v=>v.z);
+                Assert.That(rifleHeight/height,Is.InRange(.49f,.58f),"Owner reference uses a compact carried rifle relative to athlete height.");
+                Assert.That(width/shoulders,Is.LessThanOrEqualTo(.50f),"The rejected broad prop occupied most of the back width.");
+                Assert.That(depth,Is.LessThanOrEqualTo(.060f),"Actual imported mesh, including fittings, must fit the slim visual profile.");
+            }finally{Object.DestroyImmediate(baked);Object.DestroyImmediate(rig.gameObject);}
+        }
         [Serializable] private sealed class Receipt{public string equipment_detail_definition_sha256;public string[] eyewear_variants;}
         [Test] public void MaskStrapHasAClosedVolumeAndDedicatedPrint()
         {
@@ -101,7 +153,7 @@ namespace Biathlon.PlayModeTests
             var field=studio.GetComponent<UIDocument>().rootVisualElement.Q<DropdownField>("athlete-eyewear");Assert.That(field,Is.Not.Null);
             field.index=1;yield return null;Assert.That(studio.Rig.Eyewear,Is.EqualTo(Biathlete167Eyewear.Mask));
             field.index=0;yield return null;Assert.That(studio.Rig.Eyewear,Is.EqualTo(Biathlete167Eyewear.Glasses));
-            string folder=Path.Combine(Application.dataPath,"../artifacts/m16-7-polish-20261106/native");Directory.CreateDirectory(folder);
+            string folder=Path.Combine(Application.dataPath,"../artifacts/m16-7-rifle-scale-20261106/native");Directory.CreateDirectory(folder);
             studio.Motion.Stop();studio.Rig.SetPose(0);
             using(var target=new BenchmarkRenderTarget(1100,1400))
             {
@@ -113,7 +165,8 @@ namespace Biathlon.PlayModeTests
                 var reviewCameraObject=new GameObject("Equipment detail evidence camera");var camera=reviewCameraObject.AddComponent<Camera>();camera.CopyFrom(studio.View);camera.enabled=false;
                 try
                 {
-                    foreach(var item in new[]{("mask-side-detail",new Vector3(.72f,1.70f,.03f),new Vector3(0,1.69f,0)),("mask-rear-detail",new Vector3(.50f,1.72f,-.60f),new Vector3(0,1.70f,0)),("rifle-detail",new Vector3(.7f,1.38f,-1.9f),new Vector3(0,1.36f,-.18f))})
+                    camera.fieldOfView=37f;
+                    foreach(var item in new[]{("mask-side-detail",new Vector3(.72f,1.70f,.03f),new Vector3(0,1.69f,0)),("mask-rear-detail",new Vector3(.50f,1.72f,-.60f),new Vector3(0,1.70f,0)),("rifle-detail",new Vector3(.7f,1.38f,-1.9f),new Vector3(0,1.36f,-.18f)),("rifle-back-full",new Vector3(0,1.02f,-3.8f),new Vector3(0,1.02f,0)),("rifle-three-quarter-full",new Vector3(2.4f,1.2f,-3.2f),new Vector3(0,1.02f,0))})
                     {
                         camera.transform.position=studio.Rig.transform.TransformPoint(item.Item2);camera.transform.LookAt(studio.Rig.transform.TransformPoint(item.Item3));
                         yield return null;target.Render(camera);yield return new WaitForEndOfFrame();target.SavePng(folder+"/"+item.Item1+".png");

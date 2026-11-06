@@ -15,7 +15,7 @@ error=max(float(np.max(np.linalg.norm(before[n]-after[n],axis=1)))for n in befor
 check('original_glasses_geometry_preserved',error<.000001,maximum_vertex_error_m=error,parts=len(before))
 stock=bpy.data.objects.get('PULSE_Biathlon_Walnut_Stock');check('reference_stock_is_authored',stock is not None)
 if stock:
-    tree=BVHTree.FromObject(stock,bpy.context.evaluated_depsgraph_get());carry=Matrix.Translation((.045,.188,.81))@Matrix.Rotation(math.radians(-4),4,'Y');transform=stock.matrix_world.inverted()@carry
+    tree=BVHTree.FromObject(stock,bpy.context.evaluated_depsgraph_get());carry=Matrix(json.loads(stock['aperture_probe_frame'])) if 'aperture_probe_frame'in stock else Matrix.Translation((.045,.188,.81))@Matrix.Rotation(math.radians(-4),4,'Y');transform=stock.matrix_world.inverted()@carry
     for x,z in [(.038,.316),(.036,.413)]:
         origin=transform@Vector((x,-.10,z));direction=(transform.to_3x3()@Vector((0,1,0))).normalized();hit=tree.ray_cast(origin,direction,.20)
         check('stock_external_aperture_'+str(z),hit[0] is None)

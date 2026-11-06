@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "461b6a794d5638da17e9cde344b60ceb1ed8fb6e340b06a81408de64f4989e04",
+  "export_fbx_sha256": "c3026834c17c6b1b762e3090c1659ba79dab03a514b5408fd02c6feedf7aae42",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -26,8 +26,8 @@
     },
     {
       "name": "Rifle_Prop",
-      "triangles": 17302,
-      "vertices": 9354,
+      "triangles": 16918,
+      "vertices": 8927,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "Spine"
@@ -107,15 +107,15 @@
     {
       "name": "Biathlete_Body_LOD1",
       "triangles": 36934,
-      "vertices": 19973,
+      "vertices": 19970,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 12925,
-      "vertices": 7522,
+      "triangles": 12926,
+      "vertices": 7523,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
@@ -475,6 +475,17 @@
       "metallic": 0.0
     },
     {
+      "name": "PULSE_Rifle_Barrel_Satin",
+      "color": [
+        0.035999998450279236,
+        0.04399999976158142,
+        0.050999999046325684,
+        1.0
+      ],
+      "roughness": 0.3199999928474426,
+      "metallic": 0.800000011920929
+    },
+    {
       "name": "PULSE_Bib_Printed_Textile",
       "color": [
         1.0,
@@ -494,7 +505,7 @@
     "Pole_Left_Socket",
     "Pole_Right_Socket"
   ],
-  "equipment_detail_definition_sha256": "d6fe7573a400e93696acbe1923779f070fc461f09096aad96a2d446be14db23b",
+  "equipment_detail_definition_sha256": "524495d1c24322bd4f9535242f05e3cb4ec197801d70e4c7a01398919d1dfaf5",
   "eyewear_variants": [
     "glasses",
     "mask"
@@ -518,6 +529,36 @@
     "selected_blend_sha256": "bf8e90c5e502bf93e24e6dd58cf2b32f43f91226a845ce565e44e977b398af44"
   },
   "rifle_reference_usage": "view-only visual reference; independently authored external stock/fittings, no source model copied",
+  "rifle_visual_fit": {
+    "profile_scale": 0.55,
+    "thickness_scale": 0.72,
+    "length_scale": 0.92,
+    "carry_origin_m": [
+      -0.115,
+      0.16,
+      0.83
+    ],
+    "carry_angle_degrees": -1.5,
+    "removed_legacy_exterior_parts": [
+      "CC0_Visible_Metal_3",
+      "CC0_Visible_Metal_8",
+      "CC0_Visible_Metal_9",
+      "CC0_Visible_Metal_11",
+      "CC0_Visible_Metal_16",
+      "CC0_Visible_Metal_17",
+      "CC0_Visible_Metal_18",
+      "CC0_Visible_Metal_23",
+      "CC0_Visible_Metal_24",
+      "CC0_Visible_Metal_25",
+      "CC0_Visible_Metal_26",
+      "CC0_Visible_Metal_27",
+      "CC0_Visible_Metal_28",
+      "CC0_Visible_Metal_29"
+    ],
+    "barrel": "original capped round exterior mesh; no functional internals",
+    "round_sight_radial_scale": 0.75,
+    "reference": "owner CGTrader athlete plus real competition photos; artistic fit, not manufacturing specifications"
+  },
   "mask_webbing": {
     "construction": "closed_solid_cap_fitted_webbing",
     "width_m": 0.024,
@@ -555,7 +596,7 @@
     ],
     "usage": "surface color/normal for decorative3Dprop stock only; PULSE UV adaptation and satin finish"
   },
-  "rifle_cc0_reused_visible_components": 30,
+  "rifle_cc0_reused_visible_components": 15,
   "contact_frames": [
     "Left_Pole_Grip_Contact",
     "Left_Palm_Side",
@@ -937,7 +978,7 @@
       }
     }
   },
-  "triangles": 234608,
-  "stored_lod0_triangles": 184749,
-  "active_lod0_triangles": 148713
+  "triangles": 234225,
+  "stored_lod0_triangles": 184365,
+  "active_lod0_triangles": 148329
 }

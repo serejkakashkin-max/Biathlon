@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "id": "m167_rifle_visual_scale_20261106",
+  "status": "ISOLATED_ART_IN_PROGRESS_BUILD_HOLD",
+  "baseline_git_commit": "c9c0e964890b1936b651ed508286cf46866ad53e",
+  "baseline_blend_sha256": "c1ccf948a64d44ed3880cd11584a18e89f33858352a67b3964b26167c895d741",
+  "source_fbx_sha256": "c3026834c17c6b1b762e3090c1659ba79dab03a514b5408fd02c6feedf7aae42",
+  "source_blend_sha256": "2058de1d8b4c1fb57f0e6f4a3afdbb99856bcb3205b3630f0b331a76d96435a7",
+  "definition_sha256": "524495d1c24322bd4f9535242f05e3cb4ec197801d70e4c7a01398919d1dfaf5",
+  "native": {
+    "PlayMode": {
+      "Status": "Passed",
+      "TotalTests": 93,
+      "PassedTests": 93,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:12.0426654"
+    },
+    "EditMode": {
+      "Status": "Passed",
+      "TotalTests": 3,
+      "PassedTests": 3,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:16.0587861"
+    },
+    "full_assembly_pass_claimed": false
+  },
+  "console": {
+    "after_sequence": 427444,
+    "Error": 0,
+    "Exception": 0,
+    "Assert": 0
+  },
+  "proportions": {
+    "before": {
+      "schema_version": 1,
+      "id": "m167_owner_rifle_visual_proportion_gate",
+      "pass": false,
+      "athlete_height_m": 1.7594786696135998,
+      "shoulder_span_m": 0.38741397857666016,
+      "assembly_world_bounds_m": {
+        "x": 0.31792911887168884,
+        "y": 0.07349996268749237,
+        "z": 1.0665855407714844
+      },
+      "rows": [
+        {
+          "name": "assembly_height_to_athlete",
+          "value": 0.6061940728191482,
+          "minimum": 0.49,
+          "maximum": 0.58,
+          "pass": false
+        },
+        {
+          "name": "assembly_width_to_shoulders",
+          "value": 0.8206444177356345,
+          "minimum": 0.15,
+          "maximum": 0.5,
+          "pass": false
+        },
+        {
+          "name": "wooden_stock_width_to_shoulders",
+          "value": 0.48842471273413285,
+          "minimum": 0.1,
+          "maximum": 0.34,
+          "pass": false
+        },
+        {
+          "name": "wooden_stock_thickness_m",
+          "value": 0.045000046491622925,
+          "minimum": 0.022,
+          "maximum": 0.036,
+          "pass": false
+        },
+        {
+          "name": "upper_visible_barrel_profile_m",
+          "value": 0.04063193214805008,
+          "minimum": 0.012,
+          "maximum": 0.024,
+          "pass": false
+        }
+      ],
+      "scope": "art proportions for this1.8mhero; approximated from owner CGTrader/full-body reference and real competition photos, not official manufacturing limits"
+    },
+    "after": {
+      "schema_version": 1,
+      "id": "m167_owner_rifle_visual_proportion_gate",
+      "pass": true,
+      "athlete_height_m": 1.7594786696135998,
+      "shoulder_span_m": 0.38741397857666016,
+      "assembly_world_bounds_m": {
+        "x": 0.16468697506934404,
+        "y": 0.05291999876499176,
+        "z": 0.9921329617500305
+      },
+      "rows": [
+        {
+          "name": "assembly_height_to_athlete",
+          "value": 0.5638789369171002,
+          "minimum": 0.49,
+          "maximum": 0.58,
+          "pass": true
+        },
+        {
+          "name": "assembly_width_to_shoulders",
+          "value": 0.4250930120652741,
+          "minimum": 0.15,
+          "maximum": 0.5,
+          "pass": true
+        },
+        {
+          "name": "wooden_stock_width_to_shoulders",
+          "value": 0.2614113861764677,
+          "minimum": 0.1,
+          "maximum": 0.34,
+          "pass": true
+        },
+        {
+          "name": "wooden_stock_thickness_m",
+          "value": 0.032400086522102356,
+          "minimum": 0.022,
+          "maximum": 0.036,
+          "pass": true
+        },
+        {
+          "name": "upper_visible_barrel_profile_m",
+          "value": 0.019600003957748382,
+          "minimum": 0.012,
+          "maximum": 0.024,
+          "pass": true
+        }
+      ],
+      "scope": "art proportions for this1.8mhero; approximated from owner CGTrader/full-body reference and real competition photos, not official manufacturing limits"
+    }
+  },
+  "barrel_head_neck": {
+    "rejected_interim_fbx_sha256": "31724e18e936a92d1157f3768eb21c4d20e26ee9ebb3e0fcc5d203d2cab77ee1",
+    "red_failure": "Flat/phase0/axis ray crosses actual skin triangle10254",
+    "final": "12motion states x4phases x9sample rays; actual imported barrel principal axis +2mm envelope vs baked head/neck; PASS",
+    "continuous_surface_clearance_claimed": false
+  },
+  "source_grips": "6positive+2expected-negativePASS",
+  "stock_furniture_mounts": 10,
+  "cloth": "16BakeMeshposes,0strict interior cloth crossings",
+  "active_lod0_triangles": 148329,
+  "all_stored_triangles": 234225,
+  "refs": [
+    {
+      "url": "https://www.cgtrader.com/3d-models/character/man/biathlete-fully-equipped-rigged",
+      "use": "owner athlete silhouette, public promo viewed only"
+    },
+    {
+      "url": "https://sketchfab.com/3d-models/biathlon-rifle-f5824220b27a4470acf0e022fa7e4acf",
+      "use": "owner external prop shape, no downloaded source"
+    },
+    {
+      "url": "https://www.biathlon.com.pl/post/kalendarz-ps-w-biathlonie-2025-2026",
+      "use": "real competition carry photo, viewed only; not redistributed"
+    }
+  ],
+  "authoritative_gameplay_changed": false,
+  "race_factory": "G2",
+  "windows_player_built": false,
+  "art_acceptance": false,
+  "evidence_sha256": {
+    "after-back.png": "4bf45bb2f1b12fdb47944290cad0d2a43d86a8549d24cebf95cfc961b65747de",
+    "after-three-quarter.png": "b36003474d689aa6a9bfb7493af8520a23aa55b1bc4b8f25563fa494a21a6277",
+    "before-back.png": "997aca9de7401189abe678837c8ebe0822dd0e003a882fcc5814d20d1bfa34f5",
+    "before-three-quarter.png": "111af60d76ce963ec628578bca4d5fea2c568d6c6069994172d63a1ca6626738",
+    "cloth-final.json": "c807e6341c59ce0dc6719a6c7559f9896a66538e4692b0c2ae3622e0f2e8d21d",
+    "equipment-final.json": "b308f1191cabdc949a06018da423285bd71edae7d02c0b3e3b30980bcdccf640",
+    "glasses-face.png": "b063f6aa43d65e60cebfdd2980fbca9f1ee17e0cda72725f59162cc889504d9e",
+    "glasses-full.png": "69226e8a9ac5e3ea7443c4fe665d74ee8d48d55e96aa16e80f11153aed6a8250",
+    "grip-source/anatomy.json": "a2efbcbe7bf2eb7457428fa1a9cf1199e1736dd61bc82c1c93fae9dea87c5e63",
+    "grip-source/distal-pads.json": "d024e9e1d674fbeb13946bf9ef614a3e09428c3baff349da2863ab9802452981",
+    "grip-source/finger-clearance.json": "447c394d7d286842105d0cfe80c2c7b94c049d6aa0be3c4b44ca164fc96e20ab",
+    "grip-source/handle-and-straps.json": "ecaedf578abd1ab7f84a327ca5eb27140eb82ac71db47b6a3150a596df100cfe",
+    "grip-source/rejected_claw_grip.json": "b3936b5d9c750034f44f0e2c6b14d422e821d14b8878f1c9adf67d6deff1d459",
+    "grip-source/rejected_working_grip.json": "5c7856367bc8a2456a94fe1b9327d9b86dd27b53230878bb885356ce4b6b4878",
+    "grip-source/summary.json": "3713b7bd53007fc1e8953a946b3ef17d1d0d48d2be9ac94e46641389b305baf5",
+    "grip-source/surface-parity.json": "b75b0194731445b4543f5d8d184e89018a599da3c664d0df5d5408c47697001c",
+    "grip-source/thumb-side.json": "d52e54ee177a422707f573341ab351f8df011dc3698a06161689d6f593623f04",
+    "grip-summary.json": "3713b7bd53007fc1e8953a946b3ef17d1d0d48d2be9ac94e46641389b305baf5",
+    "mask-face.png": "f1e8d96d5a44ee50a720a0b261816ab78691669be1926aeacfedf2346502113c",
+    "mask-final.json": "5d04f35a458acfdced250c847baaf3be29f682c9ee8f62cca833182a89331f9d",
+    "mask-full.png": "15059c4d0e0dff7492e46acbce50a06e5671c36044836bc74fbde3dff1ce02ad",
+    "mask-rear-detail.png": "cfcee428b6ff27071012c52200018488be5a1dd65b6835fe842f051067ccb046",
+    "mask-side-detail.png": "ac7aee73b441f88c026f2606fe0b135ca0212a53991b939919483abc6584ce64",
+    "mask-tuck.png": "369b1e48b4ff072f27b81f7ff740d9434d2c89291872aca36ff785b5f99dc5c6",
+    "mounts-final.json": "245038a1e0c6b62e1a3e4acde00401772759f10709ad01cfcec8643cad585466",
+    "native-barrel-clearance-red.json": "3c80c8ee6ab358b55aa7933f83acab69d03c54033f0d1840a063d1a79dd3b78e",
+    "native-editmode-final.json": "df199dabde9d0a1487b0213264b832652272bd49a25056b23584f93cf9b088cf",
+    "native-playmode-final.json": "cde4283c735eb33c2042eb11afec2e10340cf22828fcc579ae9eaba401f4def7",
+    "native-proportions-red.json": "6cb4163578f2b23237dddae512bc22d45ec02444323fb450a2fea7b614cfef58",
+    "proportions-final.json": "7d326f02c8d4f5125fdb44e88dde0d2c491b798eb8c7956b96df66536101f1e1",
+    "proportions-red.json": "bc3691c3d6654b66d323e491c1e6a8b6c26f9fda2a7f6782792d0d2f27db94a5",
+    "rejected-centred-barrel-tuck.png": "9d3baeddac5272e1b5e3c26216147a7ee7dcb8d9168808775af8773aca8df9af",
+    "rifle-back-full.png": "bc9718a5813931fafb19af6c91ba89f45724e564eed31df9d436adb98c35dd16",
+    "rifle-detail.png": "8b36f89a22aaa9fec9109512258b3717efdd1b704fbc05ece3f35e8cf9e90368",
+    "rifle-three-quarter-full.png": "5f991538f4c1fd1e80b2b5a7b237ce36af04060bc2706c9327ef67797425de6c",
+    "rifle-tuck.png": "99336381e97c2d4a69bed51bd792b02d2c830e1465883ae08615669cebd06d6f"
+  }
+}

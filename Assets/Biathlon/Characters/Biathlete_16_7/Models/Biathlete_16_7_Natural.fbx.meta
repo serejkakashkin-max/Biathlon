@@ -102,6 +102,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PULSE_Rifle_Barrel_Satin
+    second: {fileID: 2100000, guid: cbfdca32fba2a73499d0bff8b4333f89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PULSE_Rifle_Magazine_Red
     second: {fileID: 2100000, guid: 7f2536157cc4f924abe9d3bb27c23a90, type: 2}
   - first:
@@ -661,9 +666,9 @@ ModelImporter:
       scale: {x: 1, y: 0.9999999, z: 1.0000001}
     - name: Rifle_Prop
       parentName:
-      position: {x: -0.044999998, y: 0.015789762, z: -0.058008388}
-      rotation: {x: -0.79666567, y: 0.021071635, z: -0.02782022, w: 0.60341185}
-      scale: {x: 0.9999998, y: 0.9999999, z: 0.9999999}
+      position: {x: -0.045, y: 0.015789643, z: -0.058008358}
+      rotation: {x: -0.7971514, y: 0, z: 0, w: 0.6037795}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
     - name: RightShoulder
       parentName:
       position: {x: 0.023777694, y: 0.15728039, z: 0.032593366}

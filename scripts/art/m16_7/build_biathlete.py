@@ -15,6 +15,7 @@ from refine_garments import GARMENT_SETTINGS, race_bib, transfer_weights, analyt
 from bib_print import apply_bib_print
 from equipment_detail import SETTINGS as EQUIPMENT_SETTINGS, SETTINGS_PATH as EQUIPMENT_SETTINGS_PATH, mask_parts, ski_and_pole_materials, pole_details, reference_rifle
 from mask_webbing import finish_mask
+from rifle_visual_fit import fit_rifle
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -510,6 +511,8 @@ for side in [-1,1]:
 rifleparts,reused_rifle_parts=sporting_rifle(anatomy_path.parents[2]/'PolyHavenRifle',material,mesh,tube,block,rigid,materials,out)
 materials.extend([bpy.data.materials[n] for n in ['Rifle_PolyHaven_CC0_Metal','Rifle_Race_Laminate','Rifle_Padded_Composite','Rifle_Satin_Hardware']])
 rifleparts=reference_rifle(rifleparts,material,mesh,tube,block,rigid,materials,out,objects)
+rifleparts,rifle_visual_receipt=fit_rifle(rifleparts,objects,material,mesh,rigid,materials,EQUIPMENT_SETTINGS)
+reused_rifle_parts=sum(o.name.startswith('CC0_Visible_Metal_')for o in rifleparts)
 # Broad webbing with tension-following shoulder routes, weighted along the torso.
 for side in [-1,1]:
     controls=[(side*.09,.175,1.11),(side*.145,.14,1.30),(side*.15,.08,1.405),(side*.13,.00,1.425),(side*.12,-.065,1.35),(side*.14,-.076,1.19),(side*.10,.00,1.08)]
@@ -661,6 +664,7 @@ manifest['equipment_detail_definition_sha256']=hashlib.sha256(EQUIPMENT_SETTINGS
 manifest['eyewear_variants']=['glasses','mask']
 manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/provenance.json').read_text())
 manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
+manifest['rifle_visual_fit']=rifle_visual_receipt
 manifest['mask_webbing']=mask_webbing_receipt
 manifest['walnut_source']=json.loads((anatomy_path.parents[2]/'Walnut/provenance.json').read_text())
 for obj in character_objects:
