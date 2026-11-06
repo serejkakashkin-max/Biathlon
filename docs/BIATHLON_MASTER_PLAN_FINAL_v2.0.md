@@ -2796,3 +2796,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-06 M16.7 rifle proportions: owner-rejected broad rifle replaced by slimmer external prop; actual width31.79→16.47cm, stock thickness45→32.4mm. New source/imported proportion gates reject old geometry; actual-head/neck ray test rejects interim clipping and passes corrected side carry across12states/4phases. Final93PlayMode+3EditMode PASS, source/mount/grip/cloth gates PASS, Console0newerrors. Evidence: [rifle-scale review](quality/m16-7-rifle-scale/REVIEW_RU.md). M16.7 OPEN/BUILD HOLD, no player build, raceG2/gameplay unchanged; harness/shooting/field qualification still open.
+
+
+2026-11-06 M16.7 owner correction: rifle returned to back centre, stock lifted outside pelvis/body, carry follows HumanoidSpine. Added4solid shoulder-to-stock suspension bridges. Red tests reproduce9.25cm side shift/2.36cm penetration; current49pose ray check min10.08mm clearance, head/neck testPASS.96PlayMode+3EditModePASS; Console0newerrors. [Current review/evidence](quality/m16-7-centred-carry/REVIEW_RU.md). Prior side-carry checkpoint rejected; M16.7OPEN/BUILD HOLD, no player build, raceG2/gameplay unchanged.

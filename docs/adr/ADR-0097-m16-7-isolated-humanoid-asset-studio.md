@@ -203,3 +203,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-06 refinement: equipment-detail-v1.json now controls external rifle profile/depth/length fit and carry placement. New offline fitter removes superseded upper/butt donor surfaces, preserves circular sight cross-sections and adds an original closed external barrel mesh. No weapon internals or functional mechanism modeled. Actual-import tests independently measure proportions and barrel/posed-head clearance; owner-rejected scale and interim clipping both reproduce before fixes. Final93PlayMode+3EditMode PASS; [review/evidence](../quality/m16-7-rifle-scale/REVIEW_RU.md). No production factory, simulation or balance change; isolated studio remainsOPEN/BUILD HOLD.
+
+
+2026-11-06 carry correction: equipment definition now supplies carry bone (Spine02/HumanoidSpine), centred placement and suspension width/thickness; source prop and back socket share this bone.4closed weighted bridges connect actual shoulder straps to solid stock surfaces. Independent imported centring, BakeMesh body clearance and stock-anchor drift tests preserve owner-rejected side/intersection failures and pass current asset.96PlayMode+3EditModePASS; [evidence](../quality/m16-7-centred-carry/REVIEW_RU.md). Race factory/gameplay remain untouched; M16.7OPEN/BUILD HOLD.

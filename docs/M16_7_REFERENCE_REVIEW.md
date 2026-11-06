@@ -117,3 +117,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-06 rifle-scale correction: compared the owner's CGTrader full-body athlete, the owner's animod rifle exterior and public real-competition photography from the Polish Biathlon Federation. Previous broad profile was rejected; width31.79→16.47cm and stock thickness45→32.4mm. Removed old massive upper exterior; authored thin round capped display barrel, retained licensed receiver detail and walnut source. Carry moved beside the head after independently detecting an interim clipping defect. [Actual before/after and current Unity frames](quality/m16-7-rifle-scale/REVIEW_RU.md), with red/green proportion and actual-head/neck tests. References are view-only and not redistributed.96focusednativePASS qualifies these technical checks, not final artistic equivalence; M16.7 staysOPEN/BUILD HOLD.
+
+
+2026-11-06 owner revision: previous side carry is rejected. Rifle centred over spine, body depth corrected, HumanoidSpine attachment replaces upper-chest binding. Added4solid shoulder-to-stock bridges; actual rear/side/tuck inspection and red/green geometry evidence in [centred-carry review](quality/m16-7-centred-carry/REVIEW_RU.md). Existing slimmer silhouette retained.99focusednativePASS and source gates qualify these technical checks; M16.7 remainsOPEN/BUILD HOLD.

@@ -16,6 +16,7 @@ from bib_print import apply_bib_print
 from equipment_detail import SETTINGS as EQUIPMENT_SETTINGS, SETTINGS_PATH as EQUIPMENT_SETTINGS_PATH, mask_parts, ski_and_pole_materials, pole_details, reference_rifle
 from mask_webbing import finish_mask
 from rifle_visual_fit import fit_rifle
+from rifle_suspension import add_suspension
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -544,7 +545,7 @@ for pre,side in [('Left',1),('Right',-1)]:
     obj=bpy.data.objects.new(pre+'_Tuck_Grip_Contact',None);bpy.context.collection.objects.link(obj);obj.location=centre;obj.rotation_euler=Matrix((-tuck_normal,tuck_axis,(-tuck_normal).cross(tuck_axis))).transposed().to_euler();rigid(obj,pre+'Hand');contacts.append(obj.name)
 
     obj=bpy.data.objects.new(pre+'_Toe_Hinge_Contact',None);bpy.context.collection.objects.link(obj);obj.location=(heads[pre+'Foot'].x,-.171,.055);rigid(obj,pre+'Foot');contacts.append(obj.name)
-sockets=[('Rifle_Back_Socket','Spine',(.045,.188,1.36)),('Rifle_Hand_Socket','RightHand',heads['RightHand']),('Ski_Left_Socket','LeftFoot',heads['LeftFoot']),('Ski_Right_Socket','RightFoot',heads['RightFoot']),('Pole_Left_Socket','LeftHand',heads['LeftHand']),('Pole_Right_Socket','RightHand',heads['RightHand'])]
+sockets=[('Rifle_Back_Socket',EQUIPMENT_SETTINGS['rifle_carry_bone'],(.045,.188,1.36)),('Rifle_Hand_Socket','RightHand',heads['RightHand']),('Ski_Left_Socket','LeftFoot',heads['LeftFoot']),('Ski_Right_Socket','RightFoot',heads['RightFoot']),('Pole_Left_Socket','LeftHand',heads['LeftHand']),('Pole_Right_Socket','RightHand',heads['RightHand'])]
 for name,bone,position in sockets:
     obj=bpy.data.objects.new(name,None);bpy.context.collection.objects.link(obj);obj.location=position;rigid(obj,bone)
 
@@ -564,6 +565,7 @@ for obj in list(objects):
     if obj.name.startswith('Bib_Bound_Edge') or 'Rifle_Harness_Webbing' in obj.name or obj.name.startswith('Harness_Stitch') or '_Torso_Flatlock' in obj.name:
         objects.remove(obj);bpy.data.objects.remove(obj,do_unlink=True)
 fitted_harness(clothes,bib,arm,mesh,tube,black,stitch,weight_z)
+rifle_suspension_receipt=add_suspension(mesh,material,materials,arm,EQUIPMENT_SETTINGS)
 # Sample the centre-front surface explicitly. Nearest-point fitting a tube from
 # inside the old torso collapsed its cross-section and made it bridge the neck.
 for old in list(objects):
@@ -634,7 +636,7 @@ def join_meshes(name,parts,bone=None,origin=None):
 allmesh=[o for o in scene.objects if o.type=='MESH'];gear=[];rigged=[]
 glasses=join_meshes('Eyewear_Glasses',glasses_parts,'Head',heads['Head']);gear.append(glasses)
 mask=join_meshes('Eyewear_Mask',mask_meshes,'Head',heads['Head']);mask.hide_render=True;gear.append(mask)
-rifle=join_meshes('Rifle_Prop',rifleparts,'Spine',(.045,.188,1.36));gear.append(rifle)
+rifle=join_meshes('Rifle_Prop',rifleparts,EQUIPMENT_SETTINGS['rifle_carry_bone'],(.045,.188,1.36));gear.append(rifle)
 for pre in ['Left','Right']:
     poleparts=[o for o in scene.objects if o.type=='MESH' and o.name.startswith(pre+'_') and ('_Pole' in o.name or '_Carbon_Pole' in o.name)]
     gear.append(join_meshes(pre+'_Pole_Prop',poleparts,pre+'Hand',heads[pre+'Hand']))
@@ -665,6 +667,7 @@ manifest['eyewear_variants']=['glasses','mask']
 manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/provenance.json').read_text())
 manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
 manifest['rifle_visual_fit']=rifle_visual_receipt
+manifest['rifle_suspension']=rifle_suspension_receipt
 manifest['mask_webbing']=mask_webbing_receipt
 manifest['walnut_source']=json.loads((anatomy_path.parents[2]/'Walnut/provenance.json').read_text())
 for obj in character_objects:

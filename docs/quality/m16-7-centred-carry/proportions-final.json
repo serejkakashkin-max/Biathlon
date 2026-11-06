@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "m167_owner_rifle_visual_proportion_gate",
+  "pass": true,
+  "athlete_height_m": 1.7594786696135998,
+  "shoulder_span_m": 0.38741397857666016,
+  "assembly_world_bounds_m": {
+    "x": 0.16468698531389236,
+    "y": 0.05291996896266937,
+    "z": 0.9921329617500305
+  },
+  "rows": [
+    {
+      "name": "assembly_height_to_athlete",
+      "value": 0.5638789369171002,
+      "minimum": 0.49,
+      "maximum": 0.58,
+      "pass": true
+    },
+    {
+      "name": "assembly_width_to_shoulders",
+      "value": 0.42509303850868835,
+      "minimum": 0.15,
+      "maximum": 0.5,
+      "pass": true
+    },
+    {
+      "name": "assembly_centre_offset_m",
+      "value": 1.4640390872955322e-06,
+      "minimum": 0,
+      "maximum": 0.015,
+      "pass": true
+    },
+    {
+      "name": "wooden_stock_width_to_shoulders",
+      "value": 0.26141137175278717,
+      "minimum": 0.1,
+      "maximum": 0.34,
+      "pass": true
+    },
+    {
+      "name": "wooden_stock_thickness_m",
+      "value": 0.03240002691745758,
+      "minimum": 0.022,
+      "maximum": 0.036,
+      "pass": true
+    },
+    {
+      "name": "upper_visible_barrel_profile_m",
+      "value": 0.019600003957748375,
+      "minimum": 0.012,
+      "maximum": 0.024,
+      "pass": true
+    }
+  ],
+  "scope": "art proportions for this1.8mhero; approximated from owner CGTrader/full-body reference and real competition photos, not official manufacturing limits"
+}

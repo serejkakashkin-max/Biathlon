@@ -27,7 +27,7 @@ def fit_rifle(parts,registry,material,mesh,rigid,materials,settings):
                 delta=point-centre;point=scale@centre+Vector((delta.x*.75,delta.y*.75,delta.z*sz))
             else:point=scale@point
             vertex.co=carry@point
-        obj.data.update();rigid(obj,'Spine');kept.append(obj)
+        obj.data.update();rigid(obj,settings['rifle_carry_bone']);kept.append(obj)
         if obj.name=='PULSE_Biathlon_Walnut_Stock':obj['aperture_probe_frame']=json.dumps([list(row)for row in carry@scale])
     satin=material('PULSE_Rifle_Barrel_Satin',(.036,.044,.051),.32,.80);materials.append(satin)
     vertices=[];faces=[];uv=[];segments=16;radial=64
@@ -38,6 +38,6 @@ def fit_rifle(parts,registry,material,mesh,rigid,materials,settings):
             if j and i<radial:
                 a=(j-1)*(radial+1)+i;faces.append((a,a+1,a+radial+2,a+radial+1))
     faces.extend([tuple(range(radial-1,-1,-1)),tuple(segments*(radial+1)+i for i in range(radial))])
-    barrel=mesh('PULSE_Slim_Barrel_Exterior',vertices,faces,[satin],uv=uv);rigid(barrel,'Spine');kept.append(barrel)
+    barrel=mesh('PULSE_Slim_Barrel_Exterior',vertices,faces,[satin],uv=uv);rigid(barrel,settings['rifle_carry_bone']);kept.append(barrel)
     for face in barrel.data.polygons[-2:]:face.use_smooth=False
-    return kept,{'profile_scale':sx,'thickness_scale':sy,'length_scale':sz,'carry_origin_m':settings['rifle_visual_carry_origin_m'],'carry_angle_degrees':settings['rifle_visual_carry_angle_degrees'],'removed_legacy_exterior_parts':removed,'barrel':'original capped round exterior mesh; no functional internals','round_sight_radial_scale':.75,'reference':'owner CGTrader athlete plus real competition photos; artistic fit, not manufacturing specifications'}
+    return kept,{'carry_bone':settings['rifle_carry_bone'],'profile_scale':sx,'thickness_scale':sy,'length_scale':sz,'carry_origin_m':settings['rifle_visual_carry_origin_m'],'carry_angle_degrees':settings['rifle_visual_carry_angle_degrees'],'removed_legacy_exterior_parts':removed,'barrel':'original capped round exterior mesh; no functional internals','round_sight_radial_scale':.75,'reference':'owner CGTrader athlete plus real competition photos; artistic fit, not manufacturing specifications'}

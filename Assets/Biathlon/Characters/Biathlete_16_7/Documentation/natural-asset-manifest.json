@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "c3026834c17c6b1b762e3090c1659ba79dab03a514b5408fd02c6feedf7aae42",
+  "export_fbx_sha256": "0313a3f6ed018faf8fa13578afbe819034cbeb75c02f6ce24483559c377a16bb",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -30,7 +30,7 @@
       "vertices": 8927,
       "uv_layers": 1,
       "skinned": false,
-      "bone_parent": "Spine"
+      "bone_parent": "Spine02"
     },
     {
       "name": "Left_Pole_Prop",
@@ -98,24 +98,24 @@
     },
     {
       "name": "Biathlete_Body_LOD0",
-      "triangles": 92335,
-      "vertices": 48130,
+      "triangles": 93119,
+      "vertices": 48530,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD1",
-      "triangles": 36934,
-      "vertices": 19970,
+      "triangles": 37246,
+      "vertices": 20139,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 12926,
-      "vertices": 7523,
+      "triangles": 13035,
+      "vertices": 7586,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
@@ -495,6 +495,17 @@
       ],
       "roughness": 0.7799999713897705,
       "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Rifle_Harness_Suspension",
+      "color": [
+        0.008999999612569809,
+        0.012000000104308128,
+        0.01600000075995922,
+        1.0
+      ],
+      "roughness": 0.8600000143051147,
+      "metallic": 0.0
     }
   ],
   "sockets": [
@@ -505,7 +516,7 @@
     "Pole_Left_Socket",
     "Pole_Right_Socket"
   ],
-  "equipment_detail_definition_sha256": "524495d1c24322bd4f9535242f05e3cb4ec197801d70e4c7a01398919d1dfaf5",
+  "equipment_detail_definition_sha256": "69706b826b6c919cfc6629624055226adc3c465349ec036ced5623f49909f701",
   "eyewear_variants": [
     "glasses",
     "mask"
@@ -530,12 +541,13 @@
   },
   "rifle_reference_usage": "view-only visual reference; independently authored external stock/fittings, no source model copied",
   "rifle_visual_fit": {
+    "carry_bone": "Spine02",
     "profile_scale": 0.55,
     "thickness_scale": 0.72,
     "length_scale": 0.92,
     "carry_origin_m": [
-      -0.115,
-      0.16,
+      -0.0225,
+      0.23,
       0.83
     ],
     "carry_angle_degrees": -1.5,
@@ -559,6 +571,94 @@
     "round_sight_radial_scale": 0.75,
     "reference": "owner CGTrader athlete plus real competition photos; artistic fit, not manufacturing specifications"
   },
+  "rifle_suspension": [
+    {
+      "object": "Right_Rifle_Suspension_Upper",
+      "shoulder_anchor": [
+        -0.14702099561691284,
+        0.15929996967315674,
+        1.447510838508606
+      ],
+      "stock_anchor": [
+        -0.015402554534375668,
+        0.21379999816417694,
+        1.3363593816757202
+      ],
+      "shoulder_weights": {
+        "Spine": 0.6600844264030457,
+        "RightShoulder": 0.17682284116744995,
+        "RightArm": 0.1630927175283432
+      },
+      "stock_bone": "Spine02",
+      "width_m": 0.024,
+      "thickness_m": 0.0018
+    },
+    {
+      "object": "Left_Rifle_Suspension_Upper",
+      "shoulder_anchor": [
+        0.14751183986663818,
+        0.15845194458961487,
+        1.4502133131027222
+      ],
+      "stock_anchor": [
+        -0.00880481768399477,
+        0.21379999816417694,
+        1.3365321159362793
+      ],
+      "shoulder_weights": {
+        "Spine": 0.6624137759208679,
+        "LeftShoulder": 0.1760934740304947,
+        "LeftArm": 0.1614927351474762
+      },
+      "stock_bone": "Spine02",
+      "width_m": 0.024,
+      "thickness_m": 0.0018
+    },
+    {
+      "object": "Right_Rifle_Suspension_Lower",
+      "shoulder_anchor": [
+        -0.13619618117809296,
+        0.1053425595164299,
+        1.2048205137252808
+      ],
+      "stock_anchor": [
+        0.027696367353200912,
+        0.21379999816417694,
+        1.0982059240341187
+      ],
+      "shoulder_weights": {
+        "Spine02": 0.5340005159378052,
+        "Spine01": 0.3927346467971802,
+        "Spine": 0.06843249499797821,
+        "Hips": 0.004832329228520393
+      },
+      "stock_bone": "Spine02",
+      "width_m": 0.024,
+      "thickness_m": 0.0018
+    },
+    {
+      "object": "Left_Rifle_Suspension_Lower",
+      "shoulder_anchor": [
+        0.13549664616584778,
+        0.10385968536138535,
+        1.1986362934112549
+      ],
+      "stock_anchor": [
+        0.03429410606622696,
+        0.21379999816417694,
+        1.0983786582946777
+      ],
+      "shoulder_weights": {
+        "Spine02": 0.5907365679740906,
+        "Spine01": 0.3516177535057068,
+        "Spine": 0.0520562045276165,
+        "Hips": 0.005589452106505632
+      },
+      "stock_bone": "Spine02",
+      "width_m": 0.024,
+      "thickness_m": 0.0018
+    }
+  ],
   "mask_webbing": {
     "construction": "closed_solid_cap_fitted_webbing",
     "width_m": 0.024,
@@ -978,7 +1078,7 @@
       }
     }
   },
-  "triangles": 234225,
-  "stored_lod0_triangles": 184365,
-  "active_lod0_triangles": 148329
+  "triangles": 235430,
+  "stored_lod0_triangles": 185149,
+  "active_lod0_triangles": 149113
 }

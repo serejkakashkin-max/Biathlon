@@ -107,6 +107,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PULSE_Rifle_Harness_Suspension
+    second: {fileID: 2100000, guid: f110c3e9f31f5574591338288bfefec1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PULSE_Rifle_Magazine_Red
     second: {fileID: 2100000, guid: 7f2536157cc4f924abe9d3bb27c23a90, type: 2}
   - first:
@@ -544,6 +549,16 @@ ModelImporter:
       position: {x: -0, y: 0.0922623, z: -0.000000022351742}
       rotation: {x: 0.18360025, y: 0, z: -0, w: 0.983001}
       scale: {x: 1, y: 0.9999999, z: 1}
+    - name: Rifle_Back_Socket
+      parentName:
+      position: {x: -0.045, y: 0.30487645, z: -0.07422021}
+      rotation: {x: -0.7084771, y: 0, z: 0, w: 0.70573384}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Rifle_Prop
+      parentName:
+      position: {x: -0.045, y: 0.30487645, z: -0.07422021}
+      rotation: {x: -0.7084771, y: 0, z: 0, w: 0.70573384}
+      scale: {x: 1, y: 1, z: 1.0000001}
     - name: Spine01
       parentName:
       position: {x: 7.275958e-12, y: 0.13137935, z: 0}
@@ -659,16 +674,6 @@ ModelImporter:
       position: {x: -0.00009624911, y: -0.1211639, z: 0.09062996}
       rotation: {x: -0.27170402, y: 0.00082867965, z: 0.0008314037, w: 0.9623802}
       scale: {x: 1, y: 1.0000001, z: 1.0000001}
-    - name: Rifle_Back_Socket
-      parentName:
-      position: {x: -0.045, y: 0.015789643, z: -0.058008358}
-      rotation: {x: -0.7971514, y: 0, z: 0, w: 0.6037795}
-      scale: {x: 1, y: 0.9999999, z: 1.0000001}
-    - name: Rifle_Prop
-      parentName:
-      position: {x: -0.045, y: 0.015789643, z: -0.058008358}
-      rotation: {x: -0.7971514, y: 0, z: 0, w: 0.6037795}
-      scale: {x: 1, y: 0.9999999, z: 1.0000001}
     - name: RightShoulder
       parentName:
       position: {x: 0.023777694, y: 0.15728039, z: 0.032593366}

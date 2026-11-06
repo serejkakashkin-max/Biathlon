@@ -1,0 +1,35 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":2,\"PassedTests\":0,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:00:00.2524872\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedRifleIsCentredOverTheBack\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0190000\",\"Message\":\"  Owner requires centred carry; actual silhouette centre=0,09250m.\\r\\n  Expected: less than or equal to 0.0149999997f\\r\\n  But was:  0.0925014615f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedStockStaysOutsideTheActualBackAndPelvis\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.1200000\",\"Message\":\"  Stock enters actual back/pelvis: pose=-1, gap=-0,02355m, point=(0.03, 0.91, -0.14).\\r\\n  Expected: greater than or equal to 0.00600000005f\\r\\n  But was:  -0.0235530138f\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 2,
+        "PassedTests": 0,
+        "FailedTests": 2,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.2524872"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedRifleIsCentredOverTheBack",
+          "Status": "Failed",
+          "Duration": "00:00:00.0190000",
+          "Message": "  Owner requires centred carry; actual silhouette centre=0,09250m.\r\n  Expected: less than or equal to 0.0149999997f\r\n  But was:  0.0925014615f\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedStockStaysOutsideTheActualBackAndPelvis",
+          "Status": "Failed",
+          "Duration": "00:00:00.1200000",
+          "Message": "  Stock enters actual back/pelvis: pose=-1, gap=-0,02355m, point=(0.03, 0.91, -0.14).\r\n  Expected: greater than or equal to 0.00600000005f\r\n  But was:  -0.0235530138f\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.1228610\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167EquipmentTests.RifleHarnessHasSolidSuspensionBridges\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0190000\",\"Message\":\"  Centred carry needs visible shoulder-to-stock suspension, not unsupported floating geometry.\\r\\n  Expected: greater than or equal to 0\\r\\n  But was:  -1\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 1,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.1228610"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.RifleHarnessHasSolidSuspensionBridges",
+          "Status": "Failed",
+          "Duration": "00:00:00.0190000",
+          "Message": "  Centred carry needs visible shoulder-to-stock suspension, not unsupported floating geometry.\r\n  Expected: greater than or equal to 0\r\n  But was:  -1\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

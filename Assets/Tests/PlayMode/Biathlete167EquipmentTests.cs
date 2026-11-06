@@ -18,6 +18,65 @@ namespace Biathlon.PlayModeTests
     {
         private const string Root="Assets/Biathlon/Characters/Biathlete_16_7";
         private Biathlete167Rig Create()=>Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/Prefabs/Biathlete_16_7_Natural.prefab")).GetComponent<Biathlete167Rig>();
+        [Test] public void RifleHarnessHasSolidSuspensionBridges()
+        {
+            var rig=Create();var baked=new Mesh();try
+            {
+                var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();
+                int submesh=Array.FindIndex(skin.sharedMaterials,m=>m.name=="PULSE_Rifle_Harness_Suspension");
+                Assert.That(submesh,Is.GreaterThanOrEqualTo(0),"Centred carry needs visible shoulder-to-stock suspension, not unsupported floating geometry.");
+                Assert.That(skin.sharedMesh.GetTriangles(submesh).Length/3,Is.GreaterThanOrEqualTo(100));
+                rig.SetPose(0);skin.BakeMesh(baked);var rest=baked.vertices;var weights=skin.sharedMesh.boneWeights;
+                int carry=Array.IndexOf(skin.bones,rig.Socket(Biathlete167Socket.RifleBack).parent);Assert.That(carry,Is.GreaterThanOrEqualTo(0));
+                var anchors=skin.sharedMesh.GetTriangles(submesh).Distinct().Where(i=>weights[i].boneIndex0==carry&&weights[i].weight0>.99999f).ToArray();
+                Assert.That(anchors.Length,Is.GreaterThanOrEqualTo(16),"All four bridges need imported stock-side anchor vertices.");
+                var local=anchors.Select(i=>rig.Rifle.InverseTransformPoint(skin.transform.TransformPoint(rest[i]))).ToArray();
+                using(var motion=new Biathlete167MainMotion(rig))foreach(SkiMotionState state in Enum.GetValues(typeof(SkiMotionState)))for(int phase=0;phase<4;phase++)
+                {
+                    motion.State=state;motion.Evaluate(phase/4f);skin.BakeMesh(baked);var points=baked.vertices;
+                    for(int i=0;i<anchors.Length;i++)Assert.That(Vector3.Distance(skin.transform.TransformPoint(points[anchors[i]]),rig.Rifle.TransformPoint(local[i])),Is.LessThan(.0001f),$"Suspension stock anchor drift: {state}/{phase}.");
+                }
+            }finally{Object.DestroyImmediate(baked);Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Test] public void CarriedRifleIsCentredOverTheBack()
+        {
+            var rig=Create();try
+            {
+                rig.SetPose(0);var mesh=rig.Rifle.GetComponent<MeshFilter>().sharedMesh;
+                var points=mesh.vertices.Select(v=>rig.transform.InverseTransformPoint(rig.Rifle.TransformPoint(v))).ToArray();
+                float centre=(points.Min(p=>p.x)+points.Max(p=>p.x))*.5f;
+                Assert.That(Mathf.Abs(centre),Is.LessThanOrEqualTo(.015f),$"Owner requires centred carry; actual silhouette centre={centre:F5}m.");
+            }finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Test] public void CarriedStockStaysOutsideTheActualBackAndPelvis()
+        {
+            var rig=Create();var baked=new Mesh();var probe=new GameObject("QA only baked-body ray probe");try
+            {
+                var collider=probe.AddComponent<MeshCollider>();
+                var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();
+                var mesh=rig.Rifle.GetComponent<MeshFilter>().sharedMesh;var vertices=mesh.vertices;
+                int wood=Array.FindIndex(rig.Rifle.GetComponent<Renderer>().sharedMaterials,m=>m.name=="PULSE_Natural_Rifle_Walnut");Assert.That(wood,Is.GreaterThanOrEqualTo(0));
+                var points=mesh.GetTriangles(wood).Distinct().Select(i=>vertices[i]).ToArray();int hits=0;float minimumGap=float.PositiveInfinity;
+                var states=(SkiMotionState[])Enum.GetValues(typeof(SkiMotionState));
+                using(var motion=new Biathlete167MainMotion(rig))for(int pose=-1;pose<states.Length*4;pose++)
+                {
+                    if(pose<0)rig.SetPose(0);else{motion.State=states[pose/4];motion.Evaluate((pose%4)/4f);}
+                    collider.sharedMesh=null;skin.BakeMesh(baked);var body=baked.vertices;
+                    for(int i=0;i<body.Length;i++)body[i]=skin.transform.TransformPoint(body[i]);baked.vertices=body;baked.RecalculateBounds();collider.sharedMesh=baked;
+                    foreach(var local in points)
+                    {
+                        var point=rig.Rifle.TransformPoint(local);var direction=rig.transform.forward;
+                        if(!collider.Raycast(new Ray(point-direction*.6f,direction),out var hit,1.4f))continue;
+                        hits++;float gap=hit.distance-.6f;minimumGap=Mathf.Min(minimumGap,gap);
+                        Assert.That(gap,Is.GreaterThanOrEqualTo(.006f),$"Stock enters actual back/pelvis: pose={pose}, gap={gap:F5}m, point={point}.");
+                    }
+                }
+                Assert.That(hits,Is.GreaterThan(20),"Probe must actually sample the body behind the wood silhouette.");
+                string folder="artifacts/m16-7-centred-carry-20261106";Directory.CreateDirectory(folder);
+                File.WriteAllText(folder+"/stock-clearance.json",JsonUtility.ToJson(new StockClearanceReceipt{states=states.Length,poses=states.Length*4+1,ray_hits=hits,minimum_gap_m=minimumGap},true));
+            }finally{Object.DestroyImmediate(probe);Object.DestroyImmediate(baked);Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Serializable] private sealed class StockClearanceReceipt{public int schema_version=1;public string id="m167_actual_baked_stock_back_clearance";public int states,poses,ray_hits;public float minimum_gap_m;}
         [Test] public void CarriedBarrelClearsTheActualHeadAndNeckInAllMotionStates()
         {
             var rig=Create();var baked=new Mesh();try
@@ -153,7 +212,7 @@ namespace Biathlon.PlayModeTests
             var field=studio.GetComponent<UIDocument>().rootVisualElement.Q<DropdownField>("athlete-eyewear");Assert.That(field,Is.Not.Null);
             field.index=1;yield return null;Assert.That(studio.Rig.Eyewear,Is.EqualTo(Biathlete167Eyewear.Mask));
             field.index=0;yield return null;Assert.That(studio.Rig.Eyewear,Is.EqualTo(Biathlete167Eyewear.Glasses));
-            string folder=Path.Combine(Application.dataPath,"../artifacts/m16-7-rifle-scale-20261106/native");Directory.CreateDirectory(folder);
+            string folder=Path.Combine(Application.dataPath,"../artifacts/m16-7-centred-carry-20261106/native");Directory.CreateDirectory(folder);
             studio.Motion.Stop();studio.Rig.SetPose(0);
             using(var target=new BenchmarkRenderTarget(1100,1400))
             {
@@ -166,7 +225,7 @@ namespace Biathlon.PlayModeTests
                 try
                 {
                     camera.fieldOfView=37f;
-                    foreach(var item in new[]{("mask-side-detail",new Vector3(.72f,1.70f,.03f),new Vector3(0,1.69f,0)),("mask-rear-detail",new Vector3(.50f,1.72f,-.60f),new Vector3(0,1.70f,0)),("rifle-detail",new Vector3(.7f,1.38f,-1.9f),new Vector3(0,1.36f,-.18f)),("rifle-back-full",new Vector3(0,1.02f,-3.8f),new Vector3(0,1.02f,0)),("rifle-three-quarter-full",new Vector3(2.4f,1.2f,-3.2f),new Vector3(0,1.02f,0))})
+                    foreach(var item in new[]{("mask-side-detail",new Vector3(.72f,1.70f,.03f),new Vector3(0,1.69f,0)),("mask-rear-detail",new Vector3(.50f,1.72f,-.60f),new Vector3(0,1.70f,0)),("rifle-detail",new Vector3(.7f,1.38f,-1.9f),new Vector3(0,1.36f,-.18f)),("rifle-back-full",new Vector3(0,1.02f,-3.8f),new Vector3(0,1.02f,0)),("rifle-side-full",new Vector3(3.8f,1.02f,0),new Vector3(0,1.02f,0)),("rifle-butt-detail",new Vector3(1.2f,1.05f,-1.8f),new Vector3(0,.97f,-.2f)),("rifle-three-quarter-full",new Vector3(2.4f,1.2f,-3.2f),new Vector3(0,1.02f,0))})
                     {
                         camera.transform.position=studio.Rig.transform.TransformPoint(item.Item2);camera.transform.LookAt(studio.Rig.transform.TransformPoint(item.Item3));
                         yield return null;target.Render(camera);yield return new WaitForEndOfFrame();target.SavePng(folder+"/"+item.Item1+".png");
