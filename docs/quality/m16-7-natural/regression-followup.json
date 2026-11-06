@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "m167_expanded_run_followup",
+  "initial_snapshot": {
+    "Status": "Incomplete - expanded run stopped after slow unrelated replay cases",
+    "TotalTests": 686,
+    "CompletedTests": 161,
+    "PassedTests": 158,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Complete": false
+  },
+  "complete_assembly_rerun": false,
+  "cancelled_through_unity_test_runner": true,
+  "fixes": [
+    {
+      "old_test": "BalanceReviewUiTests.EquipmentCardsActuallyPaintEachCatalogSkiColor",
+      "cause": "Retired SkiPairGraphic expected after shipping artwork and pagination replaced the UI.",
+      "change": "Actual resource binding and nonblank multicolor pixels for all eight products through real page buttons; no test disabled."
+    },
+    {
+      "old_test": "BenchmarkProfilingTests.OffscreenCameraRendersAndLeavesTargetAndLoopIntact",
+      "cause": "URP SingleCameraRequest silently produces no color output when the active pipeline is Built-In.",
+      "change": "Use Camera.Render for Built-In, retain URP request path; restore camera/active targets. Explicit tests cover both pipelines."
+    },
+    {
+      "old_test": "CareerRaceAppearanceTests.CountryPaletteCoversEverySavedRosterNationAndKeepsUnknownCountriesNeutral",
+      "cause": "Shared expanded palette has seven nations; legacy saved roster intentionally has six.",
+      "change": "Verify unique colors and actual material output for both v1 and v2 rosters, including neutral unknown countries."
+    }
+  ],
+  "retest": {
+    "Status": "Passed",
+    "TotalTests": 69,
+    "PassedTests": 69,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:13.7492498"
+  },
+  "authoritative_gameplay_changed": false,
+  "api_reference": "https://docs.unity.com/en-us/engine/6000.6/script-reference/unityengine/rendering/renderpipeline/submitrenderrequest"
+}

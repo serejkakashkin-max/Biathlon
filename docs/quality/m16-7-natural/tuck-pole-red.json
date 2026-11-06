@@ -1,0 +1,30 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":12,\"PassedTests\":11,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.2697948\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(Tuck)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0040000\",\"Message\":\"  Tuck pole must trail behind the athlete rather than point upward.\\r\\n  Expected: less than 8\\r\\n  But was:  24.7770462f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings (Biathlon.Unity.Presentation.SkiMotionState state) [0x0026b] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\Biathlete167NaturalTests.cs:167\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 12,
+        "PassedTests": 11,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.2697948"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(Tuck)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0040000",
+          "Message": "  Tuck pole must trail behind the athlete rather than point upward.\r\n  Expected: less than 8\r\n  But was:  24.7770462f\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings (Biathlon.Unity.Presentation.SkiMotionState state) [0x0026b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167NaturalTests.cs:167\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

@@ -1,0 +1,264 @@
+using System;
+using Biathlon.Domain;
+using Biathlon.Simulation;
+using UnityEngine;
+using Object=UnityEngine.Object;
+
+namespace Biathlon.Unity.Presentation
+{
+    /// <summary>Retargets the actual production G2 pose pipeline to the imported athlete.
+    /// The donor is invisible and receives synthetic preview inputs only. No race host exists.
+    /// Bone directions/angles come from the game's drivers; this class authors no skating cycle.</summary>
+    public sealed class Biathlete167MainMotion:IDisposable
+    {
+        private static readonly HumanBodyBones[] Human={HumanBodyBones.Hips,HumanBodyBones.Spine,HumanBodyBones.Chest,HumanBodyBones.Neck,HumanBodyBones.Head,
+            HumanBodyBones.LeftUpperArm,HumanBodyBones.LeftLowerArm,HumanBodyBones.LeftHand,HumanBodyBones.RightUpperArm,HumanBodyBones.RightLowerArm,HumanBodyBones.RightHand,
+            HumanBodyBones.LeftUpperLeg,HumanBodyBones.LeftLowerLeg,HumanBodyBones.LeftFoot,HumanBodyBones.RightUpperLeg,HumanBodyBones.RightLowerLeg,HumanBodyBones.RightFoot};
+        private readonly Biathlete167Rig target;
+        private readonly Transform root;
+        private readonly Transform[] to=new Transform[17],from=new Transform[17];
+        private readonly Quaternion[] targetBind=new Quaternion[17],sourceBind=new Quaternion[17];
+        private readonly Vector3 hipBind,sourceHipBind;
+        private readonly AthleteRiflePresentation rifle;
+        private readonly AthleteGroundContact contact;
+        private readonly AthleteGripPresentation grip;
+        private readonly AthleteEquipmentBinding equipment;
+        private readonly Prop leftPole,rightPole;
+        private readonly FootContact leftFoot,rightFoot;
+        private readonly ContactSettings settings;
+        public bool ContactAdaptationEnabled{get;set;}=true;
+        public float MaximumWristBendDegrees{get;private set;}
+        public float MaximumBindingResidualMeters{get;private set;}
+        public float MaximumHeelRiseDegrees{get;private set;}
+        private readonly Renderer[] hiddenRenderers;
+        private readonly bool[] referenceRendererStates;
+        private bool referenceVisible;
+        public AthleteRigBinding SourceRig{get;}
+        public AthleteHybridLocomotionDriver SourceDriver{get;}
+        public SkiMotionState State{get;set;}=SkiMotionState.Flat;
+        public float CycleSeconds{get;private set;}
+        public float Phase{get;private set;}
+
+        public Biathlete167MainMotion(Biathlete167Rig binding)
+        {
+            target=binding??throw new ArgumentNullException(nameof(binding));target.Validate();target.SetPose(0);root=target.transform;
+            SourceRig=AthleteRigFactory.Create(root.parent);SourceRig.name="Main athlete motion reference";
+            SourceRig.transform.SetPositionAndRotation(root.position,root.rotation);
+            SourceRig.gameObject.hideFlags=HideFlags.DontSave;
+            hiddenRenderers=SourceRig.GetComponentsInChildren<Renderer>(true);
+            referenceRendererStates=new bool[hiddenRenderers.Length];
+            for(int i=0;i<hiddenRenderers.Length;i++){referenceRendererStates[i]=hiddenRenderers[i].enabled;hiddenRenderers[i].enabled=false;}
+            // The factory's runtime components remain callable as ordinary C# objects;
+            // no independent Update/LateUpdate is allowed to alter the reference pose.
+            foreach(var component in SourceRig.GetComponentsInChildren<MonoBehaviour>(true))component.enabled=false;
+            SourceDriver=SourceRig.GetComponent<AthleteHybridLocomotionDriver>();SourceDriver.UseOriginalMotion=false;
+            rifle=SourceRig.GetComponent<AthleteRiflePresentation>();contact=SourceRig.GetComponent<AthleteGroundContact>();
+            grip=SourceRig.GetComponent<AthleteGripPresentation>();equipment=SourceRig.GetComponent<AthleteEquipmentBinding>();
+            SourceRig.ResetPose();
+            for(int i=0;i<17;i++)
+            {
+                to[i]=target.Bone(Human[i]);from[i]=SourceRig.Bone((AthleteBone)i);
+                targetBind[i]=Quaternion.Inverse(root.rotation)*to[i].rotation;
+                sourceBind[i]=Quaternion.Inverse(root.rotation)*from[i].rotation;
+            }
+            hipBind=root.InverseTransformPoint(to[0].position);sourceHipBind=root.InverseTransformPoint(from[0].position);
+            settings=JsonUtility.FromJson<ContactSettings>(target.ContactDefinition.text);settings.Validate();
+            leftPole=ReadPole(to[7],target.GripContact(false),target.TuckGripContact(false));rightPole=ReadPole(to[10],target.GripContact(true),target.TuckGripContact(true));
+            leftFoot=ReadFoot(false,13);rightFoot=ReadFoot(true,16);
+            SampleReference(0);CycleSeconds=SourceDriver.CadenceHz>.0001f?1/SourceDriver.CadenceHz:1;target.SetPose(0);
+        }
+
+        public void Evaluate(float phase)
+        {
+            if(!float.IsFinite(phase))throw new ArgumentOutOfRangeException(nameof(phase));
+            Phase=Mathf.Repeat(phase,1);target.SetPose(0,true);
+            target.SetTuckGrip(ContactAdaptationEnabled&&State==SkiMotionState.Tuck);
+            SourceRig.transform.SetPositionAndRotation(root.position,root.rotation);
+            var input=SkiMotionComparison.Input(State);SourceDriver.Sample(SourceRig,input,100,ReferenceExertion());
+            CycleSeconds=SourceDriver.CadenceHz>.0001f?1/SourceDriver.CadenceHz:1;SampleReference(Phase*CycleSeconds);
+            // Retarget in world directions. The imported bind axes differ from G2;
+            // copying local Euler angles would twist the arms and reverse the knees.
+            to[0].position=root.TransformPoint(hipBind+root.InverseTransformPoint(from[0].position)-sourceHipBind);
+            for(int i=0;i<5;i++)CopyRotation(i);
+            CopyLimb(5);CopyLimb(8);CopyLimb(11);CopyLimb(14);
+            MaximumWristBendDegrees=MaximumBindingResidualMeters=MaximumHeelRiseDegrees=0;
+            if(ContactAdaptationEnabled)
+            {
+                if(State==SkiMotionState.Tuck){ApplyTuckHand(leftPole,6,7);ApplyTuckHand(rightPole,9,10);}
+                else{ApplyPole(leftPole,equipment.LeftPole,6,7);ApplyPole(rightPole,equipment.RightPole,9,10);}
+                ApplyFoot(leftFoot);ApplyFoot(rightFoot);
+            }
+        }
+
+        private void SampleReference(double time)
+        {
+            for(int i=0;i<hiddenRenderers.Length;i++)hiddenRenderers[i].enabled=referenceRendererStates[i];
+            var input=SkiMotionComparison.Input(State);var exertion=ReferenceExertion();
+            // Explicit rewind reset gives reproducible exact-phase studio scrubbing.
+            SourceDriver.Sample(SourceRig,input,time+10,exertion);SourceDriver.Sample(SourceRig,input,time,exertion);
+            rifle.Sample(SourceRig,0);
+            contact.SampleMoving(SourceRig,input.Grade,SourceDriver.PoleCycle,SourceDriver.ContactState,0,time+10);
+            contact.SampleMoving(SourceRig,input.Grade,SourceDriver.PoleCycle,SourceDriver.ContactState,0,time);
+            SourceDriver.ApplySkiEdges(SourceRig);grip.Render(SourceRig);
+            for(int i=0;i<hiddenRenderers.Length;i++){referenceRendererStates[i]=hiddenRenderers[i].enabled;hiddenRenderers[i].enabled=referenceVisible&&referenceRendererStates[i];}
+        }
+
+        private ExertionInput ReferenceExertion()=>State==SkiMotionState.Fatigued?new ExertionInput(.7f,.2f,185):new ExertionInput(0,1,140);
+
+        public void SetReferenceVisible(bool value)
+        {
+            referenceVisible=value;
+            for(int i=0;i<hiddenRenderers.Length;i++)hiddenRenderers[i].enabled=value&&referenceRendererStates[i];
+        }
+
+        private void CopyRotation(int i)
+        {
+            var source=Quaternion.Inverse(root.rotation)*from[i].rotation;
+            to[i].rotation=root.rotation*source*Quaternion.Inverse(sourceBind[i])*targetBind[i];
+        }
+
+        private void CopyLimb(int first)
+        {
+            var upper=to[first];var lower=to[first+1];var end=to[first+2];
+            upper.rotation=Quaternion.FromToRotation(lower.position-upper.position,from[first+1].position-from[first].position)*upper.rotation;
+            lower.rotation=Quaternion.FromToRotation(end.position-lower.position,from[first+2].position-from[first+1].position)*lower.rotation;
+            CopyRotation(first+2);
+        }
+
+        private Prop ReadPole(Transform hand,Transform contactFrame,Transform tuckFrame)
+        {
+            var selected=LongestProp(hand);
+            return new Prop{Transform=selected,Hand=hand,Contact=contactFrame,TuckContact=tuckFrame,
+                TuckGripInHand=hand.InverseTransformPoint(tuckFrame.position),TuckContactInHand=Quaternion.Inverse(hand.rotation)*tuckFrame.rotation,
+                ModelOriginFromGrip=contactFrame.InverseTransformPoint(selected.position),ModelRotationFromGrip=Quaternion.Inverse(contactFrame.rotation)*selected.rotation,
+                Axis=selected.InverseTransformDirection(contactFrame.up),GripInHand=hand.InverseTransformPoint(contactFrame.position),ContactInHand=Quaternion.Inverse(hand.rotation)*contactFrame.rotation,
+                Side=Mathf.Sign(root.InverseTransformPoint(hand.position).x),ForearmAxis=hand.InverseTransformDirection(hand.position-hand.parent.position)};
+        }
+
+        private static Transform LongestProp(Transform parent)
+        {
+            MeshFilter selected=null;float longest=0;
+            foreach(var filter in parent.GetComponentsInChildren<MeshFilter>(true))
+                if(filter.sharedMesh!=null&&filter.sharedMesh.bounds.size.magnitude>longest)
+                {selected=filter;longest=filter.sharedMesh.bounds.size.magnitude;}
+            if(selected==null)throw new InvalidOperationException("Independent equipment mesh is missing.");
+            return selected.transform;
+        }
+
+        private void ApplyTuckHand(Prop pole,int lowerIndex,int handIndex)
+        {
+            // A full anatomical hand frame is required: aligning only the shaft
+            // leaves the palm free to roll outward around that shaft.
+            float pitch=settings.tuck_pole_elevation_degrees*Mathf.Deg2Rad;
+            float splay=settings.tuck_pole_splay_degrees*Mathf.Deg2Rad;
+            var direction=root.TransformDirection(new Vector3(pole.Side*Mathf.Sin(splay)*Mathf.Cos(pitch),Mathf.Sin(pitch),-Mathf.Cos(splay)*Mathf.Cos(pitch)));
+            float palmRoll=settings.tuck_palm_up_roll_degrees*Mathf.Deg2Rad;
+            var palm=pole.Side*root.right*Mathf.Cos(palmRoll)+root.up*Mathf.Sin(palmRoll);
+            palm=Vector3.ProjectOnPlane(palm,direction).normalized;
+            var contactRotation=Quaternion.LookRotation(Vector3.Cross(palm,direction),direction);
+            var handRotation=contactRotation*Quaternion.Inverse(pole.TuckContactInHand);
+            var upper=to[lowerIndex-1];var lower=to[lowerIndex];var hand=to[handIndex];
+            var shoulder=root.InverseTransformPoint(upper.position);var head=root.InverseTransformPoint(to[4].position);
+            var desiredGrip=root.TransformPoint(new Vector3(pole.Side*settings.tuck_grip_half_width_m,shoulder.y-settings.tuck_grip_below_shoulder_m,Mathf.Max(head.z+settings.tuck_grip_forward_of_head_m,shoulder.z+settings.tuck_minimum_reach_forward_m)));
+            // The hand anchor is at the upper end of the grip. Contact frames
+            // remain at the prop centre so existing mesh/shaft checks stay exact.
+            desiredGrip+=direction*settings.tuck_upper_grip_offset_m;
+            var desiredWrist=desiredGrip-handRotation*Vector3.Scale(pole.TuckGripInHand,hand.lossyScale);
+            // Solve both segment directions to the wrist. Projecting a desired
+            // elbow onto a sphere and then forcing a preselected forearm rotation
+            // moved the wrist sideways and drove the poles through the torso.
+            var hint=root.TransformDirection(new Vector3(-pole.Side*.03f,-1,.10f));
+            SolveImportedLimb(upper,lower,hand,desiredWrist,hint);
+            hand.rotation=handRotation;
+            pole.Transform.SetPositionAndRotation(pole.TuckContact.TransformPoint(pole.ModelOriginFromGrip),pole.TuckContact.rotation*pole.ModelRotationFromGrip);
+            MaximumWristBendDegrees=Mathf.Max(MaximumWristBendDegrees,Vector3.Angle(hand.TransformDirection(pole.ForearmAxis),hand.position-lower.position));
+        }
+
+        private void ApplyPole(Prop pole,Transform sourcePole,int lowerIndex,int handIndex)
+        {
+            for(int pass=0;pass<3;pass++)
+            {
+                OrientHand(pole,sourcePole,lowerIndex,handIndex);
+                var grip=root.InverseTransformPoint(pole.Contact.position);var desired=grip;
+                float side=pole.Side;
+                desired.x=side*Mathf.Max(settings.minimum_grip_half_width_m,grip.x*side);
+                var shift=root.TransformVector(desired-grip);
+                if(shift.sqrMagnitude<.00000001f)break;
+                var upper=to[lowerIndex-1];var lower=to[lowerIndex];var hand=to[handIndex];
+                var hint=lower.position-(upper.position+hand.position)*.5f;
+                SolveImportedLimb(upper,lower,hand,hand.position+shift,hint);
+            }
+            OrientHand(pole,sourcePole,lowerIndex,handIndex);
+        }
+
+        private void OrientHand(Prop pole,Transform sourcePole,int lowerIndex,int handIndex)
+        {
+            var forearm=(pole.Hand.position-to[lowerIndex].position).normalized;
+            var neutral=to[lowerIndex].rotation*Quaternion.Inverse(root.rotation*targetBind[lowerIndex])*(root.rotation*targetBind[handIndex]);
+            pole.Hand.rotation=neutral;
+            var current=pole.Transform.TransformDirection(pole.Axis);
+            var desired=-sourcePole.up;
+            var a=Vector3.ProjectOnPlane(current,forearm);var b=Vector3.ProjectOnPlane(desired,forearm);
+            float roll=a.sqrMagnitude>.00001f&&b.sqrMagnitude>.00001f?Vector3.SignedAngle(a,b,forearm):0;
+            roll=Mathf.Clamp(roll,-settings.maximum_forearm_roll_degrees,settings.maximum_forearm_roll_degrees);
+            // Pronation belongs to the forearm; twisting only the rigid glove
+            // would put the entire axial rotation into the wrist seam.
+            to[lowerIndex].rotation=Quaternion.AngleAxis(roll,forearm)*to[lowerIndex].rotation;
+            neutral=Quaternion.AngleAxis(roll,forearm)*neutral;pole.Hand.rotation=neutral;
+            var full=Quaternion.FromToRotation(pole.Transform.TransformDirection(pole.Axis),desired)*neutral;
+            pole.Hand.rotation=Quaternion.RotateTowards(neutral,full,settings.maximum_wrist_bend_degrees);
+            MaximumWristBendDegrees=Mathf.Max(MaximumWristBendDegrees,Vector3.Angle(pole.Hand.TransformDirection(pole.ForearmAxis),forearm));
+        }
+
+        private FootContact ReadFoot(bool right,int index)
+        {
+            var foot=to[index];var ski=LongestProp(foot);var toe=target.ToeHinge(right);
+            return new FootContact{Index=index,Foot=foot,Ski=ski,Toe=toe,ToeLocal=foot.InverseTransformPoint(toe.position),
+                ForwardLocal=ski.InverseTransformDirection(root.forward),UpLocal=ski.InverseTransformDirection(root.up)};
+        }
+
+        private void ApplyFoot(FootContact contact)
+        {
+            var skiPosition=contact.Ski.position;var skiRotation=contact.Ski.rotation;var toe=contact.Toe.position;
+            var normal=contact.Ski.TransformDirection(contact.UpLocal);var forward=contact.Ski.TransformDirection(contact.ForwardLocal);
+            var lateral=Vector3.Cross(normal,forward).normalized;
+            var shin=(to[contact.Index-1].position-contact.Foot.position).normalized;
+            float lean=Vector3.SignedAngle(normal,Vector3.ProjectOnPlane(shin,lateral),lateral);
+            float rise=Mathf.Clamp(lean-settings.maximum_forward_ankle_degrees,0,settings.maximum_heel_rise_degrees);
+            var rotation=Quaternion.AngleAxis(rise,lateral)*contact.Foot.rotation;
+            var ankle=toe-rotation*Vector3.Scale(contact.ToeLocal,contact.Foot.lossyScale);
+            var upper=to[contact.Index-2];var lower=to[contact.Index-1];var hint=lower.position-(upper.position+contact.Foot.position)*.5f;
+            SolveImportedLimb(upper,lower,contact.Foot,ankle,hint);
+            contact.Foot.rotation=rotation;
+            // A Nordic ski is hinged at the toe, not welded to the ankle.
+            contact.Ski.SetPositionAndRotation(skiPosition,skiRotation);
+            MaximumBindingResidualMeters=Mathf.Max(MaximumBindingResidualMeters,Vector3.Distance(contact.Toe.position,toe));
+            MaximumHeelRiseDegrees=Mathf.Max(MaximumHeelRiseDegrees,rise);
+        }
+
+        private static void SolveImportedLimb(Transform upper,Transform lower,Transform end,Vector3 target,Vector3 hint)
+        {
+            var origin=upper.position;float a=Vector3.Distance(origin,lower.position),b=Vector3.Distance(lower.position,end.position);
+            var delta=target-origin;float length=Mathf.Clamp(delta.magnitude,Mathf.Abs(a-b)+.00001f,a+b-.00001f);var direction=delta.normalized;
+            var bend=Vector3.ProjectOnPlane(hint,direction).normalized;
+            float along=(a*a-b*b+length*length)/(2*length);
+            var joint=origin+direction*along+bend*Mathf.Sqrt(Mathf.Max(0,a*a-along*along));
+            upper.rotation=Quaternion.FromToRotation(lower.position-origin,joint-origin)*upper.rotation;
+            lower.rotation=Quaternion.FromToRotation(end.position-lower.position,origin+direction*length-lower.position)*lower.rotation;
+        }
+
+        public void Stop()=>target.SetPose(0);
+        public void Dispose(){if(SourceRig!=null){if(Application.isPlaying)Object.Destroy(SourceRig.gameObject);else Object.DestroyImmediate(SourceRig.gameObject);}}
+        private sealed class Prop{public Transform Transform,Hand,Contact,TuckContact;public Vector3 Axis,ForearmAxis,GripInHand,TuckGripInHand,ModelOriginFromGrip;public Quaternion ContactInHand,TuckContactInHand,ModelRotationFromGrip;public float Side;}
+        private sealed class FootContact{public int Index;public Transform Foot,Ski,Toe;public Vector3 ToeLocal,ForwardLocal,UpLocal;}
+        [Serializable] private sealed class ContactSettings
+        {
+            public int schema_version;public string id;
+            public float maximum_wrist_bend_degrees,maximum_forearm_roll_degrees,maximum_forward_ankle_degrees,maximum_heel_rise_degrees;
+            public float minimum_grip_half_width_m,tuck_grip_forward_of_head_m;
+            public float tuck_power_grip_obliquity_degrees,tuck_upper_grip_offset_m,tuck_pole_splay_degrees,tuck_grip_half_width_m,tuck_grip_below_shoulder_m,tuck_pole_elevation_degrees,tuck_palm_up_roll_degrees,maximum_tuck_wrist_bend_degrees,tuck_minimum_reach_forward_m;
+            public void Validate()
+            {if(!(tuck_power_grip_obliquity_degrees>=5&&tuck_power_grip_obliquity_degrees<=65)||!(tuck_upper_grip_offset_m>=.045f&&tuck_upper_grip_offset_m<=.075f)||!(tuck_pole_splay_degrees>=0&&tuck_pole_splay_degrees<=20)||!(maximum_tuck_wrist_bend_degrees>0&&maximum_tuck_wrist_bend_degrees<=45)||!(tuck_minimum_reach_forward_m>=.12f&&tuck_minimum_reach_forward_m<=.3f)||!(tuck_palm_up_roll_degrees>=0&&tuck_palm_up_roll_degrees<=90)||!(tuck_grip_half_width_m>=.1f&&tuck_grip_half_width_m<=.2f)||!(tuck_grip_below_shoulder_m>=0&&tuck_grip_below_shoulder_m<=.15f)||!(tuck_pole_elevation_degrees>=-5&&tuck_pole_elevation_degrees<=30)||schema_version!=1||string.IsNullOrWhiteSpace(id)||!(minimum_grip_half_width_m>=.1f&&minimum_grip_half_width_m<=.2f)||!(tuck_grip_forward_of_head_m>=.04f&&tuck_grip_forward_of_head_m<=.25f)||!(maximum_wrist_bend_degrees>0&&maximum_wrist_bend_degrees<=30)||!(maximum_forearm_roll_degrees>0&&maximum_forearm_roll_degrees<=90)||!(maximum_forward_ankle_degrees>0&&maximum_forward_ankle_degrees<=25)||!(maximum_heel_rise_degrees>0&&maximum_heel_rise_degrees<=45))throw new InvalidOperationException("Invalid M16.7 contact adaptation definition.");}
+        }
+    }
+}

@@ -3,7 +3,12 @@ $ErrorActionPreference='Stop'
 Add-Type -AssemblyName System.Drawing
 $results=@()
 $poseSamples=@{}
-foreach($name in @('front','side','back','face','rifle','boots','pose1','pose2','pose3')) {
+$names=@('front','side','back','face','rifle','boots','pose1','pose2','pose3')
+$review=Get-Content -Raw -LiteralPath (Join-Path $Folder 'review.json')|ConvertFrom-Json
+if(@($review.screenshots).Count -eq 33) {
+    foreach($angle in @('front','side')) {for($i=0;$i -lt 12;$i++) {$names+='skate-'+$angle+$i.ToString('00')}}
+}
+foreach($name in $names) {
     $bitmap=[System.Drawing.Bitmap]::new((Join-Path $Folder ($name+'.png')))
     try {
         $samples=0; $visible=0; $raisedSleeves=0

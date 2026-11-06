@@ -87,7 +87,12 @@ namespace Biathlon.PlayModeTests
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(Root+"/Preview/Biathlete_16_7_Preview.unity",new LoadSceneParameters(LoadSceneMode.Single));
             for(int i=0;i<8;i++)yield return null;
             var studio=Object.FindFirstObjectByType<Biathlete167Studio>();Assert.That(studio,Is.Not.Null);studio.Rig.Validate();
-            var document=studio.GetComponent<UIDocument>();Assert.That(document.rootVisualElement.Query<Button>().ToList().Count,Is.EqualTo(12));
+            var document=studio.GetComponent<UIDocument>();Assert.That(document.rootVisualElement.Query<Button>().ToList().Count,Is.EqualTo(14));
+            Assert.That(studio.Motion,Is.Not.Null);
+            var scrub=document.rootVisualElement.Q<Slider>("motion-phase");var speed=document.rootVisualElement.Q<Slider>("motion-speed");
+            Assert.That(scrub,Is.Not.Null);Assert.That(speed,Is.Not.Null);
+            scrub.value=.37f;Assert.That(studio.Motion.Phase,Is.EqualTo(.37f).Within(.00001f));Assert.That(studio.Motion.PlaybackEnabled,Is.False);
+            speed.value=.5f;Assert.That(studio.Motion.PlaybackSpeed,Is.EqualTo(.5f));studio.Motion.Stop();
             string folder=Path.Combine(Application.dataPath,"../artifacts/m16-7/native");Directory.CreateDirectory(folder);
             using(var target=new BenchmarkRenderTarget(1100,1400))
             {
@@ -95,6 +100,86 @@ namespace Biathlon.PlayModeTests
                 {studio.SetView(i);yield return null;target.Render(studio.View);yield return null;target.SavePng(Path.Combine(folder,new[]{"front","side","back","face","rifle","boots"}[i]+".png"));}
                 studio.SetView(0);
                 for(int i=1;i<=3;i++){studio.Rig.SetPose(i);yield return null;target.Render(studio.View);yield return null;target.SavePng(Path.Combine(folder,"pose"+i+".png"));}
+                studio.SetView(1);
+                for(int i=0;i<8;i++){studio.Motion.EvaluateCycle(i/8f);yield return null;target.Render(studio.View);yield return null;target.SavePng(Path.Combine(folder,"skate"+i+".png"));}
+                if(studio.Motion.MainReference!=null)
+                {
+                    string comparison=Path.Combine(Application.dataPath,"../artifacts/m16-7-refinement/main-motion-comparison");Directory.CreateDirectory(comparison);
+                    var candidateRenderers=studio.Rig.GetComponentsInChildren<Renderer>(true);var visibility=candidateRenderers.Select(r=>r.enabled).ToArray();
+                    try
+                    {
+                        for(int angle=0;angle<2;angle++)for(int phase=0;phase<4;phase++)
+                        {
+                            studio.SetView(angle);studio.Motion.EvaluateCycle(phase/4f);yield return null;
+                            target.Render(studio.View);yield return new WaitForEndOfFrame();target.SavePng(Path.Combine(comparison,"natural-"+angle+"-"+phase+".png"));
+                            foreach(var renderer in candidateRenderers)renderer.enabled=false;
+                            studio.Motion.MainReference.SetReferenceVisible(true);yield return null;
+                            target.Render(studio.View);yield return new WaitForEndOfFrame();target.SavePng(Path.Combine(comparison,"main-"+angle+"-"+phase+".png"));
+                            studio.Motion.MainReference.SetReferenceVisible(false);for(int at=0;at<candidateRenderers.Length;at++)candidateRenderers[at].enabled=visibility[at];
+                        }
+                    }
+                    finally{studio.Motion.MainReference.SetReferenceVisible(false);for(int at=0;at<candidateRenderers.Length;at++)candidateRenderers[at].enabled=visibility[at];}
+                    foreach(var state in new[]{SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.Tuck})
+                    {
+                        studio.Motion.MainReference.State=state;studio.SetView(1);
+                        for(int phase=0;phase<4;phase++)
+                        {
+                            studio.Motion.EvaluateCycle(phase/4f);yield return null;
+                            target.Render(studio.View);yield return new WaitForEndOfFrame();target.SavePng(Path.Combine(comparison,state+"-"+phase+".png"));
+                        }
+                    }
+                    studio.Motion.MainReference.State=SkiMotionState.Flat;
+                    studio.Motion.Stop();
+                    var profile=new GameObject("Neck inspection camera").AddComponent<Camera>();profile.CopyFrom(studio.View);profile.enabled=false;
+                    try{for(int neck=0;neck<4;neck++)
+                    {
+                        if(neck==1)studio.Motion.EvaluateCycle(.25f);
+                        if(neck==2)studio.Motion.EvaluateCycle(.75f);
+                        if(neck==3){studio.Motion.MainReference.State=SkiMotionState.Tuck;studio.Motion.EvaluateCycle(0);}
+                        yield return null;
+                        var head=studio.Rig.Bone(HumanBodyBones.Head).position;
+                        var aim=head+Vector3.down*.045f;
+                        profile.transform.position=aim+Vector3.right*.85f;
+                        profile.transform.LookAt(aim);target.Render(profile);yield return new WaitForEndOfFrame();
+                        target.SavePng(Path.Combine(comparison,"neck-profile-"+neck+".png"));
+                    }}finally{Object.Destroy(profile.gameObject);}
+                    var close=new GameObject("Equipment inspection camera").AddComponent<Camera>();close.CopyFrom(studio.View);close.enabled=false;
+                    try{foreach(var state in new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.Tuck})
+                    for(int phase=0;phase<4;phase++)
+                    {
+                        studio.Motion.MainReference.State=state;studio.Motion.EvaluateCycle(phase/4f);yield return null;
+                        var wrist=studio.Rig.Bone(HumanBodyBones.LeftHand).position;
+                        close.transform.position=wrist+new Vector3(.40f,.18f,.55f);close.transform.LookAt(wrist);
+                        target.Render(close);yield return new WaitForEndOfFrame();target.SavePng(Path.Combine(comparison,"hands-"+state+"-"+phase+".png"));
+                        if(state==SkiMotionState.Flat||state==SkiMotionState.Tuck)
+                        {
+                            var rightWrist=studio.Rig.Bone(HumanBodyBones.RightHand).position;
+                            close.transform.position=rightWrist+new Vector3(-.40f,.18f,.55f);close.transform.LookAt(rightWrist);
+                            target.Render(close);yield return new WaitForEndOfFrame();target.SavePng(Path.Combine(comparison,"hands-right-"+state+"-"+phase+".png"));
+                            foreach(bool right in new[]{false,true})
+                            {
+                                var at=studio.Rig.Bone(right?HumanBodyBones.RightHand:HumanBodyBones.LeftHand).position;
+                                close.transform.position=at+new Vector3(right?-.60f:.60f,.35f,.20f);close.transform.LookAt(at);
+                                target.Render(close);yield return new WaitForEndOfFrame();target.SavePng(Path.Combine(comparison,"hands-dorsal-"+(right?"right":"left")+"-"+state+"-"+phase+".png"));
+                            }
+                        }
+                        var foot=studio.Rig.ToeHinge(false).position+Vector3.up*.10f;
+                        close.transform.position=foot+new Vector3(.80f,.10f,.15f);close.transform.LookAt(foot);
+                        target.Render(close);yield return new WaitForEndOfFrame();target.SavePng(Path.Combine(comparison,"binding-"+state+"-"+phase+".png"));
+                    }}finally{Object.Destroy(close.gameObject);studio.Motion.MainReference.State=SkiMotionState.Flat;}
+                    foreach(var frame in Directory.GetFiles(comparison,"*.png"))
+                    {
+                        var pixels=new Texture2D(2,2);try
+                        {
+                            Assert.That(pixels.LoadImage(File.ReadAllBytes(frame)),Is.True,frame);int visible=0,total=0;
+                            for(int y=0;y<pixels.height;y+=16)for(int x=0;x<pixels.width;x+=16)
+                            {total++;var pixel=pixels.GetPixel(x,y);if(pixel.maxColorComponent>.3f)visible++;}
+                            Assert.That((float)visible/total,Is.GreaterThan(.01f),"Empty actual model capture: "+frame);
+                        }finally{Object.Destroy(pixels);}
+                    }
+                    studio.Motion.MainReference.State=SkiMotionState.Flat;
+                }
+                studio.Motion.Stop();
             }
             Assert.That(File.Exists(Path.Combine(folder,"pose3.png")),Is.True);
             Assert.That(errors,Is.Empty);

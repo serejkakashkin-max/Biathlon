@@ -1,17 +1,24 @@
 """Original PULSE sporting equipment and tailored weighted garments.
 
-Blender4.5 LTS; CC0 Grab3D anatomical head/hands and original24-joint skeleton.
+Blender4.5 LTS; unwarped CC0 MakeHuman anatomy and mapped24-joint skeleton.
 All outputs are actual meshes/materials, not image generation. Reproducible.
 """
-import bpy, bmesh, math, json, argparse, sys, shutil
+import bpy, bmesh, math, json, argparse, sys, shutil, hashlib
 import numpy as np
 from pathlib import Path
 from mathutils import Vector, Matrix
 from mathutils.kdtree import KDTree
 from mathutils.bvhtree import BVHTree
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from equipment_refine import CONTACT_SETTINGS, grip_frame, tuck_grip_frame, sporting_rifle, grip_finger_matrices
+from refine_garments import race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness
 
-parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True)
+parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
+anatomy_path=Path(args.anatomy).resolve() if args.anatomy else out/'Models/Source~/MakeHuman/Natural/athletic_fitted.blend'
+anatomy_metadata=json.loads(anatomy_path.with_suffix('.json').read_text(encoding='utf-8'))
+if anatomy_metadata.get('proportion_mode')!='natural_unwarped_anatomy':
+    raise ValueError('The rejected legacy bone-fit anatomy cannot be used for the natural athlete.')
 for sub in ['Models','Materials','Textures','Prefabs','Animations','Scripts','Editor','Preview','Documentation']:(out/sub).mkdir(parents=True,exist_ok=True)
 review.mkdir(parents=True,exist_ok=True)
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -25,7 +32,7 @@ bpy.ops.object.select_all(action='DESELECT')
 body.select_set(True);arm.select_set(True);bpy.context.view_layer.objects.active=arm
 bpy.ops.object.transform_apply(location=False,rotation=True,scale=True)
 arm.name='BiathleteSkeleton';body.name='AnatomicalSource'
-heads={b.name:(arm.matrix_world@b.head_local).copy() for b in arm.data.bones}
+heads={name:Vector(value) for name,value in anatomy_metadata['heads'].items()}
 bpy.ops.object.mode_set(mode='EDIT')
 preferred={'Hips':'Spine02','Spine02':'Spine01','Spine01':'Spine','Spine':'neck','neck':'Head','Head':'head_end',
  'LeftShoulder':'LeftArm','RightShoulder':'RightArm','LeftArm':'LeftForeArm','RightArm':'RightForeArm','LeftForeArm':'LeftHand','RightForeArm':'RightHand',
@@ -33,7 +40,7 @@ preferred={'Hips':'Spine02','Spine02':'Spine01','Spine01':'Spine','Spine':'neck'
 for b in arm.data.edit_bones:
     b.head=arm.matrix_world.inverted()@heads[b.name]
     if b.name in preferred:b.tail=arm.matrix_world.inverted()@heads[preferred[b.name]]
-    else:b.tail=b.head+Vector((0,-.08,0) if 'Toe' in b.name else (.025 if 'Left' in b.name else -.025,-.055,-.09) if 'Hand' in b.name else (0,0,.04))
+    else:b.tail=Vector(anatomy_metadata['tails'][b.name])
     b.roll=0
 bpy.ops.object.mode_set(mode='OBJECT')
 for pb in arm.pose.bones:pb.matrix_basis=Matrix.Identity(4)
@@ -54,7 +61,13 @@ ink=material('Printed_Graphite',(.012,.017,.024),.62);rubber=material('Rubber_Gr
 carbon=material('Carbon_Satin',(.025,.035,.043),.32,.28);alloy=material('Brushed_Aluminium',(.48,.53,.57),.25,.86)
 titanium=material('Gunmetal',(.09,.12,.14),.29,.8);amber=material('Amber_Mirror',(.78,.20,.018),.105,.78)
 thread=material('Flatlock_Thread',(.13,.017,.025),.62);stitch=material('Silver_Stitch',(.30,.33,.34),.7)
-wood=material('Sport_Laminate',(.11,.038,.021),.34);skin=source_material;skin.name='Anatomical_Skin_2K'
+wood=material('Sport_Laminate',(.11,.038,.021),.34)
+skin=material('Anatomical_Skin_CC0_2K',(.7,.5,.4),.62)
+shutil.copyfile(anatomy_path.parent/'young_lightskinned_male_diffuse.png',out/'Textures/MakeHuman_Skin_BaseColor_2K.png')
+skin_image=bpy.data.images.load(str(out/'Textures/MakeHuman_Skin_BaseColor_2K.png'))
+skin_tex=skin.node_tree.nodes.new('ShaderNodeTexImage');skin_tex.image=skin_image
+skin.node_tree.links.new(skin_tex.outputs['Color'],skin.node_tree.nodes['Principled BSDF'].inputs['Base Color'])
+skin.node_tree.nodes['Principled BSDF'].inputs['Subsurface Weight'].default_value=.06
 materials=[red,black,scarlet,white,ink,rubber,carbon,alloy,titanium,amber,thread,stitch,wood,skin]
 #4K real tangent-space textile maps. Fine paired warp/weft includes slight deterministic yarn variation.
 size=4096
@@ -63,6 +76,9 @@ h=.5+.13*np.sin(u*math.tau/16)*np.sin(v*math.tau/12)+.035*np.sin((u+v)*math.tau/
 dx=np.gradient(h,axis=1)*1.8;dy=np.gradient(h,axis=0)*1.8
 normal=np.stack((-dx,-dy,np.ones_like(h)),axis=2);normal/=np.linalg.norm(normal,axis=2,keepdims=True)
 def image_from(name,rgb,colorspace):
+    existing=out/'Textures'/(name+'.png')
+    if existing.exists():
+        im=bpy.data.images.load(str(existing));im.colorspace_settings.name=colorspace;return im
     im=bpy.data.images.new(name,width=size,height=size,alpha=False)
     im.colorspace_settings.name=colorspace
     rgba=np.ones((size,size,4),dtype=np.float32);rgba[:,:,:3]=rgb
@@ -98,11 +114,12 @@ def mesh(name,verts,faces,mats,indices=None,uv=None,weights=None):
         obj.parent=arm;obj.matrix_world=Matrix.Identity(4)
     objects.append(obj);return obj
 def rigid(obj,bone):
+    bpy.context.view_layer.update()
     matrix=obj.matrix_world.copy();obj.parent=arm;obj.parent_type='BONE';obj.parent_bone=bone;obj.matrix_world=matrix
     if obj not in objects:objects.append(obj)
     return obj
 def weight_z(z):
-    levels=[(.90,'Hips'),(1.105,'Spine02'),(1.235,'Spine01'),(1.36,'Spine'),(1.455,'neck')]
+    levels=[(heads[name].z,name) for name in ['Hips','Spine02','Spine01','Spine','neck']]
     if z<=levels[0][0]:return {levels[0][1]:1}
     for (a,n),(b,m) in zip(levels,levels[1:]):
         if z<=b:
@@ -126,7 +143,7 @@ def interpolated(rings,steps=3):
         for s in range(steps):result.append(tuple(x+(y-x)*s/steps for x,y in zip(a,b)))
     return result+[rings[-1]]
 def tube(name,points,radius,mat,bone=None,res=8):
-    curve=bpy.data.curves.new(name,'CURVE');curve.dimensions='3D';curve.resolution_u=8;curve.bevel_depth=radius;curve.bevel_resolution=2
+    curve=bpy.data.curves.new(name,'CURVE');curve.dimensions='3D';curve.resolution_u=8;curve.bevel_depth=radius;curve.bevel_resolution=2;curve.use_fill_caps=True
     spline=curve.splines.new('POLY');spline.points.add(len(points)-1)
     for p,c in zip(spline.points,points):p.co=(*c,1)
     obj=bpy.data.objects.new(name,curve);bpy.context.collection.objects.link(obj)
@@ -148,23 +165,27 @@ def block(name,loc,scale,mat,bevel=.004,bone=None):
     return rigid(o,bone) if bone else o
 def text(name,bodytext,loc,width,mat,bone,back=False,horizontal=False):
     bpy.ops.object.text_add(location=loc,rotation=(0,0,math.pi/2) if horizontal else (math.pi/2,0,math.pi if back else 0));o=bpy.context.object;o.name=name;o.data.body=bodytext;o.data.align_x='CENTER';o.data.align_y='CENTER';o.data.extrude=0;o.data.bevel_depth=0;o.data.resolution_u=3;o.data.size=.1;o.data.space_character=1.1
+    font=Path(__file__).resolve().parents[3]/'Assets/Resources/Biathlon/UI/Fonts/Roboto.ttf'
+    if font.exists():o.data.font=bpy.data.fonts.load(str(font),check_existing=True)
     bpy.context.view_layer.update();s=width/max(.001,o.dimensions.x);o.scale=(s,s,s);bpy.ops.object.convert(target='MESH');o=bpy.context.object;o.data.materials.append(mat);return rigid(o,bone)
 
-# Source anatomy retained only on exposed head/neck. Rest is replaced, not recolored.
+# One unwarped anatomical face/neck surface. No clamped source jaw or backing tube.
+bpy.data.objects.remove(body,do_unlink=True)
+with bpy.data.libraries.load(str(anatomy_path),link=False) as (_,target_data):target_data.objects=['MakeHuman_Athletic_Fitted']
+body=target_data.objects[0];bpy.context.collection.objects.link(body);body.parent=arm;body.matrix_world=Matrix.Identity(4);body.modifiers.clear()
 bm=bmesh.new();bm.from_mesh(body.data)
-bmesh.ops.delete(bm,geom=[v for v in bm.verts if (body.matrix_world@v.co).z<1.505 or (body.matrix_world@v.co).z>1.69 or ((body.matrix_world@v.co).z<1.54 and abs((body.matrix_world@v.co).x)>.080) or ((body.matrix_world@v.co).z>1.60 and (body.matrix_world@v.co).y>.085)],context='VERTS')
-bm.to_mesh(body.data);bm.free();body.name='Anatomical_Head_Neck';objects.append(body)
-for v in body.data.vertices:
-    world=body.matrix_world@v.co
-    if world.z<1.56:
-        limit=.054+max(0,world.z-1.505)*.25
-        if abs(world.x)>limit:world.x=math.copysign(limit,world.x)
-        if world.z<1.535:world.y=max(.041-.050,min(.041+.050,world.y))
-        else:world.y=min(.10,world.y)
-        v.co=body.matrix_world.inverted()@world
+bmesh.ops.bisect_plane(bm,geom=list(bm.verts)+list(bm.edges)+list(bm.faces),dist=1e-6,plane_co=(0,0,1.525),plane_no=(0,0,1),clear_inner=True)
+bm.to_mesh(body.data);bm.free();body.name='Anatomical_Head_Neck';body.data.materials.clear();body.data.materials.append(skin)
 bpy.ops.object.select_all(action='DESELECT');body.select_set(True);bpy.context.view_layer.objects.active=body
-dec=body.modifiers.new('Retain facial silhouette','DECIMATE');dec.ratio=.72;bpy.ops.object.modifier_apply(modifier=dec.name)
-smooth(body)
+sub=body.modifiers.new('Continuous facial quad loops','SUBSURF');sub.levels=1;bpy.ops.object.modifier_apply(modifier=sub.name)
+mod=body.modifiers.new('Anatomical head and neck skin','ARMATURE');mod.object=arm;objects.append(body);smooth(body)
+eye_white=material('Eye_Sclera',(.72,.75,.70),.25);eye_iris=material('Eye_Iris',(.025,.045,.033),.3);eye_pupil=material('Eye_Pupil',(.001,.001,.001),.16)
+materials.extend([eye_white,eye_iris,eye_pupil])
+for sign,suffix in [(1,'L'),(-1,'R')]:
+    center=Vector(anatomy_metadata['source_joints']['eye.'+suffix+'____head'])+Vector((0,.09,0))
+    for name,scale,offset,mat in [('Sclera',(.012,.012,.012),Vector(),eye_white),('Iris',(.0053,.001,.0053),Vector((0,-.0116,0)),eye_iris),('Pupil',(.0024,.0007,.0024),Vector((0,-.0125,0)),eye_pupil)]:
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=32,ring_count=16,location=center+offset);o=bpy.context.object;o.name=suffix+'_Eye_'+name;o.scale=scale
+        bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);o.data.materials.append(mat);smooth(o);rigid(o,'Head')
 
 # Tailored torso: separate shell, garment ease, collar and bounded compression folds.
 torso_rings=[(0,.035,.815,.133,.083),(0,.035,.88,.157,.098),(0,.035,.96,.162,.105),(0,.035,1.055,.151,.097),(0,.035,1.15,.162,.103),(0,.038,1.25,.187,.110),(0,.045,1.34,.203,.111),(0,.048,1.39,.195,.098),(0,.045,1.425,.108,.070),(0,.041,1.452,.057,.056),(0,.041,1.518,.061,.059)]
@@ -211,25 +232,34 @@ for z in [1.145,1.16,1.19,1.23,1.27,1.31,1.35,1.375]:
 loft('Woven_Bib_27',bib_rings,[white],n=72)
 for at in [0,-1]:
     x,y,z,rx,ry=bib_rings[at];tube('Bib_Bound_Edge',[(x+rx*math.cos(t*math.tau/100),y+ry*math.sin(t*math.tau/100),z) for t in range(101)],.0015,black)
-text('Bib27_Front','27',(0,-.082,1.25),.132,ink,'Spine01')
-text('Bib27_Back','27',(0,.164,1.25),.132,ink,'Spine01',True)
-text('Bib_Footer','WORLD CUP',(0,-.073,1.173),.135,ink,'Spine01')
+text('Bib27_Front','27',(0,-.082,1.32),.132,ink,'Spine01')
+text('Bib27_Back','27',(0,.164,1.32),.132,ink,'Spine01',True)
+text('Bib_Footer','WORLD CUP',(0,-.073,1.243),.135,ink,'Spine01')
 # Chest zip and collar edge.
-tube('Chest_Waterproof_Zip',[(0,-.018,1.49),(0,-.025,1.45),(0,-.056,1.415),(0,-.072,1.38)],.002,black)
-block('Zip_Puller',(0,-.024,1.46),(.010,.003,.019),alloy,.002,'neck')
+tube('Chest_Waterproof_Zip',[(0,-.060,1.538),(0,-.065,1.51),(0,-.080,1.46),(0,-.095,1.42)],.0014,black)
+block('Zip_Puller',(0,-.060,1.527),(.010,.003,.019),alloy,.002,'neck')
 
 # Compact racing cap (no pompom), amber panoramic wraparound lens and elastic strap.
 cap_rings=[]
 for j in range(37):
     angle=j/36*math.pi/2
-    cap_rings.append((0,.045,1.678+.141*math.sin(angle),max(.0001,.085*math.cos(angle)),max(.0001,.111*math.cos(angle))))
+    cap_rings.append((0,.045,1.700+.113*math.sin(angle),max(.0001,.085*math.cos(angle)),max(.0001,.111*math.cos(angle))))
 cap=loft('Race_Cap',cap_rings,[red,black],lambda u,v:1 if v<.07 else 0,weight=lambda p,j,i:{'Head':1},n=96)
 for vert in cap.data.vertices:
     vert.co.z-=.078*max(0,min(1,(vert.co.y-.025)/.075))*max(0,min(1,(1.75-vert.co.z)/.072))
-text('Cap_PULSE','PULSE',(0,-.052,1.754),.09,white,'Head')
+# Original vector wordmark: flat printed strokes avoid font n-gon artefacts.
+letters=[[[[0,0],[0,1],[.8,1],[1,.8],[.8,.55],[0,.55]]],[[[0,1],[0,.2],[.2,0],[.8,0],[1,.2],[1,1]]],[[[0,1],[0,0],[1,0]]],[[[1,.95],[.8,1],[.2,1],[0,.8],[.2,.6],[.8,.4],[1,.2],[.8,0],[.2,0],[0,.05]]],[[[0,0],[0,1],[1,1]],[[0,.53],[.85,.53]],[[0,0],[1,0]]]]
+for letter,paths in enumerate(letters):
+    for part,path in enumerate(paths):
+        vs=[];fs=[]
+        points=[Vector((-.041+letter*.017+x*.011,-.10,1.747+z*.018)) for x,z in path]
+        for a,b in zip(points,points[1:]):
+            direction=(b-a).normalized();normal=Vector((-direction.z,0,direction.x))*.00065
+            k=len(vs);vs.extend([a-normal,a+normal,b+normal,b-normal]);fs.append((k,k+1,k+2,k+3))
+        rigid(mesh('Cap_PULSE_Stroke_'+str(letter)+'_'+str(part),vs,fs,[white]),'Head')
 lensverts=[];lensuv=[];lensfaces=[]
 def lenspoint(t,v):
-    x=(t-.5)*.177;y=-.050-.065*(1-(x/.102)**2);z=1.664+(v-.5)*.056*(1-.20*(abs(x)/.0885)**4)+.003*(abs(x)/.0885)**2
+    x=(t-.5)*.177;y=-.050-.065*(1-(x/.102)**2);z=1.686+(v-.5)*.056*(1-.20*(abs(x)/.0885)**4)+.003*(abs(x)/.0885)**2
     if v<.32:z+=.012*math.exp(-(x/.019)**2)*(1-v/.32)
     return (x,y,z)
 for j in range(13):
@@ -241,87 +271,50 @@ for v in [0,1]:tube('Goggle_Frame', [lenspoint(i/96,v) for i in range(97)],.0018
 for u0 in [0,1]:tube('Goggle_Temple',[lenspoint(u0,v/12) for v in range(13)],.0022,black,'Head')
 strap=[]
 for i in range(97):
-    t=i/96*math.tau;strap.append((.083*math.cos(t),.032+.09*math.sin(t),1.685))
+    t=i/96*math.tau;strap.append((.083*math.cos(t),.032+.09*math.sin(t),1.707))
 tube('Goggle_Elastic_Strap',strap,.006,black,'Head')
 
-# Gloves retain actual anatomical finger shapes, new material sections/cuffs.
-bpy.ops.import_scene.gltf(filepath=str(src/'01_Character/man-base-character-rigged.glb'))
-newarm=next(o for o in scene.objects if o.type=='ARMATURE' and o!=arm)
-hand_source=next(o for o in scene.objects if o.type=='MESH' and o not in objects)
-newarm.animation_data_clear();newarm.data.pose_position='REST';bpy.context.view_layer.update()
-hand_source.matrix_world=hand_source.matrix_world.copy();verts=[hand_source.matrix_world@v.co for v in hand_source.data.vertices]
-# A new separate cloth shell is cut from the measured anatomical surface, then
-# fitted/smoothed past the casual garment hems. This replaces the disconnected
-# parametric blockout, rather than accepting it as the final garment.
+# Clean CC0 anatomical topology: the suit has real torso/hip/joint loops rather
+# than voxelized T-shirt/short hems. Keep the source head as a separate skin asset.
+# anatomy_path resolved before skeleton authoring
+if not anatomy_path.exists():raise FileNotFoundError('Prepare the CC0 MakeHuman anatomy first: '+str(anatomy_path))
+anatomy_metadata=json.loads(anatomy_path.with_suffix('.json').read_text(encoding='utf-8'))
+with bpy.data.libraries.load(str(anatomy_path),link=False) as (source_data,target_data):
+    target_data.objects=['MakeHuman_Athletic_Fitted']
+hand_source=target_data.objects[0];bpy.context.collection.objects.link(hand_source)
+hand_source.parent=None;hand_source.matrix_world=Matrix.Identity(4);hand_source.modifiers.clear()
+verts=[v.co.copy() for v in hand_source.data.vertices]
 clothes=hand_source.copy();clothes.data=hand_source.data.copy();bpy.context.collection.objects.link(clothes)
-clothes.name='RaceSuit_Continuous_Tailored_Shell';clothes.parent=None;clothes.matrix_world=Matrix.Identity(4);clothes.data.transform(hand_source.matrix_world);clothes.modifiers.clear()
+clothes.name='RaceSuit_Continuous_Tailored_Shell';clothes.parent=None;clothes.modifiers.clear()
 bm=bmesh.new();bm.from_mesh(clothes.data)
-bmesh.ops.remove_doubles(bm,verts=list(bm.verts),dist=.00001)
-for z in [.17,1.505]:bmesh.ops.bisect_plane(bm,geom=list(bm.verts)+list(bm.edges)+list(bm.faces),dist=1e-7,plane_co=(0,0,z),plane_no=(0,0,1))
-bmesh.ops.delete(bm,geom=[v for v in bm.verts if v.co.z<.17 or v.co.z>1.505],context='VERTS')
+for z in [.18,1.54]:bmesh.ops.bisect_plane(bm,geom=list(bm.verts)+list(bm.edges)+list(bm.faces),dist=1e-7,plane_co=(0,0,z),plane_no=(0,0,1))
+bmesh.ops.delete(bm,geom=[v for v in bm.verts if v.co.z<.18-1e-5 or v.co.z>1.54+1e-5],context='VERTS')
 for pre,side in [('Left',1),('Right',-1)]:
     wrist=heads[pre+'Hand'];direction=(wrist-heads[pre+'ForeArm']).normalized()
-    bmesh.ops.delete(bm,geom=[v for v in bm.verts if side*v.co.x>.4 and (v.co-wrist).dot(direction)>-.018],context='VERTS')
-bm.to_mesh(clothes.data);bm.free()
+    bmesh.ops.bisect_plane(bm,geom=list(bm.verts)+list(bm.edges)+list(bm.faces),dist=1e-7,plane_co=wrist-direction*.012,plane_no=direction)
+    bmesh.ops.delete(bm,geom=[v for v in bm.verts if side*v.co.x>.38 and (v.co-wrist).dot(direction)>-.012],context='VERTS')
+bm.to_mesh(clothes.data);bm.free();clothes.data.update()
+# Millimetres of garment ease. Anatomy remains underneath the compression suit;
+# bounded shallow wrinkles occur at flexion zones, not the old shorts crotch.
+for vertex in clothes.data.vertices:
+    vertex.co+=vertex.normal*.0035
+    p=vertex.co
+    p.y+=.0009*math.sin(p.z*235+p.x*12)*math.exp(-((p.z-.50)/.055)**2)
 bpy.ops.object.select_all(action='DESELECT');clothes.select_set(True);bpy.context.view_layer.objects.active=clothes
-sm=clothes.modifiers.new('Remove loose casual hems','SMOOTH');sm.factor=.65;sm.iterations=22;bpy.ops.object.modifier_apply(modifier=sm.name)
-dec=clothes.modifiers.new('Anatomical garment topology','DECIMATE');dec.ratio=.48;bpy.ops.object.modifier_apply(modifier=dec.name)
-for vert in clothes.data.vertices:
-    p=vert.co
-    # Compression-fit torso and shorts; retained radial anatomy rather than straight cylinders.
-    if abs(p.x)<.22 and .83<p.z<1.32:
-        taper=.91+.08*min(1,abs(p.z-1.06)/.2);p.x*=taper;p.y=.035+(p.y-.035)*taper
-    if .62<p.z<.91:
-        center=.11 if p.x>0 else -.11;fit=.84+.14*min(1,abs(p.z-.77)/.15)
-        p.x=center+(p.x-center)*fit;p.y=.035+(p.y-.035)*fit
-    if .17<=p.z<.89 and (abs(p.x)>.055 or p.z<.81):
-        side='Left' if p.x>0 else 'Right';hip=heads[side+'UpLeg'];knee=heads[side+'Leg'];ankle=heads[side+'Foot']
-        center=hip.lerp(knee,max(0,min(1,(hip.z-p.z)/(hip.z-knee.z)))) if p.z>knee.z else knee.lerp(ankle,max(0,min(1,(knee.z-p.z)/(knee.z-ankle.z))))
-        profile=[(.17,.036),(.28,.049),(.39,.058),(.51,.055),(.62,.069),(.75,.082),(.89,.091)]
-        (za,ra),(zb,rb)=next((a,b) for a,b in zip(profile,profile[1:]) if a[0]<=p.z<=b[0]);rx=ra+(rb-ra)*(p.z-za)/(zb-za);ry=rx*.91
-        delta=Vector((p.x-center.x,p.y-center.y,0));distance=delta.length
-        if distance>1e-6:
-            radial=delta/distance;target=1/math.sqrt(radial.x**2/rx**2+radial.y**2/ry**2);distance=target*.95+distance*.05
-            p.x=center.x+radial.x*distance;p.y=center.y+radial.y*distance
-    if abs(p.x)<.065 and .76<p.z<.91:p.y=.035+(p.y-.035)*.80
-    if .89<=p.z<1.34 and abs(p.x)<.20:
-        profile=[(.89,.157,.100),(1.06,.150,.096),(1.18,.171,.106),(1.34,.195,.113)]
-        (za,xa,ya),(zb,xb,yb)=next((a,b) for a,b in zip(profile,profile[1:]) if a[0]<=p.z<=b[0]);t=(p.z-za)/(zb-za);rx=xa+(xb-xa)*t;ry=ya+(yb-ya)*t
-        delta=Vector((p.x,p.y-.035,0));distance=delta.length
-        if distance>1e-6:
-            radial=delta/distance;target=1/math.sqrt(radial.x**2/rx**2+radial.y**2/ry**2)
-            edge=max(0,min(1,(1.34-p.z)/.08));edge=edge*edge*(3-2*edge)
-            influence=.9*edge;distance=target*influence+distance*(1-influence)
-            p.x=radial.x*distance;p.y=.035+radial.y*distance
-    # Physical compression folds at knees and elbows, millimetres not broad body bulges.
-    fold=math.exp(-((p.z-.50)/.065)**2)*.0016*math.sin(p.z*215+p.x*15)
-    p.y+=fold
-clothes.data.update()
-# Remove the inherited shirt/short topology completely. Voxel union removes
-# doubled hems and disconnected UV-split surfaces; nearest-surface weights are
-# transferred from the original normalized24-bone skin, not regenerated RNG.
-weight_records=[];kd=KDTree(len(clothes.data.vertices))
-for vert in clothes.data.vertices:
-    kd.insert(vert.co,vert.index);weight_records.append({clothes.vertex_groups[g.group].name:g.weight for g in vert.groups})
-kd.balance()
-bm=bmesh.new();bm.from_mesh(clothes.data)
-bmesh.ops.holes_fill(bm,edges=[e for e in bm.edges if e.is_boundary],sides=0)
-bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(clothes.data);bm.free()
-remesh=clothes.modifiers.new('Continuous compression garment retopology','REMESH');remesh.mode='VOXEL';remesh.voxel_size=.0035;remesh.use_smooth_shade=True;bpy.ops.object.modifier_apply(modifier=remesh.name)
-smoothmod=clothes.modifiers.new('Cloth surface relaxation','SMOOTH');smoothmod.factor=.45;smoothmod.iterations=5;bpy.ops.object.modifier_apply(modifier=smoothmod.name)
-dec=clothes.modifiers.new('Hero garment budget','DECIMATE');dec.ratio=.27;bpy.ops.object.modifier_apply(modifier=dec.name)
-clothes.vertex_groups.clear();groups={n:clothes.vertex_groups.new(name=n) for n in arm.data.bones.keys()}
-for vert in clothes.data.vertices:
-    entries=kd.find_n(vert.co,3);weights={};normalizer=0
-    for _,i,distance in entries:
-        proximity=1/max(.0001,distance)**2;normalizer+=proximity
-        for n,w in weight_records[i].items():weights[n]=weights.get(n,0)+w*proximity
-    total=sum(weights.values())
-    for n,w in weights.items():
-        if w/total>.0001:groups[n].add([vert.index],w/total,'REPLACE')
-if not clothes.data.uv_layers:clothes.data.uv_layers.new(name='TailoredAtlas')
-bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.uv.smart_project(angle_limit=1.15,island_margin=.008);bpy.ops.object.mode_set(mode='OBJECT')
+sub=clothes.modifiers.new('Anatomical quad-loop subdivision','SUBSURF');sub.levels=2;sub.render_levels=2;bpy.ops.object.modifier_apply(modifier=sub.name)
+bib_reference=clothes.copy();bib_reference.data=clothes.data.copy();bpy.context.collection.objects.link(bib_reference);bib_reference.name='Bib_High_Resolution_Surface';bib_reference.hide_render=True
+dec=clothes.modifiers.new('Compression garment runtime budget','DECIMATE');dec.ratio=.08;bpy.ops.object.modifier_apply(modifier=dec.name)
 clothes.data.update();smooth(clothes)
+collar=continuous_collar(clothes,mesh,tube,red,weight_z,body)
+# The trouser hem follows the anatomical lower leg and tucks into the hinged
+# boot cuff. It must not be forced onto the foot several centimetres above the ankle.
+for v in clothes.data.vertices:
+    if v.co.z<.29:
+        pre='Left' if v.co.x>0 else 'Right';center=heads[pre+'Foot']
+        blend=max(0,min(1,(.29-v.co.z)/.085));blend=blend*blend*(3-2*blend)
+        angle=math.atan2(v.co.y-.056,v.co.x-center.x)
+        v.co.x=v.co.x*(1-blend)+(center.x+.033*math.cos(angle))*blend
+        v.co.y=v.co.y*(1-blend)+(.056+.047*math.sin(angle))*blend
 color=clothes.data.color_attributes.new(name='TailoredPanels',type='FLOAT_COLOR',domain='CORNER')
 for poly in clothes.data.polygons:
     for li in poly.loop_indices:
@@ -336,14 +329,15 @@ for poly in clothes.data.polygons:
         if abs(p.x)<.07 and p.z>.79:blackpanel=False
         c=black.diffuse_color if blackpanel else red.diffuse_color
         color.data[li].color=c
-tailored=material('PULSE_Tailored_Textile',(.27,.003,.010),.52)
+tailored=material('PULSE_Natural_Tailored_Textile',(.27,.003,.010),.52)
 clothes.data.materials.clear();clothes.data.materials.append(tailored)
 nodes=tailored.node_tree.nodes;links=tailored.node_tree.links;output=nodes.get('Material Output');principal=nodes.get('Principled BSDF')
-attr=nodes.new('ShaderNodeVertexColor');attr.layer_name='TailoredPanels';emit=nodes.new('ShaderNodeEmission');links.new(attr.outputs['Color'],emit.inputs[0]);links.new(emit.outputs[0],output.inputs['Surface'])
-atlas=bpy.data.images.new('Suit_Panels_BaseColor_4K',width=4096,height=4096,alpha=False)
+emit=nodes.new('ShaderNodeEmission');links.new(analytic_panel_material(tailored,red,black),emit.inputs[0]);links.new(emit.outputs[0],output.inputs['Surface'])
+atlas=bpy.data.images.new('Natural_Suit_Panels_BaseColor_4K',width=4096,height=4096,alpha=False)
 target=nodes.new('ShaderNodeTexImage');target.image=atlas;nodes.active=target
 scene.render.engine='CYCLES';scene.cycles.samples=1;scene.render.bake.margin=16
-bpy.ops.object.bake(type='EMIT');atlas.filepath_raw=str(out/'Textures/Suit_Panels_BaseColor_4K.png');atlas.file_format='PNG';atlas.save()
+bpy.ops.object.select_all(action='DESELECT');clothes.select_set(True);bpy.context.view_layer.objects.active=clothes
+bpy.ops.object.bake(type='EMIT');atlas.filepath_raw=str(out/'Textures/Natural_Suit_Panels_BaseColor_4K.png');atlas.file_format='PNG';atlas.save()
 links.new(principal.outputs[0],output.inputs['Surface']);links.new(target.outputs['Color'],principal.inputs['Base Color'])
 normaltex=nodes.new('ShaderNodeTexImage');normaltex.image=weave_n;norm=nodes.new('ShaderNodeNormalMap');norm.inputs['Strength'].default_value=.30;links.new(normaltex.outputs['Color'],norm.inputs['Color']);links.new(norm.outputs[0],principal.inputs['Normal'])
 roughtex=nodes.new('ShaderNodeTexImage');roughtex.image=weave_r;links.new(roughtex.outputs[0],principal.inputs['Roughness']);principal.inputs['Sheen Weight'].default_value=.15
@@ -352,37 +346,64 @@ mod=clothes.modifiers.new('Original normalized skeletal weights','ARMATURE');mod
 for old in list(objects):
     if old.name in ['RaceSuit_Tailored_Torso','Left_Race_Sleeve','Right_Race_Sleeve','Left_Race_Tight','Right_Race_Tight']:
         objects.remove(old);bpy.data.objects.remove(old,do_unlink=True)
-# Collar is independent sewn geometry, covering the genuine neck/suit boundary.
-loft('High_Race_Collar',[(0,.041,1.442,.064,.061),(0,.048,1.475,.066,.069),(0,.055,1.56,.067,.075)],[red],weight=lambda p,j,i:{'neck':1},n=64)
+# Collar is already sewn to the exact continuous suit boundary above.
 for side in [-1,1]:
     pre='Left' if side>0 else 'Right';wrist=heads[pre+'Hand'];direction=(wrist-heads[pre+'ForeArm']).normalized()
     keep={i for i,v in enumerate(verts) if (v-wrist).dot(direction)>-.008 and side*v.x>.41}
     faces=[[k for k in f.vertices] for f in hand_source.data.polygons if all(k in keep for k in f.vertices)]
     indices=sorted({v for f in faces for v in f});remap={v:i for i,v in enumerate(indices)}
-    curled=[];finger_axis=Vector((side*.12,-.03,-1)).normalized();palm=Vector((0,-1,0));palm=(palm-finger_axis*palm.dot(finger_axis)).normalized()
-    for i in indices:
-        delta=verts[i]-wrist;t=delta.dot(finger_axis);across=delta-finger_axis*t
-        if t>.075:
-            theta=min(1.35,(t-.075)/.065)
-            curled.append(wrist+across+finger_axis*(.075+.065*math.sin(theta))+palm*(.065*(1-math.cos(theta))))
-        else:curled.append(verts[i])
+    curled=anatomical_grip(anatomy_metadata,verts,indices,side)
     glove=mesh(pre+'_Anatomical_Glove',curled,[[remap[i] for i in f] for f in faces],[rubber,black], [0 if sum(verts[i].y for i in f)/len(f)<0 else 1 for f in faces]);rigid(glove,pre+'Hand')
     bpy.ops.object.select_all(action='DESELECT');glove.select_set(True);bpy.context.view_layer.objects.active=glove
-    dec=glove.modifiers.new('Preserve anatomical grip silhouette','DECIMATE');dec.ratio=.46;bpy.ops.object.modifier_apply(modifier=dec.name)
-    # Separate wrist strap with shaped padded cuff.
-    cuff=block(pre+'_Glove_Cuff',wrist,(.068,.047,.045),black,.010,pre+'Hand')
-    tube(pre+'_Glove_Red_Piping',[wrist+Vector((side*.028,0,.023)),wrist+Vector((side*.031,-.012,.005)),wrist+Vector((side*.028,0,-.016))],.002,scarlet,pre+'Hand')
-bpy.data.objects.remove(hand_source,do_unlink=True);bpy.data.objects.remove(newarm,do_unlink=True)
+    sub=glove.modifiers.new('Anatomical finger loops','SUBSURF');sub.levels=1;sub.render_levels=1;bpy.ops.object.modifier_apply(modifier=sub.name)
+    tucked=anatomical_grip(anatomy_metadata,verts,indices,side,True)
+    alternative=mesh(pre+'_Tuck_Glove',tucked,[[remap[i] for i in f] for f in faces],[rubber,black],[0]*len(faces));rigid(alternative,pre+'Hand')
+    bpy.context.view_layer.objects.active=alternative
+    sub=alternative.modifiers.new('Tuck finger loops','SUBSURF');sub.levels=1;sub.render_levels=1;bpy.ops.object.modifier_apply(modifier=sub.name)
+    alternative.hide_render=True
+    # Anatomical glove cuff follows the original wrist/forearm surface.
+    # The old world-axis box covered the strap loop and pinched the wrist.
+    longitudinal=(Vector(anatomy_metadata['finger_bones']['finger3-1'+('.L' if side>0 else '.R')]['head'])-wrist).normalized()
+    across=Vector(anatomy_metadata['finger_bones']['finger5-1'+('.L' if side>0 else '.R')]['head'])-Vector(anatomy_metadata['finger_bones']['finger2-1'+('.L' if side>0 else '.R')]['head'])
+    across=(across-longitudinal*across.dot(longitudinal)).normalized();palmar=across.cross(longitudinal).normalized()
+    original=BVHTree.FromPolygons([v.co for v in hand_source.data.vertices],[list(f.vertices) for f in hand_source.data.polygons])
+    cuff_vertices=[];cuff_faces=[];cuff_weights=[];cuff_materials=[];sections=[-.025,-.020,-.010,0,.0035,.005]
+    for j,along in enumerate(sections):
+        for k in range(48):
+            angle=k*math.tau/48;radial=across*math.cos(angle)+palmar*math.sin(angle);origin=wrist+longitudinal*along;hit=original.ray_cast(origin,radial,.10)
+            if hit[0] is None:raise RuntimeError('Anatomical cuff misses wrist')
+            cuff_vertices.append(hit[0]+radial*.0015);hand_weight=max(0,min(1,(along+.025)/.030));cuff_weights.append({pre+'Hand':hand_weight,pre+'ForeArm':1-hand_weight})
+            if j:
+                prev=(j-1)*48;cur=j*48;cuff_faces.append((prev+k,prev+(k+1)%48,cur+(k+1)%48,cur+k));cuff_materials.append(1 if j==5 else 0)
+    cuff=mesh(pre+'_Anatomical_Glove_Cuff',cuff_vertices,cuff_faces,[black,scarlet],cuff_materials,weights=cuff_weights)
+    transfer_weights(cuff,clothes,arm)
+    # Match the sleeve weights at the overlap, then blend into the rigid glove.
+    for vertex in cuff.data.vertices:
+        along=(vertex.co-wrist).dot(longitudinal);blend=max(0,min(1,(along+.012)/.017));blend=blend*blend*(3-2*blend)
+        sewn={cuff.vertex_groups[g.group].name:g.weight*(1-blend) for g in vertex.groups}
+        sewn[pre+'Hand']=sewn.get(pre+'Hand',0)+blend
+        for group in cuff.vertex_groups:group.remove([vertex.index])
+        for name,value in sewn.items():
+            if value>0:cuff.vertex_groups[name].add([vertex.index],value,'REPLACE')
+bpy.data.objects.remove(hand_source,do_unlink=True)
 
 # Nordic boots: narrow forefoot, flexible sole, carbon ankle cuff and zip covers.
 for side in [-1,1]:
     pre='Left' if side>0 else 'Right';x=heads[pre+'Foot'].x
     bootrings=[(x,-.022,.043,.047,.145),(x,-.024,.052,.048,.146),(x,-.025,.073,.046,.144),(x,-.022,.095,.045,.135),(x,.008,.119,.043,.105),(x,.049,.145,.039,.067),(x,.056,.195,.037,.056),(x,.056,.238,.036,.052)]
-    loft(pre+'_Nordic_Boot',interpolated(bootrings,3),[black,scarlet],lambda u,v:1 if v<.14 else 0,weight=lambda p,j,i:{pre+'Foot':1},n=64)
-    loft(pre+'_Carbon_Ankle_Cuff',[(x,.057,.175,.041,.059),(x,.057,.209,.041,.059),(x,.057,.226,.039,.055)], [carbon],weight=lambda p,j,i:{pre+'Foot':1},n=56)
+    def bootweight(p,j=0,i=0):
+        t=max(0,min(1,(p.z-.14)/.075));t=t*t*(3-2*t)
+        return {pre+'Foot':1-t,pre+'Leg':t}
+    loft(pre+'_Nordic_Boot',interpolated(bootrings,3),[black,scarlet],lambda u,v:1 if v<.14 else 0,weight=bootweight,n=64)
+    loft(pre+'_Carbon_Ankle_Cuff',[(x,.057,.175,.041,.059),(x,.057,.209,.041,.059),(x,.057,.226,.039,.055)], [carbon],weight=lambda p,j,i:{pre+'Leg':1},n=56)
     for z in [.053,.066]:tube(pre+'_Boot_Sole_Seam',[(x+.048*math.cos(t*math.tau/80),-.024+.146*math.sin(t*math.tau/80),z) for t in range(81)],.0012,stitch,pre+'Foot')
-    tube(pre+'_Boot_Zip',[(x,-.158,.084),(x,-.113,.108),(x,-.029,.14),(x,.001,.21)],.002,alloy,pre+'Foot')
-    block(pre+'_Ankle_Ratchet',(x,-.004,.205),(.068,.012,.016),scarlet,.003,pre+'Foot')
+    tube(pre+'_Boot_Zip',[(x,-.158,.084),(x,-.113,.108),(x,-.029,.14),(x,.001,.21)],.002,alloy)
+    boot_zip=objects[-1]
+    for vertex in boot_zip.data.vertices:
+        for group in list(vertex.groups):boot_zip.vertex_groups[group.group].remove([vertex.index])
+        for name,value in bootweight(vertex.co).items():boot_zip.vertex_groups[name].add([vertex.index],value,'REPLACE')
+    block(pre+'_Ankle_Ratchet',(x,-.004,.205),(.068,.012,.016),scarlet,.003,pre+'Leg')
+    tube(pre+'_Toe_Hinge_Pin',[(x-.018,-.171,.055),(x+.018,-.171,.055)],.003,alloy,pre+'Foot')
     # Skis in true metre scale; slender44mm waist and rising Nordic tip.
     vs=[];uv=[];fs=[];mi=[]
     for j in range(97):
@@ -392,52 +413,82 @@ for side in [-1,1]:
             k=j*4;fs.extend([(k,k+4,k+5,k+1),(k+2,k+3,k+7,k+6),(k,k+2,k+6,k+4),(k+1,k+5,k+7,k+3)]);mi.extend([0 if j%40<28 else 1,1,2,2])
     ski=mesh(pre+'_Nordic_Ski_194',vs,fs,[scarlet,black,alloy],mi,uv);rigid(ski,pre+'Foot')
     block(pre+'_Binding_Plate',(x,-.014,.036),(.040,.24,.016),carbon,.003,pre+'Foot')
-    block(pre+'_Binding_Toe_Clamp',(x,-.133,.058),(.052,.027,.035),titanium,.004,pre+'Foot')
-    block(pre+'_Binding_Release_Tab',(x,-.165,.055),(.035,.024,.014),scarlet,.003,pre+'Foot')
+    block(pre+'_Binding_Toe_Clamp',(x,-.183,.046),(.045,.024,.026),titanium,.004,pre+'Foot')
+    block(pre+'_Binding_Release_Tab',(x,-.203,.043),(.035,.024,.014),scarlet,.003,pre+'Foot')
     text(pre+'_Ski_Brand','PULSE',(x,-.60,.026),.22,white,pre+'Foot',horizontal=True)
     # Pole shaft/grip/basket/strap are independently parented below a hand socket.
-    wrist=heads[pre+'Hand'];grip=wrist+Vector((side*.025,-.050,-.080));tip=grip+Vector((side*.22,1.12,-.92));axis=(tip-grip).normalized()
+    wrist=heads[pre+'Hand'];grip,axis,palm_normal=grip_frame(anatomy_metadata,side);tip=grip+axis*1.46
     tube(pre+'_Carbon_Pole',[grip,tip],.0043,carbon,pre+'Hand')
-    tube(pre+'_Pole_Grip',[grip-axis*.075,grip+axis*.045],.012,rubber,pre+'Hand')
+    # Rounded upper cap; the contact section remains 24 mm in diameter.
+    radial=palm_normal;across=axis.cross(radial).normalized();handle_vertices=[];handle_faces=[]
+    rings=[(-.075,.008),(-.074,.0105),(-.071,.012),(-.066,.012),(.035,.012),(.043,.0105),(.045,.009)]
+    for j,(along,radius) in enumerate(rings):
+        for k in range(32):
+            angle=k*math.tau/32;handle_vertices.append(grip+axis*along+(radial*math.cos(angle)+across*math.sin(angle))*radius)
+            if j:handle_faces.append(((j-1)*32+k,(j-1)*32+(k+1)%32,j*32+(k+1)%32,j*32+k))
+    handle_faces.extend([tuple(range(31,-1,-1)),tuple(range((len(rings)-1)*32,len(rings)*32))])
+    handle=mesh(pre+'_Pole_Grip',handle_vertices,handle_faces,[rubber]);rigid(handle,pre+'Hand')
     tube(pre+'_Pole_Inlay',[grip+axis*.10,grip+axis*.47],.0047,scarlet,pre+'Hand')
     tube(pre+'_Pole_Tip',[tip,tip+axis*.04],.0027,alloy,pre+'Hand')
     basket=tip-axis*.055
     tube(pre+'_Small_Pole_Basket',[basket+Vector((math.cos(t*math.tau/48)*.021,math.sin(t*math.tau/48)*.021,0)) for t in range(49)],.003,rubber,pre+'Hand')
-    tube(pre+'_Pole_Wrist_Loop',[grip-axis*.035,wrist+Vector((side*.04,.01,.015)),wrist+Vector((-side*.025,.025,.019)),grip+axis*.015],.0035,black,pre+'Hand')
+    # The strap follows the glove, not a rigid triangle on the pole. Each
+    # grip posture has its own broad webbing path around the back of the hand.
+    longitudinal=(Vector(anatomy_metadata['finger_bones']['finger3-1'+('.L' if side>0 else '.R')]['head'])-wrist).normalized()
+    normal=(palm_normal-longitudinal*palm_normal.dot(longitudinal)).normalized();lateral=longitudinal.cross(normal).normalized()
+    for variant,frame in [('Skate',grip_frame(anatomy_metadata,side)),('Tuck',tuck_grip_frame(anatomy_metadata,side))]:
+        centre,shaft,_=frame
+        glove=bpy.data.objects[pre+('_Tuck_Glove' if variant=='Tuck' else '_Anatomical_Glove')]
+        bpy.context.view_layer.update()
+        surface=BVHTree.FromPolygons([glove.matrix_world@v.co for v in glove.data.vertices],[list(f.vertices) for f in glove.data.polygons])
+        vs=[];fs=[]
+        # Closed padded wrist loop: the hand is physically inside this band.
+        # Every radial edge is fitted to the actual glove cross-section.
+        for j in range(64):
+            angle=j*math.tau/64;radial=normal*math.cos(angle)+lateral*math.sin(angle)
+            for along,band_offset in [(-.006,.0015),(.006,.0015),(.006,.003),(-.006,.003)]:
+                origin=wrist+longitudinal*(.012+along)
+                hit=surface.ray_cast(origin,radial,.10)
+                if hit[0] is None:raise RuntimeError('Wrist strap cross-section misses glove: '+pre+' '+variant)
+                vs.append(hit[0]+radial*band_offset)
+        for j in range(64):
+            a=j*4;b=((j+1)%64)*4
+            for k in range(4):fs.append((a+k,a+(k+1)%4,b+(k+1)%4,b+k))
+        # Two short palmar connectors join the loop to the handle. They do not
+        # form an external triangular cage around the fingers.
+        for side_of_hand in [-1,1]:
+            radial=(normal*.8+lateral*side_of_hand*.6).normalized()
+            origin=wrist+longitudinal*.018;hit=surface.ray_cast(origin,radial,.10)
+            start=hit[0]+radial*.0022
+            toward_wrist=wrist-centre;toward_wrist=(toward_wrist-shaft*toward_wrist.dot(shaft)).normalized()
+            across_handle=shaft.cross(toward_wrist).normalized()
+            end=centre-shaft*.040+toward_wrist*.008+across_handle*(side_of_hand*.009)
+            points=[]
+            for j in range(17):
+                t=j/16;point=start.lerp(end,t)
+                if 0<j<15:
+                    nearest=surface.find_nearest(point)
+                    point=nearest[0]+nearest[1]*.0025
+                points.append(point)
+            offset=len(vs)
+            for j,point in enumerate(points):
+                tangent=(points[min(16,j+1)]-points[max(0,j-1)]).normalized();width=(lateral-tangent*lateral.dot(tangent)).normalized();depth=tangent.cross(width).normalized()
+                for u,v in [(-1,-1),(1,-1),(1,1),(-1,1)]:vs.append(point+width*(u*.0045)+depth*(v*.0007))
+                if j:
+                    a=offset+(j-1)*4;b=offset+j*4
+                    for k in range(4):fs.append((a+k,a+(k+1)%4,b+(k+1)%4,b+k))
+            fs.extend([tuple(offset+k for k in [3,2,1,0]),tuple(range(len(vs)-4,len(vs)))])
+        strap=mesh(pre+'_'+variant+'_Glove_Strap',vs,fs,[black]);rigid(strap,pre+'Hand');strap.hide_render=variant=='Tuck'
 
-# Original decorative sporting rifle. Open stock/hardware, no functional internals.
-rifleparts=[]
-def rp(o):rifleparts.append(o);return o
-def profiled(name,outline,depth,mat):
-    verts=[(x,y,z) for y in [-depth/2,depth/2] for x,z in outline];n=len(outline)
-    faces=[tuple(range(n-1,-1,-1)),tuple(range(n,n*2))]+[(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)]
-    o=mesh(name,verts,faces,[mat]);bevel=o.modifiers.new('Stock softened edges','BEVEL');bevel.width=.005;bevel.segments=3
-    bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o;bpy.ops.object.modifier_apply(modifier=bevel.name);return rp(o)
-stock=profiled('Sporter_Open_Stock',[(-.085,.025),(.075,.025),(.065,.105),(.048,.16),(.048,.30),(.08,.35),(.075,.49),(.015,.53),(-.055,.49),(-.042,.36),(-.045,.31),(-.050,.16),(-.075,.10)],.044,wood)
-bpy.ops.mesh.primitive_uv_sphere_add(segments=32,ring_count=16,location=(0,0,.235));cut=bpy.context.object;cut.scale=(.026,.065,.064)
-bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);bpy.context.view_layer.objects.active=stock
-modifier=stock.modifiers.new('Decorative ergonomic stock relief','BOOLEAN');modifier.operation='DIFFERENCE';modifier.solver='EXACT';modifier.object=cut;bpy.ops.object.modifier_apply(modifier=modifier.name);bpy.data.objects.remove(cut,do_unlink=True)
-profiled('Cheek_Piece',[(-.07,.25),(-.045,.25),(-.025,.41),(-.07,.425),(-.083,.39)],.061,carbon)
-rp(block('Butt_Plate',(-.004,0,.027),(.175,.060,.031),rubber,.007))
-rp(block('Receiver_Sport',(.016,0,.55),(.055,.050,.18),alloy,.005))
-rp(block('Stock_Composite_Inlay',(.015,-.025,.38),(.027,.006,.18),scarlet,.003))
-def rifle_cyl(name,a,b,r,mat):
-    d=Vector(b)-Vector(a);bpy.ops.mesh.primitive_cylinder_add(vertices=32,radius=r,depth=d.length,location=(Vector(a)+Vector(b))*.5);o=bpy.context.object;o.name=name;o.rotation_euler=d.to_track_quat('Z','Y').to_euler();o.data.materials.append(mat);smooth(o);return rp(o)
-rifle_cyl('Match_Barrel',(.016,0,.60),(.016,0,1.12),.012,titanium)
-for z in [.67,.76,.89,1.10]:rifle_cyl('Barrel_Collar',(.016,0,z-.009),(.016,0,z+.009),.015,alloy)
-rp(block('Rear_Diopter',(-.015,-.002,.618),(.055,.059,.029),carbon,.004))
-rp(block('Diopter_Mount',(-.016,0,.59),(.023,.029,.035),alloy,.002))
-rifle_cyl('Front_Sight_Tunnel',(.016,0,1.10),(.016,0,1.13),.024,carbon)
-rp(block('Front_Sight_Protective_Hood',(.016,-.010,1.13),(.060,.054,.006),alloy,.002))
-rp(block('Decorative_Receiver_Lever',(.058,0,.566),(.042,.016,.016),titanium,.004))
-for z in [.22,.32,.46,.535]:
-    rifle_cyl('Stock_Fastener',(-.045,-.026,z),(-.045,-.031,z),.005,alloy)
-rp(block('Harness_Lower_Fitting',(-.016,.028,.18),(.06,.012,.028),carbon,.003))
-riflematrix=Matrix.Translation((.045,.188,.81))@Matrix.Rotation(math.radians(-4),4,'Y')
-for obj in rifleparts:obj.matrix_world=riflematrix@obj.matrix_world;rigid(obj,'Spine')
+
+
+# Licensed CC0 visible metal plus original sport-specific external geometry.
+rifleparts,reused_rifle_parts=sporting_rifle(anatomy_path.parents[2]/'PolyHavenRifle',material,mesh,tube,block,rigid,materials,out)
+materials.extend([bpy.data.materials[n] for n in ['Rifle_PolyHaven_CC0_Metal','Rifle_Race_Laminate','Rifle_Padded_Composite','Rifle_Satin_Hardware']])
 # Broad webbing with tension-following shoulder routes, weighted along the torso.
 for side in [-1,1]:
-    points=[(side*.09,.175,1.11),(side*.145,.14,1.30),(side*.15,.08,1.405),(side*.13,.00,1.425),(side*.12,-.065,1.35),(side*.14,-.076,1.19),(side*.10,.00,1.08)]
+    controls=[(side*.09,.175,1.11),(side*.145,.14,1.30),(side*.15,.08,1.405),(side*.13,.00,1.425),(side*.12,-.065,1.35),(side*.14,-.076,1.19),(side*.10,.00,1.08)]
+    points=interpolated(controls,10)
     # Flat webbing as a real quad ribbon, not a cylinder.
     verts=[];ws=[];uv=[]
     for i,p in enumerate(points):
@@ -447,6 +498,20 @@ for side in [-1,1]:
     block('Harness_Adjuster',(side*.137,-.078,1.205),(.036,.007,.032),titanium,.002,'Spine01')
 
 # Explicit named attachment nodes, serialized by Unity authoring rather than name-based gameplay identity.
+contacts=[]
+for pre,side in [('Left',1),('Right',-1)]:
+    grip,axis,_=grip_frame(anatomy_metadata,side)
+    obj=bpy.data.objects.new(pre+'_Pole_Grip_Contact',None);bpy.context.collection.objects.link(obj);obj.location=grip;normal=grip_frame(anatomy_metadata,side)[2];obj.rotation_euler=Matrix((-normal,axis,(-normal).cross(axis))).transposed().to_euler();rigid(obj,pre+'Hand');contacts.append(obj.name)
+    # Point markers survive the FBX handedness change without relying on a
+    # rotation basis. Native tests compare the imported palm axis to this side.
+    longitudinal=(Vector(anatomy_metadata['finger_bones']['finger3-1'+('.L' if side>0 else '.R')]['head'])-heads[pre+'Hand']).normalized()
+    physical_normal=(normal-longitudinal*normal.dot(longitudinal)).normalized()
+    for label,offset in [('Palm',.01),('Dorsal',-.01)]:
+        marker=bpy.data.objects.new(pre+'_'+label+'_Side',None);bpy.context.collection.objects.link(marker);marker.location=heads[pre+'Hand']+longitudinal*.06+physical_normal*offset;rigid(marker,pre+'Hand');contacts.append(marker.name)
+    centre,tuck_axis,tuck_normal=tuck_grip_frame(anatomy_metadata,side)
+    obj=bpy.data.objects.new(pre+'_Tuck_Grip_Contact',None);bpy.context.collection.objects.link(obj);obj.location=centre;obj.rotation_euler=Matrix((-tuck_normal,tuck_axis,(-tuck_normal).cross(tuck_axis))).transposed().to_euler();rigid(obj,pre+'Hand');contacts.append(obj.name)
+
+    obj=bpy.data.objects.new(pre+'_Toe_Hinge_Contact',None);bpy.context.collection.objects.link(obj);obj.location=(heads[pre+'Foot'].x,-.171,.055);rigid(obj,pre+'Foot');contacts.append(obj.name)
 sockets=[('Rifle_Back_Socket','Spine',(.045,.188,1.36)),('Rifle_Hand_Socket','RightHand',heads['RightHand']),('Ski_Left_Socket','LeftFoot',heads['LeftFoot']),('Ski_Right_Socket','RightFoot',heads['RightFoot']),('Pole_Left_Socket','LeftHand',heads['LeftHand']),('Pole_Right_Socket','RightHand',heads['RightHand'])]
 for name,bone,position in sockets:
     obj=bpy.data.objects.new(name,None);bpy.context.collection.objects.link(obj);obj.location=position;rigid(obj,bone)
@@ -457,47 +522,42 @@ def fit_surface(obj,target,offset):
     mod=obj.modifiers.new('Sewn surface fit','SHRINKWRAP');mod.target=target;mod.wrap_method='NEAREST_SURFACEPOINT';mod.wrap_mode='OUTSIDE_SURFACE';mod.offset=offset
     bpy.ops.object.modifier_apply(modifier=mod.name)
 bib=bpy.data.objects['Woven_Bib_27'];objects.remove(bib);bpy.data.objects.remove(bib,do_unlink=True)
-bpy.context.view_layer.update();surface=BVHTree.FromObject(clothes,bpy.context.evaluated_depsgraph_get())
-radii=[];n=96;rows=25
-for j in range(rows):
-    z=1.14+j/(rows-1)*.185;row=[]
-    for i in range(n):
-        direction=Vector((math.cos(i/n*math.tau),math.sin(i/n*math.tau),0))
-        # Start outside: an inside-out ray can stop at an internal remnant of
-        # the source shirt instead of the visible outer compression shell.
-        center=Vector((0,.035,z));hit=surface.ray_cast(center+direction*.45,-direction,.45)
-        if hit[0] is None:raise RuntimeError('Bib radial cloth fit has no body surface')
-        # Bound only the arm extension: the old117mm sagittal cap cut through
-        # the actual chest, clipping both the cloth and printed27 in rest pose.
-        envelope=1/math.sqrt(direction.x**2/.205**2+direction.y**2/.170**2)
-        row.append(min(envelope,(hit[0]-Vector((0,.035,z))).length))
-    radii.append(row)
-radii=np.array(radii);outer_radii=radii.copy()
-for _ in range(6):radii=(radii*2+np.roll(radii,1,axis=1)+np.roll(radii,-1,axis=1))/4
-radii=np.maximum(radii,outer_radii)
-verts=[];uv=[];weights=[];faces=[]
-for j in range(rows):
-    z=1.14+j/(rows-1)*.185
-    for i in range(n+1):
-        angle=i/n*math.tau;r=radii[j,i%n]+.008
-        verts.append((r*math.cos(angle),.035+r*math.sin(angle),z));uv.append((i/n,j/(rows-1)));weights.append(weight_z(z))
-        if j<rows-1 and i<n:faces.append((j*(n+1)+i,j*(n+1)+i+1,(j+1)*(n+1)+i+1,(j+1)*(n+1)+i))
-bib=mesh('Woven_Bib_27',verts,faces,[white],uv=uv,weights=weights)
-bib_segments=n
+bib,shoulders=race_bib(bib_reference,arm,mesh,tube,weight_z,white,clothes)
+bpy.data.objects.remove(bib_reference,do_unlink=True)
 for obj in list(objects):
-    if obj.name.startswith('Bib_Bound_Edge'):objects.remove(obj);bpy.data.objects.remove(obj,do_unlink=True)
+    if obj.name.startswith('Bib_Bound_Edge') or 'Rifle_Harness_Webbing' in obj.name or obj.name.startswith('Harness_Stitch') or '_Torso_Flatlock' in obj.name:
+        objects.remove(obj);bpy.data.objects.remove(obj,do_unlink=True)
+fitted_harness(clothes,bib,arm,mesh,tube,black,stitch,weight_z)
+# Sample the centre-front surface explicitly. Nearest-point fitting a tube from
+# inside the old torso collapsed its cross-section and made it bridge the neck.
+for old in list(objects):
+    if old.name.startswith(('Chest_Waterproof_Zip','Zip_Puller')):
+        objects.remove(old);bpy.data.objects.remove(old,do_unlink=True)
+bpy.context.view_layer.update();zip_tree=BVHTree.FromObject(clothes,bpy.context.evaluated_depsgraph_get())
+zip_points=[]
+for i in range(49):
+    z=1.536-(1.536-1.400)*i/48
+    hit=zip_tree.ray_cast(Vector((0,-.6,z)),Vector((0,1,0)),1.2)
+    if hit[0] is None:raise RuntimeError('Zip has no continuous front fabric support')
+    zip_points.append(hit[0]+Vector((0,-.0018,0)))
+zipper=tube('Chest_Waterproof_Zip',zip_points,.0014,black);transfer_weights(zipper,clothes,arm)
+puller=block('Zip_Puller',zip_points[3]+Vector((0,-.002,0)),(.008,.002,.013),alloy,.001)
+puller.rotation_euler=(zip_points[0]-zip_points[6]).to_track_quat('Z','X').to_euler()
+transfer_weights(puller,clothes,arm)
+fit_surface(cap,body,.0035)
 for obj in list(objects):
-    if obj.name.startswith(('Bib27_','Bib_Header','Bib_Footer')):fit_surface(obj,bib,.0012)
-    if obj.name=='Cap_PULSE':fit_surface(obj,cap,.0012)
-    if 'Rifle_Harness_Webbing' in obj.name:fit_surface(obj,clothes,.007)
-    if any(token in obj.name for token in ['Flatlock','Sleeve_Seam','Harness_Stitch']):fit_surface(obj,clothes,.0012)
-    if obj==bib or obj.name.startswith(('Bib27_','Bib_Header','Bib_Footer')):
-        world=obj.matrix_world.copy();obj.parent=None;obj.parent_type='OBJECT';obj.matrix_world=world;obj.vertex_groups.clear();obj.modifiers.clear()
-        groups={n:obj.vertex_groups.new(name=n) for n in arm.data.bones.keys()}
-        for vert in obj.data.vertices:
-            for n,w in weight_z((obj.matrix_world@vert.co).z).items():groups[n].add([vert.index],w,'REPLACE')
-        mod=obj.modifiers.new('Bib torso deformation','ARMATURE');mod.object=arm;obj.parent=arm;obj.matrix_world=world
-for j in [0,rows-1]:tube('Bib_Stitched_Binding',[(Vector(verts[j*(bib_segments+1)+i])+Vector((0,0,.0004 if j==0 else -.0004))) for i in range(bib_segments+1)],.001,white)
+    if obj.name.startswith(('Bib27_','Bib_Header','Bib_Footer')):
+        bm=bmesh.new();bm.from_mesh(obj.data)
+        bmesh.ops.triangulate(bm,faces=list(bm.faces))
+        bmesh.ops.subdivide_edges(bm,edges=list(bm.edges),cuts=4,use_grid_fill=True)
+        bm.to_mesh(obj.data);bm.free()
+        projected_print(obj,bib,.0012,back=obj.name.endswith('_Back'));transfer_weights(obj,bib,arm)
+    if obj.name.startswith('Cap_PULSE'):
+        projected_print(obj,cap,.0015)
+    if any(token in obj.name for token in ['Flatlock','Sleeve_Seam']):
+        fit_surface(obj,clothes,.0012);transfer_weights(obj,clothes,arm)
+    if obj.name.startswith('Harness_Adjuster'):
+        fit_surface(obj,bib,.004);transfer_weights(obj,bib,arm)
 
 # Ensure material paths portable, document exact produced geometry and source basis.
 bpy.context.view_layer.update()
@@ -511,7 +571,7 @@ for obj in objects:
 character_objects=[arm]+[o for o in objects if o.name in bpy.data.objects]
 # Main scene stores a clean rest rig. Renders use presentation-only poses in a separate review file.
 (out/'Models/Source~').mkdir(exist_ok=True)
-blendpath=out/'Models/Source~/Biathlete_16_7.blend';bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(blendpath))
+blendpath=out/'Models/Source~/Biathlete_16_7_Natural.blend';bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(blendpath))
 # Runtime derivative: one weighted body, independent rifle/skis/poles and3 true LODs.
 def join_meshes(name,parts,bone=None,origin=None):
     bpy.context.view_layer.update();bpy.ops.object.select_all(action='DESELECT')
@@ -537,6 +597,11 @@ for pre in ['Left','Right']:
     gear.append(join_meshes(pre+'_Pole_Prop',poleparts,pre+'Hand',heads[pre+'Hand']))
     skiparts=[o for o in scene.objects if o.type=='MESH' and o.name.startswith(pre+'_') and any(s in o.name for s in ['Nordic_Ski','Binding_','Ski_Brand'])]
     gear.append(join_meshes(pre+'_Ski_Prop',skiparts,pre+'Foot',heads[pre+'Foot']))
+# Keep two authored anatomical hand postures. A plant fist cannot be
+# rotated wholesale into the palm-supported tuck without a broken wrist.
+for pre in ['Left','Right']:
+    for original,label in [(pre+'_Anatomical_Glove',pre+'_Skate_Glove'),(pre+'_Tuck_Glove',pre+'_Tuck_Glove')]:
+        obj=join_meshes(label,[bpy.data.objects[original],bpy.data.objects[pre+'_'+('Tuck' if 'Tuck' in label else 'Skate')+'_Glove_Strap']],pre+'Hand',heads[pre+'Hand']);gear.append(obj)
 body_parts=[o for o in scene.objects if o.type=='MESH' and o not in gear]
 primary=next(o for o in body_parts if o.name=='RaceSuit_Continuous_Tailored_Shell');body_parts.remove(primary);body_parts.insert(0,primary)
 gamebody=join_meshes('Biathlete_Body_LOD0',body_parts);rigged.append(gamebody)
@@ -548,25 +613,37 @@ character_objects=[arm]+gear+rigged+[o for o in scene.objects if o.type=='EMPTY'
 bpy.ops.object.select_all(action='DESELECT')
 for obj in character_objects:obj.select_set(True)
 bpy.context.view_layer.objects.active=arm
-bpy.ops.export_scene.fbx(filepath=str(out/'Models/Biathlete_16_7.fbx'),use_selection=True,object_types={'ARMATURE','MESH','EMPTY'},add_leaf_bones=False,bake_anim=False,apply_scale_options='FBX_SCALE_UNITS',axis_forward='-Z',axis_up='Y',path_mode='RELATIVE',use_mesh_modifiers=True)
+bpy.ops.export_scene.fbx(filepath=str(out/'Models/Biathlete_16_7_Natural.fbx'),use_selection=True,object_types={'ARMATURE','MESH','EMPTY'},add_leaf_bones=False,bake_anim=False,apply_scale_options='FBX_SCALE_UNITS',axis_forward='-Z',axis_up='Y',path_mode='RELATIVE',use_mesh_modifiers=True)
 # Source walk/run preserved verbatim and explicitly labelled, not ski animation.
 shutil.copyfile(src/'01_Character/man-base-character-rigged.fbx',out/'Animations/Source_Walk_Run_Not_Ski.fbx')
-manifest={'schema_version':1,'id':'biathlete_16_7_v1','blender':bpy.app.version_string,'height_m':1.8,'bones':len(arm.data.bones),'material_color_space':'scene-linear','source_license':'CC0 Grab3D; original tailored garments/equipment','meshes':[],'materials':[],'sockets':[x[0] for x in sockets]}
+manifest={'schema_version':1,'id':'biathlete_16_7_natural_v1','export_fbx_sha256':hashlib.sha256((out/'Models/Biathlete_16_7_Natural.fbx').read_bytes()).hexdigest(),'blender':bpy.app.version_string,'height_m':1.8,'bones':len(arm.data.bones),'material_color_space':'scene-linear','source_license':'CC0 MakeHuman hm08 anatomy/skin and CC0 Poly Haven rifle (Mateusz Sadek); project-authored garments/equipment adaptations','meshes':[],'materials':[],'sockets':[x[0] for x in sockets]}
 for obj in character_objects:
     if obj.type=='MESH':obj.data.calc_loop_triangles();manifest['meshes'].append({'name':obj.name,'triangles':len(obj.data.loop_triangles),'vertices':len(obj.data.vertices),'uv_layers':len(obj.data.uv_layers),'skinned':any(m.type=='ARMATURE' for m in obj.modifiers),'bone_parent':obj.parent_bone})
 for m in materials:manifest['materials'].append({'name':m.name,'color':list(m.diffuse_color),'roughness':m.node_tree.nodes.get('Principled BSDF').inputs['Roughness'].default_value,'metallic':m.node_tree.nodes.get('Principled BSDF').inputs['Metallic'].default_value})
+manifest['rifle_cc0_reused_visible_components']=reused_rifle_parts
+manifest['contact_frames']=contacts
+manifest['grip_variants']=['Skate','Tuck']
+manifest['contact_basis_conversion']='Blender -palm X, shaft Y; after Unity FBX handedness conversion, imported +X is the physical palmar side. Point markers independently validate the sign.'
+manifest['grip_audit']={pre:grip_finger_matrices(anatomy_metadata,side)[1] for pre,side in [('Left',1),('Right',-1)]}
+from power_grip import solve_finger
+manifest['tuck_grip_style']='full_palmar_power_grip_at_upper_handle'
+manifest['tuck_power_grip_obliquity_degrees']=CONTACT_SETTINGS['tuck_power_grip_obliquity_degrees']
+manifest['tuck_upper_grip_offset_m']=CONTACT_SETTINGS['tuck_upper_grip_offset_m']
+manifest['power_grip_finger_pose']={pre:{str(digit):solve_finger(anatomy_metadata,side,digit,*tuck_grip_frame(anatomy_metadata,side))[2] for digit in range(2,6)} for pre,side in [('Left',1),('Right',-1)]}
+
 manifest['triangles']=sum(x['triangles'] for x in manifest['meshes'])
-manifest['active_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')))
-(out/'Documentation/asset-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
+manifest['stored_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')))
+manifest['active_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')) and not x['name'].endswith('Tuck_Glove'))
+(out/'Documentation/natural-asset-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 (review/'model-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 # Studio render, actual model only. World/light floor are not exported with the rig.
-scene.render.engine='CYCLES';scene.cycles.samples=48;scene.cycles.use_denoising=True
+scene.render.engine='CYCLES';scene.cycles.samples=16 if args.fast else 48;scene.cycles.use_denoising=True
 try:
     prefs=bpy.context.preferences.addons['cycles'].preferences;prefs.compute_device_type='OPTIX';prefs.get_devices()
     for d in prefs.devices:d.use=d.type=='OPTIX'
     scene.cycles.device='GPU'
 except Exception:pass
-scene.render.resolution_x=1100;scene.render.resolution_y=1400;scene.render.resolution_percentage=100
+scene.render.resolution_x=1100;scene.render.resolution_y=1400;scene.render.resolution_percentage=65 if args.fast else 100
 scene.view_settings.look='AgX - Medium High Contrast';scene.view_settings.exposure=-.55
 scene.world=bpy.data.worlds.new('Neutral studio');scene.world.use_nodes=True;scene.world.node_tree.nodes['Background'].inputs[0].default_value=(.12,.15,.20,1);scene.world.node_tree.nodes['Background'].inputs[1].default_value=.35
 def point(o,p):o.rotation_euler=(Vector(p)-o.location).to_track_quat('-Z','Y').to_euler()
@@ -575,6 +652,7 @@ for pos,energy,size,color in [((2,-3,4),650,3,(1,.91,.82)),((-3,-1,2.5),420,3,(.
 floor=block('Studio cyclorama',(0,0,-.02),(200,200,.04),material('Studio_Grey',(.12,.15,.19),.72),0)
 bpy.ops.object.camera_add();cam=bpy.context.object;scene.camera=cam;cam.data.type='ORTHO';cam.data.lens=55
 for name,pos,target,scale in [('front',(.12,-4,1.0),(0,0,.98),2.22),('side',(4,-.25,1.05),(0,0,.98),2.22),('back',(.0,4,1.04),(0,0,.98),2.22),('face',(.2,-2,1.68),(0,0,1.664),.42),('rifle',(.65,2,1.35),(.04,.2,1.29),1.30),('boots',(.7,-1.4,.38),(0,-.08,.16),.68)]:
+    if args.fast and name not in ['front','side','face']:continue
     cam.location=pos;point(cam,target);cam.data.ortho_scale=scale;scene.render.filepath=str(review/(name+'.png'));bpy.ops.render.render(write_still=True)
 bpy.ops.wm.save_as_mainfile(filepath=str(review/'Biathlete_16_7_Studio.blend'))
 print('M167_BUILD_COMPLETE',manifest['triangles'],len(manifest['meshes']))

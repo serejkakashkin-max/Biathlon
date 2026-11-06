@@ -28,8 +28,12 @@ namespace Biathlon.Unity
             ("LeftLowerArm","LeftForeArm"),("RightLowerArm","RightForeArm"),("LeftHand","LeftHand"),("RightHand","RightHand"),
             ("LeftUpperLeg","LeftUpLeg"),("RightUpperLeg","RightUpLeg"),("LeftLowerLeg","LeftLeg"),("RightLowerLeg","RightLeg"),
             ("LeftFoot","LeftFoot"),("RightFoot","RightFoot"),("LeftToes","LeftToeBase"),("RightToes","RightToeBase")};
-        public static void Generate()
+        public static void Generate()=>GenerateModel(false);
+        public static void GenerateNatural()=>GenerateModel(true);
+        private static void GenerateModel(bool natural)
         {
+            string modelPath=natural?Root+"/Models/Biathlete_16_7_Natural.fbx":Model;
+            string prefabPath=natural?Root+"/Prefabs/Biathlete_16_7_Natural.prefab":Prefab;
             if(EditorApplication.isPlaying||EditorApplication.isCompiling)throw new InvalidOperationException("Idle compiled editor required.");
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             foreach(string path in Directory.GetFiles(Root+"/Textures","*.png"))
@@ -39,7 +43,7 @@ namespace Biathlon.Unity
                 t.sRGBTexture=path.Contains("BaseColor");t.maxTextureSize=path.Contains("4K")?4096:2048;t.mipmapEnabled=true;t.anisoLevel=4;
                 t.textureCompression=TextureImporterCompression.CompressedHQ;t.SaveAndReimport();
             }
-            var manifest=JsonUtility.FromJson<Manifest>(File.ReadAllText(Root+"/Documentation/asset-manifest.json"));
+            var manifest=JsonUtility.FromJson<Manifest>(File.ReadAllText(Root+(natural?"/Documentation/natural-asset-manifest.json":"/Documentation/asset-manifest.json")));
             var materials=new Dictionary<string,Material>(StringComparer.Ordinal);
             foreach(var data in manifest.materials)
             {
@@ -49,25 +53,33 @@ namespace Biathlon.Unity
                 // bpy shader colors are scene-linear. Unity's serialized Color
                 // properties are sRGB and become linear when supplied to shaders.
                 material.SetColor("_BaseColor",new Color(data.color[0],data.color[1],data.color[2],1).gamma);material.SetFloat("_Smoothness",1-data.roughness);material.SetFloat("_Metallic",data.metallic);
-                if(data.name=="Anatomical_Skin_2K")
+                if(data.name=="Rifle_PolyHaven_CC0_Metal")
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Rifle_CC0_BaseColor_2K");Normal(material,"Rifle_CC0_Normal_2K",.65f);Map(material,"_MetallicGlossMap","Rifle_CC0_MetallicSmoothness_2K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
+                else if(data.name=="Rifle_Race_Laminate")
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Rifle_CC0_Laminate_BaseColor_2K");Normal(material,"Rifle_CC0_Normal_2K",.5f);material.SetFloat("_Smoothness",.45f);}
+                else if(data.name=="Anatomical_Skin_CC0_2K")
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","MakeHuman_Skin_BaseColor_2K");material.SetFloat("_Smoothness",.38f);}
+                else if(data.name=="Anatomical_Skin_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Skin_BaseColor_2K");Normal(material,"Skin_Normal_2K",.8f);Map(material,"_MetallicGlossMap","Skin_MetallicSmoothness_2K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
+                else if(data.name=="PULSE_Natural_Tailored_Textile")
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Natural_Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",.28f);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name=="PULSE_Tailored_Textile")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",.28f);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name.Contains("Race_Red")||data.name.Contains("Stretch")||data.name.Contains("Bib_")||data.name.Contains("Thread"))
                 {Map(material,"_BaseMap","Textile_BaseColor_4K");Normal(material,"Textile_Normal_4K",.22f);material.SetFloat("_Smoothness",.33f);}
                 material.SetFloat("_Cull",0);material.doubleSidedGI=true;material.enableInstancing=true;EditorUtility.SetDirty(material);AssetDatabase.SaveAssetIfDirty(material);materials[data.name]=material;
             }
-            var importer=(ModelImporter)AssetImporter.GetAtPath(Model);if(importer==null)throw new InvalidOperationException("Missing generated FBX.");
+            var importer=(ModelImporter)AssetImporter.GetAtPath(modelPath);if(importer==null)throw new InvalidOperationException("Missing generated FBX.");
             importer.importCameras=false;importer.importLights=false;importer.addCollider=false;importer.importAnimation=false;importer.optimizeGameObjects=false;
             importer.isReadable=true;importer.skinWeights=ModelImporterSkinWeights.Custom;importer.maxBonesPerVertex=4;importer.minBoneWeight=.001f;
             importer.materialImportMode=ModelImporterMaterialImportMode.ImportStandard;
             foreach(var pair in materials)importer.AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Material),pair.Key),pair.Value);
-            var model=AssetDatabase.LoadAssetAtPath<GameObject>(Model);
+            var model=AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
             var skeleton=model.GetComponentsInChildren<Transform>(true).Select(t=>new SkeletonBone{name=t.name,position=t.localPosition,rotation=t.localRotation,scale=t.localScale}).ToArray();
             var description=new HumanDescription{human=Mapping.Select(x=>new HumanBone{humanName=x.human,boneName=x.bone,limit=new HumanLimit{useDefaultValues=true}}).ToArray(),skeleton=skeleton,
                 upperArmTwist=.5f,lowerArmTwist=.5f,upperLegTwist=.5f,lowerLegTwist=.5f,armStretch=.05f,legStretch=.05f,feetSpacing=0,hasTranslationDoF=false};
             importer.animationType=ModelImporterAnimationType.Human;importer.avatarSetup=ModelImporterAvatarSetup.CreateFromThisModel;importer.humanDescription=description;importer.SaveAndReimport();
-            model=AssetDatabase.LoadAssetAtPath<GameObject>(Model);
+            model=AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
             var root=new GameObject("Biathlete_16_7");
             try
             {
@@ -85,24 +97,28 @@ namespace Biathlon.Unity
                 var levels=new LOD[3];float[] thresholds={.32f,.13f,.015f};
                 for(int i=0;i<3;i++)levels[i]=new LOD(thresholds[i],equipment.Cast<Renderer>().Concat(skin.Where(s=>s.name.EndsWith("LOD"+i,StringComparison.Ordinal))).ToArray());
                 var lodGroup=root.AddComponent<LODGroup>();lodGroup.SetLODs(levels);lodGroup.fadeMode=LODFadeMode.None;lodGroup.RecalculateBounds();
-                var binding=root.AddComponent<Biathlete167Rig>();binding.Configure(animator,sockets,weapon,equipment.Where(r=>r.name.Contains("Pole_Prop")).Cast<Renderer>().ToArray(),lodGroup);
+                var binding=root.AddComponent<Biathlete167Rig>();binding.Configure(animator,sockets,weapon,equipment.Where(r=>r.name.Contains("Pole_Prop")).Cast<Renderer>().ToArray(),lodGroup,natural);
+                if(natural)binding.ConfigureContacts(Find("Left_Pole_Grip_Contact"),Find("Right_Pole_Grip_Contact"),Find("Left_Toe_Hinge_Contact"),Find("Right_Toe_Hinge_Contact"),AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/contact-adaptation-v1.json"));
+                if(natural)binding.ConfigureGripVariants(Find("Left_Tuck_Grip_Contact"),Find("Right_Tuck_Grip_Contact"),
+                    new[]{Find("Left_Skate_Glove").gameObject,Find("Right_Skate_Glove").gameObject},
+                    new[]{Find("Left_Tuck_Glove").gameObject,Find("Right_Tuck_Glove").gameObject});
                 if(root.GetComponentsInChildren<Collider>(true).Length!=0)throw new InvalidOperationException("Visual prefab cannot acquire gameplay colliders.");
-                PrefabUtility.SaveAsPrefabAsset(root,Prefab);
+                PrefabUtility.SaveAsPrefabAsset(root,prefabPath);
             }
             finally{Object.DestroyImmediate(root);}
-            GenerateScene();
+            GenerateScene(prefabPath);
         }
         private static void Map(Material material,string property,string name)
         {var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(Root+"/Textures/"+name+".png");if(texture==null)throw new InvalidDataException("Missing PBR map "+name);material.SetTexture(property,texture);}
         private static void Normal(Material material,string name,float strength){Map(material,"_BumpMap",name);material.SetFloat("_BumpScale",strength);material.EnableKeyword("_NORMALMAP");}
-        private static void GenerateScene()
+        private static void GenerateScene(string prefabPath)
         {
             var previous=SceneManager.GetActiveScene();bool cleanUntitled=string.IsNullOrEmpty(previous.path)&&!previous.isDirty;
             if(string.IsNullOrEmpty(previous.path)&&previous.isDirty)throw new InvalidOperationException("Preserve the dirty untitled scene before character scene authoring.");
             var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,cleanUntitled?NewSceneMode.Single:NewSceneMode.Additive);SceneManager.SetActiveScene(scene);
             try
             {
-                var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(Prefab);var hero=(GameObject)PrefabUtility.InstantiatePrefab(prefab,scene);
+                var prefab=AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);var hero=(GameObject)PrefabUtility.InstantiatePrefab(prefab,scene);
                 foreach(var child in hero.GetComponentsInChildren<Transform>(true))child.gameObject.layer=28;
                 var camera=new GameObject("Studio camera").AddComponent<Camera>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.035f,.055f,.075f);camera.nearClipPlane=.04f;camera.farClipPlane=40;
                 camera.cullingMask=~(1<<30);

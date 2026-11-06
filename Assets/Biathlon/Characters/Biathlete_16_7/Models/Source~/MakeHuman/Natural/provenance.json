@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "m167_natural_anatomy_provenance",
+  "prepared_date": "2026-11-05",
+  "asset_license": "CC0-1.0",
+  "makehuman_application_code_included": false,
+  "body_source_manifest": "../provenance.json",
+  "proportion_mode": "natural_unwarped_anatomy",
+  "official_skin": {
+    "author": "makehuman_system",
+    "catalog_url": "https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html",
+    "pack_url": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "zip_member": "skins/young_caucasian_male/young_lightskinned_male_diffuse.png",
+    "resolution": [
+      2048,
+      2048
+    ],
+    "license": "CC0-1.0",
+    "retrieval": "Selected member from the official ZIP using HTTP byte ranges; incomplete ZIP is not redistributed."
+  },
+  "files": [
+    {
+      "file": "athletic_fitted.blend",
+      "bytes": 2499079,
+      "sha256": "d711a491c013c713ea88beb4e9b54d98e1ee8dece8b571ba2a341fa38985ca6a"
+    },
+    {
+      "file": "athletic_fitted.json",
+      "bytes": 1349293,
+      "sha256": "116062d69630a6b40405c25a21ba02a6e0f520608d62224db3e89a9998dba1c6"
+    },
+    {
+      "file": "young_lightskinned_male_diffuse.png",
+      "bytes": 3693828,
+      "sha256": "862a26e335e958b70534cb5f0d7c47ef30ab148a56c42b3e9da969cf76f12963"
+    }
+  ],
+  "metadata_enriched_date": "2026-11-06",
+  "metadata_enrichment": "Finger-pad centres derived from the actual source hand surface and distal skin weights; virtual bone tails are not used as skin-contact proof. No anatomical vertex positions changed."
+}

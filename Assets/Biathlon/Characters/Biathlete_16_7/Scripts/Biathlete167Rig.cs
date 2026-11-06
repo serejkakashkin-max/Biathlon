@@ -13,6 +13,23 @@ namespace Biathlon.Unity.Presentation
         [SerializeField] private Transform rifle;
         [SerializeField] private Renderer[] poleRenderers;
         [SerializeField] private LODGroup lodGroup;
+        [SerializeField] private bool naturalAnatomy;
+        [SerializeField] private Transform leftGripContact,rightGripContact,leftToeHinge,rightToeHinge;
+        [SerializeField] private Transform leftTuckGripContact,rightTuckGripContact;
+        [SerializeField] private GameObject[] skateGloves,tuckGloves;
+        private bool tuckGrip;
+        [SerializeField] private TextAsset contactDefinition;
+        public TextAsset ContactDefinition=>contactDefinition;
+        public bool IsNaturalAnatomy=>naturalAnatomy;
+        public Transform GripContact(bool right)=>tuckGrip?TuckGripContact(right):(right?rightGripContact:leftGripContact);
+        public Transform TuckGripContact(bool right)=>right?rightTuckGripContact:leftTuckGripContact;
+        public void ConfigureGripVariants(Transform left,Transform right,GameObject[] skating,GameObject[] tucking)
+        {leftTuckGripContact=left;rightTuckGripContact=right;skateGloves=skating;tuckGloves=tucking;tuckGrip=true;SetTuckGrip(false);}
+        public void SetTuckGrip(bool value)
+        {if(tuckGrip==value)return;tuckGrip=value;if(skateGloves!=null)foreach(var glove in skateGloves)glove.SetActive(!value);if(tuckGloves!=null)foreach(var glove in tuckGloves)glove.SetActive(value);}
+        public Transform ToeHinge(bool right)=>right?rightToeHinge:leftToeHinge;
+        public void ConfigureContacts(Transform leftGrip,Transform rightGrip,Transform leftToe,Transform rightToe,TextAsset definition)
+        {leftGripContact=leftGrip;rightGripContact=rightGrip;leftToeHinge=leftToe;rightToeHinge=rightToe;contactDefinition=definition;}
         private Transform[] transforms;
         private Vector3[] bindPositions;
         private Quaternion[] bindRotations;
@@ -24,8 +41,8 @@ namespace Biathlon.Unity.Presentation
         public int PoseIndex {get;private set;}
         public Transform Socket(Biathlete167Socket socket)=>sockets[(int)socket];
         public Transform Bone(HumanBodyBones bone)=>animator.GetBoneTransform(bone);
-        public void Configure(Animator human,Transform[] attachments,Transform weapon,Renderer[] poles,LODGroup levels)
-        {animator=human;sockets=attachments;rifle=weapon;poleRenderers=poles;lodGroup=levels;Validate();Remember();}
+        public void Configure(Animator human,Transform[] attachments,Transform weapon,Renderer[] poles,LODGroup levels,bool natural=false)
+        {animator=human;sockets=attachments;rifle=weapon;poleRenderers=poles;lodGroup=levels;naturalAnatomy=natural;Validate();Remember();}
         public void Validate()
         {
             if(animator==null||animator.avatar==null||!animator.avatar.isValid||!animator.avatar.isHuman)
@@ -43,9 +60,10 @@ namespace Biathlon.Unity.Presentation
             rifleCarryPosition=Socket(Biathlete167Socket.RifleBack).InverseTransformPoint(rifle.position);
             rifleCarryRotation=Quaternion.Inverse(Socket(Biathlete167Socket.RifleBack).rotation)*rifle.rotation;
         }
-        public void SetPose(int pose)
+        public void SetPose(int pose,bool preserveGrip=false)
         {
             if(pose<0||pose>3)throw new ArgumentOutOfRangeException(nameof(pose));
+            if(!preserveGrip)SetTuckGrip(false);
             if(transforms==null)Remember();animator.enabled=false;
             rifle.SetParent(Socket(Biathlete167Socket.RifleBack),false);
             for(int i=0;i<transforms.Length;i++){transforms[i].localPosition=bindPositions[i];transforms[i].localRotation=bindRotations[i];}

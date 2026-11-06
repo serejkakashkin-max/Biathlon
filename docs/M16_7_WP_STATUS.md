@@ -67,3 +67,29 @@ the boundary and the rejected UI-only capture. Technical qualification is record
 in `quality/m16-7/qualification.json`; art quality and race motion remain OPEN.
 See the asset's `Documentation/README_RU.md` for paths, regeneration and specific
 remaining work. M16.6 CLOSED by owner; M16.7 IN PROGRESS; M17 not started.
+
+
+2026-11-05 owner correction: M16.7 art gate FAILED (neck/jaw and studio motion rejected). BUILD HOLD until actual geometry and transferred main-G2 motion are visually checked. Existing21PASS/Windows build is technical evidence of the rejected candidate, not art acceptance. Natural anatomy and existing production motion transfer are in progress. Race G2 unchanged. PROJECT_STATE latest append controls.
+
+
+## Latest checkpoint — 2026-11-06 (supersedes earlier candidate rows)
+
+M16.6 CLOSED by owner. M16.7 IN PROGRESS; BUILD HOLD; no new Windows player.
+The active studio uses Natural anatomy, official CC0 skin, transferred actual
+G2 production motion and presentation-only contact adaptation. Head/neck are
+continuous/unwarped; garment weights follow the body. The rifle reuses licensed
+CC0 geometry/PBR, with decorative biathlon fittings. The latest owner-directed
+full-palmar UPPER-handle grip replaces the rejected fingertip pinch.
+
+Focused native tests: 57 PASS. Saved source-surface full-palm/5-finger/handle
+interior/wrist-loop tests PASS; former pinch fixture FAILS as expected. Numeric
+PASS is not art acceptance. Actual current frames, full PlayMode-run scope,
+source hashes and limitations: `quality/m16-7-natural/qualification.json` and
+`quality/m16-7-natural/REVIEW_RU.md`.
+
+Open: manual cloth/finger/equipment polish, full standing/prone shooting and
+rifle transitions, terrain/LOD/30-athlete-field integration and visual approval.
+The race factory still uses G2. No simulation/balance/career/save changes.
+
+
+2026-11-06 final verification: 69 native PlayMode PASS (57 asset/rig cases plus affected regression checks). Expanded 686-case run was cancelled after a saved 161-case snapshot (158 PASS/3 FAIL); all three found failures are fixed and included in the 69-case retest. Full-assembly PASS is not claimed. Details: docs/quality/m16-7-natural/regression-followup.json. BUILD HOLD; M16.7 remains open.

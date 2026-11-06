@@ -78,3 +78,74 @@ Evidence: `docs/quality/m16-7/qualification.json` and
 
 API references: [PanelSettings clearColor](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/UIElements.PanelSettings-clearColor.html),
 [URP render requests](https://docs.unity3d.com/6000.0/Documentation/Manual/urp/User-Render-Requests.html).
+
+## Refinement — 2026-11-05
+
+Replace the inherited casual-garment surface with the official CC0 MakeHuman
+hm08 anatomy and four male/young morphology targets, fitted to the same24 joints.
+Preserve its clean torso/hip/finger loops and explicit source weights. Source
+licenses/hashes, the fitted mesh and reproducible preparation live under
+Models/Source~/MakeHuman. The old Grab3D head/skin remains; this does not introduce
+MakeHuman application code or change the source walk/run into ski animation.
+
+Biathlete167Motion is a presentation-only studio V2 cycle. It caches imported
+transforms/limb lengths and measures independent ski/pole meshes once. Exact phase
+sampling drives weight transfer, ski recovery and two pole actions per cycle;
+analytic limb solves preserve bone lengths and do not write the model root.
+Playback, pause, speed and scrubbing expose the actual evaluated skin in the studio.
+No simulation assembly or race tuning changes. Tests measure full-cycle contact,
+reach residuals, continuity, phase-order independence and zero managed allocations
+in warmed EvaluateCycle. The new rig is still not installed in the race factory.
+
+Surface quality is reviewed separately from numerical PASS. Standalone capture
+now covers33 frames: six views, three technical poses and12 phases from each of
+front/side. Retain the explicit after-EndOfFrame camera submission and independent
+model-area gate. Art and full shooting/ground/race adaptation remain open.
+
+
+## Superseding natural-anatomy / production-motion checkpoint — 2026-11-06
+
+The owner rejected the warped neck, independent studio cycle and subsequent
+fingertip-pinching grip. The active isolated studio now uses the unwarped CC0
+MakeHuman body/head/neck/hands and official 2K skin; the rejected fitted body
+remains only as a negative regression fixture. Head/neck preservation is tested
+against the raw morphology after rigid alignment (old warp 57.27 mm; Natural
+error below 0.001 mm). Garment edges, bib and zipper follow the source surface
+and transferred weights. There is no replacement neck tube.
+
+`Biathlete167MainMotion` evaluates the existing G2 production locomotion,
+rifle, ground and grip adapters on a hidden donor, then transfers directions
+and fixed limb lengths to the anatomical rig. Optional presentation contact
+adaptation limits wrist bend/forearm roll and lifts the boot heel about its
+toe binding while retaining ski pose. The earlier independent V2 driver is
+retained for legacy regression only. No race factory installs this candidate.
+
+The full-palmar tuck grip uses offline anatomical finger hinges and actual
+finger-pad centres. The upper 120 mm handle rests diagonally in the palm;
+all four fingers and opposing thumb wrap it. A closed padded wrist loop and
+short connectors replace the external triangular strap. A single versioned
+JSON definition drives grip obliquity/end offset and runtime pose adaptation;
+native tests require matching export metadata. Two rigid glove variants are
+switched with their contact frames; articulated runtime fingers remain open.
+
+Verification uses saved mesh surfaces, not generated IK targets: palmar and
+five-finger proximity, upper-end contact band, handle-interior rays and a full
+32-direction wrist circumference. The retained rejected pinch fixture fails
+this same test. Independent palm/dorsal surface markers detect the previous
+FBX handedness reversal. Native tests also measure posed hand separation,
+elbow width, forearm clearance and nine shaft rays against the actual skinned
+body at four tuck phases. Every one of the twelve production states is sampled
+for root/limb preservation, toe contact, bounded wrist motion and zero warmed
+managed allocations. These bounds do not constitute artistic approval.
+
+The rifle incorporates official CC0 Poly Haven geometry/maps by Mateusz Sadek
+with project-authored decorative biathlon fittings; licenses, original input
+files and hashes are retained. The paid CGTrader reference and public athlete
+photos remain view-only references.
+
+Actual Blender/Unity frames and machine receipts are under
+`docs/quality/m16-7-natural/`; the latest qualification JSON controls test scope.
+No new Windows build: owner BUILD HOLD remains while the asset is refined.
+M16.6 is CLOSED; M16.7 is IN PROGRESS. Shooting poses/transitions, cloth polish,
+LOD transitions and a 30-athlete field still need separate qualification.
+No authoritative simulation, balance, shot geometry, career or save changes.

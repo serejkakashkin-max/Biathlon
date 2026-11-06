@@ -2750,3 +2750,16 @@ after each task. Current branch codex/m16-6-equipment-weather-training.
 
 
 2026-11-05 M16.7 technical checkpoint: separate editableBlend/FBX/Humanoid/prefab/PBR/orbitstudio and fullscreen review build available. Native10PASS,Console0errors,build0errors;actual6Blender+9player model/UI captures. ActiveLOD0167771tris. Art fidelity remains below professional reference; cloth/skin/collar/grips and fullnewrig skating/ground/aim/contact adaptation OPEN. ExistingG2raceathlete retained. ADR0097;docs/quality/m16-7/qualification.json and M16_7_WP_STATUS.md. M16.6CLOSEDbyowner;M16.7INPROGRESS;M17notstarted.
+
+
+2026-11-05 owner correction: M16.7 art gate FAILED (neck/jaw and studio motion rejected). BUILD HOLD until actual geometry and transferred main-G2 motion are visually checked. Existing21PASS/Windows build is technical evidence of the rejected candidate, not art acceptance. Natural anatomy and existing production motion transfer are in progress. Race G2 unchanged. PROJECT_STATE latest append controls.
+
+
+2026-11-06 M16.7 Natural/full-palmar-grip checkpoint: unwarped continuous
+head/neck/anatomy with official CC0 skin; actual main-G2 production motion
+transfer in the isolated studio; toe binding and bounded wrist adaptation;
+CC0 Poly Haven rifle detail; full palmar upper-handle grip and closed wrist
+loops. Focused native57PASS; actual source-surface contacts PASS and rejected
+pinch fixture reproduces the owner complaint. Current full-run receipts and
+actual frames: docs/quality/m16-7-natural. Technical checkpoint only: BUILD HOLD,
+no new Windows player, M16.7 IN PROGRESS, race G2 unchanged, M17 not started.

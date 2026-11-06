@@ -18,6 +18,11 @@ namespace Biathlon.Unity.Presentation
         private float yaw=12,distance=3.7f,height=1.02f;
         private bool rotating;
         private Label status;
+        private Biathlete167Motion motion;
+        private Slider phaseSlider;
+        private readonly string[] phaseLabels=new string[101];
+        private int shownPhase=-1;
+        public Biathlete167Motion Motion=>motion;
         public Biathlete167Rig Rig=>rig;
         public Camera View=>view;
         public void Configure(Biathlete167Rig athlete,Camera camera,PanelSettings settings){rig=athlete;view=camera;panel=settings;}
@@ -25,6 +30,10 @@ namespace Biathlon.Unity.Presentation
         {
             GameBranding.ApplyWindowTitle(GameBranding.RussianTitle);
             Application.runInBackground=true;rig.Validate();rig.SetPose(0);
+            // This is a close inspection studio. Inspect the authored surface;
+            // distance LOD transitions are qualified separately from anatomy.
+            rig.Lods.ForceLOD(0);
+            motion=rig.gameObject.AddComponent<Biathlete167Motion>();motion.Initialize(rig,rig.IsNaturalAnatomy);
             var quality=gameObject.AddComponent<RenderQualityPresentation>();quality.Initialize(view);quality.Apply("high");
             BuildUi();SetView(0);
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonHero167Review")>=0)StartCoroutine(Review());
@@ -42,6 +51,8 @@ namespace Biathlon.Unity.Presentation
             if(keyboard!=null)
             {if(keyboard.digit1Key.wasPressedThisFrame)Pose(0);if(keyboard.digit2Key.wasPressedThisFrame)Pose(1);if(keyboard.digit3Key.wasPressedThisFrame)Pose(2);if(keyboard.digit4Key.wasPressedThisFrame)Pose(3);}
             PlaceCamera();
+            if(motion.Mode==Biathlete167MotionMode.SkateV2)
+            {phaseSlider.SetValueWithoutNotify(motion.Phase);int value=Mathf.RoundToInt(motion.Phase*100);if(value!=shownPhase){shownPhase=value;status.text=phaseLabels[value];}}
         }
         private void PlaceCamera()
         {
@@ -56,9 +67,10 @@ namespace Biathlon.Unity.Presentation
             {case 0:yaw=0;distance=3.7f;height=.98f;break;case 1:yaw=90;distance=3.7f;height=.98f;break;case 2:yaw=180;distance=3.7f;height=.98f;break;case 3:yaw=8;distance=.77f;height=1.65f;break;case 4:yaw=170;distance=1.65f;height=1.25f;break;case 5:yaw=30;distance=1.12f;height=.17f;break;default:throw new ArgumentOutOfRangeException(nameof(index));}
             PlaceCamera();
         }
-        private void Pose(int index){rig.SetPose(index);status.text=new[]{"Стойка","Согнутые колени","Руки вверх","Подготовка к стрельбе"}[index];}
+        private void Pose(int index){motion.Stop();shownPhase=-1;rig.SetPose(index);status.text=new[]{"Стойка","Согнутые колени","Руки вверх","Подготовка к стрельбе"}[index];}
         private void BuildUi()
         {
+            for(int i=0;i<phaseLabels.Length;i++)phaseLabels[i]=(rig.IsNaturalAnatomy?"Основной спортсмен · ":"Коньковый ход · ")+i+"%";
             var doc=gameObject.AddComponent<UIDocument>();runtimePanel=Instantiate(panel);doc.panelSettings=runtimePanel;
             var root=doc.rootVisualElement;root.style.flexGrow=1;root.pickingMode=PickingMode.Ignore;
             root.style.unityFont=Resources.Load<Font>("Biathlon/UI/Fonts/Roboto");
@@ -84,6 +96,17 @@ namespace Biathlon.Unity.Presentation
             string[] poses={"1   Стойка","2   Согнутые колени","3   Руки вверх","4   Подготовка к стрельбе"};
             for(int i=0;i<poses.Length;i++){int at=i;Button(poses[i],()=>Pose(at));}
             status=Line("Стойка",12,new Color(.60f,.72f,.78f));
+            Line("Движение",16);
+            Button(rig.IsNaturalAnatomy?"Движения основного спортсмена":"Коньковый ход V2",()=>{motion.SetMode(Biathlete167MotionMode.SkateV2);motion.PlaybackEnabled=true;});
+            Button("Пауза / продолжить",()=>{if(motion.Mode!=Biathlete167MotionMode.SkateV2)motion.SetMode(Biathlete167MotionMode.SkateV2);motion.PlaybackEnabled=!motion.PlaybackEnabled;});
+            if(motion.MainReference!=null)
+            {
+                var states=new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.Tuck};
+                var technique=new DropdownField("Техника",new List<string>{"Равнина","Подъём","Спринт","Стойка на спуске"},0){name="main-athlete-technique"};
+                technique.RegisterValueChangedCallback(_=>{motion.MainReference.State=states[technique.index];motion.EvaluateCycle(motion.Phase);});rail.Add(technique);
+            }
+            phaseSlider=new Slider("Фаза",0,1){name="motion-phase"};phaseSlider.style.marginTop=8;phaseSlider.RegisterValueChangedCallback(e=>{motion.PlaybackEnabled=false;motion.EvaluateCycle(e.newValue);});rail.Add(phaseSlider);
+            var speed=new Slider("Скорость",.1f,1.5f){name="motion-speed",value=1};speed.RegisterValueChangedCallback(e=>motion.PlaybackSpeed=e.newValue);rail.Add(speed);
             Button("Перейти в игру",()=>SceneManager.LoadScene("FrontEnd"));
         }
         [Serializable] private sealed class Receipt
@@ -141,6 +164,13 @@ namespace Biathlon.Unity.Presentation
                 Save("pose"+i+".png");
             }
             Pose(0);
+            for(int angle=0;angle<2;angle++)for(int i=0;i<12;i++)
+            {
+                motion.PlaybackEnabled=false;motion.EvaluateCycle(i/12f);SetView(angle);
+                yield return null;yield return new WaitForEndOfFrame();UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(view,request);
+                Save("skate-"+(angle==0?"front":"side")+i.ToString("00")+".png");
+            }
+            motion.Stop();
             }
             finally
             {
@@ -148,7 +178,7 @@ namespace Biathlon.Unity.Presentation
                 foreach(var surface in new[]{world,overlay,target}){surface.Release();Destroy(surface);}Destroy(composite);
             }
             var report=new Receipt{success=errors.Count==0,humanoid=rig.Animator.avatar.isHuman&&rig.Animator.avatar.isValid,width=Screen.width,height=Screen.height,fullscreen_mode=Screen.fullScreenMode.ToString(),poses=4,screenshots=shots.ToArray(),errors=errors.ToArray(),frames_nonempty=nonempty,model_area_visible_fraction=fractions.ToArray(),lod_groups=rig.GetComponentsInChildren<LODGroup>(true).Length,capture_surface="explicit native camera request plus native UI on separate24bit stencil surface, GPU composition; same screen resolution/quality"};
-            report.success&=report.humanoid&&shots.Count==9&&nonempty&&report.lod_groups==1;
+            report.success&=report.humanoid&&shots.Count==33&&nonempty&&report.lod_groups==1;
             File.WriteAllText(Path.Combine(output,"review.json"),JsonUtility.ToJson(report,true));Application.Quit(report.success?0:1);
         }
     }

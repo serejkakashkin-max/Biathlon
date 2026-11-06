@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "m167_natural_full_palmar_checkpoint",
+  "date": "2026-11-06",
+  "milestone": "M16.7 IN PROGRESS",
+  "art_acceptance": false,
+  "reference_equivalence_claimed": false,
+  "windows_player_built": false,
+  "build_hold": true,
+  "race_factory_uses": "existing G2",
+  "focused_native": {
+    "Status": "Passed",
+    "TotalTests": 57,
+    "PassedTests": 57,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:09.6573796"
+  },
+  "playmode_assembly": {
+    "Status": "Incomplete - expanded run stopped after slow unrelated replay cases",
+    "TotalTests": 686,
+    "CompletedTests": 161,
+    "PassedTests": 158,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Complete": false,
+    "note": "Snapshot before native cancellation; three recorded failures fixed and separately rerun in the final 69-case group. Remaining assembly cases not qualified."
+  },
+  "source_contact_pass": true,
+  "rejected_pinching_fixture_fails": true,
+  "contact_method": "Actual saved glove/strap BVHs; 73 interior handle rays, 32 wrist directions, palmar + five-finger surface contact; top 30mm for tuck thumb/index.",
+  "source_export": {
+    "fbx_sha256": "ed103f6c48e375aa13bd3fa37639a69b3c5c5bd328fb6b5a37460e1766937e78",
+    "active_lod0_triangles": 197883,
+    "stored_lod0_triangles": 225195,
+    "all_lod_and_variant_triangles": 304750
+  },
+  "actual_capture_count": 111,
+  "gameplay_balance_impact": "None; isolated asset authoring/presentation only. No authoritative race, shooting geometry, career or save changes.",
+  "deterministic_scope": "Visual phase-order repeatability and unchanged bone lengths/root tested. Full simulation assembly not rerun because no race-affecting code changed.",
+  "known_limitations": [
+    "Art quality below final reference acceptance; cloth/equipment polish remains.",
+    "Two offline rigid glove poses, not articulated runtime fingers.",
+    "Standing/prone shooting, rifle transitions and field/terrain/LOD integration remain unqualified.",
+    "Ray/OBB tests are sampled geometric checks, not an exhaustive continuous collision proof.",
+    "No new standalone player; actual Unity Editor and Blender geometry frames only."
+  ],
+  "final_native_followup": {
+    "Status": "Passed",
+    "TotalTests": 69,
+    "PassedTests": 69,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:13.7492498"
+  },
+  "expanded_run_failures_resolved_by_focused_retest": true,
+  "whole_assembly_pass_claimed": false,
+  "required_focused_checks_pass": true
+}
