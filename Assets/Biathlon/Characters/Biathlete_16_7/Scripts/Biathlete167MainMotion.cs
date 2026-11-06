@@ -20,6 +20,8 @@ namespace Biathlon.Unity.Presentation
         private readonly Quaternion[] targetBind=new Quaternion[17],sourceBind=new Quaternion[17];
         private readonly Vector3 hipBind,sourceHipBind;
         private readonly AthleteRiflePresentation rifle;
+        private readonly AthleteShootingPose shooting;
+        private readonly RiflePresentationSettings rifleSettings;
         private readonly AthleteGroundContact contact;
         private readonly AthleteGripPresentation grip;
         private readonly AthleteEquipmentBinding equipment;
@@ -39,6 +41,7 @@ namespace Biathlon.Unity.Presentation
         public AthleteRigBinding SourceRig{get;}
         public AthleteHybridLocomotionDriver SourceDriver{get;}
         public SkiMotionState State{get;set;}=SkiMotionState.Flat;
+        public LocomotionInput? PreviewInput{get;set;}
         public float CycleSeconds{get;private set;}
         public float Phase{get;private set;}
 
@@ -56,6 +59,8 @@ namespace Biathlon.Unity.Presentation
             foreach(var component in SourceRig.GetComponentsInChildren<MonoBehaviour>(true))component.enabled=false;
             SourceDriver=SourceRig.GetComponent<AthleteHybridLocomotionDriver>();SourceDriver.UseOriginalMotion=false;
             rifle=SourceRig.GetComponent<AthleteRiflePresentation>();contact=SourceRig.GetComponent<AthleteGroundContact>();
+            shooting=SourceRig.GetComponent<AthleteShootingPose>();
+            rifleSettings=RiflePresentationSettings.Load();
             grip=SourceRig.GetComponent<AthleteGripPresentation>();equipment=SourceRig.GetComponent<AthleteEquipmentBinding>();
             SourceRig.ResetPose();
             for(int i=0;i<17;i++)
@@ -77,7 +82,7 @@ namespace Biathlon.Unity.Presentation
             Phase=Mathf.Repeat(phase,1);target.SetPose(0,true);
             target.SetTuckGrip(ContactAdaptationEnabled&&State==SkiMotionState.Tuck);
             SourceRig.transform.SetPositionAndRotation(root.position,root.rotation);
-            var input=SkiMotionComparison.Input(State);SourceDriver.Sample(SourceRig,input,100,ReferenceExertion());
+            var input=PreviewInput??SkiMotionComparison.Input(State);SourceDriver.Sample(SourceRig,input,100,ReferenceExertion());
             CycleSeconds=SourceDriver.CadenceHz>.0001f?1/SourceDriver.CadenceHz:1;SampleReference(Phase*CycleSeconds);
             // Retarget in world directions. The imported bind axes differ from G2;
             // copying local Euler angles would twist the arms and reverse the knees.
@@ -96,7 +101,7 @@ namespace Biathlon.Unity.Presentation
         private void SampleReference(double time)
         {
             for(int i=0;i<hiddenRenderers.Length;i++)hiddenRenderers[i].enabled=referenceRendererStates[i];
-            var input=SkiMotionComparison.Input(State);var exertion=ReferenceExertion();
+            var input=PreviewInput??SkiMotionComparison.Input(State);var exertion=ReferenceExertion();
             // Explicit rewind reset gives reproducible exact-phase studio scrubbing.
             SourceDriver.Sample(SourceRig,input,time+10,exertion);SourceDriver.Sample(SourceRig,input,time,exertion);
             rifle.Sample(SourceRig,0);
@@ -107,6 +112,32 @@ namespace Biathlon.Unity.Presentation
         }
 
         private ExertionInput ReferenceExertion()=>State==SkiMotionState.Fatigued?new ExertionInput(.7f,.2f,185):new ExertionInput(0,1,140);
+
+        public Vector3 ShootingRiflePosition=>equipment.Rifle.position;
+        public Quaternion ShootingRifleRotation=>equipment.Rifle.rotation;
+        public Vector3 ShootingRootOffset=>to[0].position-from[0].position;
+        public float ShootingTransfer=>Mathf.SmoothStep(0,1,Mathf.InverseLerp(rifleSettings.reach_fraction,rifleSettings.release_end_fraction,rifle.TransferProgress));
+        public float ShootingHandWeight=>rifle.HandWeight;
+        public float ShootingAlignment=>rifle.ReadyAlignment;
+        public Vector3 ShootingPolePosition(bool right)=>(right?equipment.RightPole:equipment.LeftPole).position;
+        /// <summary>Use the shipping locomotion/shooting/rifle/contact/grip chain,
+        /// then retarget its actual joint directions onto the anatomical hero.</summary>
+        public void EvaluateShooting(ShootingStance stance,float progress)
+        {
+            if(!float.IsFinite(progress)||progress<0||progress>1)throw new ArgumentOutOfRangeException(nameof(progress));
+            target.SetPose(0);SourceRig.transform.SetPositionAndRotation(root.position,root.rotation);
+            for(int i=0;i<hiddenRenderers.Length;i++)hiddenRenderers[i].enabled=referenceRendererStates[i];
+            var input=new LocomotionInput(0,0,0,travelling:false);var exertion=new ExertionInput(0,1,60,shooting:true);
+            SourceDriver.Sample(SourceRig,input,10,exertion);SourceDriver.Sample(SourceRig,input,0,exertion);
+            shooting.Sample(SourceRig,stance,progress);rifle.Sample(SourceRig,progress,default,stance);
+            contact.SampleMoving(SourceRig,0,SourceDriver.PoleCycle,SourceDriver.ContactState,rifle.HandWeight,10);
+            contact.SampleMoving(SourceRig,0,SourceDriver.PoleCycle,SourceDriver.ContactState,rifle.HandWeight,0);grip.Render(SourceRig);
+            to[0].position=root.TransformPoint(hipBind+root.InverseTransformPoint(from[0].position)-sourceHipBind);
+            for(int i=0;i<5;i++)CopyRotation(i);CopyLimb(5);CopyLimb(8);CopyLimb(11);CopyLimb(14);
+            MaximumBindingResidualMeters=MaximumHeelRiseDegrees=0;
+            ApplyFoot(leftFoot);ApplyFoot(rightFoot);
+            for(int i=0;i<hiddenRenderers.Length;i++)hiddenRenderers[i].enabled=referenceVisible&&referenceRendererStates[i];
+        }
 
         private void LiftTuckPelvis()
         {

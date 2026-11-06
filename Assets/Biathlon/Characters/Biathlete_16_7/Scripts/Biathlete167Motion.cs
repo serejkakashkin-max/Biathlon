@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Biathlon.Unity.Presentation
 {
-    public enum Biathlete167MotionMode { Inspection, SkateV2 }
+    public enum Biathlete167MotionMode { Inspection, SkateV2, Performance }
 
     /// <summary>
     /// Asset-studio motion, in metres and normalized left/right cycles. This is authored
@@ -56,6 +56,8 @@ namespace Biathlon.Unity.Presentation
         private Biathlete167Rig rig;
         private Biathlete167MainMotion mainReference;
         public Biathlete167MainMotion MainReference=>mainReference;
+        private Biathlete167SportMotion performance;
+        public Biathlete167SportMotion Performance=>performance;
         private Transform root, hips, spine, chest, neck;
         private Transform[] resetTransforms;
         private Vector3[] bindPositions;
@@ -70,7 +72,7 @@ namespace Biathlon.Unity.Presentation
         public Biathlete167MotionMode Mode { get; private set; }
         public bool PlaybackEnabled { get; set; }
         public float Phase => phase;
-        public float CycleSeconds => mainReference!=null?mainReference.CycleSeconds:cycleSeconds;
+        public float CycleSeconds => Mode==Biathlete167MotionMode.Performance?performance.DurationSeconds:mainReference!=null?mainReference.CycleSeconds:cycleSeconds;
         public float PlaybackSpeed
         {
             get => playbackSpeed;
@@ -126,7 +128,11 @@ namespace Biathlon.Unity.Presentation
             }
             Mode = Biathlete167MotionMode.Inspection;
             PlaybackEnabled = false;
-            if(useMainReference)mainReference=new Biathlete167MainMotion(binding);
+            if(useMainReference)
+            {
+                mainReference=new Biathlete167MainMotion(binding);
+                if(binding.PerformanceDefinition!=null)performance=new Biathlete167SportMotion(binding,mainReference);
+            }
         }
 
         public void SetMode(Biathlete167MotionMode mode)
@@ -136,6 +142,7 @@ namespace Biathlon.Unity.Presentation
                 throw new ArgumentOutOfRangeException(nameof(mode));
             if (mode == Biathlete167MotionMode.Inspection) { Stop(); return; }
             if (Mode != mode) rig.SetPose(0);
+            if(Mode==Biathlete167MotionMode.Performance)performance.Release();
             Mode = mode;
             EvaluateCycle(phase);
         }
@@ -143,6 +150,7 @@ namespace Biathlon.Unity.Presentation
         /// <summary>Release animation before calling Rig.SetPose for an inspection pose.</summary>
         public void Stop()
         {
+            if(Mode==Biathlete167MotionMode.Performance)performance?.Release();
             PlaybackEnabled = false;
             Mode = Biathlete167MotionMode.Inspection;
             if (rig != null) rig.SetPose(0);
@@ -150,12 +158,20 @@ namespace Biathlon.Unity.Presentation
 
         private void LateUpdate()
         {
-            if (rig != null && PlaybackEnabled && Mode == Biathlete167MotionMode.SkateV2)
-                EvaluateCycle(phase + Time.unscaledDeltaTime * playbackSpeed / CycleSeconds);
+            if(rig==null||!PlaybackEnabled)return;
+            float next=phase+Time.unscaledDeltaTime*playbackSpeed/CycleSeconds;
+            if(Mode==Biathlete167MotionMode.SkateV2)EvaluateCycle(next);
+            else if(Mode==Biathlete167MotionMode.Performance)
+            {EvaluateAction(performance.Action,performance.Loops?Mathf.Repeat(next,1):Mathf.Min(1,next));if(!performance.Loops&&next>=1)PlaybackEnabled=false;}
         }
 
         private void OnDisable() { if (rig != null) Stop(); }
-        private void OnDestroy(){mainReference?.Dispose();}
+        private void OnDestroy(){performance?.Dispose();mainReference?.Dispose();}
+        public void EvaluateAction(Biathlete167Action action,float normalizedPhase)
+        {
+            RequireInitialized();if(performance==null)throw new InvalidOperationException("Natural hero sports choreography is not configured.");
+            performance.Evaluate(action,normalizedPhase);phase=normalizedPhase;Mode=Biathlete167MotionMode.Performance;
+        }
 
         /// <summary>
         /// Apply an exact phase for scrubbing/capture/tests, independently of playback or frame order.
@@ -166,6 +182,7 @@ namespace Biathlon.Unity.Presentation
         {
             RequireInitialized();
             if (!float.IsFinite(normalizedPhase)) throw new ArgumentOutOfRangeException(nameof(normalizedPhase));
+            if(Mode==Biathlete167MotionMode.Performance)performance.Release();
             if(mainReference!=null)
             {
                 phase=Mathf.Repeat(normalizedPhase,1);Mode=Biathlete167MotionMode.SkateV2;

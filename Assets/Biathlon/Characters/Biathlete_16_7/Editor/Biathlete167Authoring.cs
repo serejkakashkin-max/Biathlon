@@ -160,7 +160,11 @@ namespace Biathlon.Unity
                 if(natural)binding.ConfigureAnatomicalHands(new[]{
                     Find("Left_Palm_Side"),Find("Left_Dorsal_Side"),Find("Left_Middle_Knuckle"),Find("Left_Index_Knuckle"),Find("Left_Little_Knuckle"),
                     Find("Right_Palm_Side"),Find("Right_Dorsal_Side"),Find("Right_Middle_Knuckle"),Find("Right_Index_Knuckle"),Find("Right_Little_Knuckle")});
-                if(natural)ConfigureNationalKits(root,manifest.national_textiles,materials,skin);
+                if(natural)
+                {
+                    ConfigureNationalKits(root,manifest.national_textiles,materials,skin);
+                    binding.ConfigurePerformance(AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/performance-motion-v1.json"),AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/performance-locomotion-v1.json"));
+                }
                 if(root.GetComponentsInChildren<Collider>(true).Length!=0)throw new InvalidOperationException("Visual prefab cannot acquire gameplay colliders.");
                 PrefabUtility.SaveAsPrefabAsset(root,prefabPath);
             }

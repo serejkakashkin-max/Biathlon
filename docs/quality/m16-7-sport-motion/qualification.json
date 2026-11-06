@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "m167_shipping_animation_base_20261106",
+  "date": "2026-11-06",
+  "status": "M16.7 OPEN / BUILD HOLD / isolated studio",
+  "native_playmode": {
+    "Status": "Passed",
+    "TotalTests": 151,
+    "PassedTests": 151,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:42.8577184"
+  },
+  "native_editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:21.3531376"
+  },
+  "focused_distinct_cases": 154,
+  "source_geometry_sha256_unchanged": {
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Biathlete_16_7_Natural.blend": "6cf47b06e00bf006d70d8e2aec33c60ba629fde4759fdfb71bf33924fb916d9e"
+  },
+  "shipping_locomotion_definition_unchanged": true,
+  "body_source": "Actual production G2 locomotion + AthleteShootingPose + AthleteRiflePresentation + AthleteGroundContact + AthleteGripPresentation, retargeted in world joint directions",
+  "source_body_rotation_proof": "RangeBodyRetargetsTheActualShippingShootingChain",
+  "preview_actions": 8,
+  "anatomy_samples_per_action": 129,
+  "settled_palm_contact_samples_per_stance_in_test": 65,
+  "warm_managed_allocation_gate_bytes": 0,
+  "warm_allocation_actions": [
+    "Skate",
+    "Acceleration",
+    "Uphill",
+    "Standing",
+    "Prone"
+  ],
+  "native_stills": 56,
+  "native_cycle_frames": 641,
+  "video_capture_fps_min": 24,
+  "console": {
+    "baseline_sequence": 428564,
+    "new_error_exception_assert": 0,
+    "editor_compiled_and_idle": true
+  },
+  "metric_scope": "Reach residual is solver end-point error; contact is hand-frame to authored rifle-point error. Zero unused fields on locomotion actions do not qualify their wrists or shooting contacts. Entire glove/weapon surface collision is not proved.",
+  "limits": [
+    "Presentation preview only; no race factory integration or player build.",
+    "No whole test-assembly or field FPS claim.",
+    "Rifle-specific finger articulation, trigger placement, aiming-eye/eyewear clearance, sling folds and garment edge deformation remain open.",
+    "Removed carrying tapes are a deterministic preview mesh, not cloth simulation or continuous collision proof.",
+    "Range transitions are the shipping game sequence; no new real-world mocap or reload/bolt action clips.",
+    "New shooting poses do not extend the existing 16-pose cloth collision qualification to every transition.",
+    "Visual acceptance and continuous-time/terrain/LOD/30-athlete-field qualification remain open."
+  ]
+}

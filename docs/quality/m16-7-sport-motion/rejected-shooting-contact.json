@@ -1,0 +1,80 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":11,\"PassedTests\":9,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:00:03.1135400\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Skate)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0910000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Acceleration)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Uphill)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(RangeEntry)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0070000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Standing)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0090000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Prone)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0090000\",\"Message\":\"  Prone has an unreachable hand/foot target; fix choreography rather than stretching anatomy.\\r\\n  Expected: less than 0.0250000004f\\r\\n  But was:  0.0536501594f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterStanding)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0060000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterProne)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0060000\",\"Message\":\"  EnterProne has an unreachable hand/foot target; fix choreography rather than stretching anatomy.\\r\\n  Expected: less than 0.0250000004f\\r\\n  But was:  0.105361484f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.CaptureActualSportsAndRangePoses\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.8100000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.RangeScrubbingIsOrderIndependentAndStopRestoresCarriedEquipment\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167SportMotionTests.TechniqueTimingAndAccelerationAreDistinct\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 11,
+        "PassedTests": 9,
+        "FailedTests": 2,
+        "SkippedTests": 0,
+        "Duration": "00:00:03.1135400"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Skate)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0910000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Acceleration)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0050000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Uphill)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0050000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(RangeEntry)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0070000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Standing)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0090000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Prone)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0090000",
+          "Message": "  Prone has an unreachable hand/foot target; fix choreography rather than stretching anatomy.\r\n  Expected: less than 0.0250000004f\r\n  But was:  0.0536501594f\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterStanding)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0060000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterProne)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0060000",
+          "Message": "  EnterProne has an unreachable hand/foot target; fix choreography rather than stretching anatomy.\r\n  Expected: less than 0.0250000004f\r\n  But was:  0.105361484f\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.CaptureActualSportsAndRangePoses",
+          "Status": "Passed",
+          "Duration": "00:00:02.8100000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.RangeScrubbingIsOrderIndependentAndStopRestoresCarriedEquipment",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.TechniqueTimingAndAccelerationAreDistinct",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

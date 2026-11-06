@@ -87,7 +87,13 @@ namespace Biathlon.PlayModeTests
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(Root+"/Preview/Biathlete_16_7_Preview.unity",new LoadSceneParameters(LoadSceneMode.Single));
             for(int i=0;i<8;i++)yield return null;
             var studio=Object.FindFirstObjectByType<Biathlete167Studio>();Assert.That(studio,Is.Not.Null);studio.Rig.Validate();
-            var document=studio.GetComponent<UIDocument>();Assert.That(document.rootVisualElement.Query<Button>().ToList().Count,Is.EqualTo(14));
+            var document=studio.GetComponent<UIDocument>();Assert.That(document.rootVisualElement.Query<Button>().ToList().Count,Is.EqualTo(studio.Motion.Performance!=null?15:14));
+            if(studio.Motion.Performance!=null)
+            {
+                var action=document.rootVisualElement.Q<DropdownField>("athlete-performance");Assert.That(action,Is.Not.Null);Assert.That(action.choices.Count,Is.EqualTo(8));
+                action.index=5;Assert.That(studio.Motion.Performance.Action,Is.EqualTo(Biathlete167Action.Prone));
+                action.index=0;Assert.That(studio.Motion.Performance.Action,Is.EqualTo(Biathlete167Action.Skate));studio.Motion.Stop();
+            }
             Assert.That(studio.Motion,Is.Not.Null);
             var scrub=document.rootVisualElement.Q<Slider>("motion-phase");var speed=document.rootVisualElement.Q<Slider>("motion-speed");
             Assert.That(scrub,Is.Not.Null);Assert.That(speed,Is.Not.Null);

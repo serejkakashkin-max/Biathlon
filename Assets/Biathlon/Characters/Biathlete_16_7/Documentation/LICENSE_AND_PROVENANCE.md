@@ -73,3 +73,6 @@ are pinned in `docs/quality/m16-7-natural/`.
 
 
 2026-11-06: new paired-knit suit/bib normal and smoothness maps, national albedos, semantic UV mask and returning carry-webbing geometry are project-authored. Colours derive from Assets/Resources/Biathlon/athlete_appearance_v1.json. CGTrader/Trimtex/IBU references are view-only; their photos/paid meshes are not redistributed. Existing CC0 anatomy/wood and CC-BY optional mask provenance remains applicable. Exact new-source hashes and real Unity evidence are pinned in docs/quality/m16-7-textile-kits/qualification.json.
+
+
+2026-11-06: the shipping-animation retarget/contact adapter, isolated visual motion definitions and removed-harness preview geometry are authored within this project. Existing source/CC0/CC-BY attribution remains applicable; FBX/Blend unchanged. Team Aker Dæhlie and Biathlon Ontario coaching documents are view-only technique references; no photos, videos or third-party animation clips are redistributed. Evidence and links: docs/quality/m16-7-sport-motion/REVIEW_RU.md.

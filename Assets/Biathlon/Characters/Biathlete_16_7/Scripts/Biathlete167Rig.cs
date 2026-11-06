@@ -39,6 +39,11 @@ namespace Biathlon.Unity.Presentation
         private bool tuckGrip;
         [SerializeField] private TextAsset contactDefinition;
         public TextAsset ContactDefinition=>contactDefinition;
+        [SerializeField] private TextAsset performanceDefinition,performanceLocomotion;
+        public TextAsset PerformanceDefinition=>performanceDefinition;
+        public TextAsset PerformanceLocomotion=>performanceLocomotion;
+        public void ConfigurePerformance(TextAsset choreography,TextAsset locomotion)
+        {performanceDefinition=choreography;performanceLocomotion=locomotion;}
         public bool IsNaturalAnatomy=>naturalAnatomy;
         public Transform HandPoint(bool right,Biathlete167HandPoint point)=>anatomicalHands[(right?5:0)+(int)point];
         public void ConfigureAnatomicalHands(Transform[] frames)

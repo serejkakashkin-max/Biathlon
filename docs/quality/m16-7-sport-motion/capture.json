@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "m167_shipping_motion_adaptation",
+  "width": 1200,
+  "height": 720,
+  "view": "right side, actual Unity render",
+  "cycles": [
+    {
+      "state": "Skate",
+      "cycle_seconds": 1.1764705181121826,
+      "frames": 29
+    },
+    {
+      "state": "Acceleration",
+      "cycle_seconds": 4.0,
+      "frames": 96
+    },
+    {
+      "state": "Uphill",
+      "cycle_seconds": 1.1034140586853027,
+      "frames": 27
+    },
+    {
+      "state": "RangeEntry",
+      "cycle_seconds": 3.5,
+      "frames": 84
+    },
+    {
+      "state": "Standing",
+      "cycle_seconds": 3.200000047683716,
+      "frames": 77
+    },
+    {
+      "state": "Prone",
+      "cycle_seconds": 3.200000047683716,
+      "frames": 77
+    },
+    {
+      "state": "EnterStanding",
+      "cycle_seconds": 4.599999904632568,
+      "frames": 111
+    },
+    {
+      "state": "EnterProne",
+      "cycle_seconds": 5.800000190734863,
+      "frames": 140
+    }
+  ]
+}

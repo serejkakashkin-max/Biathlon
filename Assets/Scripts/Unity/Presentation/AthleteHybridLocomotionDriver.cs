@@ -157,6 +157,9 @@ namespace Biathlon.Unity.Presentation
         private double previousTime=-1,transitionAt;
         private string athleteId;
         private float athletePhase;
+        /// <summary>Instance-local visual authoring data; the shared default is never mutated.</summary>
+        public void Configure(SkiMotionSettings definition)
+        {settings=definition??throw new ArgumentNullException(nameof(definition));previousTime=-1;}
         public override void Apply(AthleteRigBinding rig,AthleteAnimationFrame frame)
         {
             var a=frame.Athlete;if(athleteId!=a.AthleteId){previousTime=-1;athleteId=a.AthleteId;athletePhase=StablePhase(athleteId);}

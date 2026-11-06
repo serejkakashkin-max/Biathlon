@@ -21,6 +21,7 @@ namespace Biathlon.Unity.Presentation
         private Biathlete167Motion motion;
         private Slider phaseSlider;
         private readonly string[] phaseLabels=new string[101];
+        private readonly string[][] actionPhaseLabels=new string[8][];
         private int shownPhase=-1;
         public Biathlete167Motion Motion=>motion;
         public Biathlete167Rig Rig=>rig;
@@ -51,8 +52,8 @@ namespace Biathlon.Unity.Presentation
             if(keyboard!=null)
             {if(keyboard.digit1Key.wasPressedThisFrame)Pose(0);if(keyboard.digit2Key.wasPressedThisFrame)Pose(1);if(keyboard.digit3Key.wasPressedThisFrame)Pose(2);if(keyboard.digit4Key.wasPressedThisFrame)Pose(3);}
             PlaceCamera();
-            if(motion.Mode==Biathlete167MotionMode.SkateV2)
-            {phaseSlider.SetValueWithoutNotify(motion.Phase);int value=Mathf.RoundToInt(motion.Phase*100);if(value!=shownPhase){shownPhase=value;status.text=phaseLabels[value];}}
+            if(motion.Mode==Biathlete167MotionMode.SkateV2||motion.Mode==Biathlete167MotionMode.Performance)
+            {phaseSlider.SetValueWithoutNotify(motion.Phase);int value=Mathf.RoundToInt(motion.Phase*100);if(value!=shownPhase){shownPhase=value;status.text=motion.Mode==Biathlete167MotionMode.Performance?actionPhaseLabels[(int)motion.Performance.Action][value]:phaseLabels[value];}}
         }
         private void PlaceCamera()
         {
@@ -71,6 +72,8 @@ namespace Biathlon.Unity.Presentation
         private void BuildUi()
         {
             for(int i=0;i<phaseLabels.Length;i++)phaseLabels[i]=(rig.IsNaturalAnatomy?"Основной спортсмен · ":"Коньковый ход · ")+i+"%";
+            string[] actionNames={"Коньковый ход V2","Разгон","Подъём V1","Подход к коврику","Стрельба стоя","Стрельба лёжа","Переход в стойку","Переход лёжа"};
+            for(int a=0;a<actionNames.Length;a++){actionPhaseLabels[a]=new string[101];for(int i=0;i<=100;i++)actionPhaseLabels[a][i]=actionNames[a]+" · "+i+"%";}
             var doc=gameObject.AddComponent<UIDocument>();runtimePanel=Instantiate(panel);doc.panelSettings=runtimePanel;
             var root=doc.rootVisualElement;root.style.flexGrow=1;root.pickingMode=PickingMode.Ignore;
             root.style.unityFont=Resources.Load<Font>("Biathlon/UI/Fonts/Roboto");
@@ -111,15 +114,21 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<poses.Length;i++){int at=i;Button(poses[i],()=>Pose(at));}
             status=Line("Стойка",12,new Color(.60f,.72f,.78f));
             Line("Движение",16);
+            if(motion.Performance!=null)
+            {
+                var actions=new DropdownField("Спортивная анимация",new List<string>{"Коньковый ход V2","Разгон","Подъём V1","Подход к коврику","Стрельба стоя","Стрельба лёжа","Переход в стойку","Переход лёжа"},0){name="athlete-performance"};
+                actions.RegisterValueChangedCallback(_=>{shownPhase=-1;motion.EvaluateAction((Biathlete167Action)actions.index,0);motion.PlaybackEnabled=true;});rail.Add(actions);
+                Button("Смотреть спортивную анимацию",()=>{motion.EvaluateAction((Biathlete167Action)actions.index,0);motion.PlaybackEnabled=true;});
+            }
             Button(rig.IsNaturalAnatomy?"Движения основного спортсмена":"Коньковый ход V2",()=>{motion.SetMode(Biathlete167MotionMode.SkateV2);motion.PlaybackEnabled=true;});
-            Button("Пауза / продолжить",()=>{if(motion.Mode!=Biathlete167MotionMode.SkateV2)motion.SetMode(Biathlete167MotionMode.SkateV2);motion.PlaybackEnabled=!motion.PlaybackEnabled;});
+            Button("Пауза / продолжить",()=>{if(motion.Mode==Biathlete167MotionMode.Inspection)motion.SetMode(Biathlete167MotionMode.SkateV2);motion.PlaybackEnabled=!motion.PlaybackEnabled;});
             if(motion.MainReference!=null)
             {
                 var states=new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.Tuck};
-                var technique=new DropdownField("Техника",new List<string>{"Равнина","Подъём","Спринт","Стойка на спуске"},0){name="main-athlete-technique"};
+                var technique=new DropdownField("Исходная анимация игры",new List<string>{"Равнина","Подъём","Спринт","Стойка на спуске"},0){name="main-athlete-technique"};
                 technique.RegisterValueChangedCallback(_=>{motion.MainReference.State=states[technique.index];motion.EvaluateCycle(motion.Phase);});rail.Add(technique);
             }
-            phaseSlider=new Slider("Фаза",0,1){name="motion-phase"};phaseSlider.style.marginTop=8;phaseSlider.RegisterValueChangedCallback(e=>{motion.PlaybackEnabled=false;motion.EvaluateCycle(e.newValue);});rail.Add(phaseSlider);
+            phaseSlider=new Slider("Фаза",0,1){name="motion-phase"};phaseSlider.style.marginTop=8;phaseSlider.RegisterValueChangedCallback(e=>{motion.PlaybackEnabled=false;if(motion.Mode==Biathlete167MotionMode.Performance)motion.EvaluateAction(motion.Performance.Action,e.newValue);else motion.EvaluateCycle(e.newValue);});rail.Add(phaseSlider);
             var speed=new Slider("Скорость",.1f,1.5f){name="motion-speed",value=1};speed.RegisterValueChangedCallback(e=>motion.PlaybackSpeed=e.newValue);rail.Add(speed);
             Button("Перейти в игру",()=>SceneManager.LoadScene("FrontEnd"));
         }
