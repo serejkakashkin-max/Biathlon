@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "m167_garment_detail_layer_clearance",
+  "asset": "Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Biathlete_16_7_Natural.blend",
+  "rows": [
+    {
+      "object": "Bib27_Front",
+      "kind": "print",
+      "samples": 6700,
+      "buried_samples": 0,
+      "minimum_signed_clearance_m": 0.0007169490806973045,
+      "pass": true
+    },
+    {
+      "object": "Bib27_Back",
+      "kind": "print",
+      "samples": 6700,
+      "buried_samples": 0,
+      "minimum_signed_clearance_m": 0.0010267350332924252,
+      "pass": true
+    },
+    {
+      "object": "Bib_Footer",
+      "kind": "print",
+      "samples": 41300,
+      "buried_samples": 0,
+      "minimum_signed_clearance_m": 0.0011658365983748809,
+      "pass": true
+    },
+    {
+      "object": "Right_Rifle_Harness_Webbing",
+      "kind": "harness",
+      "samples": 768,
+      "buried_samples": 160,
+      "minimum_signed_clearance_m": -0.015083104837685823,
+      "pass": false
+    },
+    {
+      "object": "Left_Rifle_Harness_Webbing",
+      "kind": "harness",
+      "samples": 768,
+      "buried_samples": 160,
+      "minimum_signed_clearance_m": -0.01515245740301907,
+      "pass": false
+    }
+  ],
+  "pass": false,
+  "art_acceptance": false,
+  "method": "Actual saved evaluated triangles and barycentres, compared with the nearest real fabric triangle. 0.15mm signed numerical tolerance. Rest-pose gate; runtime deformation is separately qualified."
+}

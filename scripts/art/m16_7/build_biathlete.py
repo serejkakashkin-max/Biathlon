@@ -11,7 +11,8 @@ from mathutils.kdtree import KDTree
 from mathutils.bvhtree import BVHTree
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from equipment_refine import CONTACT_SETTINGS, HANDLE_PROFILE, grip_frame, tuck_grip_frame, sporting_rifle, grip_finger_matrices
-from refine_garments import race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness
+from refine_garments import GARMENT_SETTINGS, race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness
+from bib_print import apply_bib_print
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -337,7 +338,7 @@ for poly in clothes.data.polygons:
         if abs(p.x)<.07 and p.z>.79:blackpanel=False
         c=black.diffuse_color if blackpanel else red.diffuse_color
         color.data[li].color=c
-tailored=material('PULSE_Natural_Tailored_Textile',(.27,.003,.010),.52)
+tailored=material('PULSE_Natural_Tailored_Textile',(.27,.003,.010),GARMENT_SETTINGS['textile_roughness'])
 clothes.data.materials.clear();clothes.data.materials.append(tailored)
 nodes=tailored.node_tree.nodes;links=tailored.node_tree.links;output=nodes.get('Material Output');principal=nodes.get('Principled BSDF')
 emit=nodes.new('ShaderNodeEmission');links.new(analytic_panel_material(tailored,red,black),emit.inputs[0]);links.new(emit.outputs[0],output.inputs['Surface'])
@@ -347,8 +348,8 @@ scene.render.engine='CYCLES';scene.cycles.samples=1;scene.render.bake.margin=16
 bpy.ops.object.select_all(action='DESELECT');clothes.select_set(True);bpy.context.view_layer.objects.active=clothes
 bpy.ops.object.bake(type='EMIT');atlas.filepath_raw=str(out/'Textures/Natural_Suit_Panels_BaseColor_4K.png');atlas.file_format='PNG';atlas.save()
 links.new(principal.outputs[0],output.inputs['Surface']);links.new(target.outputs['Color'],principal.inputs['Base Color'])
-normaltex=nodes.new('ShaderNodeTexImage');normaltex.image=weave_n;norm=nodes.new('ShaderNodeNormalMap');norm.inputs['Strength'].default_value=.30;links.new(normaltex.outputs['Color'],norm.inputs['Color']);links.new(norm.outputs[0],principal.inputs['Normal'])
-roughtex=nodes.new('ShaderNodeTexImage');roughtex.image=weave_r;links.new(roughtex.outputs[0],principal.inputs['Roughness']);principal.inputs['Sheen Weight'].default_value=.15
+normaltex=nodes.new('ShaderNodeTexImage');normaltex.image=weave_n;norm=nodes.new('ShaderNodeNormalMap');norm.inputs['Strength'].default_value=GARMENT_SETTINGS['textile_normal_strength'];links.new(normaltex.outputs['Color'],norm.inputs['Color']);links.new(norm.outputs[0],principal.inputs['Normal'])
+roughtex=nodes.new('ShaderNodeTexImage');roughtex.image=weave_r;rough_scale=nodes.new('ShaderNodeMath');rough_scale.operation='MULTIPLY';rough_scale.inputs[1].default_value=.2;rough_base=nodes.new('ShaderNodeMath');rough_base.operation='ADD';rough_base.inputs[1].default_value=.6;links.new(roughtex.outputs[0],rough_scale.inputs[0]);links.new(rough_scale.outputs[0],rough_base.inputs[0]);links.new(rough_base.outputs[0],principal.inputs['Roughness']);principal.inputs['Sheen Weight'].default_value=.15
 materials.append(tailored)
 mod=clothes.modifiers.new('Original normalized skeletal weights','ARMATURE');mod.object=arm;clothes.parent=arm;clothes.matrix_world=Matrix.Identity(4);objects.append(clothes)
 for old in list(objects):
@@ -540,6 +541,10 @@ def fit_surface(obj,target,offset):
 bib=bpy.data.objects['Woven_Bib_27'];objects.remove(bib);bpy.data.objects.remove(bib,do_unlink=True)
 bib,shoulders=race_bib(bib_reference,arm,mesh,tube,weight_z,white,clothes)
 bpy.data.objects.remove(bib_reference,do_unlink=True)
+for old in list(objects):
+    if old.name.startswith(('Bib27_','Bib_Header','Bib_Footer')):
+        objects.remove(old);bpy.data.objects.remove(old,do_unlink=True)
+bib_print_receipt=apply_bib_print(bib,out,material,materials,GARMENT_SETTINGS)
 for obj in list(objects):
     if obj.name.startswith('Bib_Bound_Edge') or 'Rifle_Harness_Webbing' in obj.name or obj.name.startswith('Harness_Stitch') or '_Torso_Flatlock' in obj.name:
         objects.remove(obj);bpy.data.objects.remove(obj,do_unlink=True)
@@ -575,6 +580,10 @@ for obj in list(objects):
     if obj.name.startswith('Harness_Adjuster'):
         fit_surface(obj,bib,.004);transfer_weights(obj,bib,arm)
 
+# No covered suit surface is rendered underneath the bib. Retain its editable
+# reference in the source only; coincident clothing layers cut through on bends.
+from garment_partition import remove_covered_suit
+garment_coverage_receipt=remove_covered_suit(clothes)
 # Ensure material paths portable, document exact produced geometry and source basis.
 bpy.context.view_layer.update()
 for obj in objects:
@@ -618,7 +627,7 @@ for pre in ['Left','Right']:
 for pre in ['Left','Right']:
     for original,label in [(pre+'_Anatomical_Glove',pre+'_Skate_Glove'),(pre+'_Tuck_Glove',pre+'_Tuck_Glove')]:
         obj=join_meshes(label,[bpy.data.objects[original],bpy.data.objects[pre+'_'+('Tuck' if 'Tuck' in label else 'Skate')+'_Glove_Strap']],pre+'Hand',heads[pre+'Hand']);gear.append(obj)
-body_parts=[o for o in scene.objects if o.type=='MESH' and o not in gear]
+body_parts=[o for o in scene.objects if o.type=='MESH' and o not in gear and not o.get('authoring_reference_only',False)]
 primary=next(o for o in body_parts if o.name=='RaceSuit_Continuous_Tailored_Shell');body_parts.remove(primary);body_parts.insert(0,primary)
 gamebody=join_meshes('Biathlete_Body_LOD0',body_parts);rigged.append(gamebody)
 for level,ratio in [(1,.40),(2,.14)]:
@@ -639,6 +648,10 @@ for m in materials:manifest['materials'].append({'name':m.name,'color':list(m.di
 manifest['rifle_cc0_reused_visible_components']=reused_rifle_parts
 manifest['contact_frames']=contacts
 manifest['grip_variants']=['Skate','Tuck']
+manifest['garment_detail_definition_sha256']=hashlib.sha256((Path(__file__).resolve().parents[3]/'Assets/Biathlon/Characters/Biathlete_16_7/Documentation/garment-detail-v1.json').read_bytes()).hexdigest()
+manifest['bib_print']=bib_print_receipt
+manifest['garment_skinning']='shared_partition_vertices_and_normalized_weights'
+manifest['garment_coverage']=garment_coverage_receipt
 manifest['contact_basis_conversion']='Blender -palm X, shaft Y; after Unity FBX handedness conversion, imported +X is the physical palmar side. Point markers independently validate the sign.'
 manifest['grip_audit']={pre:grip_finger_matrices(anatomy_metadata,side)[1] for pre,side in [('Left',1),('Right',-1)]}
 from power_grip import solve_finger

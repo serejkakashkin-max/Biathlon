@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "f7c60d6f14ef439527959d13b65e6fd789e1a4f0cf875dad794f300280b6c086",
+  "export_fbx_sha256": "4a50583c883e5a9f886850fcd7c250cddaaf32f3832355497f9abf20c749298f",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -82,24 +82,24 @@
     },
     {
       "name": "Biathlete_Body_LOD0",
-      "triangles": 147328,
-      "vertices": 77081,
+      "triangles": 98539,
+      "vertices": 51383,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD1",
-      "triangles": 58931,
-      "vertices": 31456,
+      "triangles": 39415,
+      "vertices": 21345,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 20624,
-      "vertices": 11631,
+      "triangles": 13795,
+      "vertices": 8052,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
@@ -323,7 +323,7 @@
         0.009999999776482582,
         1.0
       ],
-      "roughness": 0.5199999809265137,
+      "roughness": 0.7200000286102295,
       "metallic": 0.0
     },
     {
@@ -369,6 +369,17 @@
       ],
       "roughness": 0.28999999165534973,
       "metallic": 0.8799999952316284
+    },
+    {
+      "name": "PULSE_Bib_Printed_Textile",
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "roughness": 0.7799999713897705,
+      "metallic": 0.0
     }
   ],
   "sockets": [
@@ -402,6 +413,22 @@
     "Skate",
     "Tuck"
   ],
+  "garment_detail_definition_sha256": "7baadadb7bf8921728bbf288ab4bf296ccdecb3df23b4a8d222d2d90592d09f4",
+  "bib_print": {
+    "method": "shared_fabric_uv_atlas",
+    "texture": "Bib_PULSE_Print_BaseColor_4K",
+    "resolution": 4096,
+    "pages": 2,
+    "number": "27",
+    "font": "Assets/Resources/Biathlon/UI/Fonts/Roboto.ttf",
+    "standalone_bib_glyph_meshes": 0
+  },
+  "garment_skinning": "shared_partition_vertices_and_normalized_weights",
+  "garment_coverage": {
+    "covered_suit_triangles_removed": 1929,
+    "reference": "Suit_Bib_Lining_Reference",
+    "reference_in_runtime": false
+  },
   "contact_basis_conversion": "Blender -palm X, shaft Y; after Unity FBX handedness conversion, imported +X is the physical palmar side. Point markers independently validate the sign.",
   "grip_audit": {
     "Left": {
@@ -745,7 +772,7 @@
       }
     }
   },
-  "triangles": 304750,
-  "stored_lod0_triangles": 225195,
-  "active_lod0_triangles": 197883
+  "triangles": 229616,
+  "stored_lod0_triangles": 176406,
+  "active_lod0_triangles": 149094
 }

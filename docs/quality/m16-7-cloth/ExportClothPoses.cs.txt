@@ -1,0 +1,25 @@
+using System;using System.IO;using System.Linq;using System.Collections.Generic;using UnityEngine;using UnityEditor;using Biathlon.Unity.Presentation;
+public static class ExportClothPoses{
+ public static string Run(){
+ var go=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Biathlon/Characters/Biathlete_16_7/Prefabs/Biathlete_16_7_Natural.prefab"));
+ var rig=go.GetComponent<Biathlete167Rig>();var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();var mesh=skin.sharedMesh;var materials=skin.sharedMaterials;
+ var selections=new Dictionary<string,int[]>();var triangles=new Dictionary<string,int[]>();
+ foreach(var pair in new[]{("bib","PULSE_Bib_Printed_Textile"),("suit","PULSE_Natural_Tailored_Textile")}){
+ int sub=Array.FindIndex(materials,m=>m.name==pair.Item2);if(sub<0)throw new InvalidOperationException("Missing cloth submesh");
+ var source=mesh.GetTriangles(sub);var ids=source.Distinct().OrderBy(i=>i).ToArray();selections[pair.Item1]=ids;var reverse=new Dictionary<int,int>();for(int i=0;i<ids.Length;i++)reverse[ids[i]]=i;triangles[pair.Item1]=source.Select(i=>reverse[i]).ToArray();
+ }
+ var poses=new List<object>();var baked=new Mesh();var rest=new Dictionary<string,float[][]>();
+ rig.SetPose(0);skin.BakeMesh(baked);var restVertices=baked.vertices;
+ foreach(var pair in selections)rest[pair.Key]=pair.Value.Select(i=>{var p=skin.transform.TransformPoint(restVertices[i]);return new[]{p.x,p.y,p.z};}).ToArray();
+ try{using(var motion=new Biathlete167MainMotion(rig)){
+ foreach(var state in new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.Tuck})for(int phase=0;phase<4;phase++){
+ motion.State=state;motion.Evaluate(phase/4f);skin.BakeMesh(baked);var v=baked.vertices;var parts=new Dictionary<string,float[][]>();
+ foreach(var pair in selections)parts[pair.Key]=pair.Value.Select(i=>{var p=skin.transform.TransformPoint(v[i]);return new[]{p.x,p.y,p.z};}).ToArray();
+ poses.Add(new{state=state.ToString(),phase=phase/4f,parts});
+ }
+ }}finally{UnityEngine.Object.DestroyImmediate(baked);UnityEngine.Object.DestroyImmediate(go);}
+ var manifest=Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,object>>(File.ReadAllText("Assets/Biathlon/Characters/Biathlete_16_7/Documentation/natural-asset-manifest.json"));
+ string path="artifacts/m16-7-cloth-20261106/actual-posed-cloth.json";
+ File.WriteAllText(path,Newtonsoft.Json.JsonConvert.SerializeObject(new{schema_version=1,id="m167_actual_imported_cloth_pose_geometry",source_export_fbx_sha256=manifest["export_fbx_sha256"].ToString(),triangles,rest_parts=rest,poses}));return "Exported actual imported, baked cloth geometry for16poses: "+new FileInfo(path).Length+"bytes";
+ }
+}

@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "id": "m167_actual_unity_posed_bib_clearance",
+  "source_export_fbx_sha256": "4a50583c883e5a9f886850fcd7c250cddaaf32f3832355497f9abf20c749298f",
+  "rows": [
+    {
+      "state": "Flat",
+      "phase": 0.0,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04387805890291929,
+      "negative_nearest_plane_centroids": 561,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Flat",
+      "phase": 0.25,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.033839757554233074,
+      "negative_nearest_plane_centroids": 547,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Flat",
+      "phase": 0.5,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.032117990871483926,
+      "negative_nearest_plane_centroids": 398,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Flat",
+      "phase": 0.75,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04868349898606539,
+      "negative_nearest_plane_centroids": 425,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Uphill",
+      "phase": 0.0,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.03629419778008014,
+      "negative_nearest_plane_centroids": 560,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Uphill",
+      "phase": 0.25,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04067599959671497,
+      "negative_nearest_plane_centroids": 576,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Uphill",
+      "phase": 0.5,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.03292361107742181,
+      "negative_nearest_plane_centroids": 430,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Uphill",
+      "phase": 0.75,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04912006855010986,
+      "negative_nearest_plane_centroids": 484,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "MaxSprint",
+      "phase": 0.0,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04571198462508619,
+      "negative_nearest_plane_centroids": 601,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "MaxSprint",
+      "phase": 0.25,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04476001829607412,
+      "negative_nearest_plane_centroids": 519,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "MaxSprint",
+      "phase": 0.5,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04710211278870702,
+      "negative_nearest_plane_centroids": 489,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "MaxSprint",
+      "phase": 0.75,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.04537807696033269,
+      "negative_nearest_plane_centroids": 603,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Tuck",
+      "phase": 0.0,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.03451083620893769,
+      "negative_nearest_plane_centroids": 466,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Tuck",
+      "phase": 0.25,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.03451083620893769,
+      "negative_nearest_plane_centroids": 466,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Tuck",
+      "phase": 0.5,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.03451083620893769,
+      "negative_nearest_plane_centroids": 466,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    },
+    {
+      "state": "Tuck",
+      "phase": 0.75,
+      "bib_triangles": 1929,
+      "minimum_signed_clearance_m": -0.03451083620893769,
+      "negative_nearest_plane_centroids": 466,
+      "actual_visible_triangle_intersections": 0,
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "art_acceptance": false,
+  "method": "Actual Unity BakeMesh at16poses; bib/suit BVH candidates followed by strict edge/triangle interior intersections. Sewn shared edges/vertices are valid contact. Nearest-plane sign is diagnostic only on the now-open suit. Old underlay snapshots fail the same gate. No continuous-time/coplanar-overlap proof."
+}

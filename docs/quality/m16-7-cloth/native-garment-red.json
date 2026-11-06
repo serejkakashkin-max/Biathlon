@@ -1,0 +1,35 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":2,\"PassedTests\":0,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:00:00.1230308\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167GarmentTests.BibArtworkUsesTheFabricTextureRatherThanFloatingGlyphs\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0200000\",\"Message\":\"  Bib ink must be on its fabric surface, not another intersecting skinned mesh.\\r\\n  Expected: not null\\r\\n  But was:  null\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167GarmentTests.GarmentExportMatchesItsVersionedDefinition\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0060000\",\"Message\":\"  Expected: \\u0022shared_fabric_uv_atlas\\u0022\\r\\n  But was:  null\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 2,
+        "PassedTests": 0,
+        "FailedTests": 2,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.1230308"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167GarmentTests.BibArtworkUsesTheFabricTextureRatherThanFloatingGlyphs",
+          "Status": "Failed",
+          "Duration": "00:00:00.0200000",
+          "Message": "  Bib ink must be on its fabric surface, not another intersecting skinned mesh.\r\n  Expected: not null\r\n  But was:  null\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167GarmentTests.GarmentExportMatchesItsVersionedDefinition",
+          "Status": "Failed",
+          "Duration": "00:00:00.0060000",
+          "Message": "  Expected: \"shared_fabric_uv_atlas\"\r\n  But was:  null\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "id": "m167_actual_bib_print_glyph_continuity",
+  "texture": "artifacts/m16-7-cloth-20261106/rejected-atlas.png",
+  "size": [
+    4096,
+    4096
+  ],
+  "rows": [
+    {
+      "page": 0,
+      "text": "27",
+      "expected_contiguous_glyphs": 2,
+      "observed_contiguous_glyphs": 2,
+      "component_pixels": [
+        100564,
+        74309
+      ],
+      "pass": true
+    },
+    {
+      "page": 0,
+      "text": "WORLD CUP",
+      "expected_contiguous_glyphs": 8,
+      "observed_contiguous_glyphs": 13,
+      "component_pixels": [
+        4426,
+        3731,
+        3965,
+        2848,
+        1235,
+        1564,
+        3723,
+        814,
+        1739,
+        756,
+        1567,
+        2742,
+        3988
+      ],
+      "pass": false
+    },
+    {
+      "page": 0,
+      "text": "PULSE",
+      "expected_contiguous_glyphs": 5,
+      "observed_contiguous_glyphs": 9,
+      "component_pixels": [
+        2406,
+        2505,
+        2390,
+        1051,
+        432,
+        982,
+        464,
+        400,
+        464
+      ],
+      "pass": false
+    },
+    {
+      "page": 1,
+      "text": "27",
+      "expected_contiguous_glyphs": 2,
+      "observed_contiguous_glyphs": 2,
+      "component_pixels": [
+        100564,
+        74309
+      ],
+      "pass": true
+    },
+    {
+      "page": 1,
+      "text": "WORLD CUP",
+      "expected_contiguous_glyphs": 8,
+      "observed_contiguous_glyphs": 13,
+      "component_pixels": [
+        4426,
+        3731,
+        3965,
+        2848,
+        1235,
+        1564,
+        3723,
+        814,
+        1739,
+        756,
+        1567,
+        2742,
+        3988
+      ],
+      "pass": false
+    },
+    {
+      "page": 1,
+      "text": "PULSE",
+      "expected_contiguous_glyphs": 5,
+      "observed_contiguous_glyphs": 9,
+      "component_pixels": [
+        2406,
+        2505,
+        2390,
+        1051,
+        432,
+        982,
+        464,
+        400,
+        464
+      ],
+      "pass": false
+    }
+  ],
+  "pass": false,
+  "art_acceptance": false
+}

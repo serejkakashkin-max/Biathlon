@@ -22,6 +22,7 @@ namespace Biathlon.Unity
         public const string ScenePath=Root+"/Preview/Biathlete_16_7_Preview.unity";
         [Serializable] private class MaterialRecord {public string name;public float[] color;public float roughness,metallic;}
         [Serializable] private class Manifest {public MaterialRecord[] materials;}
+        [Serializable] private class GarmentRecord {public int schema_version;public string id;public float textile_normal_strength,bib_normal_strength;}
         private static readonly (string human,string bone)[] Mapping={
             ("Hips","Hips"),("Spine","Spine02"),("Chest","Spine01"),("UpperChest","Spine"),("Neck","neck"),("Head","Head"),
             ("LeftShoulder","LeftShoulder"),("RightShoulder","RightShoulder"),("LeftUpperArm","LeftArm"),("RightUpperArm","RightArm"),
@@ -44,6 +45,8 @@ namespace Biathlon.Unity
                 t.textureCompression=TextureImporterCompression.CompressedHQ;AssetDatabase.ReleaseCachedFileHandles();t.SaveAndReimport();
             }
             var manifest=JsonUtility.FromJson<Manifest>(File.ReadAllText(Root+(natural?"/Documentation/natural-asset-manifest.json":"/Documentation/asset-manifest.json")));
+            var garment=natural?JsonUtility.FromJson<GarmentRecord>(File.ReadAllText(Root+"/Documentation/garment-detail-v1.json")):null;
+            if(natural&&(garment.schema_version!=1||string.IsNullOrWhiteSpace(garment.id)||garment.textile_normal_strength<=0||garment.bib_normal_strength<=0))throw new InvalidDataException("Invalid garment definition.");
             var materials=new Dictionary<string,Material>(StringComparer.Ordinal);
             foreach(var data in manifest.materials)
             {
@@ -59,12 +62,14 @@ namespace Biathlon.Unity
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Rifle_CC0_Laminate_BaseColor_2K");Normal(material,"Rifle_CC0_Normal_2K",.5f);material.SetFloat("_Smoothness",.45f);}
                 else if(data.name=="Anatomical_Skin_CC0_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","MakeHuman_Skin_BaseColor_2K");material.SetFloat("_Smoothness",.38f);}
+                else if(data.name=="PULSE_Bib_Printed_Textile")
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Bib_PULSE_Print_BaseColor_4K");Normal(material,"Textile_Normal_4K",garment.bib_normal_strength);}
                 else if(data.name=="Race_Glove_Softshell"||data.name=="Race_Glove_Palm_Grip")
                 {Normal(material,"Textile_Normal_4K",data.name=="Race_Glove_Softshell"?.08f:.035f);}
                 else if(data.name=="Anatomical_Skin_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Skin_BaseColor_2K");Normal(material,"Skin_Normal_2K",.8f);Map(material,"_MetallicGlossMap","Skin_MetallicSmoothness_2K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name=="PULSE_Natural_Tailored_Textile")
-                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Natural_Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",.28f);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Natural_Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",garment.textile_normal_strength);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name=="PULSE_Tailored_Textile")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",.28f);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name.Contains("Race_Red")||data.name.Contains("Stretch")||data.name.Contains("Bib_")||data.name.Contains("Thread"))

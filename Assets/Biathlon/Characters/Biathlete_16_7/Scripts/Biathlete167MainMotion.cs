@@ -30,6 +30,7 @@ namespace Biathlon.Unity.Presentation
         public float MaximumWristBendDegrees{get;private set;}
         public float MaximumWristTwistDegrees{get;private set;}
         public float MaximumForearmRollDegrees{get;private set;}
+        public float PelvisClearanceLiftMeters{get;private set;}
         public float MaximumBindingResidualMeters{get;private set;}
         public float MaximumHeelRiseDegrees{get;private set;}
         private readonly Renderer[] hiddenRenderers;
@@ -83,10 +84,10 @@ namespace Biathlon.Unity.Presentation
             to[0].position=root.TransformPoint(hipBind+root.InverseTransformPoint(from[0].position)-sourceHipBind);
             for(int i=0;i<5;i++)CopyRotation(i);
             CopyLimb(5);CopyLimb(8);CopyLimb(11);CopyLimb(14);
-            MaximumWristBendDegrees=MaximumWristTwistDegrees=MaximumForearmRollDegrees=MaximumBindingResidualMeters=MaximumHeelRiseDegrees=0;
+            MaximumWristBendDegrees=MaximumWristTwistDegrees=MaximumForearmRollDegrees=MaximumBindingResidualMeters=MaximumHeelRiseDegrees=PelvisClearanceLiftMeters=0;
             if(ContactAdaptationEnabled)
             {
-                if(State==SkiMotionState.Tuck){ApplyTuckHand(leftPole,6,7);ApplyTuckHand(rightPole,9,10);}
+                if(State==SkiMotionState.Tuck){LiftTuckPelvis();ApplyTuckHand(leftPole,6,7);ApplyTuckHand(rightPole,9,10);}
                 else{ApplyPole(leftPole,equipment.LeftPole,6,7);ApplyPole(rightPole,equipment.RightPole,9,10);}
                 ApplyFoot(leftFoot);ApplyFoot(rightFoot);
             }
@@ -106,6 +107,20 @@ namespace Biathlon.Unity.Presentation
         }
 
         private ExertionInput ReferenceExertion()=>State==SkiMotionState.Fatigued?new ExertionInput(.7f,.2f,185):new ExertionInput(0,1,140);
+
+        private void LiftTuckPelvis()
+        {
+            // G2's shorter proportions fold the anatomical torso into the
+            // thighs. Lift the pelvis while preserving both planted feet.
+            var leftPosition=to[13].position;var rightPosition=to[16].position;
+            var leftRotation=to[13].rotation;var rightRotation=to[16].rotation;
+            var leftHint=to[12].position-(to[11].position+leftPosition)*.5f;
+            var rightHint=to[15].position-(to[14].position+rightPosition)*.5f;
+            to[0].position+=root.up*settings.tuck_pelvis_clearance_lift_m;
+            SolveImportedLimb(to[11],to[12],to[13],leftPosition,leftHint);to[13].rotation=leftRotation;
+            SolveImportedLimb(to[14],to[15],to[16],rightPosition,rightHint);to[16].rotation=rightRotation;
+            PelvisClearanceLiftMeters=settings.tuck_pelvis_clearance_lift_m;
+        }
 
         public void SetReferenceVisible(bool value)
         {
@@ -281,8 +296,14 @@ namespace Biathlon.Unity.Presentation
             public float minimum_grip_half_width_m,tuck_grip_forward_of_head_m;
             public float tuck_elbow_hint_outward,tuck_elbow_hint_forward;
             public float tuck_grip_palmar_offset_m;
+            public float tuck_pelvis_clearance_lift_m;
             public float tuck_power_grip_obliquity_degrees,tuck_upper_grip_offset_m,tuck_pole_splay_degrees,tuck_grip_half_width_m,tuck_grip_below_shoulder_m,tuck_pole_elevation_degrees,tuck_palm_up_roll_degrees,maximum_tuck_wrist_bend_degrees,tuck_minimum_reach_forward_m;
             public void Validate()
+            {
+                if(!(tuck_pelvis_clearance_lift_m>=0&&tuck_pelvis_clearance_lift_m<=.1f))throw new InvalidOperationException("Invalid anatomical tuck clearance.");
+                ValidateContactFrames();
+            }
+            private void ValidateContactFrames()
             {if(!(tuck_grip_palmar_offset_m>=.02f&&tuck_grip_palmar_offset_m<=.06f)||!(tuck_elbow_hint_outward>=0&&tuck_elbow_hint_outward<=.3f)||!(tuck_elbow_hint_forward>=-1&&tuck_elbow_hint_forward<=.3f)||!(tuck_power_grip_obliquity_degrees>=5&&tuck_power_grip_obliquity_degrees<=80)||!(tuck_upper_grip_offset_m>=.045f&&tuck_upper_grip_offset_m<=.075f)||!(tuck_pole_splay_degrees>=0&&tuck_pole_splay_degrees<=20)||!(maximum_tuck_wrist_bend_degrees>0&&maximum_tuck_wrist_bend_degrees<=45)||!(tuck_minimum_reach_forward_m>=.12f&&tuck_minimum_reach_forward_m<=.3f)||!(tuck_palm_up_roll_degrees>=0&&tuck_palm_up_roll_degrees<=180)||!(tuck_grip_half_width_m>=.04f&&tuck_grip_half_width_m<=.2f)||!(tuck_grip_below_shoulder_m>=-.08f&&tuck_grip_below_shoulder_m<=.22f)||!(tuck_pole_elevation_degrees>=-5&&tuck_pole_elevation_degrees<=30)||schema_version!=1||string.IsNullOrWhiteSpace(id)||!(minimum_grip_half_width_m>=.1f&&minimum_grip_half_width_m<=.2f)||!(tuck_grip_forward_of_head_m>=.04f&&tuck_grip_forward_of_head_m<=.25f)||!(maximum_wrist_bend_degrees>0&&maximum_wrist_bend_degrees<=30)||!(maximum_forearm_roll_degrees>0&&maximum_forearm_roll_degrees<=90)||!(maximum_forward_ankle_degrees>0&&maximum_forward_ankle_degrees<=25)||!(maximum_heel_rise_degrees>0&&maximum_heel_rise_degrees<=45))throw new InvalidOperationException("Invalid M16.7 contact adaptation definition.");}
         }
     }

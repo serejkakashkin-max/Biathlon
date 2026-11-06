@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "id": "m167_actual_motion_video_review",
+  "source_capture": {
+    "schema_version": 1,
+    "id": "m167_actual_unity_motion_cycles",
+    "source_export_fbx_sha256": "4a50583c883e5a9f886850fcd7c250cddaaf32f3832355497f9abf20c749298f",
+    "frame_count": 192,
+    "width": 900,
+    "height": 1000,
+    "cycles": [
+      {
+        "state": "Flat",
+        "cycle_seconds": 1.17647052,
+        "frames": 48
+      },
+      {
+        "state": "Uphill",
+        "cycle_seconds": 1.17647052,
+        "frames": 48
+      },
+      {
+        "state": "MaxSprint",
+        "cycle_seconds": 1.09912992,
+        "frames": 48
+      },
+      {
+        "state": "Tuck",
+        "cycle_seconds": 0.8888889,
+        "frames": 48
+      }
+    ],
+    "source": "Actual imported Natural prefab with transferred G2 motion; isolated studio; no generated images"
+  },
+  "videos": [
+    {
+      "file": "motion-normal.mp4",
+      "playback_speed": 1,
+      "fps": 30,
+      "frame_count": 260,
+      "timeline": [
+        {
+          "state": "Flat",
+          "starts_at_seconds": 0.0,
+          "duration_seconds": 2.3333333333333335
+        },
+        {
+          "state": "Uphill",
+          "starts_at_seconds": 2.3333333333333335,
+          "duration_seconds": 2.3333333333333335
+        },
+        {
+          "state": "MaxSprint",
+          "starts_at_seconds": 4.666666666666667,
+          "duration_seconds": 2.2
+        },
+        {
+          "state": "Tuck",
+          "starts_at_seconds": 6.866666666666666,
+          "duration_seconds": 1.8
+        }
+      ]
+    },
+    {
+      "file": "motion-slow.mp4",
+      "playback_speed": 0.25,
+      "fps": 30,
+      "frame_count": 521,
+      "timeline": [
+        {
+          "state": "Flat",
+          "starts_at_seconds": 0.0,
+          "duration_seconds": 4.7
+        },
+        {
+          "state": "Uphill",
+          "starts_at_seconds": 4.7,
+          "duration_seconds": 4.7
+        },
+        {
+          "state": "MaxSprint",
+          "starts_at_seconds": 9.4,
+          "duration_seconds": 4.4
+        },
+        {
+          "state": "Tuck",
+          "starts_at_seconds": 13.8,
+          "duration_seconds": 3.566666666666667
+        }
+      ]
+    }
+  ],
+  "method": "Actual Unity PNG frames resampled to 30fps using recorded cycle durations; no interpolated or generated athlete frames."
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "m167_garment_detail_layer_clearance",
+  "asset": "Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Biathlete_16_7_Natural.blend",
+  "rows": [
+    {
+      "object": "Woven_Bib_27",
+      "kind": "fabric_orientation",
+      "triangles": 1929,
+      "inward_triangles": 0,
+      "buried_samples": 0,
+      "pass": true
+    },
+    {
+      "object": "Right_Rifle_Harness_Webbing",
+      "kind": "harness",
+      "samples": 3520,
+      "buried_samples": 0,
+      "minimum_signed_clearance_m": 0.0006029005253367359,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Harness_Webbing",
+      "kind": "harness",
+      "samples": 3488,
+      "buried_samples": 0,
+      "minimum_signed_clearance_m": 0.0007399418173008598,
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "art_acceptance": false,
+  "method": "Actual saved evaluated triangles and barycentres, compared with the nearest real fabric triangle. 0.15mm signed numerical tolerance. Rest-pose gate; runtime deformation is separately qualified."
+}
