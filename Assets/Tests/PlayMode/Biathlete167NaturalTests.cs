@@ -25,8 +25,9 @@ namespace Biathlon.PlayModeTests
             AthleteBone.RightUpperLeg,AthleteBone.RightLowerLeg,AthleteBone.RightFoot};
         private Biathlete167Rig rig;
         private Biathlete167Motion motion;
-        [Serializable] private sealed class GeometryReceipt { public int active_lod0_triangles; public string export_fbx_sha256; public float tuck_power_grip_obliquity_degrees,tuck_upper_grip_offset_m; }
-        [Serializable] private sealed class ContactReceipt { public float tuck_power_grip_obliquity_degrees,tuck_upper_grip_offset_m; }
+        [Serializable] private sealed class PlantGripReceipt { public float plant_power_grip_obliquity_degrees,plant_grip_longitudinal_offset_m,plant_grip_palmar_offset_m,plant_upper_grip_offset_m; public float[] plant_thumb_axis_band_m; }
+        [Serializable] private sealed class GeometryReceipt { public int active_lod0_triangles; public string export_fbx_sha256; public float tuck_power_grip_obliquity_degrees,tuck_upper_grip_offset_m,tuck_grip_palmar_offset_m; public PlantGripReceipt plant_grip_settings; }
+        [Serializable] private sealed class ContactReceipt { public float tuck_power_grip_obliquity_degrees,tuck_upper_grip_offset_m,tuck_grip_palmar_offset_m; }
         [SetUp] public void Create()
         {
             rig=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Prefab)).GetComponent<Biathlete167Rig>();
@@ -51,6 +52,14 @@ namespace Biathlon.PlayModeTests
             var definition=JsonUtility.FromJson<ContactReceipt>(rig.ContactDefinition.text);
             Assert.That(receipt.tuck_power_grip_obliquity_degrees,Is.EqualTo(definition.tuck_power_grip_obliquity_degrees).Within(.00001f),"Grip authoring settings require a matching model export.");
             Assert.That(receipt.tuck_upper_grip_offset_m,Is.EqualTo(definition.tuck_upper_grip_offset_m).Within(.000001f));
+            Assert.That(receipt.tuck_grip_palmar_offset_m,Is.EqualTo(definition.tuck_grip_palmar_offset_m).Within(.000001f));
+            var working=JsonUtility.FromJson<PlantGripReceipt>(rig.ContactDefinition.text);
+            Assert.That(receipt.plant_grip_settings,Is.Not.Null,"Working grip needs its own surface-fitted export receipt.");
+            Assert.That(receipt.plant_grip_settings.plant_power_grip_obliquity_degrees,Is.EqualTo(working.plant_power_grip_obliquity_degrees).Within(.00001f));
+            Assert.That(receipt.plant_grip_settings.plant_grip_longitudinal_offset_m,Is.EqualTo(working.plant_grip_longitudinal_offset_m).Within(.000001f));
+            Assert.That(receipt.plant_grip_settings.plant_grip_palmar_offset_m,Is.EqualTo(working.plant_grip_palmar_offset_m).Within(.000001f));
+            Assert.That(receipt.plant_grip_settings.plant_upper_grip_offset_m,Is.EqualTo(working.plant_upper_grip_offset_m).Within(.000001f));
+            Assert.That(receipt.plant_grip_settings.plant_thumb_axis_band_m,Is.EqualTo(working.plant_thumb_axis_band_m));
             using(var sha=SHA256.Create())
             {
                 var hash=sha.ComputeHash(File.ReadAllBytes("Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx"));
@@ -97,6 +106,17 @@ namespace Biathlon.PlayModeTests
             Assert.That(exposedBoundary,Is.LessThan(.001f),"Exposed cervical skin contains a cut or a hole.");
         }
 
+        [Test] public void EveryImportedSurfaceUsesAnExplicitUrpMaterialAsset()
+        {
+            foreach(var renderer in rig.GetComponentsInChildren<Renderer>(true))
+            foreach(var material in renderer.sharedMaterials)
+            {
+                Assert.That(material,Is.Not.Null,renderer.name);
+                Assert.That(material.shader.name,Is.EqualTo("Universal Render Pipeline/Lit"),renderer.name+" / "+material.name);
+                Assert.That(AssetDatabase.GetAssetPath(material).EndsWith(".mat",StringComparison.OrdinalIgnoreCase),Is.True,"Embedded Standard materials render magenta in the URP studio.");
+            }
+        }
+
         [TestCase(SkiMotionState.Flat)] [TestCase(SkiMotionState.Uphill)] [TestCase(SkiMotionState.MaxSprint)] [TestCase(SkiMotionState.Tuck)]
         [TestCase(SkiMotionState.SteepUphill)] [TestCase(SkiMotionState.FastSkate)] [TestCase(SkiMotionState.NoPole)] [TestCase(SkiMotionState.DoublePole)]
         [TestCase(SkiMotionState.CornerLeft)] [TestCase(SkiMotionState.CornerRight)] [TestCase(SkiMotionState.Fatigued)] [TestCase(SkiMotionState.SlowStop)]
@@ -132,14 +152,21 @@ namespace Biathlon.PlayModeTests
             {Assert.That(Vector3.Distance(positions[i],transforms[i].position),Is.LessThan(.00003f),transforms[i].name);Assert.That(Quaternion.Angle(rotations[i],transforms[i].rotation),Is.LessThan(.08f),transforms[i].name);}
         }
 
-        [Test] public void MainMotionDoesNotSwivelThePoleHandleThroughTheGlove()
+        [TestCase(SkiMotionState.Flat)][TestCase(SkiMotionState.Uphill)][TestCase(SkiMotionState.Tuck)]
+        [TestCase(SkiMotionState.MaxSprint)][TestCase(SkiMotionState.CornerLeft)][TestCase(SkiMotionState.CornerRight)]
+        [TestCase(SkiMotionState.SteepUphill)][TestCase(SkiMotionState.FastSkate)][TestCase(SkiMotionState.NoPole)]
+        [TestCase(SkiMotionState.DoublePole)][TestCase(SkiMotionState.Fatigued)][TestCase(SkiMotionState.SlowStop)]
+        public void MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(SkiMotionState state)
         {
-            var left=rig.Bone(HumanBodyBones.LeftHand).GetComponentInChildren<MeshFilter>().transform;
-            var right=rig.Bone(HumanBodyBones.RightHand).GetComponentInChildren<MeshFilter>().transform;
+            motion.MainReference.State=state;motion.EvaluateCycle(0);
+            var serialized=new SerializedObject(rig);var property=serialized.FindProperty("poleRenderers");
+            var poles=Enumerable.Range(0,property.arraySize).Select(i=>(Renderer)property.GetArrayElementAtIndex(i).objectReferenceValue).ToArray();
+            var left=poles.Single(p=>p.transform.IsChildOf(rig.Bone(HumanBodyBones.LeftHand))).transform;
+            var right=poles.Single(p=>p.transform.IsChildOf(rig.Bone(HumanBodyBones.RightHand))).transform;
             var lp=left.localPosition;var lr=left.localRotation;var rp=right.localPosition;var rr=right.localRotation;
-            for(int i=0;i<48;i++)
+            for(int i=0;i<96;i++)
             {
-                motion.EvaluateCycle(i/48f);
+                motion.EvaluateCycle(i/96f);
                 Assert.That(Vector3.Distance(left.localPosition,lp),Is.LessThan(.00001f));Assert.That(Vector3.Distance(right.localPosition,rp),Is.LessThan(.00001f));
                 Assert.That(Quaternion.Angle(left.localRotation,lr),Is.LessThan(.06f));Assert.That(Quaternion.Angle(right.localRotation,rr),Is.LessThan(.06f));
             }
@@ -160,8 +187,8 @@ namespace Biathlon.PlayModeTests
             {
                 motion.EvaluateCycle(i/96f);
                 for(int side=0;side<2;side++)
-                    Assert.That(Vector3.Angle(hands[side].TransformDirection(neutral[side]),hands[side].position-lower[side].position),Is.LessThanOrEqualTo(state==SkiMotionState.Tuck?40.1f:25.1f),state+" / "+i+" / wrist "+side);
-                Assert.That(Vector3.Distance(rig.GripContact(false).position,rig.GripContact(true).position),Is.InRange(.20f,.90f),state+" / grip spacing");
+                    Assert.That(Vector3.Angle(hands[side].TransformDirection(neutral[side]),hands[side].position-lower[side].position),Is.LessThanOrEqualTo(state==SkiMotionState.Tuck?22.1f:25.1f),state+" / "+i+" / wrist "+side);
+                Assert.That(Vector3.Distance(rig.GripContact(false).position,rig.GripContact(true).position),Is.InRange(state==SkiMotionState.Tuck?.12f:.20f,.90f),state+" / grip spacing");
                 Assert.That(motion.MainReference.MaximumBindingResidualMeters,Is.LessThan(.0001f),state+" / toe anchor");
                 Assert.That(motion.MainReference.MaximumHeelRiseDegrees,Is.InRange(0,38.01f));
                 heelRise=Mathf.Max(heelRise,motion.MainReference.MaximumHeelRiseDegrees);
@@ -174,6 +201,29 @@ namespace Biathlon.PlayModeTests
             if(state==SkiMotionState.Flat)Assert.That(heelRise,Is.GreaterThan(1),"The trailing heel must be allowed to lift off the ski.");
         }
 
+        [TestCase(SkiMotionState.Flat)][TestCase(SkiMotionState.Uphill)][TestCase(SkiMotionState.Tuck)]
+        [TestCase(SkiMotionState.MaxSprint)][TestCase(SkiMotionState.CornerLeft)][TestCase(SkiMotionState.CornerRight)]
+        [TestCase(SkiMotionState.SteepUphill)][TestCase(SkiMotionState.FastSkate)][TestCase(SkiMotionState.NoPole)]
+        [TestCase(SkiMotionState.DoublePole)][TestCase(SkiMotionState.Fatigued)][TestCase(SkiMotionState.SlowStop)]
+        public void ForearmPronationDoesNotTwistTheWristSeam(SkiMotionState state)
+        {
+            var hands=new[]{rig.Bone(HumanBodyBones.LeftHand),rig.Bone(HumanBodyBones.RightHand)};
+            var forearms=new[]{rig.Bone(HumanBodyBones.LeftLowerArm),rig.Bone(HumanBodyBones.RightLowerArm)};
+            var bindRelative=new[]{Quaternion.Inverse(forearms[0].rotation)*hands[0].rotation,Quaternion.Inverse(forearms[1].rotation)*hands[1].rotation};
+            motion.MainReference.State=state;
+            for(int phase=0;phase<96;phase++)
+            {
+                motion.EvaluateCycle(phase/96f);
+                for(int side=0;side<2;side++)
+                {
+                    var axis=(hands[side].position-forearms[side].position).normalized;
+                    var delta=hands[side].rotation*Quaternion.Inverse(forearms[side].rotation*bindRelative[side]);
+                    float twist=Mathf.Abs(Mathf.DeltaAngle(0,2*Mathf.Atan2(Vector3.Dot(new Vector3(delta.x,delta.y,delta.z),axis),delta.w)*Mathf.Rad2Deg));
+                    Assert.That(twist,Is.LessThanOrEqualTo(5),state+" / phase "+phase+" / hand "+side+": axial rotation belongs to the forearm, not the wrist seam.");
+                }
+            }
+        }
+
         [Test] public void TuckGripHasPalmarSideUpAndPolesTrailAroundTheArms()
         {
             motion.MainReference.State=SkiMotionState.Tuck;motion.EvaluateCycle(0);
@@ -184,12 +234,38 @@ namespace Biathlon.PlayModeTests
                 var grip=rig.GripContact(right);var p=rig.transform.InverseTransformPoint(grip.position);var d=rig.transform.InverseTransformDirection(grip.up);float side=Mathf.Sign(shoulder.x);
                 var nodes=rig.GetComponentsInChildren<Transform>(true);string prefix=right?"Right":"Left";
                 var physicalPalm=(nodes.Single(t=>t.name==prefix+"_Palm_Side").position-nodes.Single(t=>t.name==prefix+"_Dorsal_Side").position).normalized;
-                Assert.That(Vector3.Dot(physicalPalm,rig.transform.right*side),Is.GreaterThan(.15f),"The full power-grip palms face outward/up while the knuckles and four fingers wrap the handle.");
+                Assert.That(Vector3.Dot(physicalPalm,rig.transform.right*side),Is.LessThan(.15f),"The tuck palms turn upward/inward; forcing them outward was the rejected pose.");
                 Assert.That(Vector3.Dot(physicalPalm,rig.transform.up),Is.GreaterThan(.30f),"Actual palm side must turn upward toward the chin. The oblique pole-frame X axis is not the anatomical palm normal.");
                 Assert.That(d.z,Is.LessThan(-.90f));Assert.That(d.y,Is.GreaterThan(-.1f));float t=(shoulder.z-p.z)/d.z;Assert.That(t,Is.GreaterThan(.1f));
                 var shaft=p+d*t;
                 Assert.That(shaft.y,Is.LessThan(shoulder.y-.03f),"The shafts must stay below the shoulder pivots, inside the arms.");
                 Assert.That(shaft.x*side,Is.LessThan(shoulder.x*side+.02f),"The shaft must pass inside the arm, close to the body.");
+            }
+        }
+
+        [Test] public void TuckHandFramesKeepThumbsUpAndForearmsWithinTheirAnatomicalPlane()
+        {
+            motion.MainReference.State=SkiMotionState.Tuck;
+            for(int phase=0;phase<96;phase++)
+            {
+                motion.EvaluateCycle(phase/96f);
+                foreach(bool right in new[]{false,true})
+                {
+                    var hand=rig.Bone(right?HumanBodyBones.RightHand:HumanBodyBones.LeftHand);
+                    var elbow=rig.Bone(right?HumanBodyBones.RightLowerArm:HumanBodyBones.LeftLowerArm);
+                    var upper=rig.Bone(right?HumanBodyBones.RightUpperArm:HumanBodyBones.LeftUpperArm);
+                    var palm=(rig.HandPoint(right,Biathlete167HandPoint.Palm).position-rig.HandPoint(right,Biathlete167HandPoint.Dorsal).position).normalized;
+                    var radial=(rig.HandPoint(right,Biathlete167HandPoint.IndexKnuckle).position-rig.HandPoint(right,Biathlete167HandPoint.LittleKnuckle).position).normalized;
+                    var forearm=(hand.position-elbow.position).normalized;
+                    var plane=Vector3.Cross((elbow.position-upper.position).normalized,forearm).normalized;
+                    float side=Mathf.Sign(rig.transform.InverseTransformPoint(upper.position).x);
+                    float roll=Vector3.SignedAngle(Vector3.ProjectOnPlane(plane*side,forearm),Vector3.ProjectOnPlane(palm,forearm),forearm);
+                    Assert.That(Mathf.Abs(roll),Is.LessThanOrEqualTo(85),"Whole forearm rotation is checked against its elbow plane, independently of the hand bone axes.");
+                    Assert.That(Vector3.Dot(palm,rig.transform.up),Is.GreaterThan(.4f));
+                    Assert.That(Vector3.Dot(radial,rig.transform.up),Is.GreaterThan(.05f),"The index/thumb side must not be inverted below the little-finger side.");
+                }
+                Assert.That(motion.MainReference.MaximumWristTwistDegrees,Is.LessThanOrEqualTo(5));
+                Assert.That(motion.MainReference.MaximumForearmRollDegrees,Is.LessThanOrEqualTo(70));
             }
         }
 

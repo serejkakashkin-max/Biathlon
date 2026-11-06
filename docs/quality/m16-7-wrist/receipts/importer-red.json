@@ -1,0 +1,39 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":3,\"PassedTests\":2,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:06.7679404\"},\"Results\":[{\"Name\":\"Biathlon.EditorTests.Biathlete167AuthoringTests.RegeneratingAnOpenedPreviewKeepsOneSavedStudio\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.4730000\"},{\"Name\":\"Biathlon.EditorTests.Biathlete167AuthoringTests.RegenerationPreservesAnUnsavedPreview\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.2870000\"},{\"Name\":\"Biathlon.EditorTests.Biathlete167AuthoringTests.RepeatedNaturalAuthoringPersistsTheLoadedImporter\",\"Status\":\"Failed\",\"Duration\":\"00:00:05.3100000\",\"Message\":\"Unhandled log message: \\u0027[Error] Cannot open file \\u0027Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx.meta\\u0027 for write.\\n\\u0027. Use UnityEngine.TestTools.LogAssert.Expect\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 3,
+        "PassedTests": 2,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:06.7679404"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegeneratingAnOpenedPreviewKeepsOneSavedStudio",
+          "Status": "Passed",
+          "Duration": "00:00:00.4730000"
+        },
+        {
+          "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegenerationPreservesAnUnsavedPreview",
+          "Status": "Passed",
+          "Duration": "00:00:00.2870000"
+        },
+        {
+          "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RepeatedNaturalAuthoringPersistsTheLoadedImporter",
+          "Status": "Failed",
+          "Duration": "00:00:05.3100000",
+          "Message": "Unhandled log message: '[Error] Cannot open file 'Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx.meta' for write.\n'. Use UnityEngine.TestTools.LogAssert.Expect"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Biathlon.Unity.Presentation
 {
     public enum Biathlete167Socket { RifleBack,RifleHand,SkiLeft,SkiRight,PoleLeft,PoleRight }
+    public enum Biathlete167HandPoint { Palm,Dorsal,MiddleKnuckle,IndexKnuckle,LittleKnuckle }
 
     /// <summary>Imported Humanoid visual asset. No race/session or root-motion authority.</summary>
     public sealed class Biathlete167Rig:MonoBehaviour
@@ -16,11 +17,19 @@ namespace Biathlon.Unity.Presentation
         [SerializeField] private bool naturalAnatomy;
         [SerializeField] private Transform leftGripContact,rightGripContact,leftToeHinge,rightToeHinge;
         [SerializeField] private Transform leftTuckGripContact,rightTuckGripContact;
+        [SerializeField] private Transform[] anatomicalHands;
         [SerializeField] private GameObject[] skateGloves,tuckGloves;
         private bool tuckGrip;
         [SerializeField] private TextAsset contactDefinition;
         public TextAsset ContactDefinition=>contactDefinition;
         public bool IsNaturalAnatomy=>naturalAnatomy;
+        public Transform HandPoint(bool right,Biathlete167HandPoint point)=>anatomicalHands[(right?5:0)+(int)point];
+        public void ConfigureAnatomicalHands(Transform[] frames)
+        {
+            if(frames==null||frames.Length!=10)throw new InvalidOperationException("Both anatomical hand frames are required.");
+            foreach(var frame in frames)if(frame==null||!frame.IsChildOf(transform))throw new InvalidOperationException("Missing anatomical hand point.");
+            anatomicalHands=frames;
+        }
         public Transform GripContact(bool right)=>tuckGrip?TuckGripContact(right):(right?rightGripContact:leftGripContact);
         public Transform TuckGripContact(bool right)=>right?rightTuckGripContact:leftTuckGripContact;
         public void ConfigureGripVariants(Transform left,Transform right,GameObject[] skating,GameObject[] tucking)

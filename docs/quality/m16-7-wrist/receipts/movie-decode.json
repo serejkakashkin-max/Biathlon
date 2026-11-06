@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "m167_actual_motion_movie_decode",
+  "movies": [
+    {
+      "file": "motion-normal.mp4",
+      "frames": 260,
+      "expected_frames": 260,
+      "size": [
+        900,
+        1000
+      ],
+      "bytes": 1266658,
+      "pass": true
+    },
+    {
+      "file": "motion-slow.mp4",
+      "frames": 521,
+      "expected_frames": 521,
+      "size": [
+        900,
+        1000
+      ],
+      "bytes": 1592897,
+      "pass": true
+    }
+  ],
+  "pass": true
+}

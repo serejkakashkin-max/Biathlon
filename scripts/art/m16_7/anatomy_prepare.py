@@ -284,6 +284,9 @@ def prepare(source, audit, output, render=False, natural=False):
         if name.startswith("finger") and "-3." in name:
             points = [mesh.vertices[k].co for k, i in enumerate(body_ids) if original_weights[i].get(name, 0) > .7]
             if points: metadata["finger_pad_centres"][name] = list(sum(points, Vector()) / len(points))
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from hand_anatomy import add_palmar_pads
+    add_palmar_pads(metadata,mesh)
     (output / "athletic_fitted.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     if render:
         scene = bpy.context.scene

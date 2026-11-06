@@ -1,0 +1,35 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":2,\"PassedTests\":0,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:00:01.2863384\"},\"Results\":[{\"Name\":\"Biathlon.EditorTests.Biathlete167AuthoringTests.RegeneratingAnOpenedPreviewKeepsOneSavedStudio\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.4020000\",\"Message\":\"TearDown : System.ArgumentException : Invalid SceneManagerSetup:\\n No loaded scene found.\\n One active scene is required. Number of active scenes: 0\"},{\"Name\":\"Biathlon.EditorTests.Biathlete167AuthoringTests.RegenerationPreservesAnUnsavedPreview\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.1830000\",\"Message\":\"TearDown : System.ArgumentException : Invalid SceneManagerSetup:\\n No loaded scene found.\\n One active scene is required. Number of active scenes: 0\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 2,
+        "PassedTests": 0,
+        "FailedTests": 2,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.2863384"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegeneratingAnOpenedPreviewKeepsOneSavedStudio",
+          "Status": "Failed",
+          "Duration": "00:00:00.4020000",
+          "Message": "TearDown : System.ArgumentException : Invalid SceneManagerSetup:\n No loaded scene found.\n One active scene is required. Number of active scenes: 0"
+        },
+        {
+          "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegenerationPreservesAnUnsavedPreview",
+          "Status": "Failed",
+          "Duration": "00:00:00.1830000",
+          "Message": "TearDown : System.ArgumentException : Invalid SceneManagerSetup:\n No loaded scene found.\n One active scene is required. Number of active scenes: 0"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

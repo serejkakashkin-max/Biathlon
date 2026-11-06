@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "id": "m167_wrist_swing_and_twist_probe",
+  "samples_per_state": 96,
+  "rows": [
+    {
+      "state": "Flat",
+      "maximum_wrist_twist_degrees": 0.0164722744,
+      "maximum_wrist_bend_degrees": 25.0488567,
+      "maximum_wrist_rotation_degrees": 25.0488663
+    },
+    {
+      "state": "Uphill",
+      "maximum_wrist_twist_degrees": 0.0164489746,
+      "maximum_wrist_bend_degrees": 25.0491142,
+      "maximum_wrist_rotation_degrees": 25.0488663
+    },
+    {
+      "state": "SteepUphill",
+      "maximum_wrist_twist_degrees": 0.0153421145,
+      "maximum_wrist_bend_degrees": 25.0490665,
+      "maximum_wrist_rotation_degrees": 25.0489616
+    },
+    {
+      "state": "FastSkate",
+      "maximum_wrist_twist_degrees": 0.0145568848,
+      "maximum_wrist_bend_degrees": 25.0458641,
+      "maximum_wrist_rotation_degrees": 25.0457478
+    },
+    {
+      "state": "MaxSprint",
+      "maximum_wrist_twist_degrees": 0.0151672363,
+      "maximum_wrist_bend_degrees": 25.0465336,
+      "maximum_wrist_rotation_degrees": 25.0465031
+    },
+    {
+      "state": "NoPole",
+      "maximum_wrist_twist_degrees": 0.008972168,
+      "maximum_wrist_bend_degrees": 5.56753635,
+      "maximum_wrist_rotation_degrees": 5.56807327
+    },
+    {
+      "state": "DoublePole",
+      "maximum_wrist_twist_degrees": 0.0150146484,
+      "maximum_wrist_bend_degrees": 25.0494938,
+      "maximum_wrist_rotation_degrees": 25.0492439
+    },
+    {
+      "state": "Tuck",
+      "maximum_wrist_twist_degrees": 0.08685303,
+      "maximum_wrist_bend_degrees": 21.9791584,
+      "maximum_wrist_rotation_degrees": 21.9793835
+    },
+    {
+      "state": "CornerLeft",
+      "maximum_wrist_twist_degrees": 0.0148925781,
+      "maximum_wrist_bend_degrees": 25.0484447,
+      "maximum_wrist_rotation_degrees": 25.0483627
+    },
+    {
+      "state": "CornerRight",
+      "maximum_wrist_twist_degrees": 0.016784668,
+      "maximum_wrist_bend_degrees": 25.048687,
+      "maximum_wrist_rotation_degrees": 25.0486145
+    },
+    {
+      "state": "Fatigued",
+      "maximum_wrist_twist_degrees": 0.01586914,
+      "maximum_wrist_bend_degrees": 25.04955,
+      "maximum_wrist_rotation_degrees": 25.0494976
+    },
+    {
+      "state": "SlowStop",
+      "maximum_wrist_twist_degrees": 0.009410349,
+      "maximum_wrist_bend_degrees": 8.291075,
+      "maximum_wrist_rotation_degrees": 8.291247
+    }
+  ]
+}

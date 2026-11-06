@@ -10,7 +10,7 @@ from mathutils import Vector, Matrix
 from mathutils.kdtree import KDTree
 from mathutils.bvhtree import BVHTree
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from equipment_refine import CONTACT_SETTINGS, grip_frame, tuck_grip_frame, sporting_rifle, grip_finger_matrices
+from equipment_refine import CONTACT_SETTINGS, HANDLE_PROFILE, grip_frame, tuck_grip_frame, sporting_rifle, grip_finger_matrices
 from refine_garments import race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
@@ -69,6 +69,9 @@ skin_tex=skin.node_tree.nodes.new('ShaderNodeTexImage');skin_tex.image=skin_imag
 skin.node_tree.links.new(skin_tex.outputs['Color'],skin.node_tree.nodes['Principled BSDF'].inputs['Base Color'])
 skin.node_tree.nodes['Principled BSDF'].inputs['Subsurface Weight'].default_value=.06
 materials=[red,black,scarlet,white,ink,rubber,carbon,alloy,titanium,amber,thread,stitch,wood,skin]
+glove_shell=material('Race_Glove_Softshell',(.009,.012,.017),.72)
+glove_palm=material('Race_Glove_Palm_Grip',(.014,.016,.019),.82)
+materials.extend([glove_shell,glove_palm])
 #4K real tangent-space textile maps. Fine paired warp/weft includes slight deterministic yarn variation.
 size=4096
 u=np.arange(size,dtype=np.float32)[None,:];v=np.arange(size,dtype=np.float32)[:,None]
@@ -86,6 +89,11 @@ def image_from(name,rgb,colorspace):
 weave_n=image_from('Textile_Normal_4K',normal*.5+.5,'Non-Color')
 weave_r=image_from('Textile_Roughness_4K',np.repeat(np.clip(.63+(h-.5)*.4,0,1)[:,:,None],3,axis=2),'Non-Color')
 weave_c=image_from('Textile_BaseColor_4K',np.repeat(np.clip(.92+(h-.5)*.16,0,1)[:,:,None],3,axis=2),'sRGB')
+for glove_material,strength in [(glove_shell,.08),(glove_palm,.035)]:
+    nodes=glove_material.node_tree.nodes;links=glove_material.node_tree.links
+    tex=nodes.new('ShaderNodeTexImage');tex.image=weave_n
+    normal_node=nodes.new('ShaderNodeNormalMap');normal_node.inputs['Strength'].default_value=strength
+    links.new(tex.outputs['Color'],normal_node.inputs['Color']);links.new(normal_node.outputs['Normal'],nodes['Principled BSDF'].inputs['Normal'])
 for m in [red,black,scarlet,white,thread]:
     nodes=m.node_tree.nodes;links=m.node_tree.links;p=nodes.get('Principled BSDF')
     tex=nodes.new('ShaderNodeTexImage');tex.image=weave_n;n=nodes.new('ShaderNodeNormalMap');n.inputs['Strength'].default_value=.24;links.new(tex.outputs['Color'],n.inputs['Color']);links.new(n.outputs['Normal'],p.inputs['Normal'])
@@ -352,12 +360,14 @@ for side in [-1,1]:
     keep={i for i,v in enumerate(verts) if (v-wrist).dot(direction)>-.008 and side*v.x>.41}
     faces=[[k for k in f.vertices] for f in hand_source.data.polygons if all(k in keep for k in f.vertices)]
     indices=sorted({v for f in faces for v in f});remap={v:i for i,v in enumerate(indices)}
+    palmar=tuck_grip_frame(anatomy_metadata,side)[2]
+    glove_panels=[1 if sum((hand_source.data.vertices[k].normal for k in face),Vector()).normalized().dot(palmar)>.05 else 0 for face in faces]
     curled=anatomical_grip(anatomy_metadata,verts,indices,side)
-    glove=mesh(pre+'_Anatomical_Glove',curled,[[remap[i] for i in f] for f in faces],[rubber,black], [0 if sum(verts[i].y for i in f)/len(f)<0 else 1 for f in faces]);rigid(glove,pre+'Hand')
+    glove=mesh(pre+'_Anatomical_Glove',curled,[[remap[i] for i in f] for f in faces],[glove_shell,glove_palm],glove_panels);rigid(glove,pre+'Hand')
     bpy.ops.object.select_all(action='DESELECT');glove.select_set(True);bpy.context.view_layer.objects.active=glove
     sub=glove.modifiers.new('Anatomical finger loops','SUBSURF');sub.levels=1;sub.render_levels=1;bpy.ops.object.modifier_apply(modifier=sub.name)
     tucked=anatomical_grip(anatomy_metadata,verts,indices,side,True)
-    alternative=mesh(pre+'_Tuck_Glove',tucked,[[remap[i] for i in f] for f in faces],[rubber,black],[0]*len(faces));rigid(alternative,pre+'Hand')
+    alternative=mesh(pre+'_Tuck_Glove',tucked,[[remap[i] for i in f] for f in faces],[glove_shell,glove_palm],glove_panels);rigid(alternative,pre+'Hand')
     bpy.context.view_layer.objects.active=alternative
     sub=alternative.modifiers.new('Tuck finger loops','SUBSURF');sub.levels=1;sub.render_levels=1;bpy.ops.object.modifier_apply(modifier=sub.name)
     alternative.hide_render=True
@@ -421,7 +431,7 @@ for side in [-1,1]:
     tube(pre+'_Carbon_Pole',[grip,tip],.0043,carbon,pre+'Hand')
     # Rounded upper cap; the contact section remains 24 mm in diameter.
     radial=palm_normal;across=axis.cross(radial).normalized();handle_vertices=[];handle_faces=[]
-    rings=[(-.075,.008),(-.074,.0105),(-.071,.012),(-.066,.012),(.035,.012),(.043,.0105),(.045,.009)]
+    rings=HANDLE_PROFILE
     for j,(along,radius) in enumerate(rings):
         for k in range(32):
             angle=k*math.tau/32;handle_vertices.append(grip+axis*along+(radial*math.cos(angle)+across*math.sin(angle))*radius)
@@ -439,6 +449,8 @@ for side in [-1,1]:
     for variant,frame in [('Skate',grip_frame(anatomy_metadata,side)),('Tuck',tuck_grip_frame(anatomy_metadata,side))]:
         centre,shaft,_=frame
         glove=bpy.data.objects[pre+('_Tuck_Glove' if variant=='Tuck' else '_Anatomical_Glove')]
+        strap_offset=CONTACT_SETTINGS['wrist_strap_centre_offset_m'] if variant=='Tuck' else CONTACT_SETTINGS['plant_wrist_strap_centre_offset_m']
+        glove['wrist_strap_centre_offset_m']=strap_offset
         bpy.context.view_layer.update()
         surface=BVHTree.FromPolygons([glove.matrix_world@v.co for v in glove.data.vertices],[list(f.vertices) for f in glove.data.polygons])
         vs=[];fs=[]
@@ -447,7 +459,7 @@ for side in [-1,1]:
         for j in range(64):
             angle=j*math.tau/64;radial=normal*math.cos(angle)+lateral*math.sin(angle)
             for along,band_offset in [(-.006,.0015),(.006,.0015),(.006,.003),(-.006,.003)]:
-                origin=wrist+longitudinal*(.012+along)
+                origin=wrist+longitudinal*(strap_offset+along)
                 hit=surface.ray_cast(origin,radial,.10)
                 if hit[0] is None:raise RuntimeError('Wrist strap cross-section misses glove: '+pre+' '+variant)
                 vs.append(hit[0]+radial*band_offset)
@@ -508,6 +520,10 @@ for pre,side in [('Left',1),('Right',-1)]:
     physical_normal=(normal-longitudinal*normal.dot(longitudinal)).normalized()
     for label,offset in [('Palm',.01),('Dorsal',-.01)]:
         marker=bpy.data.objects.new(pre+'_'+label+'_Side',None);bpy.context.collection.objects.link(marker);marker.location=heads[pre+'Hand']+longitudinal*.06+physical_normal*offset;rigid(marker,pre+'Hand');contacts.append(marker.name)
+    for label,digit in [('Middle',3),('Index',2),('Little',5)]:
+        marker=bpy.data.objects.new(pre+'_'+label+'_Knuckle',None);bpy.context.collection.objects.link(marker)
+        marker.location=anatomy_metadata['finger_bones'][f'finger{digit}-1'+('.L' if side>0 else '.R')]['head']
+        rigid(marker,pre+'Hand');contacts.append(marker.name)
     centre,tuck_axis,tuck_normal=tuck_grip_frame(anatomy_metadata,side)
     obj=bpy.data.objects.new(pre+'_Tuck_Grip_Contact',None);bpy.context.collection.objects.link(obj);obj.location=centre;obj.rotation_euler=Matrix((-tuck_normal,tuck_axis,(-tuck_normal).cross(tuck_axis))).transposed().to_euler();rigid(obj,pre+'Hand');contacts.append(obj.name)
 
@@ -627,6 +643,16 @@ manifest['contact_basis_conversion']='Blender -palm X, shaft Y; after Unity FBX 
 manifest['grip_audit']={pre:grip_finger_matrices(anatomy_metadata,side)[1] for pre,side in [('Left',1),('Right',-1)]}
 from power_grip import solve_finger
 manifest['tuck_grip_style']='full_palmar_power_grip_at_upper_handle'
+manifest['tuck_grip_palmar_offset_m']=CONTACT_SETTINGS['tuck_grip_palmar_offset_m']
+manifest['wrist_strap_centre_offset_m']=CONTACT_SETTINGS['wrist_strap_centre_offset_m']
+manifest['plant_wrist_strap_centre_offset_m']=CONTACT_SETTINGS['plant_wrist_strap_centre_offset_m']
+manifest['hand_carpal_guard']=anatomy_metadata['hand_carpal_guard']
+manifest['glove_shell_receipt']=anatomy_metadata['glove_shell_receipt']
+manifest['finger_joint_limits_degrees']={'mcp_flexion':[0,100],'pip_flexion':[55,115],'dip_flexion':[25,85],'mcp_adduction':[-20,20],'ring_metacarpal_cupping':[0,15],'little_metacarpal_cupping':[0,20]}
+from thumb_grip import solve_thumb
+manifest['plant_thumb_surface_pose']={pre:grip_finger_matrices(anatomy_metadata,side)[1] for pre,side in [('Left',1),('Right',-1)]}
+manifest['tuck_thumb_surface_pose']={pre:solve_thumb(anatomy_metadata,side,*tuck_grip_frame(anatomy_metadata,side))[1] for pre,side in [('Left',1),('Right',-1)]}
+manifest['plant_grip_settings']={key:value for key,value in CONTACT_SETTINGS.items() if key.startswith('plant_')}
 manifest['tuck_power_grip_obliquity_degrees']=CONTACT_SETTINGS['tuck_power_grip_obliquity_degrees']
 manifest['tuck_upper_grip_offset_m']=CONTACT_SETTINGS['tuck_upper_grip_offset_m']
 manifest['power_grip_finger_pose']={pre:{str(digit):solve_finger(anatomy_metadata,side,digit,*tuck_grip_frame(anatomy_metadata,side))[2] for digit in range(2,6)} for pre,side in [('Left',1),('Right',-1)]}

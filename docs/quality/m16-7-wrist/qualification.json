@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "m167_wrist_and_actual_distal_grip_checkpoint",
+  "date": "2026-11-06",
+  "stage": "M16.7 IN PROGRESS",
+  "art_acceptance": false,
+  "build_hold": true,
+  "new_windows_build": false,
+  "race_athlete": "Unchanged G2",
+  "native_playmode": {
+    "Status": "Passed",
+    "TotalTests": 82,
+    "PassedTests": 82,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:10.5493570"
+  },
+  "native_editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:11.9435647"
+  },
+  "unique_focused_native_tests": 85,
+  "whole_assembly_pass_claimed": false,
+  "previous_expanded_run": "Historical 686-case PlayMode run stopped at 161 completed, 158 pass/3 failures; those three fixed in previous 69-case follow-up. Remaining assembly is not qualified. See ../m16-7-natural/regression-followup.json.",
+  "wrist_tuck": {
+    "state": "Tuck",
+    "maximum_wrist_twist_degrees": 0.08685303,
+    "maximum_wrist_bend_degrees": 21.9791584,
+    "maximum_wrist_rotation_degrees": 21.9793835
+  },
+  "wrist_sampling": {
+    "states": 12,
+    "phases_per_state": 96,
+    "hands": 2
+  },
+  "distal_pad_surface_contact": {
+    "palmar_patches_pass": 20,
+    "checked_grip_variants": [
+      "Skate",
+      "Tuck"
+    ],
+    "pads_per_variant": 10,
+    "maximum_minimum_patch_distance_m": 0.0005007496802136302,
+    "minimum_patch_fraction_within_4mm": 0.3
+  },
+  "source_surface_checks_pass": true,
+  "rejected_claw_fixture_fails": true,
+  "glove_shell": {
+    "modified_vertices": 548,
+    "maximum_outward_offset_m": 0.0020931070817437236,
+    "palmar_pad_vertices_modified": 0,
+    "purpose": "Cover the dorsal nail recesses with a thin glove shell; original anatomy remains unchanged."
+  },
+  "active_lod0_triangles": 197883,
+  "actual_saved_png_count": 52,
+  "owner_rejected_working_grip_fixed": true,
+  "old_working_gap_mm": [
+    7.18,
+    20.47
+  ],
+  "actual_unity_motion_frames": 192,
+  "videos": [
+    "motion/motion-normal.mp4",
+    "motion/motion-slow.mp4"
+  ],
+  "console": {
+    "final_error_exception_assert_count": 0,
+    "after_sequence": 426910,
+    "reproduced_authoring_error": "426783: Saving the generated preview onto the already-open preview path. Fixed and covered by two EditMode tests.",
+    "harness_failure": "Initial test teardown did not handle an empty runner setup; corrected. Importer round-trip then reproduced a private scale reset; preserving existing HumanDescription fixes the three-case authoring group.",
+    "model_importer_round_trip": "New HumanDescription resets private globalScale to0; read/modify/write preserves globalScale1 and importer root metadata. Two full generations now pass without new errors."
+  },
+  "gameplay_balance_impact": "None. Isolated presentation/source authoring only. No simulation, shot geometry, AI, career or save changes.",
+  "limitations": [
+    "Art acceptance remains open; glove surface and garment/bib edges still need refinement.",
+    "Rigid offline Skate/Tuck glove variants; no articulated runtime finger rig.",
+    "Shooting stances, rifle transitions, terrain, LOD transitions and 30-athlete field not qualified.",
+    "Sampled BVH/ray/OBB and patch checks allow documented soft-glove compression; they do not prove continuous nonintersection.",
+    "Normal-speed and 0.25x videos resample actual Unity captures; no generated or interpolated athlete frames."
+  ]
+}

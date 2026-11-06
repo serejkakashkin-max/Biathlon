@@ -149,3 +149,43 @@ No new Windows build: owner BUILD HOLD remains while the asset is refined.
 M16.6 is CLOSED; M16.7 is IN PROGRESS. Shooting poses/transitions, cloth polish,
 LOD transitions and a 30-athlete field still need separate qualification.
 No authoritative simulation, balance, shot geometry, career or save changes.
+
+## 2026-11-06 wrist and distal-surface correction
+
+Swing limits alone missed the rejected candidate's 130.66degree axial wrist
+twist. Keep the authored hand/prop contact frame and distribute axial rotation
+onto the lower arm before restoring hand orientation. Qualify swing and twist
+against the forearm-relative bind frame, then independently check anatomical
+hand points, elbow plane, separation and skinned-body/shaft clearance. Do not
+clamp the hand after solving the prop frame; that can rotate the shaft inward.
+
+Finger fitting uses source hand cages and Blender Catmull-Clark limit-surface
+stencils, verified against Blender. Actual distal-palmar patches must touch;
+proximal contact cannot qualify a claw grip. Rounded handles, separate axial
+finger slots, opposing thumb, closed straps and sampled inter-finger collisions
+are checked on saved geometry. Glove-shell overrides cannot alter palmar
+patches. Native renderers use explicit external URP assets, including on first
+import. These engineering gates do not replace art review.
+
+Opened clean preview scenes are replaced after the new scene is populated;
+dirty previews are preserved. Current evidence and actual motion videos:
+docs/quality/m16-7-wrist. 71 PlayMode + 2 EditMode PASS. Prior QA remains
+historical. BUILD HOLD and the isolated asset boundary remain.
+
+## 2026-11-06 ordinary grip and importer round-trip
+
+The owner correctly rejected ordinary-grip images. Its fixed-angle bone-circle
+fit survived because distal-palmar qualification covered Tuck only. Both source
+variants now use the same surface solver; both must pass palmar/all-five-finger,
+actual distal-patch, rounded-handle interior, closed-strap, finger-clearance and
+upper-thumb tests. The retained rejected_working_grip.blend fails the new gate.
+Native attachment tests sample both hands across all12states/96phases. Actual
+normal/0.25x cycles and current images are in docs/quality/m16-7-wrist.
+
+Read/modify/write ModelImporter.humanDescription, preserving importer-owned
+globalScale/root/parent fields. Constructing a new struct reset private scale
+to0, reproducing meta-write errors in repeated full authoring. The new loaded-
+importer regression failed and now passes twice; caches are released and settings
+persisted before synchronous reimport. No error is suppressed/expected away.
+Final82PlayMode+3EditMode PASS,6positive/2expected-negative source checks PASS.
+These checks qualify the technical checkpoint; M16.7 art acceptance is open.

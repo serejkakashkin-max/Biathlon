@@ -171,10 +171,11 @@ namespace Biathlon.PlayModeTests
                     {
                         var pixels=new Texture2D(2,2);try
                         {
-                            Assert.That(pixels.LoadImage(File.ReadAllBytes(frame)),Is.True,frame);int visible=0,total=0;
+                            Assert.That(pixels.LoadImage(File.ReadAllBytes(frame)),Is.True,frame);int visible=0,total=0,magenta=0;
                             for(int y=0;y<pixels.height;y+=16)for(int x=0;x<pixels.width;x+=16)
-                            {total++;var pixel=pixels.GetPixel(x,y);if(pixel.maxColorComponent>.3f)visible++;}
+                            {total++;var pixel=pixels.GetPixel(x,y);if(pixel.maxColorComponent>.3f)visible++;if(pixel.r>.9f&&pixel.b>.9f&&pixel.g<.05f)magenta++;}
                             Assert.That((float)visible/total,Is.GreaterThan(.01f),"Empty actual model capture: "+frame);
+                            Assert.That(magenta,Is.Zero,"Unresolved shader fallback in actual model capture: "+frame);
                         }finally{Object.Destroy(pixels);}
                     }
                     studio.Motion.MainReference.State=SkiMotionState.Flat;

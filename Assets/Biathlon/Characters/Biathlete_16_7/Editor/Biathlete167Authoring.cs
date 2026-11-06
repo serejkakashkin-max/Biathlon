@@ -41,7 +41,7 @@ namespace Biathlon.Unity
                 var t=(TextureImporter)AssetImporter.GetAtPath(path);if(t==null)throw new InvalidOperationException("Missing imported texture "+path);
                 t.textureType=path.Contains("Normal")?TextureImporterType.NormalMap:TextureImporterType.Default;
                 t.sRGBTexture=path.Contains("BaseColor");t.maxTextureSize=path.Contains("4K")?4096:2048;t.mipmapEnabled=true;t.anisoLevel=4;
-                t.textureCompression=TextureImporterCompression.CompressedHQ;t.SaveAndReimport();
+                t.textureCompression=TextureImporterCompression.CompressedHQ;AssetDatabase.ReleaseCachedFileHandles();t.SaveAndReimport();
             }
             var manifest=JsonUtility.FromJson<Manifest>(File.ReadAllText(Root+(natural?"/Documentation/natural-asset-manifest.json":"/Documentation/asset-manifest.json")));
             var materials=new Dictionary<string,Material>(StringComparer.Ordinal);
@@ -59,6 +59,8 @@ namespace Biathlon.Unity
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Rifle_CC0_Laminate_BaseColor_2K");Normal(material,"Rifle_CC0_Normal_2K",.5f);material.SetFloat("_Smoothness",.45f);}
                 else if(data.name=="Anatomical_Skin_CC0_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","MakeHuman_Skin_BaseColor_2K");material.SetFloat("_Smoothness",.38f);}
+                else if(data.name=="Race_Glove_Softshell"||data.name=="Race_Glove_Palm_Grip")
+                {Normal(material,"Textile_Normal_4K",data.name=="Race_Glove_Softshell"?.08f:.035f);}
                 else if(data.name=="Anatomical_Skin_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Skin_BaseColor_2K");Normal(material,"Skin_Normal_2K",.8f);Map(material,"_MetallicGlossMap","Skin_MetallicSmoothness_2K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name=="PULSE_Natural_Tailored_Textile")
@@ -76,15 +78,36 @@ namespace Biathlon.Unity
             foreach(var pair in materials)importer.AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Material),pair.Key),pair.Value);
             var model=AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
             var skeleton=model.GetComponentsInChildren<Transform>(true).Select(t=>new SkeletonBone{name=t.name,position=t.localPosition,rotation=t.localRotation,scale=t.localScale}).ToArray();
-            var description=new HumanDescription{human=Mapping.Select(x=>new HumanBone{humanName=x.human,boneName=x.bone,limit=new HumanLimit{useDefaultValues=true}}).ToArray(),skeleton=skeleton,
-                upperArmTwist=.5f,lowerArmTwist=.5f,upperLegTwist=.5f,lowerLegTwist=.5f,armStretch=.05f,legStretch=.05f,feetSpacing=0,hasTranslationDoF=false};
-            importer.animationType=ModelImporterAnimationType.Human;importer.avatarSetup=ModelImporterAvatarSetup.CreateFromThisModel;importer.humanDescription=description;importer.SaveAndReimport();
+            // Preserve importer-owned scale/root/parent metadata. A new struct
+            // resets those private fields and cannot round-trip this model.
+            var description=importer.humanDescription;
+            description.human=Mapping.Select(x=>new HumanBone{humanName=x.human,boneName=x.bone,limit=new HumanLimit{useDefaultValues=true}}).ToArray();description.skeleton=skeleton;
+            description.upperArmTwist=description.lowerArmTwist=description.upperLegTwist=description.lowerLegTwist=.5f;
+            description.armStretch=description.legStretch=.05f;description.feetSpacing=0;description.hasTranslationDoF=false;
+            importer.animationType=ModelImporterAnimationType.Human;importer.avatarSetup=ModelImporterAvatarSetup.CreateFromThisModel;importer.humanDescription=description;
+            // Release cached handles before explicitly persisting and importing.
+            AssetDatabase.ReleaseCachedFileHandles();EditorUtility.SetDirty(importer);
+            AssetDatabase.WriteImportSettingsIfDirty(modelPath);
+            AssetDatabase.ImportAsset(modelPath,ImportAssetOptions.ForceUpdate|ImportAssetOptions.ForceSynchronousImport);
             model=AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
             var root=new GameObject("Biathlete_16_7");
             try
             {
                 var instance=(GameObject)PrefabUtility.InstantiatePrefab(model,root.transform);instance.name="Humanoid model";
                 PrefabUtility.UnpackPrefabInstance(instance,PrefabUnpackMode.Completely,InteractionMode.AutomatedAction);
+                // A first FBX import can expose new embedded Standard materials
+                // before remaps settle. Persist approved URP assets explicitly.
+                foreach(var renderer in instance.GetComponentsInChildren<Renderer>(true))
+                {
+                    var mapped=renderer.sharedMaterials;
+                    for(int i=0;i<mapped.Length;i++)
+                    {
+                        if(mapped[i]==null||!materials.TryGetValue(mapped[i].name,out var approved))
+                            throw new InvalidOperationException("Unqualified imported material on "+renderer.name);
+                        mapped[i]=approved;
+                    }
+                    renderer.sharedMaterials=mapped;
+                }
                 foreach(var automaticGroup in instance.GetComponentsInChildren<LODGroup>(true))Object.DestroyImmediate(automaticGroup);
                 var animator=instance.GetComponent<Animator>();if(animator==null||animator.avatar==null||!animator.avatar.isHuman||!animator.avatar.isValid)throw new InvalidOperationException("Humanoid import failed; inspect avatar mapping.");
                 animator.applyRootMotion=false;animator.cullingMode=AnimatorCullingMode.CullUpdateTransforms;
@@ -102,6 +125,9 @@ namespace Biathlon.Unity
                 if(natural)binding.ConfigureGripVariants(Find("Left_Tuck_Grip_Contact"),Find("Right_Tuck_Grip_Contact"),
                     new[]{Find("Left_Skate_Glove").gameObject,Find("Right_Skate_Glove").gameObject},
                     new[]{Find("Left_Tuck_Glove").gameObject,Find("Right_Tuck_Glove").gameObject});
+                if(natural)binding.ConfigureAnatomicalHands(new[]{
+                    Find("Left_Palm_Side"),Find("Left_Dorsal_Side"),Find("Left_Middle_Knuckle"),Find("Left_Index_Knuckle"),Find("Left_Little_Knuckle"),
+                    Find("Right_Palm_Side"),Find("Right_Dorsal_Side"),Find("Right_Middle_Knuckle"),Find("Right_Index_Knuckle"),Find("Right_Little_Knuckle")});
                 if(root.GetComponentsInChildren<Collider>(true).Length!=0)throw new InvalidOperationException("Visual prefab cannot acquire gameplay colliders.");
                 PrefabUtility.SaveAsPrefabAsset(root,prefabPath);
             }
@@ -115,6 +141,10 @@ namespace Biathlon.Unity
         {
             var previous=SceneManager.GetActiveScene();bool cleanUntitled=string.IsNullOrEmpty(previous.path)&&!previous.isDirty;
             if(string.IsNullOrEmpty(previous.path)&&previous.isDirty)throw new InvalidOperationException("Preserve the dirty untitled scene before character scene authoring.");
+            var openedPreview=SceneManager.GetSceneByPath(ScenePath);
+            bool replaceOpenedPreview=openedPreview.IsValid()&&openedPreview.isLoaded;
+            if(replaceOpenedPreview&&openedPreview.isDirty)throw new InvalidOperationException("Preserve the dirty character preview before regenerating it.");
+            bool saved=false;
             var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,cleanUntitled?NewSceneMode.Single:NewSceneMode.Additive);SceneManager.SetActiveScene(scene);
             try
             {
@@ -136,9 +166,23 @@ namespace Biathlon.Unity
                 foreach(var position in new[]{new Vector3(-2,2.7f,3),new Vector3(2,2.5f,2),new Vector3(1,3,-2)})
                 {var card=GameObject.CreatePrimitive(PrimitiveType.Quad);card.name="Studio reflection softbox";Object.DestroyImmediate(card.GetComponent<Collider>());card.layer=30;card.transform.position=position;card.transform.LookAt(Vector3.up);card.transform.localScale=new Vector3(1.4f,2,1);card.GetComponent<Renderer>().sharedMaterial=softboxMaterial;}
                 var studio=new GameObject("PULSE character studio").AddComponent<Biathlete167Studio>();studio.Configure(hero.GetComponent<Biathlete167Rig>(),camera,Resources.Load<PanelSettings>("Biathlon/UI/front_end_panel_v1"));
-                EditorSceneManager.SaveScene(scene,ScenePath);
+                // Build the replacement before closing the existing clean preview.
+                // Unity rejects saving a second scene onto an already opened path.
+                if(replaceOpenedPreview)EditorSceneManager.CloseScene(openedPreview,true);
+                if(!EditorSceneManager.SaveScene(scene,ScenePath))throw new IOException("Character preview scene could not be saved.");
+                saved=true;
             }
-            finally{if(cleanUntitled)EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects,NewSceneMode.Single);else{EditorSceneManager.CloseScene(scene,true);if(previous.IsValid())SceneManager.SetActiveScene(previous);}}
+            finally
+            {
+                if(replaceOpenedPreview&&saved){if(previous.IsValid())SceneManager.SetActiveScene(previous);}
+                else if(cleanUntitled)EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects,NewSceneMode.Single);
+                else
+                {
+                    EditorSceneManager.CloseScene(scene,true);
+                    if(replaceOpenedPreview&&!openedPreview.IsValid())EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Additive);
+                    if(previous.IsValid())SceneManager.SetActiveScene(previous);
+                }
+            }
         }
     }
 }

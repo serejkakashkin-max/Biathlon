@@ -4,92 +4,11 @@ from pathlib import Path
 import numpy as np
 from mathutils import Vector,Matrix
 
-PLANT_FINGER_ANGLES={2:(30,75,50),3:(32,105,50),4:(34,105,50),5:(30,75,65)}
 CONTACT_SETTINGS=json.loads((Path(__file__).resolve().parents[3]/'Assets/Biathlon/Characters/Biathlete_16_7/Documentation/contact-adaptation-v1.json').read_text())
-TUCK_FINGER_ANGLES={2:(40,65,45),3:(78,90,48),4:(78,90,48),5:(78,90,48)}
+HANDLE_PROFILE=[(-.075,.008),(-.074,.0105),(-.071,.012),(-.066,.012),(.035,.012),(.043,.0105),(.045,.009)]
 
-def curled_fingers(metadata,side,tuck=False,reference=False):
-    suffix='.L' if side>0 else '.R';bones=metadata['finger_bones']
-    p=lambda n:Vector(bones[f'finger{n}-1{suffix}']['head'])
-    knuckle_axis=(p(5)-p(2)).normalized();axis=knuckle_axis.copy()
-    direction=Vector(bones[f'finger3-1{suffix}']['tail'])-p(3)
-    if axis.cross(direction).x*side>0:axis=-axis
-    matrices={};chains={}
-    if tuck and not reference:
-        from power_grip import solve_finger
-        centre,shaft,palmar=tuck_grip_frame(metadata,side)
-        for finger in range(2,6):
-            posed,chain,_=solve_finger(metadata,side,finger,centre,shaft,palmar)
-            matrices.update(posed);chains[finger]=chain
-        return matrices,chains,knuckle_axis
-    for finger in range(2,6):
-        matrix=Matrix.Identity(4);chain=[p(finger)]
-        angles=(30+(finger-2)*2,105,50) if reference else (TUCK_FINGER_ANGLES if tuck else PLANT_FINGER_ANGLES)[finger]
-        for joint,angle in enumerate(angles,1):
-            name=f'finger{finger}-{joint}{suffix}';bone=bones[name];head=Vector(bone['head'])
-            matrix=matrix@Matrix.Translation(head)@Matrix.Rotation(math.radians(angle),4,axis)@Matrix.Translation(-head)
-            matrices[name]=matrix;chain.append(matrix@Vector(bone['tail']))
-        chains[finger]=chain
-    return matrices,chains,knuckle_axis
 
-def grip_frame(metadata,side):
-    """Fit the cylinder to the four phalange chains; palm frame uses metacarpals."""
-    _,chains,axis=curled_fingers(metadata,side,reference=True);centres=[]
-    for chain in chains.values():
-        origin=chain[0];u=chain[1]-origin;u=(u-axis*u.dot(axis)).normalized();v=axis.cross(u).normalized()
-        xy=np.array([[(q-origin).dot(u),(q-origin).dot(v)] for q in chain])
-        solution=np.linalg.lstsq(np.column_stack((2*xy,np.ones(4))),np.sum(xy*xy,axis=1),rcond=None)[0]
-        centres.append(origin+u*solution[0]+v*solution[1])
-    array=np.array([tuple(q) for q in centres]);centre=Vector(array.mean(axis=0));_,_,vt=np.linalg.svd(array-array.mean(axis=0));fitted=Vector(vt[0])
-    if fitted.dot(axis)<0:fitted=-fitted
-    wrist=Vector(metadata['heads']['LeftHand' if side>0 else 'RightHand'])
-    normal=axis.cross(chains[3][0]-wrist).normalized()
-    if normal.x*side>0:normal=-normal
-    normal=(normal-fitted*normal.dot(fitted)).normalized()
-    longitudinal=(chains[3][0]-wrist).normalized()
-    palmar=(normal-longitudinal*normal.dot(longitudinal)).normalized()
-    centre+=longitudinal*.020+palmar*.030
-    return centre,fitted.normalized(),normal
-
-def grip_finger_matrices(metadata,side,tuck=False):
-    """Opposed thumb pad contacts the actual handle beside the index finger."""
-    matrices,chains,knuckles=curled_fingers(metadata,side,tuck);grip,axis,normal=(tuck_grip_frame if tuck else grip_frame)(metadata,side)
-    suffix='.L' if side>0 else '.R';bones=metadata['finger_bones']
-    rest=[Vector(bones[f'finger1-{j}{suffix}']['head']) for j in range(1,4)]
-    rest.append(Vector(bones[f'finger1-3{suffix}']['tail']))
-    index=(chains[2][1]+chains[2][2])*.5
-    radial=rest[0]-grip;radial=(radial-axis*radial.dot(axis)).normalized()
-    # Oppose the index across the handle rather than sending the thumb through
-    # the cylinder to the same side as the curled fingers.
-    along=max(-.065,min(.025,(index-grip).dot(axis)-.012))
-    desired_pad=grip+axis*along+radial*.0255
-    pad=Vector(metadata['finger_pad_centres']['finger1-3'+suffix])
-    tip=desired_pad.copy()
-    lengths=[(rest[i+1]-rest[i]).length for i in range(3)]
-    # A small interphalangeal flex retains a curved, opposed thumb without
-    # aiming its full length through the middle of the closed fist.
-    a=lengths[0];b=math.sqrt(lengths[1]**2+lengths[2]**2+2*lengths[1]*lengths[2]*math.cos(math.radians(20)))
-    def joint(start,target,first,second,hint):
-        direction=(target-start).normalized();distance=max(abs(first-second)+.00001,min((target-start).length,first+second-.00001))
-        bend=hint-direction*hint.dot(direction)
-        if bend.length<1e-6:bend=normal-direction*normal.dot(direction)
-        bend.normalize();along=(first*first-second*second+distance*distance)/(2*distance)
-        return start+direction*along+bend*math.sqrt(max(0,first*first-along*along))
-    # Bone tails are virtual joints, not the visible finger pad. Solve for
-    # the measured skin-pad centre, including its offset from the distal tail.
-    for iteration in range(7):
-        first=joint(rest[0],tip,a,b,radial-axis*.3)
-        second=joint(first,tip,lengths[1],lengths[2],radial)
-        posed=[rest[0],first,second,tip]
-        for i in range(3):
-            rotation=(rest[i+1]-rest[i]).rotation_difference(posed[i+1]-posed[i]).to_matrix().to_4x4()
-            matrices[f'finger1-{i+1}{suffix}']=Matrix.Translation(posed[i])@rotation@Matrix.Translation(-rest[i])
-        error=desired_pad-matrices['finger1-3'+suffix]@pad
-        if error.length<.00005:break
-        tip+=error
-    return matrices,{'thumb_tip':list(tip),'index_contact':list(index),'axis':list(axis),'thumb_index_axis_offset_m':(tip-index).dot(axis)}
-
-def tuck_grip_frame(metadata,side):
+def anatomical_grip_frame(metadata,side,obliquity,longitudinal_offset,palmar_offset,upper_offset):
     pre='Left' if side>0 else 'Right';suffix='.L' if side>0 else '.R'
     wrist=Vector(metadata['heads'][pre+'Hand'])
     longitudinal=(Vector(metadata['finger_bones']['finger3-1'+suffix]['head'])-wrist).normalized()
@@ -97,14 +16,36 @@ def tuck_grip_frame(metadata,side):
     across=(knuckles-longitudinal*knuckles.dot(longitudinal)).normalized()
     palmar=across.cross(longitudinal).normalized()
     if palmar.x*side>0:palmar=-palmar
-    angle=math.radians(CONTACT_SETTINGS['tuck_power_grip_obliquity_degrees'])
+    angle=math.radians(obliquity)
     axis=(across*math.cos(angle)-longitudinal*math.sin(angle)).normalized()
-    # A transverse power grip rests against the actual palmar surface. The
-    # index sits at the upper handle, with the other three fingers around it.
-    centre=wrist+longitudinal*.075+palmar*.038
+    centre=wrist+longitudinal*longitudinal_offset+palmar*palmar_offset
     index=Vector(metadata['finger_bones']['finger2-1'+suffix]['head'])
-    centre+=axis*((index-centre).dot(axis)+CONTACT_SETTINGS['tuck_upper_grip_offset_m'])
+    centre+=axis*((index-centre).dot(axis)+upper_offset)
     return centre,axis,palmar
+
+
+def grip_frame(metadata,side):
+    # Working grip is fitted to the actual palmar surface, never circles
+    # through virtual bone tails. The old circle fit left fingertips 7-20mm away.
+    s=CONTACT_SETTINGS
+    return anatomical_grip_frame(metadata,side,s['plant_power_grip_obliquity_degrees'],s['plant_grip_longitudinal_offset_m'],s['plant_grip_palmar_offset_m'],s['plant_upper_grip_offset_m'])
+
+
+def tuck_grip_frame(metadata,side):
+    s=CONTACT_SETTINGS
+    return anatomical_grip_frame(metadata,side,s['tuck_power_grip_obliquity_degrees'],.075,s['tuck_grip_palmar_offset_m'],s['tuck_upper_grip_offset_m'])
+
+
+def grip_finger_matrices(metadata,side,tuck=False):
+    # Both authored grips use the same independently verified surface solver.
+    # Hand posture differs through the frame, not a second unchecked algorithm.
+    from power_grip import solve_finger
+    from thumb_grip import solve_thumb
+    frame=(tuck_grip_frame if tuck else grip_frame)(metadata,side);matrices={}
+    for digit in range(2,6):matrices.update(solve_finger(metadata,side,digit,*frame)[0])
+    band=(-.065,-.048) if tuck else CONTACT_SETTINGS['plant_thumb_axis_band_m']
+    thumb,receipt=solve_thumb(metadata,side,*frame,axis_band=band);matrices.update(thumb)
+    return matrices,receipt
 
 
 def sporting_rifle(source,material,mesh,tube,block,rigid,materials,out):

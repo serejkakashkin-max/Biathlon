@@ -2763,3 +2763,22 @@ loops. Focused native57PASS; actual source-surface contacts PASS and rejected
 pinch fixture reproduces the owner complaint. Current full-run receipts and
 actual frames: docs/quality/m16-7-natural. Technical checkpoint only: BUILD HOLD,
 no new Windows player, M16.7 IN PROGRESS, race G2 unchanged, M17 not started.
+
+2026-11-06 M16.7 wrist follow-up: rejected axial wrist twist reproduced and
+corrected by forearm rotation; actual Tuck <=0.087degree twist/21.98degree bend.
+Actual distal-palmar surface fitting, separate finger slots, closed straps,
+glove shell and explicit URP materials qualified with 71 PlayMode + 2 EditMode
+PASS. Opened-preview regeneration fixed. Evidence, complete motion cycles and
+remaining art work: docs/quality/m16-7-wrist. Previous QA retained. No complete
+assembly PASS or final art acceptance claimed. BUILD HOLD; M16.7 OPEN, race G2
+and authoritative gameplay unchanged; M17 not started.
+
+2026-11-06 M16.7 working-grip correction supersedes preceding candidate: the
+owner's ordinary-grip defect reproduced as10palmar pads7.18–20.47mm away.
+Both working/Tuck variants now share actual-surface fitting and qualification;
+upper thumb position and finger clearance pass retained tests. Final native
+82Play+3Editor PASS;6positive/2negative source checks PASS. Full authoring
+retains importer scale/root metadata; repeated-generation regression green.
+Actual51current+1rejectedPNG and complete motion videos in docs/quality/m16-7-wrist.
+BUILD HOLD; M16.7 remains OPEN, art/cloth/shooting/field work remains; race G2,
+authoritative simulation/balance/career/saves unchanged; M17 not started.

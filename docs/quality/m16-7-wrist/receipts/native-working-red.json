@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.1600708\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167NaturalTests.CandidateUsesNaturalAnatomyAndTheProductionMotionPipeline\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.1090000\",\"Message\":\"  Expected: 10.0f \\u002B/- 9.99999975E-06f\\r\\n  But was:  0.0f\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 1,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.1600708"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.CandidateUsesNaturalAnatomyAndTheProductionMotionPipeline",
+          "Status": "Failed",
+          "Duration": "00:00:00.1090000",
+          "Message": "  Expected: 10.0f +/- 9.99999975E-06f\r\n  But was:  0.0f\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

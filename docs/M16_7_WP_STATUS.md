@@ -93,3 +93,36 @@ The race factory still uses G2. No simulation/balance/career/save changes.
 
 
 2026-11-06 final verification: 69 native PlayMode PASS (57 asset/rig cases plus affected regression checks). Expanded 686-case run was cancelled after a saved 161-case snapshot (158 PASS/3 FAIL); all three found failures are fixed and included in the 69-case retest. Full-assembly PASS is not claimed. Details: docs/quality/m16-7-natural/regression-followup.json. BUILD HOLD; M16.7 remains open.
+
+## Latest operational checkpoint — 2026-11-06 wrist correction
+
+The owner rejected the preceding wrist orientation. The old swing-only test
+missed 130.66 degrees of axial twist; current Tuck twist is <=0.087 degrees,
+swing <=21.98 degrees. Forearm rotation, anatomical hand points, actual distal
+palmar patches, separate fingers and rounded handles are checked together.
+A retained claw-grip fixture fails the new distal test. Glove shell/URP
+materials and safe opened-preview regeneration are included. 71 PlayMode +
+2 EditMode PASS; final Console interval has no new Error/Exception/Assert.
+Actual 37 PNGs and complete four-technique cycles at normal/0.25x speed:
+`quality/m16-7-wrist/REVIEW_RU.md` and qualification.json. This supersedes the
+active candidate in m16-7-natural; that folder remains historical evidence.
+Full-assembly PASS and art acceptance are not claimed. M16.7 OPEN, BUILD HOLD;
+race G2 and authoritative gameplay unchanged.
+
+## Latest owner follow-up — working grip, 2026-11-06
+
+The owner rejected the ordinary grip: handle in front of fingers. The old
+distal test covered Tuck only; all ten ordinary pads failed by7.18–20.47mm.
+Both variants now use the same surface fitter and pass the same full-palm,
+all-finger, actual distal-patch, rounded-handle, closed-strap and inter-finger
+checks. The retained old working source fails the extended test. Upper-end
+thumb positioning also passes the retained thumb-side test. Actual runtime
+handle attachment is sampled in all12states/96phases, both hands.
+
+Final82PlayMode +3EditMode PASS; source gate6positive +2expected-negative PASS.
+Repeated full authoring preserves importer-owned HumanDescription scale/root
+metadata; new-struct initialization reset globalScale and caused meta-write
+errors, caught by a new regression. Final Console interval has no new errors.
+51currentPNG+1rejectedPNG and actual complete normal/0.25x motion videos:
+quality/m16-7-wrist. No new Windows build, full-assembly PASS or art acceptance.
+M16.7 OPEN/BUILD HOLD; race G2 and authoritative gameplay remain unchanged.

@@ -82,6 +82,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Race_Glove_Palm_Grip
+    second: {fileID: 2100000, guid: 436da1da41283364a9bcbe6e6d638519, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Race_Glove_Softshell
+    second: {fileID: 2100000, guid: fd13e99701a63474d8c850b9acc88bde, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Rifle_Padded_Composite
     second: {fileID: 2100000, guid: 3d5a35f972a105a4eac239333a52bc76, type: 2}
   - first:
@@ -516,19 +526,34 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1.0000001}
     - name: Left_Dorsal_Side
       parentName:
-      position: {x: -0.013832569, y: 0.059233442, z: -0.0002257824}
+      position: {x: -0.013632044, y: 0.05928047, z: -0.000016897917}
+      rotation: {x: 0.66595435, y: 0.00000001380847, z: -0.6208267, w: 0.41361713}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000001}
+    - name: Left_Index_Knuckle
+      parentName:
+      position: {x: -0.029201493, y: 0.11113317, z: -0.038552314}
+      rotation: {x: 0.66595435, y: 0.00000001380847, z: -0.6208267, w: 0.41361713}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000001}
+    - name: Left_Little_Knuckle
+      parentName:
+      position: {x: 0.023334682, y: 0.104524806, z: 0.014727235}
+      rotation: {x: 0.66595435, y: 0.00000001380847, z: -0.6208267, w: 0.41361713}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000001}
+    - name: Left_Middle_Knuckle
+      parentName:
+      position: {x: -0.012675136, y: 0.1152354, z: -0.013699651}
       rotation: {x: 0.66595435, y: 0.00000001380847, z: -0.6208267, w: 0.41361713}
       scale: {x: 1.0000004, y: 1.0000001, z: 1.0000001}
     - name: Left_Palm_Side
       parentName:
-      position: {x: 0.00080287457, y: 0.059222773, z: -0.013856769}
+      position: {x: 0.00060245395, y: 0.059175894, z: -0.0140657425}
       rotation: {x: 0.66595435, y: 0.00000001380847, z: -0.6208267, w: 0.41361713}
       scale: {x: 1.0000004, y: 1.0000001, z: 1.0000001}
     - name: Left_Pole_Grip_Contact
       parentName:
-      position: {x: 0.02733399, y: 0.12664981, z: -0.04316929}
-      rotation: {x: 0.68454975, y: 0.24466662, z: -0.271778, w: 0.63060814}
-      scale: {x: 1, y: 1.0000002, z: 1.0000006}
+      position: {x: 0.0201011, y: 0.06790133, z: -0.02854094}
+      rotation: {x: 0.8567988, y: 0.1405778, z: -0.35267013, w: 0.34893757}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000005}
     - name: Left_Pole_Prop
       parentName:
       position: {x: -0.00000008940697, y: 0.000000044703484, z: 0.000000059604645}
@@ -546,9 +571,9 @@ ModelImporter:
       scale: {x: 1.0000004, y: 1.0000001, z: 1.0000001}
     - name: Left_Tuck_Grip_Contact
       parentName:
-      position: {x: 0.024071932, y: 0.06850751, z: -0.030216664}
-      rotation: {x: 0.82312655, y: 0.17078005, z: -0.33907598, w: 0.42228466}
-      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000004}
+      position: {x: 0.019610405, y: 0.066350296, z: -0.029026508}
+      rotation: {x: 0.88395035, y: 0.10930564, z: -0.36358032, w: 0.27293482}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
     - name: Pole_Left_Socket
       parentName:
       position: {x: -0.00000008940697, y: 0.000000044703484, z: 0.000000059604645}
@@ -616,19 +641,34 @@ ModelImporter:
       scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
     - name: Right_Dorsal_Side
       parentName:
-      position: {x: 0.013858274, y: 0.059227504, z: -0.00017386675}
+      position: {x: 0.013658553, y: 0.059274174, z: 0.000035762787}
+      rotation: {x: 0.66726196, y: -0.000000039899437, z: 0.6196864, w: 0.41321933}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
+    - name: Right_Index_Knuckle
+      parentName:
+      position: {x: 0.029130131, y: 0.11118195, z: -0.038464785}
+      rotation: {x: 0.66726196, y: -0.000000039899437, z: 0.6196864, w: 0.41321933}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
+    - name: Right_Little_Knuckle
+      parentName:
+      position: {x: -0.023241162, y: 0.10451115, z: 0.014968842}
+      rotation: {x: 0.66726196, y: -0.000000039899437, z: 0.6196864, w: 0.41321933}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
+    - name: Right_Middle_Knuckle
+      parentName:
+      position: {x: 0.012683839, y: 0.11525158, z: -0.013553858}
       rotation: {x: 0.66726196, y: -0.000000039899437, z: 0.6196864, w: 0.41321933}
       scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
     - name: Right_Palm_Side
       parentName:
-      position: {x: -0.0008199215, y: 0.059245296, z: -0.013758808}
+      position: {x: -0.0006201118, y: 0.059198715, z: -0.013968378}
       rotation: {x: 0.66726196, y: -0.000000039899437, z: 0.6196864, w: 0.41321933}
       scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
     - name: Right_Pole_Grip_Contact
       parentName:
-      position: {x: -0.02741237, y: 0.1267313, z: -0.042879075}
-      rotation: {x: -0.27036306, y: 0.63050115, z: 0.68542874, w: 0.24404827}
-      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+      position: {x: -0.020160258, y: 0.06795619, z: -0.028368264}
+      rotation: {x: -0.3511317, y: 0.3485467, z: 0.85760117, w: 0.14050613}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000006}
     - name: Right_Pole_Prop
       parentName:
       position: {x: -0.000000074505806, y: -0.00000017136335, z: -0.000000029802322}
@@ -646,9 +686,9 @@ ModelImporter:
       scale: {x: 1.0000002, y: 1.0000004, z: 1.0000006}
     - name: Right_Tuck_Grip_Contact
       parentName:
-      position: {x: -0.024135977, y: 0.06856672, z: -0.030030549}
-      rotation: {x: -0.33754954, y: 0.42196533, z: 0.8239599, w: 0.17057458}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
+      position: {x: -0.019671828, y: 0.06640575, z: -0.028857768}
+      rotation: {x: -0.36204144, y: 0.2724755, z: 0.8847156, w: 0.109368205}
+      scale: {x: 1, y: 1.0000002, z: 1.0000007}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -656,7 +696,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0
+    globalScale: 1
     rootMotionBoneName:
     hasTranslationDoF: 0
     hasExtraRoot: 0

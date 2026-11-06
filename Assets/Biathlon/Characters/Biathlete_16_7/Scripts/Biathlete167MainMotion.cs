@@ -28,6 +28,8 @@ namespace Biathlon.Unity.Presentation
         private readonly ContactSettings settings;
         public bool ContactAdaptationEnabled{get;set;}=true;
         public float MaximumWristBendDegrees{get;private set;}
+        public float MaximumWristTwistDegrees{get;private set;}
+        public float MaximumForearmRollDegrees{get;private set;}
         public float MaximumBindingResidualMeters{get;private set;}
         public float MaximumHeelRiseDegrees{get;private set;}
         private readonly Renderer[] hiddenRenderers;
@@ -81,7 +83,7 @@ namespace Biathlon.Unity.Presentation
             to[0].position=root.TransformPoint(hipBind+root.InverseTransformPoint(from[0].position)-sourceHipBind);
             for(int i=0;i<5;i++)CopyRotation(i);
             CopyLimb(5);CopyLimb(8);CopyLimb(11);CopyLimb(14);
-            MaximumWristBendDegrees=MaximumBindingResidualMeters=MaximumHeelRiseDegrees=0;
+            MaximumWristBendDegrees=MaximumWristTwistDegrees=MaximumForearmRollDegrees=MaximumBindingResidualMeters=MaximumHeelRiseDegrees=0;
             if(ContactAdaptationEnabled)
             {
                 if(State==SkiMotionState.Tuck){ApplyTuckHand(leftPole,6,7);ApplyTuckHand(rightPole,9,10);}
@@ -132,7 +134,8 @@ namespace Biathlon.Unity.Presentation
                 TuckGripInHand=hand.InverseTransformPoint(tuckFrame.position),TuckContactInHand=Quaternion.Inverse(hand.rotation)*tuckFrame.rotation,
                 ModelOriginFromGrip=contactFrame.InverseTransformPoint(selected.position),ModelRotationFromGrip=Quaternion.Inverse(contactFrame.rotation)*selected.rotation,
                 Axis=selected.InverseTransformDirection(contactFrame.up),GripInHand=hand.InverseTransformPoint(contactFrame.position),ContactInHand=Quaternion.Inverse(hand.rotation)*contactFrame.rotation,
-                Side=Mathf.Sign(root.InverseTransformPoint(hand.position).x),ForearmAxis=hand.InverseTransformDirection(hand.position-hand.parent.position)};
+                Side=Mathf.Sign(root.InverseTransformPoint(hand.position).x),ForearmAxis=hand.InverseTransformDirection(hand.position-hand.parent.position),
+                HandInForearm=Quaternion.Inverse(hand.parent.rotation)*hand.rotation};
         }
 
         private static Transform LongestProp(Transform parent)
@@ -167,11 +170,29 @@ namespace Biathlon.Unity.Presentation
             // Solve both segment directions to the wrist. Projecting a desired
             // elbow onto a sphere and then forcing a preselected forearm rotation
             // moved the wrist sideways and drove the poles through the torso.
-            var hint=root.TransformDirection(new Vector3(-pole.Side*.03f,-1,.10f));
+            // Keep the elbow under the body. The authored contact definition
+            // is qualified for wrist swing, axial twist and actual shaft/body
+            // clearance together; rotating only the hand would move the pole.
+            var hint=root.TransformDirection(new Vector3(pole.Side*settings.tuck_elbow_hint_outward,-1,settings.tuck_elbow_hint_forward));
             SolveImportedLimb(upper,lower,hand,desiredWrist,hint);
+            // Swing alone cannot detect a hand turned backwards. Carry axial
+            // rotation on the forearm, preserving the solved wrist position.
+            var forearm=(hand.position-lower.position).normalized;
+            var neutral=lower.rotation*pole.HandInForearm;
+            float desiredRoll=WristTwist(handRotation,neutral,forearm);
+            float roll=Mathf.Clamp(desiredRoll,-settings.maximum_forearm_roll_degrees,settings.maximum_forearm_roll_degrees);
+            lower.rotation=Quaternion.AngleAxis(roll,forearm)*lower.rotation;
             hand.rotation=handRotation;
+            MaximumForearmRollDegrees=Mathf.Max(MaximumForearmRollDegrees,Mathf.Abs(roll));
+            MaximumWristTwistDegrees=Mathf.Max(MaximumWristTwistDegrees,Mathf.Abs(WristTwist(hand.rotation,lower.rotation*pole.HandInForearm,forearm)));
             pole.Transform.SetPositionAndRotation(pole.TuckContact.TransformPoint(pole.ModelOriginFromGrip),pole.TuckContact.rotation*pole.ModelRotationFromGrip);
             MaximumWristBendDegrees=Mathf.Max(MaximumWristBendDegrees,Vector3.Angle(hand.TransformDirection(pole.ForearmAxis),hand.position-lower.position));
+        }
+
+        private static float WristTwist(Quaternion hand,Quaternion neutral,Vector3 forearm)
+        {
+            var delta=hand*Quaternion.Inverse(neutral);
+            return Mathf.DeltaAngle(0,2*Mathf.Atan2(Vector3.Dot(new Vector3(delta.x,delta.y,delta.z),forearm),delta.w)*Mathf.Rad2Deg);
         }
 
         private void ApplyPole(Prop pole,Transform sourcePole,int lowerIndex,int handIndex)
@@ -207,6 +228,8 @@ namespace Biathlon.Unity.Presentation
             neutral=Quaternion.AngleAxis(roll,forearm)*neutral;pole.Hand.rotation=neutral;
             var full=Quaternion.FromToRotation(pole.Transform.TransformDirection(pole.Axis),desired)*neutral;
             pole.Hand.rotation=Quaternion.RotateTowards(neutral,full,settings.maximum_wrist_bend_degrees);
+            MaximumForearmRollDegrees=Mathf.Max(MaximumForearmRollDegrees,Mathf.Abs(roll));
+            MaximumWristTwistDegrees=Mathf.Max(MaximumWristTwistDegrees,Mathf.Abs(WristTwist(pole.Hand.rotation,to[lowerIndex].rotation*pole.HandInForearm,forearm)));
             MaximumWristBendDegrees=Mathf.Max(MaximumWristBendDegrees,Vector3.Angle(pole.Hand.TransformDirection(pole.ForearmAxis),forearm));
         }
 
@@ -249,16 +272,18 @@ namespace Biathlon.Unity.Presentation
 
         public void Stop()=>target.SetPose(0);
         public void Dispose(){if(SourceRig!=null){if(Application.isPlaying)Object.Destroy(SourceRig.gameObject);else Object.DestroyImmediate(SourceRig.gameObject);}}
-        private sealed class Prop{public Transform Transform,Hand,Contact,TuckContact;public Vector3 Axis,ForearmAxis,GripInHand,TuckGripInHand,ModelOriginFromGrip;public Quaternion ContactInHand,TuckContactInHand,ModelRotationFromGrip;public float Side;}
+        private sealed class Prop{public Transform Transform,Hand,Contact,TuckContact;public Vector3 Axis,ForearmAxis,GripInHand,TuckGripInHand,ModelOriginFromGrip;public Quaternion ContactInHand,TuckContactInHand,ModelRotationFromGrip,HandInForearm;public float Side;}
         private sealed class FootContact{public int Index;public Transform Foot,Ski,Toe;public Vector3 ToeLocal,ForwardLocal,UpLocal;}
         [Serializable] private sealed class ContactSettings
         {
             public int schema_version;public string id;
             public float maximum_wrist_bend_degrees,maximum_forearm_roll_degrees,maximum_forward_ankle_degrees,maximum_heel_rise_degrees;
             public float minimum_grip_half_width_m,tuck_grip_forward_of_head_m;
+            public float tuck_elbow_hint_outward,tuck_elbow_hint_forward;
+            public float tuck_grip_palmar_offset_m;
             public float tuck_power_grip_obliquity_degrees,tuck_upper_grip_offset_m,tuck_pole_splay_degrees,tuck_grip_half_width_m,tuck_grip_below_shoulder_m,tuck_pole_elevation_degrees,tuck_palm_up_roll_degrees,maximum_tuck_wrist_bend_degrees,tuck_minimum_reach_forward_m;
             public void Validate()
-            {if(!(tuck_power_grip_obliquity_degrees>=5&&tuck_power_grip_obliquity_degrees<=65)||!(tuck_upper_grip_offset_m>=.045f&&tuck_upper_grip_offset_m<=.075f)||!(tuck_pole_splay_degrees>=0&&tuck_pole_splay_degrees<=20)||!(maximum_tuck_wrist_bend_degrees>0&&maximum_tuck_wrist_bend_degrees<=45)||!(tuck_minimum_reach_forward_m>=.12f&&tuck_minimum_reach_forward_m<=.3f)||!(tuck_palm_up_roll_degrees>=0&&tuck_palm_up_roll_degrees<=90)||!(tuck_grip_half_width_m>=.1f&&tuck_grip_half_width_m<=.2f)||!(tuck_grip_below_shoulder_m>=0&&tuck_grip_below_shoulder_m<=.15f)||!(tuck_pole_elevation_degrees>=-5&&tuck_pole_elevation_degrees<=30)||schema_version!=1||string.IsNullOrWhiteSpace(id)||!(minimum_grip_half_width_m>=.1f&&minimum_grip_half_width_m<=.2f)||!(tuck_grip_forward_of_head_m>=.04f&&tuck_grip_forward_of_head_m<=.25f)||!(maximum_wrist_bend_degrees>0&&maximum_wrist_bend_degrees<=30)||!(maximum_forearm_roll_degrees>0&&maximum_forearm_roll_degrees<=90)||!(maximum_forward_ankle_degrees>0&&maximum_forward_ankle_degrees<=25)||!(maximum_heel_rise_degrees>0&&maximum_heel_rise_degrees<=45))throw new InvalidOperationException("Invalid M16.7 contact adaptation definition.");}
+            {if(!(tuck_grip_palmar_offset_m>=.02f&&tuck_grip_palmar_offset_m<=.06f)||!(tuck_elbow_hint_outward>=0&&tuck_elbow_hint_outward<=.3f)||!(tuck_elbow_hint_forward>=-1&&tuck_elbow_hint_forward<=.3f)||!(tuck_power_grip_obliquity_degrees>=5&&tuck_power_grip_obliquity_degrees<=80)||!(tuck_upper_grip_offset_m>=.045f&&tuck_upper_grip_offset_m<=.075f)||!(tuck_pole_splay_degrees>=0&&tuck_pole_splay_degrees<=20)||!(maximum_tuck_wrist_bend_degrees>0&&maximum_tuck_wrist_bend_degrees<=45)||!(tuck_minimum_reach_forward_m>=.12f&&tuck_minimum_reach_forward_m<=.3f)||!(tuck_palm_up_roll_degrees>=0&&tuck_palm_up_roll_degrees<=180)||!(tuck_grip_half_width_m>=.04f&&tuck_grip_half_width_m<=.2f)||!(tuck_grip_below_shoulder_m>=-.08f&&tuck_grip_below_shoulder_m<=.22f)||!(tuck_pole_elevation_degrees>=-5&&tuck_pole_elevation_degrees<=30)||schema_version!=1||string.IsNullOrWhiteSpace(id)||!(minimum_grip_half_width_m>=.1f&&minimum_grip_half_width_m<=.2f)||!(tuck_grip_forward_of_head_m>=.04f&&tuck_grip_forward_of_head_m<=.25f)||!(maximum_wrist_bend_degrees>0&&maximum_wrist_bend_degrees<=30)||!(maximum_forearm_roll_degrees>0&&maximum_forearm_roll_degrees<=90)||!(maximum_forward_ankle_degrees>0&&maximum_forward_ankle_degrees<=25)||!(maximum_heel_rise_degrees>0&&maximum_heel_rise_degrees<=45))throw new InvalidOperationException("Invalid M16.7 contact adaptation definition.");}
         }
     }
 }

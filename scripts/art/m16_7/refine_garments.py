@@ -18,14 +18,21 @@ def anatomical_grip(metadata, vertices, indices, side,tuck=False):
     """
     from equipment_refine import grip_finger_matrices
     matrices,_=grip_finger_matrices(metadata,side,tuck)
+    prefix='Left' if side>0 else 'Right';suffix='.L' if side>0 else '.R'
+    wrist=Vector(metadata['heads'][prefix+'Hand'])
+    longitudinal=(Vector(metadata['finger_bones']['finger3-1'+suffix]['head'])-wrist).normalized()
+    guard=metadata['hand_carpal_guard']
     def pose(name):return matrices.get(name,Matrix.Identity(4))
     posed = []
     for index in indices:
         weights = metadata['finger_weights'][index]
         total = sum(weights.values())
-        source = vertices[index]
+        source = Vector(metadata.get('glove_shell_vertex_overrides',{}).get(str(index),vertices[index]))
         result = sum((pose(name) @ source * value for name, value in weights.items()), Vector())
-        posed.append(result + source * max(0, 1 - total))
+        deformed=result+source*max(0,1-total)
+        factor=max(0,min(1,((source-wrist).dot(longitudinal)-guard['start_m'])/(guard['end_m']-guard['start_m'])))
+        factor=factor*factor*(3-2*factor)
+        posed.append(source.lerp(deformed,factor))
     return posed
 
 
