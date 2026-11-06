@@ -98,6 +98,14 @@ namespace Biathlon.Unity.Presentation
                 eyewear.RegisterValueChangedCallback(_=>rig.SetEyewear((Biathlete167Eyewear)eyewear.index));rail.Add(eyewear);
                 Line("Маска: Skiing Lady · lancehuang526 · CC BY 4.0",11,new Color(.60f,.72f,.78f));
             }
+            var outfit=rig.GetComponent<Biathlete167Outfit>();
+            if(outfit!=null)
+            {
+                string Title(string code)=>code switch{"NOR"=>"Норвегия","SWE"=>"Швеция","FIN"=>"Финляндия","GER"=>"Германия","FRA"=>"Франция","ITA"=>"Италия","RUS"=>"Россия",_=>code};
+                var choices=new List<string>();foreach(var code in outfit.Nations)choices.Add(Title(code));
+                var national=new DropdownField("Форма сборной",choices,0){name="athlete-nation"};
+                national.RegisterValueChangedCallback(_=>outfit.ApplyNation(outfit.Nations[national.index]));rail.Add(national);
+            }
             Line("Проверка поз",16);
             string[] poses={"1   Стойка","2   Согнутые колени","3   Руки вверх","4   Подготовка к стрельбе"};
             for(int i=0;i<poses.Length;i++){int at=i;Button(poses[i],()=>Pose(at));}

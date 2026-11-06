@@ -14,7 +14,7 @@ namespace Biathlon.PlayModeTests
     {
         private const string Root="Assets/Biathlon/Characters/Biathlete_16_7";
         [Serializable] private sealed class PrintReceipt{public string method,texture;public int resolution,pages,standalone_bib_glyph_meshes;}
-        [Serializable] private sealed class CoverageReceipt{public int covered_suit_triangles_removed;public bool reference_in_runtime;}
+        [Serializable] private sealed class CoverageReceipt{public int covered_suit_triangles_removed,covered_suit_triangles_retained;public bool reference_in_runtime;}
         [Serializable] private sealed class ContactReceipt{public float tuck_pelvis_clearance_lift_m;}
         [Serializable] private sealed class Receipt{public string garment_detail_definition_sha256,garment_skinning;public PrintReceipt bib_print;public CoverageReceipt garment_coverage;}
         [Test] public void BibArtworkUsesTheFabricTextureRatherThanFloatingGlyphs()
@@ -44,13 +44,33 @@ namespace Biathlon.PlayModeTests
                 }
             }
         }
+        [Test] public void ImportedBibHasItsOwnClosedFabricVolume()
+        {
+            var go=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/Prefabs/Biathlete_16_7_Natural.prefab"));var baked=new Mesh();
+            try
+            {
+                var rig=go.GetComponent<Biathlete167Rig>();rig.SetPose(0);var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();skin.BakeMesh(baked);
+                int sub=Array.FindIndex(skin.sharedMaterials,m=>m.name=="PULSE_Bib_Printed_Textile");var faces=baked.GetTriangles(sub);var vertices=baked.vertices;
+                var ids=new System.Collections.Generic.Dictionary<Vector3Int,int>();var welded=new int[vertices.Length];
+                foreach(int i in faces.Distinct()){var key=Vector3Int.RoundToInt(vertices[i]*1000000);if(!ids.TryGetValue(key,out int value)){value=ids.Count;ids.Add(key,value);}welded[i]=value;}
+                var edges=new System.Collections.Generic.Dictionary<(int,int),int>();double volume=0;
+                for(int i=0;i<faces.Length;i+=3)
+                {
+                    int a=faces[i],b=faces[i+1],c=faces[i+2];volume+=Vector3.Dot(vertices[a],Vector3.Cross(vertices[b],vertices[c]))/6.0;
+                    foreach(var pair in new[]{(welded[a],welded[b]),(welded[b],welded[c]),(welded[c],welded[a])}){var key=pair.Item1<pair.Item2?pair:(pair.Item2,pair.Item1);edges.TryGetValue(key,out int count);edges[key]=count+1;}
+                }
+                Assert.That(edges.Values.All(count=>count==2),Is.True,"Bib needs its own outer/inner fabric and closed hems; an open patch fails.");
+                Assert.That(Math.Abs(volume),Is.InRange(.00001,.001));
+            }finally{UnityEngine.Object.DestroyImmediate(baked);UnityEngine.Object.DestroyImmediate(go);}
+        }
         [Test] public void GarmentExportMatchesItsVersionedDefinition()
         {
             var receipt=JsonUtility.FromJson<Receipt>(File.ReadAllText(Root+"/Documentation/natural-asset-manifest.json"));
             Assert.That(receipt.bib_print,Is.Not.Null);Assert.That(receipt.bib_print.method,Is.EqualTo("shared_fabric_uv_atlas"));
             Assert.That(receipt.bib_print.pages,Is.EqualTo(2));Assert.That(receipt.bib_print.standalone_bib_glyph_meshes,Is.Zero);
-            Assert.That(receipt.garment_skinning,Is.EqualTo("shared_partition_vertices_and_normalized_weights"));
-            Assert.That(receipt.garment_coverage,Is.Not.Null);Assert.That(receipt.garment_coverage.covered_suit_triangles_removed,Is.GreaterThan(100));
+            Assert.That(receipt.garment_skinning,Is.EqualTo("separate_pullover_vest_shared_skin_weights"));
+            Assert.That(receipt.garment_coverage,Is.Not.Null);Assert.That(receipt.garment_coverage.covered_suit_triangles_removed,Is.Zero);
+            Assert.That(receipt.garment_coverage.covered_suit_triangles_retained,Is.GreaterThan(100),"Owner requires a complete suit under the removable bib.");
             Assert.That(receipt.garment_coverage.reference_in_runtime,Is.False);
             using(var sha=SHA256.Create())Assert.That(BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(Root+"/Documentation/garment-detail-v1.json"))).Replace("-","").ToLowerInvariant(),Is.EqualTo(receipt.garment_detail_definition_sha256));
         }

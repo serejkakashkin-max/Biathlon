@@ -103,53 +103,44 @@ def race_bib(surface, arm, mesh, tube, weight_z, white, deform_surface=None):
     Exact shared intersections are welded before the bound edges are generated.
     """
     def neck_limit(point):
-        t = min(1, abs(point.x) / .112)
+        t = min(1, abs(point.x) / GARMENT_SETTINGS['bib_neck_half_width_m'])
         smooth = t * t * (3 - 2 * t)
-        return 1.437 + .055 * smooth - point.z
+        # The neck is an opening, not a height cap across both shoulders.
+        # Outside the opening the vest continues over the shoulder naturally.
+        return max(abs(point.x)-GARMENT_SETTINGS['bib_neck_half_width_m'],GARMENT_SETTINGS['bib_neck_base_m']+.050*smooth-point.z)
 
     def armhole_limit(point):
         t = max(0, min(1, (1.435 - point.z) / .105))
         width = GARMENT_SETTINGS['bib_armhole_top_half_width_m'] + (GARMENT_SETTINGS['bib_armhole_bottom_half_width_m']-GARMENT_SETTINGS['bib_armhole_top_half_width_m'])*t*t*(3-2*t)
+        lower=max(0,min(1,(1.30-point.z)/.095));lower=lower*lower*(3-2*lower)
+        width=width*(1-lower)+GARMENT_SETTINGS['bib_lower_side_half_width_m']*lower
         return width - abs(point.x)
 
     from garment_partition import partition_cloth
     vertices,faces,weights,normals=partition_cloth(deform_surface or surface,(lambda p:p.z-1.155,neck_limit,armhole_limit))
-    # Identical base triangles and normalized weights; only sewn ease differs.
-    # Independent nearest-weight fitting produced up to2.2mm cuts when posed.
-    # Sew the layer to the exact shared boundary. Full ease at an armhole or
-    # hem separates adjacent triangles, which can cross on a deep tuck.
-    import heapq
-    groups={};keys=[];points=[]
-    for point in vertices:
-        key=tuple(round(float(v),7)for v in point)
-        if key not in groups:groups[key]=len(points);points.append(point)
-        keys.append(groups[key])
-    edges={};adj=[{}for _ in points]
-    for face in faces:
-        for a,b in zip(face,face[1:]+face[:1]):
-            a,b=keys[a],keys[b]
-            if a==b:continue
-            edge=tuple(sorted((a,b)));edges[edge]=edges.get(edge,0)+1
-            adj[a][b]=adj[b][a]=(points[a]-points[b]).length
-    distance=[float('inf')]*len(points);queue=[]
-    for edge,count in edges.items():
-        if count==1:
-            for vertex in edge:distance[vertex]=0;heapq.heappush(queue,(0,vertex))
-    while queue:
-        value,vertex=heapq.heappop(queue)
-        if value>distance[vertex]:continue
-        for other,length in adj[vertex].items():
-            candidate=value+length
-            if candidate<distance[other]:distance[other]=candidate;heapq.heappush(queue,(candidate,other))
+    # Preserve exact corresponding skin weights while giving the vest its own fit.
     for index,(point,normal) in enumerate(zip(vertices,normals)):
-        t=min(1,distance[keys[index]]/GARMENT_SETTINGS['bib_edge_ease_blend_m']);t=t*t*(3-2*t)
-        vertices[index]=point+normal*(GARMENT_SETTINGS['bib_ease_m']*t)
+        # A pullover stays outside the suit even at its openings. The old
+        # zero-ease boundary made this read as a sewn-in colour patch.
+        hem=max(0,1-(point.z-1.155)/.055)
+        fold=(.5+.5*math.sin(point.x*76+point.y*21))*GARMENT_SETTINGS['bib_fold_depth_m']*hem
+        vertices[index]=point+normal*(GARMENT_SETTINGS['bib_ease_m']+GARMENT_SETTINGS['bib_hem_flare_m']*hem+fold)
+        vertices[index].z+=GARMENT_SETTINGS['bib_hem_lift_m']*max(0,min(1,(1.28-point.z)/.125))
     bib=mesh('Woven_Bib_27',vertices,faces,[white],weights=weights)
     bm=bmesh.new();bm.from_mesh(bib.data);bm.normal_update()
     support=BVHTree.FromObject(deform_surface or surface,bpy.context.evaluated_depsgraph_get())
     reverse=[face for face in bm.faces if face.normal.dot(support.find_nearest(face.calc_center_median())[1])<0]
     if reverse:bmesh.ops.reverse_faces(bm,faces=reverse)
+    bmesh.ops.remove_doubles(bm,verts=list(bm.verts),dist=1e-6)
     bm.to_mesh(bib.data);bm.free();bib.data.update()
+    bpy.context.view_layer.objects.active=bib
+    subdivision=bib.modifiers.new('Soft continuous vest folds','SUBSURF');subdivision.levels=1;subdivision.render_levels=1
+    bpy.ops.object.modifier_apply(modifier=subdivision.name)
+    # Smooth the folded edge while retaining actual source-surface clearance.
+    for vertex in bib.data.vertices:
+        hit=support.find_nearest(vertex.co);signed=(vertex.co-hit[0]).dot(hit[1])
+        if signed<GARMENT_SETTINGS['bib_ease_m']:vertex.co+=hit[1]*(GARMENT_SETTINGS['bib_ease_m']-signed)
+    bib.data.update()
     # Uniformly follow each true boundary loop, including shoulders and armholes.
     bm = bmesh.new(); bm.from_mesh(bib.data)
     edges = {edge for edge in bm.edges if edge.is_boundary}
@@ -169,6 +160,9 @@ def race_bib(surface, arm, mesh, tube, weight_z, white, deform_surface=None):
             binding = tube('Bib_Stitched_Binding', points, GARMENT_SETTINGS['bib_binding_radius_m'], white)
             transfer_weights(binding, bib, arm)
     bm.free()
+    bpy.context.view_layer.objects.active=bib
+    thickness=bib.modifiers.new('Separate race bib fabric thickness','SOLIDIFY');thickness.thickness=GARMENT_SETTINGS['bib_thickness_m'];thickness.offset=-1;thickness.use_even_offset=False;thickness.use_quality_normals=True
+    bpy.ops.object.modifier_apply(modifier=thickness.name)
     return bib, []
 
 
@@ -210,75 +204,55 @@ def continuous_collar(surface, mesh, tube, red, weight_z, skin_surface=None):
 
 
 def fitted_harness(surface, bib, arm, mesh, tube, black, stitch, weight_z):
-    """One continuous, flat shoulder webbing route on the outer vest surface."""
+    """Closed load-bearing shoulder loops, including the underarm return."""
     bpy.context.view_layer.update()
-    target = BVHTree.FromObject(bib, bpy.context.evaluated_depsgraph_get())
-    cloth = BVHTree.FromObject(surface, bpy.context.evaluated_depsgraph_get())
+    target=BVHTree.FromObject(bib,bpy.context.evaluated_depsgraph_get());cloth=BVHTree.FromObject(surface,bpy.context.evaluated_depsgraph_get())
     def project(query):
         hit=cloth.find_nearest(query);normal=hit[1];support=hit[0]
-        outer=target.ray_cast(support+normal*.025,-normal,.03)
-        if outer[0] is not None and -.0001<(outer[0]-support).dot(normal)<.012 and outer[1].dot(normal)>.5:support=outer[0]
+        outer=target.ray_cast(support+normal*.035,-normal,.045)
+        if outer[0]is not None and -.0001<(outer[0]-support).dot(normal)<.025 and outer[1].dot(normal)>.5:support=outer[0]
         point=support+normal*GARMENT_SETTINGS['harness_clearance_m']
-        # A bib boundary can be nearer than the normal ray's support. Keep the
-        # ribbon above that edge as well instead of burying it in the hem.
-        for _ in range(4):
-            nearby=min([target.find_nearest(point),cloth.find_nearest(point)],key=lambda h:h[3])
-            signed=(point-nearby[0]).dot(nearby[1])
+        for _ in range(6):
+            nearby=min([target.find_nearest(point),cloth.find_nearest(point)],key=lambda h:h[3]);signed=(point-nearby[0]).dot(nearby[1])
             if signed>=GARMENT_SETTINGS['harness_clearance_m']*.9:break
             point+=nearby[1]*(GARMENT_SETTINGS['harness_clearance_m']-signed)
         return point,normal
     def clearance(point):
-        hit=min([target.find_nearest(point),cloth.find_nearest(point)],key=lambda h:h[3])
-        return (point-hit[0]).dot(hit[1])
-    for sign in (-1, 1):
-        controls = [Vector((sign * x, y, z+.07)) for x, y, z in (
-            (.130, -.095, 1.125), (.128, -.115, 1.24), (.126, -.115, 1.35),
-            (.124, -.065, 1.415), (.126, .015, 1.445), (.130, .075, 1.415),
-            (.135, .112, 1.32), (.139, .105, 1.20), (.122, .092, 1.12))]
-        points = []
-        for index in range(len(controls) - 1):
-            a, b = controls[index], controls[index + 1]
-            before = controls[max(0, index - 1)]
-            after = controls[min(len(controls) - 1, index + 2)]
-            for step in range(12):
-                t = step / 12
-                points.append(.5 * ((2 * a) + (-before + b) * t + (2 * before - 5 * a + 4 * b - after) * t * t + (-before + 3 * a - 3 * b + after) * t * t * t))
-        points.append(controls[-1])
-        vertices, faces, uv, weights = [], [], [], []
-        edgepaths = [[], []];columns=GARMENT_SETTINGS['harness_cross_samples']
-        for index, point in enumerate(points):
+        hit=min([target.find_nearest(point),cloth.find_nearest(point)],key=lambda h:h[3]);return (point-hit[0]).dot(hit[1])
+    for sign in (-1,1):
+        controls=[Vector((sign*x,y,z))for x,y,z in GARMENT_SETTINGS['harness_route_controls_m']]
+        points=[];count=len(controls)
+        for i in range(count):
+            before,a,b,after=controls[(i-1)%count],controls[i],controls[(i+1)%count],controls[(i+2)%count]
+            for step in range(16):
+                t=step/16;points.append(.5*((2*a)+(-before+b)*t+(2*before-5*a+4*b-after)*t*t+(-before+3*a-3*b+after)*t*t*t))
+        vertices=[];faces=[];uv=[];weights=[];columns=GARMENT_SETTINGS['harness_cross_samples'];rows=len(points)
+        for i,point in enumerate(points):
+            _,normal=project(point);tangent=(points[(i+1)%rows]-points[(i-1)%rows]).normalized();across=tangent.cross(normal).normalized()
             for column in range(columns):
-                fraction=column/(columns-1)
-                query=point+Vector(((fraction-.5)*GARMENT_SETTINGS['harness_width_m'],0,0))
-                # Route from the continuous suit, then find the outer bib along
-                # its actual normal. Nearest bib edges can be centimetres away
-                # and fold a strap through the chest/shoulder.
-                p,normal=project(query);vertices.append(p)
-                if column in [0,columns-1]:edgepaths[0 if column==0 else 1].append(p+normal*.00035)
-                uv.append((fraction,index/(len(points)-1)));weights.append(weight_z(p.z))
-            if index < len(points) - 1:
-                for column in range(columns-1):
-                    a=index*columns+column;faces.append((a,a+1,a+columns+1,a+columns))
-        strap = mesh(('Left' if sign > 0 else 'Right') + '_Rifle_Harness_Webbing', vertices, faces, [black], uv=uv, weights=weights)
-        # Points can all be outside while a long triangle cuts through a convex
-        # shoulder. Refine only those chords, then project their new vertices.
-        bm=bmesh.new();bm.from_mesh(strap.data);bmesh.ops.triangulate(bm,faces=list(bm.faces))
-        for _ in range(6):
-            marked={edge for edge in bm.edges if clearance((edge.verts[0].co+edge.verts[1].co)*.5)<.0004 and edge.calc_length()>.001}
-            for face in bm.faces:
-                if clearance(face.calc_center_median())<.0004:marked.update(face.edges)
-            if not marked:break
-            bmesh.ops.subdivide_edges(bm,edges=list(marked),cuts=1,use_grid_fill=True)
-            for vertex in bm.verts:vertex.co=project(vertex.co)[0]
-            bmesh.ops.triangulate(bm,faces=list(bm.faces))
-        bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(strap.data);bm.free();strap.data.update()
-        transfer_weights(strap, [bib,surface], arm)
-        for points in edgepaths:
-            binding = tube('Harness_Stitch', points, .00045, stitch)
-            transfer_weights(binding, [bib,surface], arm)
+                fraction=column/(columns-1);offset=(fraction-.5)*GARMENT_SETTINGS['harness_width_m'];centre,normal=project(point)
+                p=centre+across*offset+normal*(.0018+offset*offset/.24);vertices.append(p);uv.append((fraction,i/rows));weights.append(weight_z(p.z))
+            for column in range(columns-1):
+                a=i*columns+column;b=((i+1)%rows)*columns+column;faces.append((a,a+1,b+1,b))
+        strap=mesh(('Left'if sign>0 else'Right')+'_Rifle_Harness_Webbing',vertices,faces,[black],uv=uv,weights=weights)
+        bm=bmesh.new();bm.from_mesh(strap.data);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(strap.data);bm.free();strap.data.update();transfer_weights(strap,[bib,surface],arm)
+        bpy.context.view_layer.objects.active=strap;mod=strap.modifiers.new('Solid returning webbing','SOLIDIFY');mod.thickness=GARMENT_SETTINGS['harness_thickness_m'];mod.offset=1;mod.use_even_offset=False;mod.use_quality_normals=True;bpy.ops.object.modifier_apply(modifier=mod.name)
+        strap['route']='closed shoulder/front/underarm/back load-bearing loop'
 
 
-def analytic_panel_material(material, red, black):
+def fit_harness_adjuster(obj,arm):
+    """Seat adjustment hardware on the actual webbing, not a guessed torso depth."""
+    straps=[o for o in bpy.context.scene.objects if o.type=='MESH'and o.name.endswith('_Rifle_Harness_Webbing')]
+    points=[];faces=[]
+    for strap in straps:
+        start=len(points);points.extend(strap.matrix_world@v.co for v in strap.data.vertices);faces.extend(tuple(i+start for i in f.vertices)for f in strap.data.polygons)
+    tree=BVHTree.FromPolygons(points,faces)
+    world=obj.matrix_world.copy();centre=sum((world@v.co for v in obj.data.vertices),Vector())/len(obj.data.vertices);sign=1 if centre.x>0 else-1
+    hit=tree.find_nearest(Vector((sign*.133,-.115,1.275)));delta=hit[0]+hit[1]*.0025-centre
+    for vertex in obj.data.vertices:vertex.co=world.inverted()@(world@vertex.co+delta)
+    obj.data.update();transfer_weights(obj,straps,arm)
+
+def analytic_panel_material(material, red, black, kit_masks=False):
     """Bake panel boundaries at texel resolution, not coarse triangle vertex colors."""
     nodes, links = material.node_tree.nodes, material.node_tree.links
     geometry = nodes.new('ShaderNodeNewGeometry')
@@ -313,6 +287,14 @@ def analytic_panel_material(material, red, black):
     mask = op('ADD', op('MULTIPLY', arm, sleeve), op('MULTIPLY', op('SUBTRACT', 1, arm), center))
     # Keep the collar and central upper torso red.
     mask = op('MULTIPLY', mask, op('LESS_THAN', z, 1.445))
+    if kit_masks:
+        trim=op('MAXIMUM',op('MULTIPLY',op('LESS_THAN',op('ABSOLUTE',outer),.008),op('SUBTRACT',1,arm)),op('MULTIPLY',arm,op('LESS_THAN',op('ABSOLUTE',op('SUBTRACT',y,.048)),.008)))
+        trim=op('MULTIPLY',trim,op('LESS_THAN',z,1.445))
+        accent=op('MULTIPLY',op('MULTIPLY',arm,op('GREATER_THAN',ax,.48)),op('SUBTRACT',1,trim))
+        main=op('MULTIPLY',op('MULTIPLY',op('SUBTRACT',1,mask),op('SUBTRACT',1,trim)),op('SUBTRACT',1,accent))
+        channels=nodes.new('ShaderNodeCombineXYZ')
+        for source,socket in zip([main,trim,accent],channels.inputs):links.new(source,socket)
+        return channels.outputs[0]
     mix = nodes.new('ShaderNodeMixRGB'); mix.blend_type = 'MIX'
     mix.inputs[1].default_value = red.diffuse_color
     mix.inputs[2].default_value = black.diffuse_color

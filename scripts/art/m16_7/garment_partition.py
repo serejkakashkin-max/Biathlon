@@ -73,3 +73,8 @@ def remove_covered_suit(surface):
     else:selected=[face for face in bm.faces if face[layer]]
     count=len(selected);bmesh.ops.delete(bm,geom=selected,context='FACES');bm.to_mesh(surface.data);bm.free();surface.data.update()
     return {'covered_suit_triangles_removed':count,'reference':'Suit_Bib_Lining_Reference','reference_in_runtime':False}
+
+def retain_covered_suit(surface):
+    """The race bib is removable; its underlying suit remains a complete shell."""
+    flags=surface.data.attributes['Covered_By_Bib']
+    return {'covered_suit_triangles_removed':0,'covered_suit_triangles_retained':sum(row.value for row in flags.data),'reference_in_runtime':False,'method':'complete_suit_beneath_separate_pullover'}

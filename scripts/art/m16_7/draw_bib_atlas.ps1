@@ -10,7 +10,7 @@ $layout=[Collections.Generic.List[object]]::new()
 try{
     $graphics.SmoothingMode=[Drawing.Drawing2D.SmoothingMode]::AntiAlias
     $graphics.PixelOffsetMode=[Drawing.Drawing2D.PixelOffsetMode]::HighQuality
-    $graphics.Clear([Drawing.Color]::FromArgb(255,229,231,230))
+    $graphics.Clear([Drawing.Color]::FromArgb(255,[int]$settings.fabric_color_rgb[0],[int]$settings.fabric_color_rgb[1],[int]$settings.fabric_color_rgb[2]))
     $brush=[Drawing.SolidBrush]::new([Drawing.Color]::FromArgb(255,29,35,39))
     try{
         $pxPerMeterX=(.5-2*$settings.page_padding_uv)*$settings.resolution/(2*$settings.half_width_m)

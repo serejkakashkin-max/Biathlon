@@ -21,7 +21,9 @@ namespace Biathlon.Unity
         public const string Prefab=Root+"/Prefabs/Biathlete_16_7.prefab";
         public const string ScenePath=Root+"/Preview/Biathlete_16_7_Preview.unity";
         [Serializable] private class MaterialRecord {public string name;public float[] color;public float roughness,metallic;}
-        [Serializable] private class Manifest {public MaterialRecord[] materials;}
+        [Serializable] private class KitRecord {public string nation,texture,primary,trim,accent;}
+        [Serializable] private class NationalTextiles {public string palette_path,palette_sha256;public KitRecord[] kits;}
+        [Serializable] private class Manifest {public MaterialRecord[] materials;public NationalTextiles national_textiles;}
         [Serializable] private class GarmentRecord {public int schema_version;public string id;public float textile_normal_strength,bib_normal_strength;}
         [Serializable] private class EquipmentRecord {public int schema_version;public string id;public float rifle_walnut_roughness,rifle_walnut_normal_strength;}
         private static readonly (string human,string bone)[] Mapping={
@@ -70,16 +72,18 @@ namespace Biathlon.Unity
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Pole_PULSE_Carbon_BaseColor_2K");}
                 else if(data.name=="PULSE_Mask_Woven_Strap")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Mask_PULSE_Strap_BaseColor_2K");Normal(material,"Textile_Normal_4K",.08f);}
+                else if(data.name=="PULSE_Rifle_Carry_Webbing")
+                {Map(material,"_BaseMap","Textile_BaseColor_4K");Normal(material,"Natural_Suit_Knit_Normal_4K",.20f);material.SetFloat("_Metallic",0);material.SetFloat("_Smoothness",.15f);}
                 else if(data.name=="Anatomical_Skin_CC0_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","MakeHuman_Skin_BaseColor_2K");material.SetFloat("_Smoothness",.38f);}
                 else if(data.name=="PULSE_Bib_Printed_Textile")
-                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Bib_PULSE_Print_BaseColor_4K");Normal(material,"Textile_Normal_4K",garment.bib_normal_strength);}
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Bib_PULSE_Print_BaseColor_4K");Normal(material,"Natural_Bib_Knit_Normal_2K",garment.bib_normal_strength);Map(material,"_MetallicGlossMap","Natural_Bib_MetallicSmoothness_2K");material.EnableKeyword("_METALLICSPECGLOSSMAP");material.SetFloat("_Smoothness",1);}
                 else if(data.name=="Race_Glove_Softshell"||data.name=="Race_Glove_Palm_Grip")
                 {Normal(material,"Textile_Normal_4K",data.name=="Race_Glove_Softshell"?.08f:.035f);}
                 else if(data.name=="Anatomical_Skin_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Skin_BaseColor_2K");Normal(material,"Skin_Normal_2K",.8f);Map(material,"_MetallicGlossMap","Skin_MetallicSmoothness_2K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name=="PULSE_Natural_Tailored_Textile")
-                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Natural_Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",garment.textile_normal_strength);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap",manifest.national_textiles.kits[0].texture);Normal(material,"Natural_Suit_Knit_Normal_4K",garment.textile_normal_strength);Map(material,"_MetallicGlossMap","Natural_Suit_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");material.SetFloat("_Smoothness",1);}
                 else if(data.name=="PULSE_Tailored_Textile")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",.28f);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
                 else if(data.name.Contains("Race_Red")||data.name.Contains("Stretch")||data.name.Contains("Bib_")||data.name.Contains("Thread"))
@@ -156,11 +160,38 @@ namespace Biathlon.Unity
                 if(natural)binding.ConfigureAnatomicalHands(new[]{
                     Find("Left_Palm_Side"),Find("Left_Dorsal_Side"),Find("Left_Middle_Knuckle"),Find("Left_Index_Knuckle"),Find("Left_Little_Knuckle"),
                     Find("Right_Palm_Side"),Find("Right_Dorsal_Side"),Find("Right_Middle_Knuckle"),Find("Right_Index_Knuckle"),Find("Right_Little_Knuckle")});
+                if(natural)ConfigureNationalKits(root,manifest.national_textiles,materials,skin);
                 if(root.GetComponentsInChildren<Collider>(true).Length!=0)throw new InvalidOperationException("Visual prefab cannot acquire gameplay colliders.");
                 PrefabUtility.SaveAsPrefabAsset(root,prefabPath);
             }
             finally{Object.DestroyImmediate(root);}
             GenerateScene(prefabPath);
+        }
+        private static void ConfigureNationalKits(GameObject root,NationalTextiles definition,Dictionary<string,Material> materials,SkinnedMeshRenderer[] skins)
+        {
+            if(definition?.kits==null||definition.kits.Length!=AthleteAppearancePresentation.NationCount)throw new InvalidDataException("National textiles must cover the existing game palette.");
+            using(var sha=System.Security.Cryptography.SHA256.Create())
+                if(BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(definition.palette_path))).Replace("-","").ToLowerInvariant()!=definition.palette_sha256)throw new InvalidDataException("National palette changed; rebuild authored textile variants.");
+            string folder=Root+"/Materials/NationalKits";
+            if(!AssetDatabase.IsValidFolder(folder))AssetDatabase.CreateFolder(Root+"/Materials","NationalKits");
+            Material Variant(Material source,string nation)
+            {
+                string country=folder+"/"+nation;if(!AssetDatabase.IsValidFolder(country))AssetDatabase.CreateFolder(folder,nation);
+                string path=country+"/"+source.name+".mat";var result=AssetDatabase.LoadAssetAtPath<Material>(path);
+                if(result==null){result=new Material(source);AssetDatabase.CreateAsset(result,path);}
+                EditorUtility.CopySerialized(source,result);result.name=source.name;return result;
+            }
+            var suits=new Material[definition.kits.Length];var caps=new Material[suits.Length];var accents=new Material[suits.Length];var nations=new string[suits.Length];
+            for(int i=0;i<suits.Length;i++)
+            {
+                var kit=definition.kits[i];if(kit.nation!=AthleteAppearancePresentation.NationAt(i))throw new InvalidDataException("Authored nation order differs from the game palette.");
+                if(!ColorUtility.TryParseHtmlString(kit.primary,out var primary)||primary!=AthleteAppearancePresentation.NationColor(kit.nation)||!ColorUtility.TryParseHtmlString(kit.accent,out var accent))throw new InvalidDataException("Invalid authored national colours.");
+                nations[i]=kit.nation;suits[i]=Variant(materials["PULSE_Natural_Tailored_Textile"],kit.nation);Map(suits[i],"_BaseMap",kit.texture);
+                caps[i]=Variant(materials["PULSE_Race_Red"],kit.nation);caps[i].SetColor("_BaseColor",primary);
+                accents[i]=Variant(materials["PULSE_Scarlet_Accent"],kit.nation);accents[i].SetColor("_BaseColor",accent);
+                foreach(var mat in new[]{suits[i],caps[i],accents[i]}){EditorUtility.SetDirty(mat);AssetDatabase.SaveAssetIfDirty(mat);}
+            }
+            root.AddComponent<Biathlete167Outfit>().Configure(nations,suits,caps,accents,skins);
         }
         private static void Map(Material material,string property,string name)
         {var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(Root+"/Textures/"+name+".png");if(texture==null)throw new InvalidDataException("Missing PBR map "+name);material.SetTexture(property,texture);}

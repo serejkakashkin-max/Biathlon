@@ -11,12 +11,13 @@ from mathutils.kdtree import KDTree
 from mathutils.bvhtree import BVHTree
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from equipment_refine import CONTACT_SETTINGS, HANDLE_PROFILE, grip_frame, tuck_grip_frame, sporting_rifle, grip_finger_matrices
-from refine_garments import GARMENT_SETTINGS, race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness
+from refine_garments import GARMENT_SETTINGS, race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness, fit_harness_adjuster
 from bib_print import apply_bib_print
 from equipment_detail import SETTINGS as EQUIPMENT_SETTINGS, SETTINGS_PATH as EQUIPMENT_SETTINGS_PATH, mask_parts, ski_and_pole_materials, pole_details, reference_rifle
 from mask_webbing import finish_mask
 from rifle_visual_fit import fit_rifle
 from rifle_suspension import add_suspension
+from garment_materials import finish_suit,finish_bib
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -358,6 +359,7 @@ bpy.ops.object.bake(type='EMIT');atlas.filepath_raw=str(out/'Textures/Natural_Su
 links.new(principal.outputs[0],output.inputs['Surface']);links.new(target.outputs['Color'],principal.inputs['Base Color'])
 normaltex=nodes.new('ShaderNodeTexImage');normaltex.image=weave_n;norm=nodes.new('ShaderNodeNormalMap');norm.inputs['Strength'].default_value=GARMENT_SETTINGS['textile_normal_strength'];links.new(normaltex.outputs['Color'],norm.inputs['Color']);links.new(norm.outputs[0],principal.inputs['Normal'])
 roughtex=nodes.new('ShaderNodeTexImage');roughtex.image=weave_r;rough_scale=nodes.new('ShaderNodeMath');rough_scale.operation='MULTIPLY';rough_scale.inputs[1].default_value=.2;rough_base=nodes.new('ShaderNodeMath');rough_base.operation='ADD';rough_base.inputs[1].default_value=.6;links.new(roughtex.outputs[0],rough_scale.inputs[0]);links.new(rough_scale.outputs[0],rough_base.inputs[0]);links.new(rough_base.outputs[0],principal.inputs['Roughness']);principal.inputs['Sheen Weight'].default_value=.15
+textile_receipt=finish_suit(clothes,tailored,red,black,out)
 materials.append(tailored)
 mod=clothes.modifiers.new('Original normalized skeletal weights','ARMATURE');mod.object=arm;clothes.parent=arm;clothes.matrix_world=Matrix.Identity(4);objects.append(clothes)
 for old in list(objects):
@@ -561,10 +563,12 @@ for old in list(objects):
     if old.name.startswith(('Bib27_','Bib_Header','Bib_Footer')):
         objects.remove(old);bpy.data.objects.remove(old,do_unlink=True)
 bib_print_receipt=apply_bib_print(bib,out,material,materials,GARMENT_SETTINGS)
+finish_bib(bib.data.materials[0],out)
 for obj in list(objects):
     if obj.name.startswith('Bib_Bound_Edge') or 'Rifle_Harness_Webbing' in obj.name or obj.name.startswith('Harness_Stitch') or '_Torso_Flatlock' in obj.name:
         objects.remove(obj);bpy.data.objects.remove(obj,do_unlink=True)
-fitted_harness(clothes,bib,arm,mesh,tube,black,stitch,weight_z)
+harness_material=material('PULSE_Rifle_Carry_Webbing',(.009,.012,.016),.85);materials.append(harness_material)
+fitted_harness(clothes,bib,arm,mesh,tube,harness_material,stitch,weight_z)
 rifle_suspension_receipt=add_suspension(mesh,material,materials,arm,EQUIPMENT_SETTINGS)
 # Sample the centre-front surface explicitly. Nearest-point fitting a tube from
 # inside the old torso collapsed its cross-section and made it bridge the neck.
@@ -596,12 +600,12 @@ for obj in list(objects):
     if any(token in obj.name for token in ['Flatlock','Sleeve_Seam']):
         fit_surface(obj,clothes,.0012);transfer_weights(obj,clothes,arm)
     if obj.name.startswith('Harness_Adjuster'):
-        fit_surface(obj,bib,.004);transfer_weights(obj,bib,arm)
+        fit_harness_adjuster(obj,arm)
 
-# No covered suit surface is rendered underneath the bib. Retain its editable
-# reference in the source only; coincident clothing layers cut through on bends.
-from garment_partition import remove_covered_suit
-garment_coverage_receipt=remove_covered_suit(clothes)
+# Keep the complete suit underneath the separate, eased pullover vest.
+# Both layers retain normalized source weights and are checked after Unity skinning.
+from garment_partition import retain_covered_suit
+garment_coverage_receipt=retain_covered_suit(clothes)
 # Ensure material paths portable, document exact produced geometry and source basis.
 bpy.context.view_layer.update()
 for obj in objects:
@@ -668,6 +672,7 @@ manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/prov
 manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
 manifest['rifle_visual_fit']=rifle_visual_receipt
 manifest['rifle_suspension']=rifle_suspension_receipt
+manifest['national_textiles']=textile_receipt
 manifest['mask_webbing']=mask_webbing_receipt
 manifest['walnut_source']=json.loads((anatomy_path.parents[2]/'Walnut/provenance.json').read_text())
 for obj in character_objects:
@@ -678,7 +683,7 @@ manifest['contact_frames']=contacts
 manifest['grip_variants']=['Skate','Tuck']
 manifest['garment_detail_definition_sha256']=hashlib.sha256((Path(__file__).resolve().parents[3]/'Assets/Biathlon/Characters/Biathlete_16_7/Documentation/garment-detail-v1.json').read_bytes()).hexdigest()
 manifest['bib_print']=bib_print_receipt
-manifest['garment_skinning']='shared_partition_vertices_and_normalized_weights'
+manifest['garment_skinning']='separate_pullover_vest_shared_skin_weights'
 manifest['garment_coverage']=garment_coverage_receipt
 manifest['contact_basis_conversion']='Blender -palm X, shaft Y; after Unity FBX handedness conversion, imported +X is the physical palmar side. Point markers independently validate the sign.'
 manifest['grip_audit']={pre:grip_finger_matrices(anatomy_metadata,side)[1] for pre,side in [('Left',1),('Right',-1)]}

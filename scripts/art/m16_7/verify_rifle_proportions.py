@@ -7,7 +7,7 @@ a=p.parse_args(sys.argv[sys.argv.index('--')+1:]);bpy.ops.wm.open_mainfile(filep
 def points(obj):return [obj.matrix_world@v.co for v in obj.data.vertices]
 def span(vertices,axis):return max(v[axis]for v in vertices)-min(v[axis]for v in vertices)
 # Flexible shoulder suspension belongs to the skinned body, not the rigid prop.
-rifle=[o for o in bpy.context.scene.objects if o.type=='MESH' and '_Rifle_Suspension_' not in o.name and any(m and ('Rifle_' in m.name)for m in o.data.materials)]
+rifle=[o for o in bpy.context.scene.objects if o.type=='MESH' and '_Rifle_Suspension_' not in o.name and not o.name.endswith('_Rifle_Harness_Webbing') and any(m and ('Rifle_' in m.name)for m in o.data.materials)]
 allpoints=[v for o in rifle for v in points(o)];stock=points(bpy.data.objects['PULSE_Biathlon_Walnut_Stock'])
 arm=bpy.data.objects['BiathleteSkeleton'];shoulders=abs((arm.matrix_world@arm.data.bones['LeftArm'].head_local).x-(arm.matrix_world@arm.data.bones['RightArm'].head_local).x)
 body=[v for o in bpy.context.scene.objects if o.type=='MESH' and (o.name in ['Race_Cap','Anatomical_Head_Neck']or o.name.endswith('_Nordic_Boot'))for v in points(o)];height=span(body,2)

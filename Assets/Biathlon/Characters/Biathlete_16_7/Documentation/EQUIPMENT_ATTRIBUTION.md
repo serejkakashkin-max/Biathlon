@@ -45,3 +45,6 @@ remain derivatives of Skiing Lady as credited above. Original glasses preserved.
 
 
 2026-11-06 rifle visual fit: original project-authored capped external barrel replaces the superseded thick donor upper exterior;15CC0 receiver-detail objects remain. Walnut stock/fittings are fitted to the athlete silhouette. Public owner CGTrader athlete and real competition photos were viewed for scale/carry comparison only; no commercial/reference mesh or photograph is redistributed. The dimensional gates are artistic proportions of this game prop, not manufacturer specifications. Existing CC0 and CC-BY attributions above remain applicable.
+
+
+2026-11-06: continuous shoulder/front/underarm/back carry-webbing loops, buckle seating and knit fabric maps are project-authored. The owner CGTrader athlete reference guided visual routing only; no reference mesh or texture was copied. Original glasses and existing CC-BY optional mask remain selectable with their prior attribution.

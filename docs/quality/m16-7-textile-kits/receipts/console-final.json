@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "m167_textiles_console_final",
+  "baseline_sequence": 427855,
+  "query": "console | where Sequence > 427855 and (LogType == \"Error\" or LogType == \"Exception\" or LogType == \"Assert\") | select Sequence,LogType,Message | first 10",
+  "observed_output": "0 results\nSequence|LogType|Message",
+  "editor": {
+    "isPlaying": false,
+    "isCompiling": false
+  }
+}

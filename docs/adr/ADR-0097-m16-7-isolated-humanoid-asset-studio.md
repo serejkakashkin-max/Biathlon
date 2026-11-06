@@ -206,3 +206,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-06 carry correction: equipment definition now supplies carry bone (Spine02/HumanoidSpine), centred placement and suspension width/thickness; source prop and back socket share this bone.4closed weighted bridges connect actual shoulder straps to solid stock surfaces. Independent imported centring, BakeMesh body clearance and stock-anchor drift tests preserve owner-rejected side/intersection failures and pass current asset.96PlayMode+3EditModePASS; [evidence](../quality/m16-7-centred-carry/REVIEW_RU.md). Race factory/gameplay remain untouched; M16.7OPEN/BUILD HOLD.
+
+
+2026-11-06 owner follow-up supersedes the earlier runtime suit/bib partition: the bib must read as a separate pullover shirt, so preserve the full suit underlay and author a closed eased fabric shell. Validate the actual imported skinned layers rather than deleting the underlying fabric. National variants derive from the existing versioned athlete palette, reuse shared material assets on3LODs, and remain isolated presentation. Carry straps are closed shoulder/front/underarm/back loops with actual topology and buckle-contact checks.104focusednativePASS; current evidence: docs/quality/m16-7-textile-kits. Source-authoring and UI changes only; authoritative race systems unchanged. M16.7 OPEN/BUILD HOLD.

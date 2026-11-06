@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "m167_layered_national_textiles_and_complete_harness_20261106",
+  "date": "2026-11-06",
+  "source_export_fbx_sha256": "5b97569d3024945812420e555c2a29d40e8164b20509fd7a0452f4875d5872c5",
+  "source_blend_sha256": "3ca744774c169b5df3908e02af89453135af05bb52a7f4af9565a8ea88ad132c",
+  "garment_definition_sha256": "f6e13a6210716474f05806d6398fcb748f36e6ff00e3fb7bf7b3783160967d35",
+  "canonical_palette_path": "Assets/Resources/Biathlon/athlete_appearance_v1.json",
+  "canonical_palette_sha256": "b53ae94a73813dd5762945ddc1019025aa388e41af01ebc7f71ad73e859416df",
+  "native_editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:22.2441965"
+  },
+  "native_playmode": {
+    "Status": "Passed",
+    "TotalTests": 101,
+    "PassedTests": 101,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:16.6518925"
+  },
+  "native_distinct_focused_cases": 104,
+  "source_gate_count": 8,
+  "source_grip_positive_checks": 6,
+  "source_grip_expected_negative_checks": 2,
+  "actual_imported_cloth_poses": 16,
+  "strict_interior_bib_suit_intersections": 0,
+  "console": {
+    "baseline_sequence": 427855,
+    "new_error_exception_assert": 0,
+    "editor_playing": false,
+    "editor_compiling": false
+  },
+  "national_kits": [
+    "NOR",
+    "SWE",
+    "FIN",
+    "GER",
+    "FRA",
+    "ITA",
+    "RUS"
+  ],
+  "triangles": {
+    "active_lod0_triangles": 185025,
+    "stored_lod0_triangles": 221061,
+    "triangles": 290736
+  },
+  "bib": "Separate closed 1.2mm pullover fabric volume over the complete suit; actual source gap7.799–14.150mm;1951covered suit faces retained.",
+  "harness": "Two closed 24mm webbing loops shoulder/front/underarm/back; original4rear suspension bridges retained; buckles seated2.5mm from actual webbing.",
+  "scope": "Isolated hero presentation only. Race factory remains G2; authoritative simulation, balance, AI, shot geometry, career and saves unchanged.",
+  "limits": [
+    "Focused tests only; full assembly not qualified.",
+    "16sampled poses do not prove continuous-time or coplanar collision clearance.",
+    "No30-athlete terrain/LOD/performance qualification.",
+    "Garment edge/fold and equipment artistic polish, full shooting stances/rifle transitions remain open.",
+    "Not owner art acceptance or reference equivalence."
+  ],
+  "milestone": "M16.6 CLOSED; M16.7 OPEN; BUILD HOLD; no new Windows player",
+  "references_view_only": [
+    "https://www.cgtrader.com/3d-models/character/man/biathlete-fully-equipped-rigged",
+    "https://trimtexstore.com/pages/ace",
+    "https://www.biathlonworld.com/fr/news/nawrath-wins-oestersund-sprint/MWUEBvsrxfhLC3OsBXaxv"
+  ]
+}

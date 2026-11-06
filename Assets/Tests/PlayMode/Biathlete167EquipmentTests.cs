@@ -18,6 +18,22 @@ namespace Biathlon.PlayModeTests
     {
         private const string Root="Assets/Biathlon/Characters/Biathlete_16_7";
         private Biathlete167Rig Create()=>Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/Prefabs/Biathlete_16_7_Natural.prefab")).GetComponent<Biathlete167Rig>();
+        [Test] public void ImportedCarryWebbingHasTwoClosedReturningLoops()
+        {
+            var rig=Create();var baked=new Mesh();try
+            {
+                rig.SetPose(0);var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();skin.BakeMesh(baked);
+                int sub=Array.FindIndex(skin.sharedMaterials,m=>m.name=="PULSE_Rifle_Carry_Webbing");Assert.That(sub,Is.GreaterThanOrEqualTo(0));
+                var faces=baked.GetTriangles(sub);var vertices=baked.vertices;var ids=new System.Collections.Generic.Dictionary<Vector3Int,int>();var welded=new int[vertices.Length];
+                foreach(int i in faces.Distinct()){var key=Vector3Int.RoundToInt(vertices[i]*1000000);if(!ids.TryGetValue(key,out int value)){value=ids.Count;ids.Add(key,value);}welded[i]=value;}
+                var edges=new System.Collections.Generic.Dictionary<(int,int),int>();var parents=Enumerable.Range(0,ids.Count).ToArray();int Find(int i){while(parents[i]!=i){parents[i]=parents[parents[i]];i=parents[i];}return i;}
+                for(int i=0;i<faces.Length;i+=3)foreach(var pair in new[]{(welded[faces[i]],welded[faces[i+1]]),(welded[faces[i+1]],welded[faces[i+2]]),(welded[faces[i+2]],welded[faces[i]])})
+                {var key=pair.Item1<pair.Item2?pair:(pair.Item2,pair.Item1);edges.TryGetValue(key,out int count);edges[key]=count+1;parents[Find(pair.Item1)]=Find(pair.Item2);}
+                Assert.That(edges.Values.All(count=>count==2),Is.True,"Imported webbing must be solid and continuous.");
+                Assert.That(ids.Count-edges.Count+faces.Length/3,Is.Zero,"Returning shoulder loops have toroidal topology; capped hanging strips fail.");
+                Assert.That(Enumerable.Range(0,ids.Count).Select(Find).Distinct().Count(),Is.EqualTo(2));
+            }finally{Object.DestroyImmediate(baked);Object.DestroyImmediate(rig.gameObject);}
+        }
         [Test] public void RifleHarnessHasSolidSuspensionBridges()
         {
             var rig=Create();var baked=new Mesh();try

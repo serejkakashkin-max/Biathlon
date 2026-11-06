@@ -70,3 +70,6 @@ now includes real source finger-pad centres; its refreshed file hashes are in
 in `Models/Source~/Regression/` are prior project-authored/CC0-derived failures,
 not third-party reference geometry. Current export hashes and actual renders
 are pinned in `docs/quality/m16-7-natural/`.
+
+
+2026-11-06: new paired-knit suit/bib normal and smoothness maps, national albedos, semantic UV mask and returning carry-webbing geometry are project-authored. Colours derive from Assets/Resources/Biathlon/athlete_appearance_v1.json. CGTrader/Trimtex/IBU references are view-only; their photos/paid meshes are not redistributed. Existing CC0 anatomy/wood and CC-BY optional mask provenance remains applicable. Exact new-source hashes and real Unity evidence are pinned in docs/quality/m16-7-textile-kits/qualification.json.

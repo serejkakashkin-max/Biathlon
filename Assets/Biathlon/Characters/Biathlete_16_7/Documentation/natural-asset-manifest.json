@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "0313a3f6ed018faf8fa13578afbe819034cbeb75c02f6ce24483559c377a16bb",
+  "export_fbx_sha256": "5b97569d3024945812420e555c2a29d40e8164b20509fd7a0452f4875d5872c5",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -98,25 +98,25 @@
     },
     {
       "name": "Biathlete_Body_LOD0",
-      "triangles": 93119,
-      "vertices": 48530,
-      "uv_layers": 1,
+      "triangles": 129031,
+      "vertices": 65822,
+      "uv_layers": 2,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD1",
-      "triangles": 37246,
-      "vertices": 20139,
-      "uv_layers": 1,
+      "triangles": 51612,
+      "vertices": 26875,
+      "uv_layers": 2,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 13035,
-      "vertices": 7586,
-      "uv_layers": 1,
+      "triangles": 18063,
+      "vertices": 9793,
+      "uv_layers": 2,
       "skinned": true,
       "bone_parent": ""
     }
@@ -416,7 +416,7 @@
         0.009999999776482582,
         1.0
       ],
-      "roughness": 0.7200000286102295,
+      "roughness": 0.7799999713897705,
       "metallic": 0.0
     },
     {
@@ -506,6 +506,17 @@
       ],
       "roughness": 0.8600000143051147,
       "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Rifle_Carry_Webbing",
+      "color": [
+        0.008999999612569809,
+        0.012000000104308128,
+        0.01600000075995922,
+        1.0
+      ],
+      "roughness": 0.85,
+      "metallic": 0
     }
   ],
   "sockets": [
@@ -575,9 +586,9 @@
     {
       "object": "Right_Rifle_Suspension_Upper",
       "shoulder_anchor": [
-        -0.14702099561691284,
-        0.15929996967315674,
-        1.447510838508606
+        -0.1476699858903885,
+        0.1603880375623703,
+        1.4532461166381836
       ],
       "stock_anchor": [
         -0.015402554534375668,
@@ -585,9 +596,9 @@
         1.3363593816757202
       ],
       "shoulder_weights": {
-        "Spine": 0.6600844264030457,
-        "RightShoulder": 0.17682284116744995,
-        "RightArm": 0.1630927175283432
+        "Spine": 0.6571276187896729,
+        "RightShoulder": 0.18819360435009003,
+        "RightArm": 0.15467879176139832
       },
       "stock_bone": "Spine02",
       "width_m": 0.024,
@@ -596,9 +607,9 @@
     {
       "object": "Left_Rifle_Suspension_Upper",
       "shoulder_anchor": [
-        0.14751183986663818,
-        0.15845194458961487,
-        1.4502133131027222
+        0.1475069671869278,
+        0.16042460501194,
+        1.4529852867126465
       ],
       "stock_anchor": [
         -0.00880481768399477,
@@ -606,9 +617,9 @@
         1.3365321159362793
       ],
       "shoulder_weights": {
-        "Spine": 0.6624137759208679,
-        "LeftShoulder": 0.1760934740304947,
-        "LeftArm": 0.1614927351474762
+        "Spine": 0.6652370095252991,
+        "LeftShoulder": 0.181773841381073,
+        "LeftArm": 0.15298913419246674
       },
       "stock_bone": "Spine02",
       "width_m": 0.024,
@@ -617,9 +628,9 @@
     {
       "object": "Right_Rifle_Suspension_Lower",
       "shoulder_anchor": [
-        -0.13619618117809296,
-        0.1053425595164299,
-        1.2048205137252808
+        -0.15031033754348755,
+        0.11310231685638428,
+        1.231339454650879
       ],
       "stock_anchor": [
         0.027696367353200912,
@@ -627,10 +638,10 @@
         1.0982059240341187
       ],
       "shoulder_weights": {
-        "Spine02": 0.5340005159378052,
-        "Spine01": 0.3927346467971802,
-        "Spine": 0.06843249499797821,
-        "Hips": 0.004832329228520393
+        "Spine01": 0.5042621493339539,
+        "Spine02": 0.3680003583431244,
+        "Spine": 0.12543945014476776,
+        "Hips": 0.002298032632097602
       },
       "stock_bone": "Spine02",
       "width_m": 0.024,
@@ -639,9 +650,9 @@
     {
       "object": "Left_Rifle_Suspension_Lower",
       "shoulder_anchor": [
-        0.13549664616584778,
-        0.10385968536138535,
-        1.1986362934112549
+        0.15063053369522095,
+        0.11349824070930481,
+        1.231740117073059
       ],
       "stock_anchor": [
         0.03429410606622696,
@@ -649,16 +660,76 @@
         1.0983786582946777
       ],
       "shoulder_weights": {
-        "Spine02": 0.5907365679740906,
-        "Spine01": 0.3516177535057068,
-        "Spine": 0.0520562045276165,
-        "Hips": 0.005589452106505632
+        "Spine01": 0.5018988847732544,
+        "Spine02": 0.36814504861831665,
+        "Spine": 0.12778665125370026,
+        "Hips": 0.0021694088354706764
       },
       "stock_bone": "Spine02",
       "width_m": 0.024,
       "thickness_m": 0.0018
     }
   ],
+  "national_textiles": {
+    "schema_version": 1,
+    "id": "m167_national_textiles_v1",
+    "palette_path": "Assets/Resources/Biathlon/athlete_appearance_v1.json",
+    "palette_sha256": "b53ae94a73813dd5762945ddc1019025aa388e41af01ebc7f71ad73e859416df",
+    "kits": [
+      {
+        "nation": "NOR",
+        "texture": "Natural_Kit_NOR_BaseColor_4K",
+        "primary": "#BB3B42",
+        "trim": "#E9EDF3",
+        "accent": "#BB3B42"
+      },
+      {
+        "nation": "SWE",
+        "texture": "Natural_Kit_SWE_BaseColor_4K",
+        "primary": "#F2C94C",
+        "trim": "#174D89",
+        "accent": "#F2C94C"
+      },
+      {
+        "nation": "FIN",
+        "texture": "Natural_Kit_FIN_BaseColor_4K",
+        "primary": "#DFEDF3",
+        "trim": "#154E85",
+        "accent": "#DFEDF3"
+      },
+      {
+        "nation": "GER",
+        "texture": "Natural_Kit_GER_BaseColor_4K",
+        "primary": "#283C43",
+        "trim": "#EBC956",
+        "accent": "#283C43"
+      },
+      {
+        "nation": "FRA",
+        "texture": "Natural_Kit_FRA_BaseColor_4K",
+        "primary": "#276CC4",
+        "trim": "#EAF1F7",
+        "accent": "#276CC4"
+      },
+      {
+        "nation": "ITA",
+        "texture": "Natural_Kit_ITA_BaseColor_4K",
+        "primary": "#278365",
+        "trim": "#EDF1E4",
+        "accent": "#278365"
+      },
+      {
+        "nation": "RUS",
+        "texture": "Natural_Kit_RUS_BaseColor_4K",
+        "primary": "#174E9C",
+        "trim": "#F4F5F7",
+        "accent": "#D52B3E"
+      }
+    ],
+    "normal_maps": "original paired warp/weft tangent normals; separate fine suit and coarser bib knit",
+    "surface_maps": "zero metallic RGB, variable smoothness in alpha",
+    "default_nation": "NOR"
+  },
   "mask_webbing": {
     "construction": "closed_solid_cap_fitted_webbing",
     "width_m": 0.024,
@@ -719,7 +790,7 @@
     "Skate",
     "Tuck"
   ],
-  "garment_detail_definition_sha256": "7baadadb7bf8921728bbf288ab4bf296ccdecb3df23b4a8d222d2d90592d09f4",
+  "garment_detail_definition_sha256": "f6e13a6210716474f05806d6398fcb748f36e6ff00e3fb7bf7b3783160967d35",
   "bib_print": {
     "method": "shared_fabric_uv_atlas",
     "texture": "Bib_PULSE_Print_BaseColor_4K",
@@ -729,11 +800,12 @@
     "font": "Assets/Resources/Biathlon/UI/Fonts/Roboto.ttf",
     "standalone_bib_glyph_meshes": 0
   },
-  "garment_skinning": "shared_partition_vertices_and_normalized_weights",
+  "garment_skinning": "separate_pullover_vest_shared_skin_weights",
   "garment_coverage": {
-    "covered_suit_triangles_removed": 1929,
-    "reference": "Suit_Bib_Lining_Reference",
-    "reference_in_runtime": false
+    "covered_suit_triangles_removed": 0,
+    "covered_suit_triangles_retained": 1951,
+    "reference_in_runtime": false,
+    "method": "complete_suit_beneath_separate_pullover"
   },
   "contact_basis_conversion": "Blender -palm X, shaft Y; after Unity FBX handedness conversion, imported +X is the physical palmar side. Point markers independently validate the sign.",
   "grip_audit": {
@@ -1078,7 +1150,15 @@
       }
     }
   },
-  "triangles": 235430,
-  "stored_lod0_triangles": 185149,
-  "active_lod0_triangles": 149113
+  "triangles": 290736,
+  "stored_lod0_triangles": 221061,
+  "active_lod0_triangles": 185025,
+  "source_edit_export": "same runtime assembly and LOD code as build_biathlete.py; textile maps reused unchanged",
+  "harness_routes": {
+    "schema_version": 1,
+    "id": "m167_closed_shoulder_return_loops",
+    "loops": 2,
+    "route": "front over shoulders, returning under arms to rear suspension anchors",
+    "material": "PULSE_Rifle_Carry_Webbing"
+  }
 }
