@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "m167_full_width_harness_junctions",
+  "pass": true,
+  "rows": [
+    {
+      "object": "Right_Rifle_Suspension_Upper",
+      "minimum_effective_width_ratio": 0.9925606538724808,
+      "minimum_effective_width_m": 0.023296654588486825,
+      "maximum_shoulder_seam_gap_m": 0.0008970791823230684,
+      "maximum_stock_seam_gap_m": 0.000888472015503794,
+      "buried_rear_ribbon_vertices": 0,
+      "maximum_garment_occlusion_m": 0,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Suspension_Upper",
+      "minimum_effective_width_ratio": 0.9862063360839495,
+      "minimum_effective_width_m": 0.02297983427138863,
+      "maximum_shoulder_seam_gap_m": 0.0008948266040533781,
+      "maximum_stock_seam_gap_m": 0.0008956195670180023,
+      "buried_rear_ribbon_vertices": 0,
+      "maximum_garment_occlusion_m": 0,
+      "pass": true
+    },
+    {
+      "object": "Right_Rifle_Suspension_Lower",
+      "minimum_effective_width_ratio": 0.9863240091111997,
+      "minimum_effective_width_m": 0.009840516288001804,
+      "maximum_shoulder_seam_gap_m": 0.0008497354574501514,
+      "maximum_stock_seam_gap_m": 0.0008860829984769225,
+      "buried_rear_ribbon_vertices": 0,
+      "maximum_garment_occlusion_m": 0,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Suspension_Lower",
+      "minimum_effective_width_ratio": 0.9939192630406634,
+      "minimum_effective_width_m": 0.01012611357724291,
+      "maximum_shoulder_seam_gap_m": 0.0008151849615387619,
+      "maximum_stock_seam_gap_m": 0.0008816257468424737,
+      "buried_rear_ribbon_vertices": 0,
+      "maximum_garment_occlusion_m": 0,
+      "pass": true
+    }
+  ],
+  "front_smoothness": [
+    {
+      "object": "Right_Rifle_Harness_Webbing",
+      "front_rows": 37,
+      "maximum_adjacent_route_turn_degrees": 4.126873721055282,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Harness_Webbing",
+      "front_rows": 37,
+      "maximum_adjacent_route_turn_degrees": 3.602283603173391,
+      "pass": true
+    }
+  ]
+}

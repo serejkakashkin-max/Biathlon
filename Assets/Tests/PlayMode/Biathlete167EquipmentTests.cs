@@ -18,7 +18,7 @@ namespace Biathlon.PlayModeTests
     {
         private const string Root="Assets/Biathlon/Characters/Biathlete_16_7";
         private Biathlete167Rig Create()=>Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/Prefabs/Biathlete_16_7_Natural.prefab")).GetComponent<Biathlete167Rig>();
-        [Test] public void ImportedCarryWebbingHasTwoClosedReturningLoops()
+        [Test] public void ImportedCarryWebbingHasTwoSolidShoulderPathsWithoutRedundantRearLoops()
         {
             var rig=Create();var baked=new Mesh();try
             {
@@ -30,8 +30,10 @@ namespace Biathlon.PlayModeTests
                 for(int i=0;i<faces.Length;i+=3)foreach(var pair in new[]{(welded[faces[i]],welded[faces[i+1]]),(welded[faces[i+1]],welded[faces[i+2]]),(welded[faces[i+2]],welded[faces[i]])})
                 {var key=pair.Item1<pair.Item2?pair:(pair.Item2,pair.Item1);edges.TryGetValue(key,out int count);edges[key]=count+1;parents[Find(pair.Item1)]=Find(pair.Item2);}
                 Assert.That(edges.Values.All(count=>count==2),Is.True,"Imported webbing must be solid and continuous.");
-                Assert.That(ids.Count-edges.Count+faces.Length/3,Is.Zero,"Returning shoulder loops have toroidal topology; capped hanging strips fail.");
+                Assert.That(ids.Count-edges.Count+faces.Length/3,Is.EqualTo(4),"Two solid capped shoulder paths join the four rifle bridges; the owner rejected extra rear vertical loops.");
                 Assert.That(Enumerable.Range(0,ids.Count).Select(Find).Distinct().Count(),Is.EqualTo(2));
+                var rear=faces.Distinct().Select(i=>rig.transform.InverseTransformPoint(skin.transform.TransformPoint(vertices[i]))).Where(p=>p.z<-.075f&&p.y>1.355f&&p.y<1.425f).ToArray();
+                Assert.That(rear,Is.Empty,"The owner-marked vertical strips between upper and lower rear junctions must be absent.");
             }finally{Object.DestroyImmediate(baked);Object.DestroyImmediate(rig.gameObject);}
         }
         [Test] public void RifleHarnessHasSolidSuspensionBridges()
@@ -71,6 +73,11 @@ namespace Biathlon.PlayModeTests
                 var collider=probe.AddComponent<MeshCollider>();
                 var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();
                 var mesh=rig.Rifle.GetComponent<MeshFilter>().sharedMesh;var vertices=mesh.vertices;
+                // Back/pelvis clearance concerns anatomy and clothing. The
+                // suspension is deliberately attached to the stock and must
+                // not be mistaken for a body collision by this ray probe.
+                var bodyTriangles=Enumerable.Range(0,skin.sharedMaterials.Length).Where(i=>skin.sharedMaterials[i].name=="Anatomical_Skin_CC0_2K"||skin.sharedMaterials[i].name=="PULSE_Natural_Tailored_Textile"||skin.sharedMaterials[i].name=="PULSE_Bib_Printed_Textile").SelectMany(skin.sharedMesh.GetTriangles).ToArray();
+                Assert.That(bodyTriangles.Length,Is.GreaterThan(10000));
                 int wood=Array.FindIndex(rig.Rifle.GetComponent<Renderer>().sharedMaterials,m=>m.name=="PULSE_Natural_Rifle_Walnut");Assert.That(wood,Is.GreaterThanOrEqualTo(0));
                 var points=mesh.GetTriangles(wood).Distinct().Select(i=>vertices[i]).ToArray();int hits=0;float minimumGap=float.PositiveInfinity;
                 var states=(SkiMotionState[])Enum.GetValues(typeof(SkiMotionState));
@@ -78,7 +85,7 @@ namespace Biathlon.PlayModeTests
                 {
                     if(pose<0)rig.SetPose(0);else{motion.State=states[pose/4];motion.Evaluate((pose%4)/4f);}
                     collider.sharedMesh=null;skin.BakeMesh(baked);var body=baked.vertices;
-                    for(int i=0;i<body.Length;i++)body[i]=skin.transform.TransformPoint(body[i]);baked.vertices=body;baked.RecalculateBounds();collider.sharedMesh=baked;
+                    for(int i=0;i<body.Length;i++)body[i]=skin.transform.TransformPoint(body[i]);baked.vertices=body;baked.triangles=bodyTriangles;baked.RecalculateBounds();collider.sharedMesh=baked;
                     foreach(var local in points)
                     {
                         var point=rig.Rifle.TransformPoint(local);var direction=rig.transform.forward;

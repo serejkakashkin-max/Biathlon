@@ -672,6 +672,7 @@ manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/prov
 manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
 manifest['rifle_visual_fit']=rifle_visual_receipt
 manifest['rifle_suspension']=rifle_suspension_receipt
+manifest['harness_routes']={'schema_version':1,'id':'m167_smooth_shoulder_paths_without_redundant_rear_loops','shoulder_paths':2,'rear_vertical_loops':0,'route':'upper rifle junction over smooth padded shoulder/front, narrow underarm return to lower rifle junction; four full-width seated connections','material':'PULSE_Rifle_Carry_Webbing'}
 manifest['national_textiles']=textile_receipt
 manifest['mask_webbing']=mask_webbing_receipt
 manifest['walnut_source']=json.loads((anatomy_path.parents[2]/'Walnut/provenance.json').read_text())

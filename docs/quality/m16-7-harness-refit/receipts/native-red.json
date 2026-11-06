@@ -1,0 +1,40 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":3,\"PassedTests\":1,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:00:01.4670147\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(False)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.1300000\",\"Message\":\"  Visible shoulder seam breaks at pose-1, corner69888.\\r\\n  Expected: less than 0.00400000019f\\r\\n  But was:  0.00552613614f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(True)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0350000\",\"Message\":\"  Visible shoulder seam breaks at pose-1, corner69888.\\r\\n  Expected: less than 0.00400000019f\\r\\n  But was:  0.00552613614f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167HarnessTests.StudioRendersHarnessFrontBackAndTuckDetails\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1780000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 3,
+        "PassedTests": 1,
+        "FailedTests": 2,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.4670147"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(False)",
+          "Status": "Failed",
+          "Duration": "00:00:00.1300000",
+          "Message": "  Visible shoulder seam breaks at pose-1, corner69888.\r\n  Expected: less than 0.00400000019f\r\n  But was:  0.00552613614f\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(True)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0350000",
+          "Message": "  Visible shoulder seam breaks at pose-1, corner69888.\r\n  Expected: less than 0.00400000019f\r\n  But was:  0.00552613614f\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.StudioRendersHarnessFrontBackAndTuckDetails",
+          "Status": "Passed",
+          "Duration": "00:00:01.1780000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

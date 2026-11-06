@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "5b97569d3024945812420e555c2a29d40e8164b20509fd7a0452f4875d5872c5",
+  "export_fbx_sha256": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -98,25 +98,25 @@
     },
     {
       "name": "Biathlete_Body_LOD0",
-      "triangles": 129031,
-      "vertices": 65822,
-      "uv_layers": 2,
+      "triangles": 129063,
+      "vertices": 65842,
+      "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD1",
-      "triangles": 51612,
-      "vertices": 26875,
-      "uv_layers": 2,
+      "triangles": 51625,
+      "vertices": 26902,
+      "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 18063,
-      "vertices": 9793,
-      "uv_layers": 2,
+      "triangles": 18068,
+      "vertices": 9814,
+      "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     }
@@ -527,7 +527,7 @@
     "Pole_Left_Socket",
     "Pole_Right_Socket"
   ],
-  "equipment_detail_definition_sha256": "69706b826b6c919cfc6629624055226adc3c465349ec036ced5623f49909f701",
+  "equipment_detail_definition_sha256": "c923d711a4411350ce74264891a8ce1dbcd5f72d77d6e57f74e98fcd09b59e92",
   "eyewear_variants": [
     "glasses",
     "mask"
@@ -586,88 +586,92 @@
     {
       "object": "Right_Rifle_Suspension_Upper",
       "shoulder_anchor": [
-        -0.1476699858903885,
-        0.1603880375623703,
-        1.4532461166381836
+        -0.15964677929878235,
+        0.162140354514122,
+        1.4742859601974487
       ],
       "stock_anchor": [
-        -0.015402554534375668,
-        0.21379999816417694,
-        1.3363593816757202
+        -0.015402186661958694,
+        0.21380005776882172,
+        1.3363590240478516
       ],
       "shoulder_weights": {
-        "Spine": 0.6571276187896729,
-        "RightShoulder": 0.18819360435009003,
-        "RightArm": 0.15467879176139832
+        "Spine": 0.5414198637008667,
+        "RightShoulder": 0.26472848653793335,
+        "RightArm": 0.19385166466236115
       },
       "stock_bone": "Spine02",
-      "width_m": 0.024,
-      "thickness_m": 0.0018
+      "width_m": 0.02389712495119664,
+      "thickness_m": 0.0018,
+      "garment_span_arch_m": 0.003
     },
     {
       "object": "Left_Rifle_Suspension_Upper",
       "shoulder_anchor": [
-        0.1475069671869278,
-        0.16042460501194,
-        1.4529852867126465
+        0.16048096120357513,
+        0.16116295754909515,
+        1.4756325483322144
       ],
       "stock_anchor": [
-        -0.00880481768399477,
-        0.21379999816417694,
-        1.3365321159362793
+        -0.008804814890027046,
+        0.21380005776882172,
+        1.3365319967269897
       ],
       "shoulder_weights": {
-        "Spine": 0.6652370095252991,
-        "LeftShoulder": 0.181773841381073,
-        "LeftArm": 0.15298913419246674
+        "Spine": 0.5453529953956604,
+        "LeftShoulder": 0.26257088780403137,
+        "LeftArm": 0.19207611680030823
       },
       "stock_bone": "Spine02",
-      "width_m": 0.024,
-      "thickness_m": 0.0018
+      "width_m": 0.023903761506095123,
+      "thickness_m": 0.0018,
+      "garment_span_arch_m": 0.0045917086858868516
     },
     {
       "object": "Right_Rifle_Suspension_Lower",
       "shoulder_anchor": [
-        -0.15031033754348755,
-        0.11310231685638428,
-        1.231339454650879
+        -0.15475572645664215,
+        0.11639381945133209,
+        1.2623072862625122
       ],
       "stock_anchor": [
-        0.027696367353200912,
-        0.21379999816417694,
-        1.0982059240341187
+        0.031308889389038086,
+        0.21380005776882172,
+        0.9602528810501099
       ],
       "shoulder_weights": {
-        "Spine01": 0.5042621493339539,
-        "Spine02": 0.3680003583431244,
-        "Spine": 0.12543945014476776,
-        "Hips": 0.002298032632097602
+        "Spine01": 0.6116478443145752,
+        "Spine": 0.19337618350982666,
+        "Spine02": 0.1739976704120636,
+        "RightArm": 0.02097831666469574
       },
       "stock_bone": "Spine02",
-      "width_m": 0.024,
-      "thickness_m": 0.0018
+      "width_m": 0.010479497751483244,
+      "thickness_m": 0.0018,
+      "garment_span_arch_m": 0.014584785513204163
     },
     {
       "object": "Left_Rifle_Suspension_Lower",
       "shoulder_anchor": [
-        0.15063053369522095,
-        0.11349824070930481,
-        1.231740117073059
+        0.15448510646820068,
+        0.11691650003194809,
+        1.262316346168518
       ],
       "stock_anchor": [
-        0.03429410606622696,
-        0.21379999816417694,
-        1.0983786582946777
+        0.037906378507614136,
+        0.21380005776882172,
+        0.9604268074035645
       ],
       "shoulder_weights": {
-        "Spine01": 0.5018988847732544,
-        "Spine02": 0.36814504861831665,
-        "Spine": 0.12778665125370026,
-        "Hips": 0.0021694088354706764
+        "Spine01": 0.611465573310852,
+        "Spine": 0.19393038749694824,
+        "Spine02": 0.17348966002464294,
+        "LeftArm": 0.021114377304911613
       },
       "stock_bone": "Spine02",
-      "width_m": 0.024,
-      "thickness_m": 0.0018
+      "width_m": 0.01047949186161364,
+      "thickness_m": 0.0018,
+      "garment_span_arch_m": 0.003
     }
   ],
   "national_textiles": {
@@ -790,7 +794,7 @@
     "Skate",
     "Tuck"
   ],
-  "garment_detail_definition_sha256": "f6e13a6210716474f05806d6398fcb748f36e6ff00e3fb7bf7b3783160967d35",
+  "garment_detail_definition_sha256": "149ad4ff6f0ff4e3f211c8998e9a0d162bad82a9505f2f0ca5c1e71f6af29731",
   "bib_print": {
     "method": "shared_fabric_uv_atlas",
     "texture": "Bib_PULSE_Print_BaseColor_4K",
@@ -1150,15 +1154,16 @@
       }
     }
   },
-  "triangles": 290736,
-  "stored_lod0_triangles": 221061,
-  "active_lod0_triangles": 185025,
+  "triangles": 290786,
+  "stored_lod0_triangles": 221093,
+  "active_lod0_triangles": 185057,
   "source_edit_export": "same runtime assembly and LOD code as build_biathlete.py; textile maps reused unchanged",
   "harness_routes": {
     "schema_version": 1,
-    "id": "m167_closed_shoulder_return_loops",
-    "loops": 2,
-    "route": "front over shoulders, returning under arms to rear suspension anchors",
+    "id": "m167_smooth_shoulder_paths_without_redundant_rear_loops",
+    "shoulder_paths": 2,
+    "rear_vertical_loops": 0,
+    "route": "upper rifle junction over smooth padded shoulder/front, narrow underarm return to lower rifle junction; four full-width seated connections",
     "material": "PULSE_Rifle_Carry_Webbing"
   }
 }

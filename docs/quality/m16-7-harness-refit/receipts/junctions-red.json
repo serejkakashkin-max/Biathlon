@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "m167_full_width_harness_junctions",
+  "pass": false,
+  "rows": [
+    {
+      "object": "Right_Rifle_Suspension_Upper",
+      "minimum_effective_width_ratio": 0.6865652063711406,
+      "minimum_effective_width_m": 0.016477565244320154,
+      "maximum_shoulder_seam_gap_m": 0.012063292786478996,
+      "maximum_stock_seam_gap_m": 0.000900966755580157,
+      "pass": false
+    },
+    {
+      "object": "Left_Rifle_Suspension_Upper",
+      "minimum_effective_width_ratio": 0.6229540513027305,
+      "minimum_effective_width_m": 0.014950897495678541,
+      "maximum_shoulder_seam_gap_m": 0.012112204916775227,
+      "maximum_stock_seam_gap_m": 0.004458030220121145,
+      "pass": false
+    },
+    {
+      "object": "Right_Rifle_Suspension_Lower",
+      "minimum_effective_width_ratio": 0.6717801245019799,
+      "minimum_effective_width_m": 0.016122721643903475,
+      "maximum_shoulder_seam_gap_m": 0.011734932661056519,
+      "maximum_stock_seam_gap_m": 0.0009000599384307861,
+      "pass": false
+    },
+    {
+      "object": "Left_Rifle_Suspension_Lower",
+      "minimum_effective_width_ratio": 0.8112248153984529,
+      "minimum_effective_width_m": 0.019469396897626973,
+      "maximum_shoulder_seam_gap_m": 0.01186196319758892,
+      "maximum_stock_seam_gap_m": 0.0009000740246847272,
+      "pass": false
+    }
+  ],
+  "front_smoothness": [
+    {
+      "object": "Right_Rifle_Harness_Webbing",
+      "front_rows": 24,
+      "maximum_adjacent_route_turn_degrees": 134.77637994819645,
+      "pass": false
+    },
+    {
+      "object": "Left_Rifle_Harness_Webbing",
+      "front_rows": 25,
+      "maximum_adjacent_route_turn_degrees": 152.87131324836608,
+      "pass": false
+    }
+  ]
+}

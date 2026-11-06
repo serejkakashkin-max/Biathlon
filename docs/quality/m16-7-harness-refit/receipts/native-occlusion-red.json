@@ -1,0 +1,44 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":4,\"PassedTests\":3,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:02.5805710\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1400000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8740000\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167HarnessTests.RearSuspensionDoesNotDisappearUnderTheActualGarmentInProductionPoses\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0210000\",\"Message\":\"  Rear ribbon hidden by garment: pose-1, vertex70004.\\r\\n  Expected: less than 0.000300000014f\\r\\n  But was:  0.00112307072f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.Biathlete167HarnessTests.StudioRendersHarnessFrontBackAndTuckDetails\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4170000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 4,
+        "PassedTests": 3,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:02.5805710"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(False)",
+          "Status": "Passed",
+          "Duration": "00:00:00.1400000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(True)",
+          "Status": "Passed",
+          "Duration": "00:00:00.8740000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.RearSuspensionDoesNotDisappearUnderTheActualGarmentInProductionPoses",
+          "Status": "Failed",
+          "Duration": "00:00:00.0210000",
+          "Message": "  Rear ribbon hidden by garment: pose-1, vertex70004.\r\n  Expected: less than 0.000300000014f\r\n  But was:  0.00112307072f\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.StudioRendersHarnessFrontBackAndTuckDetails",
+          "Status": "Passed",
+          "Duration": "00:00:01.4170000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

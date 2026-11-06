@@ -48,3 +48,6 @@ remain derivatives of Skiing Lady as credited above. Original glasses preserved.
 
 
 2026-11-06: continuous shoulder/front/underarm/back carry-webbing loops, buckle seating and knit fabric maps are project-authored. The owner CGTrader athlete reference guided visual routing only; no reference mesh or texture was copied. Original glasses and existing CC-BY optional mask remain selectable with their prior attribution.
+
+
+2026-11-06 refitted harness: shoulder padding, returning tapes, tangent four-corner junctions and cloth-following skin weights are project-authored. CGTrader owner reference and Anschütz Feedback product photography were used for visual study only; no mesh/texture/photo was copied into the distributable asset. Existing licensed anatomical/wood/mask sources unchanged. Current evidence: docs/quality/m16-7-harness-refit.

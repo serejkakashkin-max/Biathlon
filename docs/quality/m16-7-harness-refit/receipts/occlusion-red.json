@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "m167_full_width_harness_junctions",
+  "pass": false,
+  "rows": [
+    {
+      "object": "Right_Rifle_Suspension_Upper",
+      "minimum_effective_width_ratio": 0.9996656103386945,
+      "minimum_effective_width_m": 0.02252032094936188,
+      "maximum_shoulder_seam_gap_m": 0.0008746865787543356,
+      "maximum_stock_seam_gap_m": 0.000881365907844156,
+      "buried_rear_ribbon_vertices": 0,
+      "maximum_garment_occlusion_m": 0,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Suspension_Upper",
+      "minimum_effective_width_ratio": 0.9998558701370484,
+      "minimum_effective_width_m": 0.022641570194891252,
+      "maximum_shoulder_seam_gap_m": 0.0008623898029327393,
+      "maximum_stock_seam_gap_m": 0.0008836097549647093,
+      "buried_rear_ribbon_vertices": 18,
+      "maximum_garment_occlusion_m": 0.0031975209712982178,
+      "pass": false
+    },
+    {
+      "object": "Right_Rifle_Suspension_Lower",
+      "minimum_effective_width_ratio": 0.9998573299709915,
+      "minimum_effective_width_m": 0.009826055668814252,
+      "maximum_shoulder_seam_gap_m": 0.000864859321154654,
+      "maximum_stock_seam_gap_m": 0.0008872300386428833,
+      "buried_rear_ribbon_vertices": 0,
+      "maximum_garment_occlusion_m": 0,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Suspension_Lower",
+      "minimum_effective_width_ratio": 0.9998749587982247,
+      "minimum_effective_width_m": 0.009850649417553954,
+      "maximum_shoulder_seam_gap_m": 0.0008384494576603174,
+      "maximum_stock_seam_gap_m": 0.0008861920796334743,
+      "buried_rear_ribbon_vertices": 0,
+      "maximum_garment_occlusion_m": 0,
+      "pass": true
+    }
+  ],
+  "front_smoothness": [
+    {
+      "object": "Right_Rifle_Harness_Webbing",
+      "front_rows": 25,
+      "maximum_adjacent_route_turn_degrees": 2.051567912740863,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Harness_Webbing",
+      "front_rows": 25,
+      "maximum_adjacent_route_turn_degrees": 2.34251262704225,
+      "pass": true
+    }
+  ]
+}

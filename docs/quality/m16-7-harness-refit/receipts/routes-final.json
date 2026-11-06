@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "m167_complete_load_bearing_harness_routes",
+  "pass": true,
+  "rows": [
+    {
+      "object": "Right_Rifle_Harness_Webbing",
+      "nonmanifold_edges": 0,
+      "euler_characteristic": 2,
+      "volume_m3": 2.298674157211661e-05,
+      "front_lower_vertices": 74,
+      "underarm_return_vertices": 475,
+      "rear_lower_vertices": 377,
+      "redundant_rear_vertical_vertices": 0,
+      "pass": true
+    },
+    {
+      "object": "Left_Rifle_Harness_Webbing",
+      "nonmanifold_edges": 0,
+      "euler_characteristic": 2,
+      "volume_m3": 2.294430930396727e-05,
+      "front_lower_vertices": 72,
+      "underarm_return_vertices": 475,
+      "rear_lower_vertices": 379,
+      "redundant_rear_vertical_vertices": 0,
+      "pass": true
+    }
+  ],
+  "adjusters": [
+    {
+      "object": "Harness_Adjuster",
+      "centre_to_webbing_m": 0.002499958500266075,
+      "pass": true
+    },
+    {
+      "object": "Harness_Adjuster.001",
+      "centre_to_webbing_m": 0.0024999671149998903,
+      "pass": true
+    }
+  ]
+}

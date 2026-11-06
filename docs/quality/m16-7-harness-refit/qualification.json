@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "m167_refitted_shoulder_harness_without_redundant_rear_verticals_20261106",
+  "date": "2026-11-06",
+  "source_export_fbx_sha256": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
+  "source_blend_sha256": "6cf47b06e00bf006d70d8e2aec33c60ba629fde4759fdfb71bf33924fb916d9e",
+  "garment_definition_sha256": "149ad4ff6f0ff4e3f211c8998e9a0d162bad82a9505f2f0ca5c1e71f6af29731",
+  "equipment_definition_sha256": "c923d711a4411350ce74264891a8ce1dbcd5f72d77d6e57f74e98fcd09b59e92",
+  "native_editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:21.4207034"
+  },
+  "native_playmode": {
+    "Status": "Passed",
+    "TotalTests": 105,
+    "PassedTests": 105,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:18.6977585"
+  },
+  "focused_distinct_cases": 108,
+  "source_gates": 9,
+  "source_grip_positive_checks": 6,
+  "source_grip_expected_negative_checks": 2,
+  "sampled_native_suspension_poses": 49,
+  "maximum_torso_bib_occlusion_m": 0,
+  "sampled_native_bib_suit_poses": 16,
+  "strict_interior_bib_suit_intersections": 0,
+  "console": {
+    "baseline_sequence": 428089,
+    "new_error_exception_assert": 0,
+    "isPlaying": false,
+    "isCompiling": false
+  },
+  "triangles": {
+    "active_lod0_triangles": 185057,
+    "stored_lod0_triangles": 221093,
+    "triangles": 290786
+  },
+  "owner_revision": "Remove the two marked rear verticals between upper and lower connections. Each solid shoulder path now joins the rifle at both ends through4full-width seated bridges. Earlier closed-loop topology was an incorrect construction constraint and is superseded by this owner revision.",
+  "verification_limits": [
+    "Focused tests only, not full assembly.",
+    "49sampled poses and16cloth snapshots are not continuous-time or coplanar collision proof.",
+    "Rear occlusion checks torso/bib; upper-arm-driven sleeve triangles are excluded because a lowered arm can legitimately obscure an attachment from that camera direction.",
+    "Glove/art/fabric-edge/LOD/terrain/30-athlete performance and full shooting transitions remain unqualified.",
+    "No final art acceptance or exact reference equivalence claimed."
+  ],
+  "scope": "Isolated hero presentation. Race factory remains G2; authoritative simulation, balance, AI, shot geometry, career and save schema unchanged.",
+  "milestone": "M16.6 CLOSED; M16.7 OPEN; BUILD HOLD; no new Windows player",
+  "references_view_only": [
+    "https://www.cgtrader.com/3d-models/character/man/biathlete-fully-equipped-rigged",
+    "https://shop.ahg-anschuetz.de/en/Anschuetz-Biathlon-harness-Modell-Feedback/015390"
+  ]
+}

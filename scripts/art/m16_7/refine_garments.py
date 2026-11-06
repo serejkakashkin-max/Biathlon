@@ -204,7 +204,12 @@ def continuous_collar(surface, mesh, tube, red, weight_z, skin_surface=None):
 
 
 def fitted_harness(surface, bib, arm, mesh, tube, black, stitch, weight_z):
-    """Closed load-bearing shoulder loops, including the underarm return."""
+    """Smooth shaped shoulder padding with a narrower continuous underarm return.
+
+    Webbing spans small garment wrinkles instead of duplicating their jagged
+    profile. Geometry, tangents and transverse frames all use the same filtered
+    route; fitting an unfiltered frame onto a different centreline made wedges.
+    """
     bpy.context.view_layer.update()
     target=BVHTree.FromObject(bib,bpy.context.evaluated_depsgraph_get());cloth=BVHTree.FromObject(surface,bpy.context.evaluated_depsgraph_get())
     def project(query):
@@ -217,27 +222,50 @@ def fitted_harness(surface, bib, arm, mesh, tube, black, stitch, weight_z):
             if signed>=GARMENT_SETTINGS['harness_clearance_m']*.9:break
             point+=nearby[1]*(GARMENT_SETTINGS['harness_clearance_m']-signed)
         return point,normal
-    def clearance(point):
-        hit=min([target.find_nearest(point),cloth.find_nearest(point)],key=lambda h:h[3]);return (point-hit[0]).dot(hit[1])
     for sign in (-1,1):
         controls=[Vector((sign*x,y,z))for x,y,z in GARMENT_SETTINGS['harness_route_controls_m']]
+        def index(i,count):return max(0,min(count-1,i))
         points=[];count=len(controls)
-        for i in range(count):
-            before,a,b,after=controls[(i-1)%count],controls[i],controls[(i+1)%count],controls[(i+2)%count]
+        for i in range(count-1):
+            before,a,b,after=controls[index(i-1,count)],controls[i],controls[i+1],controls[index(i+2,count)]
             for step in range(16):
                 t=step/16;points.append(.5*((2*a)+(-before+b)*t+(2*before-5*a+4*b-after)*t*t+(-before+3*a-3*b+after)*t*t*t))
-        vertices=[];faces=[];uv=[];weights=[];columns=GARMENT_SETTINGS['harness_cross_samples'];rows=len(points)
+        points.append(controls[-1])
+        fitted=[project(point)for point in points];points=[item[0]for item in fitted];normals=[item[1]for item in fitted];rows=len(points)
+        for _ in range(GARMENT_SETTINGS['harness_smoothing_iterations']):
+            points=[points[i]if i in [0,rows-1]else points[i]*.5+(points[i-1]+points[i+1])*.25 for i in range(rows)]
+            normals=[(normals[i]*.5+(normals[index(i-1,rows)]+normals[index(i+1,rows)])*.25).normalized()for i in range(rows)]
+        frames=[];widths=[];push=[];columns=GARMENT_SETTINGS['harness_cross_samples']
         for i,point in enumerate(points):
-            _,normal=project(point);tangent=(points[(i+1)%rows]-points[(i-1)%rows]).normalized();across=tangent.cross(normal).normalized()
+            normal=normals[i];tangent=(points[index(i+1,rows)]-points[index(i-1,rows)]).normalized();across=tangent.cross(normal).normalized()
+            shoulder=max(0,min(1,(point.z-1.30)/.17));shoulder=shoulder*shoulder*(3-2*shoulder)
+            width=GARMENT_SETTINGS['harness_return_width_m']+(GARMENT_SETTINGS['harness_padded_width_m']-GARMENT_SETTINGS['harness_return_width_m'])*shoulder
+            frames.append((normal,across));widths.append(width);needed=0
+            for fraction in [0,.25,.5,.75,1]:
+                probe=point+across*((fraction-.5)*width)
+                for tree in [target,cloth]:
+                    hit=tree.ray_cast(probe+normal*.04,-normal,.08)
+                    if hit[0]is not None:needed=max(needed,(hit[0]-probe).dot(normal)+GARMENT_SETTINGS['harness_clearance_m'])
+            push.append(needed)
+        # A short envelope bridges fine wrinkles without the previous saw teeth.
+        envelope=[max(push[index(i+j,rows)]for j in range(-5,6))for i in range(rows)]
+        for _ in range(8):envelope=[envelope[i]*.5+(envelope[index(i-1,rows)]+envelope[index(i+1,rows)])*.25 for i in range(rows)]
+        vertices=[];faces=[];uv=[];weights=[]
+        for i,point in enumerate(points):
+            normal,across=frames[i];centre=point+normal*(envelope[i]+.0007)
             for column in range(columns):
-                fraction=column/(columns-1);offset=(fraction-.5)*GARMENT_SETTINGS['harness_width_m'];centre,normal=project(point)
-                p=centre+across*offset+normal*(.0018+offset*offset/.24);vertices.append(p);uv.append((fraction,i/rows));weights.append(weight_z(p.z))
-            for column in range(columns-1):
-                a=i*columns+column;b=((i+1)%rows)*columns+column;faces.append((a,a+1,b+1,b))
+                fraction=column/(columns-1);offset=(fraction-.5)*widths[i]
+                crown=GARMENT_SETTINGS['harness_padding_crown_m']*(1-(2*fraction-1)**2)
+                p=centre+across*offset+normal*(crown+offset*offset/.24);vertices.append(p);uv.append((fraction,i/rows));weights.append(weight_z(p.z))
+            if i<rows-1:
+                for column in range(columns-1):
+                    a=i*columns+column;b=(i+1)*columns+column;faces.append((a,a+1,b+1,b))
         strap=mesh(('Left'if sign>0 else'Right')+'_Rifle_Harness_Webbing',vertices,faces,[black],uv=uv,weights=weights)
+        strap.data.uv_layers.active.name=surface.data.uv_layers.active.name
         bm=bmesh.new();bm.from_mesh(strap.data);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(strap.data);bm.free();strap.data.update();transfer_weights(strap,[bib,surface],arm)
         bpy.context.view_layer.objects.active=strap;mod=strap.modifiers.new('Solid returning webbing','SOLIDIFY');mod.thickness=GARMENT_SETTINGS['harness_thickness_m'];mod.offset=1;mod.use_even_offset=False;mod.use_quality_normals=True;bpy.ops.object.modifier_apply(modifier=mod.name)
-        strap['route']='closed shoulder/front/underarm/back load-bearing loop'
+        strap['route']='upper rifle junction over shoulder/front/underarm to lower rifle junction; no redundant rear vertical'
+        strap['route_rows']=rows;strap['route_columns']=columns
 
 
 def fit_harness_adjuster(obj,arm):
@@ -248,7 +276,8 @@ def fit_harness_adjuster(obj,arm):
         start=len(points);points.extend(strap.matrix_world@v.co for v in strap.data.vertices);faces.extend(tuple(i+start for i in f.vertices)for f in strap.data.polygons)
     tree=BVHTree.FromPolygons(points,faces)
     world=obj.matrix_world.copy();centre=sum((world@v.co for v in obj.data.vertices),Vector())/len(obj.data.vertices);sign=1 if centre.x>0 else-1
-    hit=tree.find_nearest(Vector((sign*.133,-.115,1.275)));delta=hit[0]+hit[1]*.0025-centre
+    query=Vector(GARMENT_SETTINGS['harness_adjuster_query_m']);query.x*=sign
+    hit=tree.find_nearest(query);delta=hit[0]+hit[1]*.0025-centre
     for vertex in obj.data.vertices:vertex.co=world.inverted()@(world@vertex.co+delta)
     obj.data.update();transfer_weights(obj,straps,arm)
 
