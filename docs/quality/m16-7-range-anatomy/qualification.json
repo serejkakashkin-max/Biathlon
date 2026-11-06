@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "id": "m167_range_anatomy_ski_stance_20261107",
+  "date": "2026-11-07",
+  "parent_commit": "62a0d73b2ca7de8aa3d74463be211ab6f5d582ba",
+  "status": "M16.7 OPEN / BUILD HOLD / isolated hero",
+  "native_playmode": {
+    "Status": "Passed",
+    "TotalTests": 194,
+    "PassedTests": 194,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:01:30.1540173"
+  },
+  "native_editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:21.2826008"
+  },
+  "focused_distinct_cases": 197,
+  "geometry_sha256_unchanged": {
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Biathlete_16_7_Natural.blend": "6cf47b06e00bf006d70d8e2aec33c60ba629fde4759fdfb71bf33924fb916d9e"
+  },
+  "sleeve_body_surface_probe": {
+    "actions": 5,
+    "phases_per_action": 129,
+    "strict_interior_edge_crossings": 0,
+    "shoulder_connection_exclusion_m": 0.09
+  },
+  "rifle_body_surface_probe": {
+    "actions": 5,
+    "phases_per_action": 129,
+    "strict_interior_edge_crossings": 0
+  },
+  "ski_footprint_probe": {
+    "stances": 2,
+    "phases_per_stance": 129,
+    "minimum_required_clearance_m": 0.005
+  },
+  "ski_volume_probe": {
+    "setups": 2,
+    "phases_per_setup": 257,
+    "minimum_required_separating_axis_gap_m": 0.002
+  },
+  "poles_ski_footprint_probe": {
+    "stances": 2,
+    "pairs_per_stance": 4,
+    "minimum_required_clearance_m": 0.005
+  },
+  "toe_binding_tolerance_m": 0.001,
+  "palm_contact_tolerance_m": 0.001,
+  "temporal_pose_samples_per_setup": 257,
+  "end_effector_step_limit_m": 0.05,
+  "weapon_step_limit_m": 0.04,
+  "offline_elbow_guide_samples_per_setup": 513,
+  "current_native_png_count": 60,
+  "actual_video_source_frames": 573,
+  "console": {
+    "after_sequence": 432159,
+    "new_error_exception_assert_count": 0,
+    "is_compiling": false,
+    "is_playing": false
+  },
+  "authoritative_gameplay_changed": false,
+  "windows_build_created": false,
+  "art_acceptance": false,
+  "limitations": [
+    "Sampled surfaces/poses, not continuous full-volume collision proof.",
+    "Sight/cheek/butt, trigger fingers, elbow mat support and cloth/harness refinement remain.",
+    "Terrain, non-unit scale, LOD and field performance not qualified."
+  ]
+}

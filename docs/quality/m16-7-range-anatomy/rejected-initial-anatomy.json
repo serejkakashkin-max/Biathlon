@@ -1,0 +1,41 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 5,
+    "PassedTests": 1,
+    "FailedTests": 4,
+    "SkippedTests": 0,
+    "Duration": "00:00:04.5503282"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.CaptureActualSkiStancesAndArmRemoval",
+      "Status": "Passed",
+      "Duration": "00:00:04.1570000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ShootingSkisFollowTheReferenceStanceInsteadOfPointingTogetherAtTargets(Standing)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0120000",
+      "Message": "  Standing ski 0 yaw=0: use the athlete's shooting stance, not the travelling heading.\r\n  Expected: greater than 35\r\n  But was:  0.0f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ShootingSkisFollowTheReferenceStanceInsteadOfPointingTogetherAtTargets(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0040000",
+      "Message": "  Prone ski 0 yaw=0: use the athlete's shooting stance, not the travelling heading.\r\n  Expected: greater than 35\r\n  But was:  0.0f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.SleevesDoNotPassThroughTheActualTorsoDuringRifleRemoval(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0830000",
+      "Message": "  EnterStanding phase=0/32 sleeve/torso crossings at (-0.15, 1.33, -0.13)\r\n  Expected: 0\r\n  But was:  167\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.SleevesDoNotPassThroughTheActualTorsoDuringRifleRemoval(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0600000",
+      "Message": "  EnterProne phase=0/32 sleeve/torso crossings at (-0.15, 1.33, -0.13)\r\n  Expected: 0\r\n  But was:  167\r\n"
+    }
+  ]
+}

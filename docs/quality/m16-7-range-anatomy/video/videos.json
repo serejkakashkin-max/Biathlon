@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "id": "m167_actual_motion_video_review",
+  "source_capture": {
+    "schema_version": 1,
+    "id": "m167_actual_range_anatomy_and_ski_stance",
+    "width": 1200,
+    "height": 720,
+    "view": "right side, actual Unity render",
+    "cycles": [
+      {
+        "state": "ApproachStanding",
+        "cycle_seconds": 3.5,
+        "frames": 84,
+        "source_state": "RangeEntry",
+        "source_first_frame": 152
+      },
+      {
+        "state": "StandingSetup",
+        "cycle_seconds": 4.599999904632568,
+        "frames": 111,
+        "source_state": "EnterStanding",
+        "source_first_frame": 390
+      },
+      {
+        "state": "Standing",
+        "cycle_seconds": 3.200000047683716,
+        "frames": 77,
+        "source_state": "Standing",
+        "source_first_frame": 236
+      },
+      {
+        "state": "ApproachProne",
+        "cycle_seconds": 3.5,
+        "frames": 84,
+        "source_state": "RangeEntry",
+        "source_first_frame": 152
+      },
+      {
+        "state": "ProneSetup",
+        "cycle_seconds": 5.800000190734863,
+        "frames": 140,
+        "source_state": "EnterProne",
+        "source_first_frame": 501
+      },
+      {
+        "state": "Prone",
+        "cycle_seconds": 3.200000047683716,
+        "frames": 77,
+        "source_state": "Prone",
+        "source_first_frame": 313
+      }
+    ]
+  },
+  "videos": [
+    {
+      "file": "motion-normal.mp4",
+      "playback_speed": 1,
+      "fps": 30,
+      "frame_count": 1428,
+      "timeline": [
+        {
+          "state": "ApproachStanding",
+          "starts_at_seconds": 0.0,
+          "duration_seconds": 7.0
+        },
+        {
+          "state": "StandingSetup",
+          "starts_at_seconds": 7.0,
+          "duration_seconds": 9.2
+        },
+        {
+          "state": "Standing",
+          "starts_at_seconds": 16.2,
+          "duration_seconds": 6.4
+        },
+        {
+          "state": "ApproachProne",
+          "starts_at_seconds": 22.6,
+          "duration_seconds": 7.0
+        },
+        {
+          "state": "ProneSetup",
+          "starts_at_seconds": 29.6,
+          "duration_seconds": 11.6
+        },
+        {
+          "state": "Prone",
+          "starts_at_seconds": 41.2,
+          "duration_seconds": 6.4
+        }
+      ]
+    },
+    {
+      "file": "motion-slow.mp4",
+      "playback_speed": 0.25,
+      "fps": 30,
+      "frame_count": 2856,
+      "timeline": [
+        {
+          "state": "ApproachStanding",
+          "starts_at_seconds": 0.0,
+          "duration_seconds": 14.0
+        },
+        {
+          "state": "StandingSetup",
+          "starts_at_seconds": 14.0,
+          "duration_seconds": 18.4
+        },
+        {
+          "state": "Standing",
+          "starts_at_seconds": 32.4,
+          "duration_seconds": 12.8
+        },
+        {
+          "state": "ApproachProne",
+          "starts_at_seconds": 45.2,
+          "duration_seconds": 14.0
+        },
+        {
+          "state": "ProneSetup",
+          "starts_at_seconds": 59.2,
+          "duration_seconds": 23.2
+        },
+        {
+          "state": "Prone",
+          "starts_at_seconds": 82.4,
+          "duration_seconds": 12.8
+        }
+      ]
+    }
+  ],
+  "method": "Actual Unity PNG frames resampled to 30fps using recorded cycle durations; no interpolated or generated athlete frames."
+}

@@ -1,0 +1,23 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 2,
+    "PassedTests": 1,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.2867023"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ActualSkiFootprintsStaySeparateInTheSettledShootingPose(Standing)",
+      "Status": "Passed",
+      "Duration": "00:00:00.3380000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ActualSkiFootprintsStaySeparateInTheSettledShootingPose(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0170000",
+      "Message": "  Prone phase=0/128: the actual projected ski footprints cross, including the tails. Parallel or opposite tips are allowed; crossing is not.\r\n  Expected: greater than 0.00499999989f\r\n  But was:  -0.558562815f\r\n"
+    }
+  ]
+}

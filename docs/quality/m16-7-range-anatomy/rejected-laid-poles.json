@@ -1,0 +1,44 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 6,
+    "PassedTests": 4,
+    "FailedTests": 2,
+    "SkippedTests": 0,
+    "Duration": "00:00:03.1194751"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ActualSkiFootprintsStaySeparateInTheSettledShootingPose(Standing)",
+      "Status": "Passed",
+      "Duration": "00:00:00.3650000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ActualSkiFootprintsStaySeparateInTheSettledShootingPose(Prone)",
+      "Status": "Passed",
+      "Duration": "00:00:00.1650000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ActualSkiVolumesStaySeparateThroughoutTheSetup(EnterStanding)",
+      "Status": "Passed",
+      "Duration": "00:00:00.7410000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.ActualSkiVolumesStaySeparateThroughoutTheSetup(EnterProne)",
+      "Status": "Passed",
+      "Duration": "00:00:00.5690000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.LaidPoleFootprintsRemainOutsideBothSkis(Standing)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0400000",
+      "Message": "  Standing laid pole crosses a ski: keep the entire shaft and basket outside its footprint.\r\n  Expected: greater than 0.00499999989f\r\n  But was:  -0.335859418f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeAnatomyTests.LaidPoleFootprintsRemainOutsideBothSkis(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0140000",
+      "Message": "  Prone laid pole crosses a ski: keep the entire shaft and basket outside its footprint.\r\n  Expected: greater than 0.00499999989f\r\n  But was:  -0.482901692f\r\n"
+    }
+  ]
+}
