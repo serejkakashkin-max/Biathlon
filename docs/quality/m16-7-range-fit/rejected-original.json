@@ -1,0 +1,53 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 7,
+    "PassedTests": 1,
+    "FailedTests": 6,
+    "SkippedTests": 0,
+    "Duration": "00:00:03.4934186"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Standing,0.25f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.1260000",
+      "Message": "  Standing/0,25 actual stock/barrel crosses the skinned body at (0.09, 1.47, -0.19)\r\n  Expected: 0\r\n  But was:  46\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Prone,0.25f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0330000",
+      "Message": "  Prone/0,25 actual stock/barrel crosses the skinned body at (0.10, 0.36, 0.44)\r\n  Expected: 0\r\n  But was:  27\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterStanding,0.6f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0340000",
+      "Message": "  EnterStanding/0,6 actual stock/barrel crosses the skinned body at (0.22, 1.43, -0.03)\r\n  Expected: 0\r\n  But was:  140\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterProne,0.75f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0330000",
+      "Message": "  EnterProne/0,75 actual stock/barrel crosses the skinned body at (0.10, 0.91, 0.08)\r\n  Expected: 0\r\n  But was:  136\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CaptureActualRangeFit",
+      "Status": "Passed",
+      "Duration": "00:00:03.0650000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SelectedLensIsRaisedBeforeSettledShootingAndReturnsForSkiing(Glasses)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0060000",
+      "Message": "  Lift the selected lens onto the cap before aiming.\r\n  Expected: greater than 0.0649999976f\r\n  But was:  9.31322575E-08f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SelectedLensIsRaisedBeforeSettledShootingAndReturnsForSkiing(Mask)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0040000",
+      "Message": "  Lift the selected lens onto the cap before aiming.\r\n  Expected: greater than 0.0649999976f\r\n  But was:  1.04308128E-07f\r\n"
+    }
+  ]
+}

@@ -24,6 +24,7 @@ namespace Biathlon.Unity.Presentation
         [SerializeField] private Biathlete167Eyewear eyewear;
         public Biathlete167Eyewear Eyewear=>eyewear;
         public bool HasEyewearChoice=>glasses!=null&&mask!=null;
+        public Transform EyewearRoot(Biathlete167Eyewear value)=>value==Biathlete167Eyewear.Glasses?glasses.transform:value==Biathlete167Eyewear.Mask?mask.transform:throw new ArgumentOutOfRangeException(nameof(value));
         public void ConfigureEyewear(GameObject glassesOption,GameObject maskOption)
         {
             if(glassesOption==null||maskOption==null||glassesOption==maskOption||!glassesOption.transform.IsChildOf(transform)||!maskOption.transform.IsChildOf(transform))

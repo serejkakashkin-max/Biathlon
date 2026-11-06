@@ -1,0 +1,166 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 29,
+    "PassedTests": 20,
+    "FailedTests": 9,
+    "SkippedTests": 0,
+    "Duration": "00:00:36.3862859"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Standing,0.25f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.3040000",
+      "Message": "  Standing/0,25 actual stock/barrel crosses the skinned body at (0.13, 1.59, -0.02) bones=Head:24\r\n  Expected: 0\r\n  But was:  24\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Prone,0.25f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0580000",
+      "Message": "  Prone/0,25 actual stock/barrel crosses the skinned body at (0.11, 0.41, 0.54) bones=RightShoulder:19, Head:58, neck:7, Spine:1\r\n  Expected: 0\r\n  But was:  85\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterStanding,0.6f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0380000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterProne,0.75f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0350000",
+      "Message": "  EnterProne/0,75 actual stock/barrel crosses the skinned body at (0.11, 0.98, 0.00) bones=RightShoulder:31, RightArm:3\r\n  Expected: 0\r\n  But was:  34\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CaptureActualRangeFit",
+      "Status": "Passed",
+      "Duration": "00:00:03.0730000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:04.3390000",
+      "Message": "  EnterStanding/0,9296875 actual stock/barrel crosses the skinned body at (0.13, 1.59, -0.04) bones=Head:6\r\n  Expected: 0\r\n  But was:  6\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:03.1700000",
+      "Message": "  EnterProne/0,703125 actual stock/barrel crosses the skinned body at (0.16, 1.00, -0.05) bones=RightArm:7, RightShoulder:7\r\n  Expected: 0\r\n  But was:  14\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.EndOfApproachMatchesTheStartOfBothSetups",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SelectedLensIsRaisedBeforeSettledShootingAndReturnsForSkiing(Glasses)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0060000",
+      "Message": "  Lift the selected lens onto the cap before aiming.\r\n  Expected: greater than 0.0649999976f\r\n  But was:  0.0502860211f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SelectedLensIsRaisedBeforeSettledShootingAndReturnsForSkiing(Mask)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0040000",
+      "Message": "  Lift the selected lens onto the cap before aiming.\r\n  Expected: greater than 0.0649999976f\r\n  But was:  0.0528351143f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupDoesNotSnapTheArmsOrWeapon(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0100000",
+      "Message": "  EnterStanding phase 45 RightLowerArm\r\n  Expected: less than 0.0500000007f\r\n  But was:  0.0614331663f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupDoesNotSnapTheArmsOrWeapon(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0090000",
+      "Message": "  EnterProne phase 45 RightLowerArm\r\n  Expected: less than 0.0500000007f\r\n  But was:  0.0614331663f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupFitsEngagedPalmsWithoutLengtheningTheNeck",
+      "Status": "Passed",
+      "Duration": "00:00:00.0370000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Skate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0440000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Acceleration)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0130000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0130000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(RangeEntry)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0150000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Standing)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0230000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Prone)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0390000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterStanding)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0210000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterProne)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0220000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.CaptureActualSportsAndRangePoses",
+      "Status": "Passed",
+      "Duration": "00:00:02.5780000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.CaptureActualSportsMotionCycles",
+      "Status": "Passed",
+      "Duration": "00:00:21.8190000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.RangeBodyRetargetsTheActualShippingShootingChain",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.RangeScrubbingIsOrderIndependentAndStopRestoresCarriedEquipment",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.SettledShootingKeepsBothPalmContactsAndLimitsWristBend",
+      "Status": "Passed",
+      "Duration": "00:00:00.0190000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.ShootingAndStopPreserveSelectedNationalTextiles",
+      "Status": "Passed",
+      "Duration": "00:00:00.0350000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.TechniqueTimingAndAccelerationAreDistinct",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.WarmSportsSamplingDoesNotAllocateManagedMemory",
+      "Status": "Passed",
+      "Duration": "00:00:00.0560000"
+    }
+  ]
+}

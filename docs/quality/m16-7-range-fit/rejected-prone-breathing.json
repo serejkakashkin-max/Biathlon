@@ -1,0 +1,868 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 171,
+    "PassedTests": 170,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:01:06.1564717"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.AthleteRigTests.AnimatorEvaluatedPoseIsPreservedAndRootMotionDisabled",
+      "Status": "Passed",
+      "Duration": "00:00:00.1060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.AthleteRigTests.PrefabHasCompleteBindingsAndPoseResetDoesNotDrift",
+      "Status": "Passed",
+      "Duration": "00:00:00.0400000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.AthleteRigTests.TypedBindingsEquipmentAndSwappedRigPreserveRaceAndCameraPivot",
+      "Status": "Passed",
+      "Duration": "00:00:00.3880000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.AthleteShootingAlignmentTests.BothStancesFollowSightAtOneToOneScaleAndKeepHandsOnRifle",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedBarrelClearsTheActualHeadAndNeckInAllMotionStates",
+      "Status": "Passed",
+      "Duration": "00:00:00.7740000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedRifleFitsTheAthletesVisualProportions",
+      "Status": "Passed",
+      "Duration": "00:00:00.0140000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedRifleIsCentredOverTheBack",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.CarriedStockStaysOutsideTheActualBackAndPelvis",
+      "Status": "Passed",
+      "Duration": "00:00:01.7640000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.EquipmentExportAndMaterialsMatchTheirVersionedDefinition",
+      "Status": "Passed",
+      "Duration": "00:00:00.0130000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.EyewearSelectionIsExclusiveAndSurvivesAllMotionAndInspectionPoses",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.ImportedCarryWebbingHasTwoSolidShoulderPathsWithoutRedundantRearLoops",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.MaskStrapHasAClosedVolumeAndDedicatedPrint",
+      "Status": "Passed",
+      "Duration": "00:00:00.0110000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.NaturalWalnutSourceFilesRetainTheirDeclaredCC0Hashes",
+      "Status": "Passed",
+      "Duration": "00:00:00.1360000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.RifleHarnessHasSolidSuspensionBridges",
+      "Status": "Passed",
+      "Duration": "00:00:00.0750000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.StudioEyewearMenuSwitchesTheActualImportedRenderers",
+      "Status": "Passed",
+      "Duration": "00:00:01.4930000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167GarmentTests.AnatomicalTuckClearanceRaisesThePelvisWithPlantedSkiBindings",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167GarmentTests.BibAndSuitRetainUvAndBoundedSkinWeights",
+      "Status": "Passed",
+      "Duration": "00:00:00.0480000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167GarmentTests.BibArtworkUsesTheFabricTextureRatherThanFloatingGlyphs",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167GarmentTests.GarmentExportMatchesItsVersionedDefinition",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167GarmentTests.ImportedBibHasItsOwnClosedFabricVolume",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(False)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0280000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.EntireSuspensionEndSectionsRemainAttachedToTheActualWebbingAndStock(True)",
+      "Status": "Passed",
+      "Duration": "00:00:00.8340000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.RearSuspensionDoesNotDisappearUnderTheActualGarmentInProductionPoses",
+      "Status": "Passed",
+      "Duration": "00:00:00.7370000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167HarnessTests.StudioRendersHarnessFrontBackAndTuckDetails",
+      "Status": "Passed",
+      "Duration": "00:00:00.4400000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.CycleDeformsTheActualSkinnedMeshAndKeepsAllVerticesFinite",
+      "Status": "Passed",
+      "Duration": "00:00:00.2090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.CycleTransfersWeightRecoversEachSkiAndPlantsBothPolesWithoutRootDrift",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.HandsClearTheFaceAndElbowsStayAnatomicallyOpenAcrossTheStroke",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.InvalidScrubAndPlaybackInputsCannotPoisonTheRig",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.PhaseBoundariesDoNotTeleportFeetOrPoleTips(0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.PhaseBoundariesDoNotTeleportFeetOrPoleTips(0.1f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.PhaseBoundariesDoNotTeleportFeetOrPoleTips(0.34f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.PhaseBoundariesDoNotTeleportFeetOrPoleTips(0.5f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.PhaseBoundariesDoNotTeleportFeetOrPoleTips(0.56f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.ScrubbingIsPeriodicOrderIndependentAndDoesNotLeaveTheRifleInAnAimingSocket",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167MotionTests.WarmedCycleEvaluationDoesNotAllocateManagedMemory",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.CandidateUsesNaturalAnatomyAndTheProductionMotionPipeline",
+      "Status": "Passed",
+      "Duration": "00:00:00.0920000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(Flat)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0100000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(Tuck)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(MaxSprint)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(CornerLeft)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(CornerRight)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(SteepUphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(FastSkate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(NoPole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(DoublePole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(Fatigued)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ContactAdaptationKeepsWristsBoundedAndToesInTheirBindings(SlowStop)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.EveryImportedSurfaceUsesAnExplicitUrpMaterialAsset",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ExposedNeckAndJawHaveNoOpenSkinEdges",
+      "Status": "Passed",
+      "Duration": "00:00:00.0180000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(Flat)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0130000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0110000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(Tuck)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0150000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(MaxSprint)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0210000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(CornerLeft)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(CornerRight)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(SteepUphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(FastSkate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(NoPole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(DoublePole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(Fatigued)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ForearmPronationDoesNotTwistTheWristSeam(SlowStop)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.GripVariantsSwitchTogetherWithTheirActualPoleContacts",
+      "Status": "Passed",
+      "Duration": "00:00:00.0100000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ImportedGripFramesPointToTheActualPalmarSide",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(Flat)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(MaxSprint)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(Tuck)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(SteepUphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(FastSkate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(NoPole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(DoublePole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(CornerLeft)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(CornerRight)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(Fatigued)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0100000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.LimbsFollowTheActualMainAthleteWithoutStretchOrRootDrift(SlowStop)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0120000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(Flat)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0110000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(Tuck)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(MaxSprint)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(CornerLeft)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(CornerRight)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(SteepUphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(FastSkate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(NoPole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(DoublePole)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(Fatigued)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.MainMotionDoesNotSwivelThePoleHandleThroughTheGlove(SlowStop)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.PoleShaftsStayOutsideBothForearmsAcrossAllProductionStates",
+      "Status": "Passed",
+      "Duration": "00:00:00.0660000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.ScrubbingDoesNotDependOnThePreviouslyViewedFrame",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.TuckElbowsRemainTuckedRatherThanFlaredOutsideTheShoulders",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.TuckGlovesKeepAVisibleGapBetweenTheHands",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.TuckGripHasPalmarSideUpAndPolesTrailAroundTheArms",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.TuckHandFramesKeepThumbsUpAndForearmsWithinTheirAnatomicalPlane",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.TuckShaftsDoNotPierceTheActualSkinnedAthlete",
+      "Status": "Passed",
+      "Duration": "00:00:01.0850000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167NaturalTests.WarmedRetargetingReusesItsCachedObjects",
+      "Status": "Passed",
+      "Duration": "00:00:00.1370000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167OutfitTests.NaturalPrefabHasEveryExistingNationalKit",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167OutfitTests.StudioOffersAndRendersAllSevenNationalKits",
+      "Status": "Passed",
+      "Duration": "00:00:01.2050000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167OutfitTests.SwitchingKitsUsesSharedMaterialsAcrossAllLodsAndPreservesTheBib",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Standing,0.25f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0460000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Prone,0.25f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0520000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterStanding,0.6f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0330000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterProne,0.75f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0330000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CaptureActualRangeFit",
+      "Status": "Passed",
+      "Duration": "00:00:01.8300000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterStanding)",
+      "Status": "Passed",
+      "Duration": "00:00:04.5140000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterProne)",
+      "Status": "Passed",
+      "Duration": "00:00:04.4560000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(Standing)",
+      "Status": "Passed",
+      "Duration": "00:00:04.5190000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:02.4720000",
+      "Message": "  Prone/0,5390625 actual stock/barrel crosses the skinned body at (0.11, 0.38, 0.39) bones=Spine:1\r\n  Expected: 0\r\n  But was:  1\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(RangeEntry)",
+      "Status": "Passed",
+      "Duration": "00:00:04.4680000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.EndOfApproachMatchesTheStartOfBothSetups",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.InvalidRangeDefinitionsAreRejectedBeforeCreatingRuntimeMeshes(\"\\\"arm_clearance_angles\\\": 48\",\"\\\"arm_clearance_angles\\\": 0\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.InvalidRangeDefinitionsAreRejectedBeforeCreatingRuntimeMeshes(\"\\\"hand_fit_iterations\\\": 32\",\"\\\"hand_fit_iterations\\\": 1000\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.InvalidRangeDefinitionsAreRejectedBeforeCreatingRuntimeMeshes(\"\\\"setup_pose_blend_end\\\": 0.15\",\"\\\"setup_pose_blend_end\\\": 0\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.RecordWarmRangeSamplingCosts",
+      "Status": "Passed",
+      "Duration": "00:00:00.1510000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SelectedLensIsRaisedBeforeSettledShootingAndReturnsForSkiing(Glasses)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SelectedLensIsRaisedBeforeSettledShootingAndReturnsForSkiing(Mask)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupDoesNotSnapTheArmsOrWeapon(EnterStanding)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0350000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupDoesNotSnapTheArmsOrWeapon(EnterProne)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0350000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupFitsEngagedPalmsWithoutLengtheningTheNeck",
+      "Status": "Passed",
+      "Duration": "00:00:00.0340000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Skate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0140000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Acceleration)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0120000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0120000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(RangeEntry)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0140000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Standing)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0250000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Prone)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0200000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterStanding)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0200000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterProne)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0240000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.CaptureActualSportsAndRangePoses",
+      "Status": "Passed",
+      "Duration": "00:00:02.4980000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.CaptureActualSportsMotionCycles",
+      "Status": "Passed",
+      "Duration": "00:00:21.6620000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.RangeBodyRetargetsTheActualShippingShootingChain",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.RangeScrubbingIsOrderIndependentAndStopRestoresCarriedEquipment",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.SettledShootingKeepsBothPalmContactsAndLimitsWristBend",
+      "Status": "Passed",
+      "Duration": "00:00:00.0180000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.ShootingAndStopPreserveSelectedNationalTextiles",
+      "Status": "Passed",
+      "Duration": "00:00:00.0370000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.TechniqueTimingAndAccelerationAreDistinct",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.WarmSportsSamplingDoesNotAllocateManagedMemory",
+      "Status": "Passed",
+      "Duration": "00:00:00.0550000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167Tests.ActualPbrMapsHaveExpectedResolutionAndNormalImport",
+      "Status": "Passed",
+      "Duration": "00:00:00.0240000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167Tests.FourDeformationPosesPreserveRootLengthsAndFiniteSkin(0)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2550000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167Tests.FourDeformationPosesPreserveRootLengthsAndFiniteSkin(1)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2600000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167Tests.FourDeformationPosesPreserveRootLengthsAndFiniteSkin(2)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2280000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167Tests.FourDeformationPosesPreserveRootLengthsAndFiniteSkin(3)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2320000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167Tests.ImportedPrefabHasHumanAvatarIndependentSocketsAndMeasuredLods",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167Tests.StudioOpensWithWorkingOrbitPoseControlsAndActualModelCaptures",
+      "Status": "Passed",
+      "Duration": "00:00:05.7080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(-0.035f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(0.035f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0160000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(-0.15f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0190000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(0.15f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.FallbackIsTheOriginalPoseWithoutMovingTheRaceRoot",
+      "Status": "Passed",
+      "Duration": "00:00:00.0500000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.FinishedAthleteKeepsExhaustionHandsInsteadOfReturningToStartReadyPose",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.HingedArmClampsFlexionWithoutStretchingBonesOrMovingTheRaceRoot",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.InterruptedStateSwitchesDoNotJumpAtTheSameTimeAndRewindIsRepeatable",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(6.0f,0.0f,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0100000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(4.0f,0.08f,0.03f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(9.0f,0.0f,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(6.0f,0.0f,0.15f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(6.0f,0.0f,-0.15f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(3.0f,0.15f,0.03f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(8.0f,-0.08f,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(6.0f,0.0f,0.03f,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(4.0f,0.08f,0.03f,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(3.0f,0.15f,-0.03f,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(6.0f,0.0f,0.0f,2.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.TerrainPolingPatternsAndSpeedCadenceAreDistinctAndWarmLoopAllocatesNothing",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.TwelveStatesKeepRootLengthsSupportAndFiniteEquipment",
+      "Status": "Passed",
+      "Duration": "00:00:00.0980000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts(0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.HybridSkiMotionTests.WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts(1.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.LayAndPickupAreContinuousWithinTheExistingProgressClock(Prone)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.LayAndPickupAreContinuousWithinTheExistingProgressClock(Standing)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0170000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Prone,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Standing,0.0f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Prone,0.12f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Standing,-0.12f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    }
+  ]
+}

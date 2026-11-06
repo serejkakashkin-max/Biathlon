@@ -1,0 +1,24 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 2,
+    "PassedTests": 0,
+    "FailedTests": 2,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.5681246"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.7900000",
+      "Message": "  EnterStanding/0,265625 actual stock/barrel crosses the skinned body at (0.08, 1.31, -0.17) bones=Spine01:367, Spine:307\r\n  Expected: 0\r\n  But was:  674\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:00.6380000",
+      "Message": "  EnterProne/0,265625 actual stock/barrel crosses the skinned body at (0.08, 1.31, -0.17) bones=Spine01:353, Spine:297\r\n  Expected: 0\r\n  But was:  650\r\n"
+    }
+  ]
+}

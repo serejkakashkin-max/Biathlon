@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "m167_range_approach_rifle_clearance_eyewear_20261106",
+  "date": "2026-11-06",
+  "parent_commit": "1dcb994228d134e4703f6e49c8e8b4d8a524fab9",
+  "status": "M16.7 OPEN / BUILD HOLD / isolated hero",
+  "native_playmode": {
+    "Status": "Passed",
+    "TotalTests": 171,
+    "PassedTests": 171,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:01:08.3545425"
+  },
+  "native_editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:22.5178484"
+  },
+  "focused_distinct_cases": 174,
+  "geometry_sha256_unchanged": {
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Biathlete_16_7_Natural.blend": "6cf47b06e00bf006d70d8e2aec33c60ba629fde4759fdfb71bf33924fb916d9e"
+  },
+  "actual_body_probe": {
+    "actions": [
+      "RangeEntry",
+      "EnterStanding",
+      "EnterProne",
+      "Standing",
+      "Prone"
+    ],
+    "phases_per_action": 129,
+    "additional_original_problem_poses": 4,
+    "detected_structural_edge_crossings": 0,
+    "scope": "Actual imported LOD0 skinned anatomy, suit and bib vs wood stock and exterior barrel triangle edges, both directions. Butt contact region excluded. Sampled surfaces, not whole-volume or continuous-time proof."
+  },
+  "temporal_pose_samples_per_setup": 257,
+  "end_effector_step_limit_m": 0.05,
+  "weapon_step_limit_m": 0.04,
+  "palm_fit_tolerance_m": 0.001,
+  "approach_setup_seam_tolerance_m": 0.001,
+  "eyewear": {
+    "choices": [
+      "Glasses",
+      "Mask"
+    ],
+    "minimum_lens_raise_m": 0.065,
+    "return_tolerance_m": 0.0001,
+    "measurement": "Actual selected lens submesh centroid; not aggregate renderer bounds."
+  },
+  "warm_managed_allocation_gate_bytes": 0,
+  "runtime_clearance": "Cached actual stock bounds plus anatomical arm radii; deterministic circle search with continuous safe-boundary refinement. No per-frame mesh baking or physics queries.",
+  "native_stills": 42,
+  "actual_video_source_frames": 573,
+  "console": {
+    "baseline_sequence": 428732,
+    "new_error_exception_assert": 0,
+    "editor_compiled_and_idle": true
+  },
+  "limitations": [
+    "No race integration, player build, whole test-assembly or field FPS claim.",
+    "Fine eye/sight/cheek/butt seating, trigger/finger articulation and sling/eyewear-strap deformation require further art work.",
+    "No continuous-time/whole-volume collision proof; accessories and straps excluded from the structural edge gate.",
+    "All LODs, terrain and30-athlete field remain unqualified.",
+    "Existing separate cloth collision coverage does not automatically qualify every new shooting pose."
+  ],
+  "authoritative_gameplay_changed": false
+}

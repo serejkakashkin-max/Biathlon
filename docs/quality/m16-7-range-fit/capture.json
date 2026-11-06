@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "m167_actual_range_approach_and_shooting",
+  "width": 1200,
+  "height": 720,
+  "view": "right side, actual Unity render",
+  "cycles": [
+    {
+      "state": "ApproachStanding",
+      "cycle_seconds": 3.5,
+      "frames": 84,
+      "source_state": "RangeEntry",
+      "source_first_frame": 152
+    },
+    {
+      "state": "StandingSetup",
+      "cycle_seconds": 4.599999904632568,
+      "frames": 111,
+      "source_state": "EnterStanding",
+      "source_first_frame": 390
+    },
+    {
+      "state": "Standing",
+      "cycle_seconds": 3.200000047683716,
+      "frames": 77,
+      "source_state": "Standing",
+      "source_first_frame": 236
+    },
+    {
+      "state": "ApproachProne",
+      "cycle_seconds": 3.5,
+      "frames": 84,
+      "source_state": "RangeEntry",
+      "source_first_frame": 152
+    },
+    {
+      "state": "ProneSetup",
+      "cycle_seconds": 5.800000190734863,
+      "frames": 140,
+      "source_state": "EnterProne",
+      "source_first_frame": 501
+    },
+    {
+      "state": "Prone",
+      "cycle_seconds": 3.200000047683716,
+      "frames": 77,
+      "source_state": "Prone",
+      "source_first_frame": 313
+    }
+  ]
+}

@@ -115,6 +115,7 @@ namespace Biathlon.Unity.Presentation
 
         public Vector3 ShootingRiflePosition=>equipment.Rifle.position;
         public Quaternion ShootingRifleRotation=>equipment.Rifle.rotation;
+        public Quaternion ShootingReadyRotation=>SourceRig.Socket(AthleteSocket.RifleAim).rotation;
         public Vector3 ShootingRootOffset=>to[0].position-from[0].position;
         public float ShootingTransfer=>Mathf.SmoothStep(0,1,Mathf.InverseLerp(rifleSettings.reach_fraction,rifleSettings.release_end_fraction,rifle.TransferProgress));
         public float ShootingHandWeight=>rifle.HandWeight;

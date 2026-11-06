@@ -1,0 +1,75 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 12,
+    "PassedTests": 9,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.9213344"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Standing,0.25f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.1430000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Prone,0.25f)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0370000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterStanding,0.6f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0650000",
+      "Message": "  EnterStanding/0,6 actual stock/barrel crosses the skinned body at (0.26, 1.28, -0.06) bones=RightArm:23, RightForeArm:28\r\n  Expected: 0\r\n  But was:  51\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(EnterProne,0.75f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0330000",
+      "Message": "  EnterProne/0,75 actual stock/barrel crosses the skinned body at (0.15, 0.88, 0.02) bones=RightArm:53, Spine01:11\r\n  Expected: 0\r\n  But was:  64\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Skate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0420000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Acceleration)",
+      "Status": "Passed",
+      "Duration": "00:00:00.1220000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0330000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(RangeEntry)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0150000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Standing)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0250000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(Prone)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0420000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterStanding)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0190000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SportMotionTests.AuthoredActionsPreserveAnatomyAndRoot(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0190000",
+      "Message": "  EnterProne has an unreachable hand/foot target; fix choreography rather than stretching anatomy.\r\n  Expected: less than 0.0250000004f\r\n  But was:  0.0702875704f\r\n"
+    }
+  ]
+}
