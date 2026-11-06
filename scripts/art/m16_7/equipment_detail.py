@@ -64,18 +64,7 @@ def mask_parts(source,material,mesh,rigid,materials):
         if mat==glass:
             solid=obj.modifiers.new('Lens edge thickness','SOLIDIFY');solid.thickness=.0008;bpy.ops.object.modifier_apply(modifier=solid.name)
         obj.name='Mask_Derived_'+original;rigid(obj,'Head')
-    vertices=[];faces=[]
-    for j in range(129):
-        theta=j/128*math.pi;x=.091*math.cos(theta);y=.030+.104*math.sin(theta)
-        for dz in [-.012,.012]:vertices.append((x,y,1.710+dz))
-        if j:faces.append(((j-1)*2,(j-1)*2+1,j*2+1,j*2))
-    for side in [-1,1]:
-        start=len(vertices)
-        for j in range(17):
-            t=j/16;centre=Vector((side*.0915,-.084,1.687)).lerp(Vector((side*.091,.030,1.710)),t)
-            for dz in [-.012,.012]:vertices.append(centre+Vector((0,0,dz)))
-            if j:faces.append((start+(j-1)*2,start+(j-1)*2+1,start+j*2+1,start+j*2))
-    strap=mesh('Mask_PULSE_Fitted_Elastic_Strap',vertices,faces,[elastic]);rigid(strap,'Head');parts.append(strap)
+    # The solid strap is built later, after the final cap has been fitted.
     return parts
 
 def ski_and_pole_materials(material,materials,out):
@@ -113,14 +102,12 @@ def reference_rifle(oldparts,material,mesh,tube,block,rigid,materials,out,regist
     wood=bpy.data.materials['Rifle_Race_Laminate'];wood.use_nodes=True;wood.node_tree.nodes.clear()
     p=wood.node_tree.nodes.new('ShaderNodeBsdfPrincipled');output=wood.node_tree.nodes.new('ShaderNodeOutputMaterial');wood.node_tree.links.new(p.outputs['BSDF'],output.inputs['Surface'])
     p.inputs['Roughness'].default_value=SETTINGS['rifle_walnut_roughness'];wood.diffuse_color=(.18,.065,.025,1)
-    v,u=np.mgrid[0:2048,0:2048].astype(np.float32);u/=2048;v/=2048
-    flow=u*95+1.7*np.sin(v*6)+.65*np.sin(v*21+u*12)
-    grain=np.sin(flow*math.tau)*.035+np.sin(flow*math.tau*3.1)*.013+np.sin((u*1100+v*17)*math.tau)*.006
-    tone=.55+grain+.035*np.sin(v*19+u*31)
-    rgb=np.stack([tone*.45,tone*.19,tone*.075],axis=2)
+    source=ROOT/'Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Walnut'
+    diffuse=bpy.data.images.load(str(source/'natural_walnut_veneer_diff_2k.jpg'));diffuse.colorspace_settings.name='sRGB';w,h=diffuse.size
+    pixels=np.empty(w*h*4,np.float32);diffuse.pixels.foreach_get(pixels);rgb=pixels.reshape(h,w,4)[:,:,:3]*np.array(SETTINGS['rifle_walnut_linear_tint'],np.float32)
     map_texture(wood,save_image('Rifle_PULSE_Walnut_BaseColor_2K',rgb,out))
-    dx,dy=np.gradient(grain);n=np.stack([-dy*25,-dx*25,np.ones_like(grain)],axis=2);n/=np.linalg.norm(n,axis=2,keepdims=True)
-    node=wood.node_tree.nodes.new('ShaderNodeTexImage');node.image=save_image('Rifle_PULSE_Walnut_Normal_2K',n*.5+.5,out,True)
+    normal=bpy.data.images.load(str(source/'natural_walnut_veneer_nor_gl_2k.png'));normal.colorspace_settings.name='Non-Color';pixels=np.empty(w*h*4,np.float32);normal.pixels.foreach_get(pixels)
+    node=wood.node_tree.nodes.new('ShaderNodeTexImage');node.image=save_image('Rifle_PULSE_Walnut_Normal_2K',pixels.reshape(h,w,4)[:,:,:3],out,True)
     bump=wood.node_tree.nodes.new('ShaderNodeNormalMap');bump.inputs['Strength'].default_value=SETTINGS['rifle_walnut_normal_strength'];wood.node_tree.links.new(node.outputs['Color'],bump.inputs['Color']);wood.node_tree.links.new(bump.outputs[0],p.inputs['Normal'])
     black=bpy.data.materials['Rifle_Padded_Composite'];silver=bpy.data.materials['Rifle_Satin_Hardware'];red=material('PULSE_Rifle_Magazine_Red',(.48,.006,.012),.34)
     materials.append(red)
@@ -135,16 +122,17 @@ def reference_rifle(oldparts,material,mesh,tube,block,rigid,materials,out,regist
     for x,z,rx,rz in [(.038,.316,.024,.038),(.036,.413,.023,.036)]:
         bpy.ops.mesh.primitive_uv_sphere_add(segments=48,ring_count=24,location=(x,0,z));cutter=bpy.context.object;cutter.scale=(rx,.08,rz)
         bpy.context.view_layer.objects.active=stock;cut=stock.modifiers.new('Visible sporting furniture aperture','BOOLEAN');cut.operation='DIFFERENCE';cut.solver='EXACT';cut.object=cutter;bpy.ops.object.modifier_apply(modifier=cut.name);bpy.data.objects.remove(cutter,do_unlink=True)
+    bpy.context.view_layer.objects.active=stock;bevel=stock.modifiers.new('Soft aperture rims','BEVEL');bevel.width=.0015;bevel.segments=3;bpy.ops.object.modifier_apply(modifier=bevel.name)
     for z in [.115,.225]:
-        add(tube('PULSE_Cheek_Rest_Post',[(-.014,0,z),(-.048,0,z)],.005,silver))
+        add(tube('PULSE_Cheek_Rest_Post',[(.003,0,z),(-.048,0,z)],.005,silver))
         add(tube('PULSE_Cheek_Post_Collar',[(-.021,0,z),(-.030,0,z)],.008,black))
     profile('PULSE_Raised_Walnut_Cheek_Rest',[(-.060,.082),(-.061,.26),(-.043,.267),(-.041,.081)],.051,wood,.005)
     profile('PULSE_Adjustable_Butt_Plate',[(-.036,.012),(-.038,.025),(.16,.025),(.175,.009),(.17,-.005),(.148,.009)],.055,black,.005)
     for x in [.013,.115]:add(tube('PULSE_Butt_Adjuster',[(x,0,.016),(x,0,.043)],.005,silver))
     add(tube('PULSE_Lower_Butt_Hook',[(.151,0,.012),(.182,0,-.006),(.185,0,.030)],.007,silver))
     for z in [.462,.505,.548,.591]:
-        add(block('PULSE_Magazine_Rail',(-.025,-.026,z),(.022,.016,.037),black,.003))
-        add(block('PULSE_Spare_Magazine',(-.039,-.032,z),(.018,.017,.033),red,.0025))
+        add(block('PULSE_Magazine_Rail',(.019,-.029,z),(.025,.019,.037),black,.003))
+        add(block('PULSE_Spare_Magazine',(.004,-.034,z),(.018,.017,.033),red,.0025))
     def ring(name,centre,radius,length,mat):
         x,y,z=centre;verts=[];faces=[]
         for dz,r in [(-length/2,radius),(length/2,radius),(-length/2,radius-.004),(length/2,radius-.004)]:
@@ -158,9 +146,9 @@ def reference_rifle(oldparts,material,mesh,tube,block,rigid,materials,out,regist
     ring('PULSE_Front_Tunnel_Sight',(-.032,0,1.055),.022,.029,black)
     ring('PULSE_Front_Aperture',(-.032,0,1.055),.007,.002,silver)
     add(block('PULSE_Front_Sight_Riser',(-.014,0,1.043),(.024,.021,.024),black,.002))
-    for y in [-.022,.022]:
-        add(tube('PULSE_External_Support_Rod',[(.128,y,.065),(-.004,y,.390)],.0025,silver))
-        for x,z in [(.128,.065),(-.004,.390)]:add(tube('PULSE_Stock_Fastener',[(x,y,z),(x,y*1.18,z)],.005,black))
+    for side in [-1,1]:
+        add(tube('PULSE_External_Support_Rod',[(.128,side*.026,.065),(.085,side*.026,.390)],.0025,silver))
+        for x,z in [(.128,.065),(.085,.390)]:add(tube('PULSE_Stock_Fastener',[(x,side*.021,z),(x,side*.029,z)],.005,black))
     carry=Matrix.Translation((.045,.188,.81))@Matrix.Rotation(math.radians(-4),4,'Y')
     for obj in authored:
         # All newly generated surfaces use an explicit longitudinal wood UV.
@@ -168,6 +156,6 @@ def reference_rifle(oldparts,material,mesh,tube,block,rigid,materials,out,regist
         for face in obj.data.polygons:
             face.use_smooth=face.area<.0003
             for loop in face.loop_indices:
-                p=obj.matrix_world@obj.data.vertices[obj.data.loops[loop].vertex_index].co;obj.data.uv_layers.active.data[loop].uv=(p.x*3+.5,p.z/1.06)
+                p=obj.matrix_world@obj.data.vertices[obj.data.loops[loop].vertex_index].co;obj.data.uv_layers.active.data[loop].uv=(p.z/.65,p.x/.19+.2)
         obj.matrix_world=carry@obj.matrix_world;rigid(obj,'Spine')
     return parts+authored

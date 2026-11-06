@@ -1,0 +1,20 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 1,
+      "PassedTests": 0,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.1274007"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.Biathlete167EquipmentTests.MaskStrapHasAClosedVolumeAndDedicatedPrint",
+        "Status": "Failed",
+        "Duration": "00:00:00.0220000",
+        "Message": "  The old flat strap has boundary edges and cannot qualify as solid webbing.\r\n  Expected: True\r\n  But was:  False\r\n"
+      }
+    ]
+  }
+}

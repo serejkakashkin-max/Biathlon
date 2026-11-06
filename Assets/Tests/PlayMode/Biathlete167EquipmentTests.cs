@@ -19,6 +19,39 @@ namespace Biathlon.PlayModeTests
         private const string Root="Assets/Biathlon/Characters/Biathlete_16_7";
         private Biathlete167Rig Create()=>Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/Prefabs/Biathlete_16_7_Natural.prefab")).GetComponent<Biathlete167Rig>();
         [Serializable] private sealed class Receipt{public string equipment_detail_definition_sha256;public string[] eyewear_variants;}
+        [Test] public void MaskStrapHasAClosedVolumeAndDedicatedPrint()
+        {
+            var rig=Create();try
+            {
+                var renderer=rig.GetComponentsInChildren<MeshRenderer>(true).Single(r=>r.name=="Eyewear_Mask");var mesh=renderer.GetComponent<MeshFilter>().sharedMesh;
+                var faces=new System.Collections.Generic.List<int>();
+                for(int i=0;i<renderer.sharedMaterials.Length;i++)if(renderer.sharedMaterials[i].name=="PULSE_Mask_Woven_Strap"||renderer.sharedMaterials[i].name=="PULSE_Mask_Strap_Accent")faces.AddRange(mesh.GetTriangles(i));
+                var positions=mesh.vertices;var ids=new System.Collections.Generic.Dictionary<Vector3Int,int>();var welded=new int[positions.Length];
+                for(int i=0;i<positions.Length;i++){var key=Vector3Int.RoundToInt(positions[i]*1000000);if(!ids.TryGetValue(key,out int id)){id=ids.Count;ids.Add(key,id);}welded[i]=id;}
+                var edges=new System.Collections.Generic.Dictionary<(int,int),int>();double volume=0;
+                for(int i=0;i<faces.Count;i+=3)
+                {
+                    int a=faces[i],b=faces[i+1],c=faces[i+2];volume+=Vector3.Dot(positions[a],Vector3.Cross(positions[b],positions[c]))/6.0;
+                    foreach(var pair in new[]{(welded[a],welded[b]),(welded[b],welded[c]),(welded[c],welded[a])}){var key=pair.Item1<pair.Item2?pair:(pair.Item2,pair.Item1);edges.TryGetValue(key,out int count);edges[key]=count+1;}
+                }
+                Assert.That(edges.Count,Is.GreaterThan(500));Assert.That(edges.Values.All(n=>n==2),Is.True,"The old flat strap has boundary edges and cannot qualify as solid webbing.");
+                Assert.That(Math.Abs(volume),Is.InRange(.000005,.00008));
+                var material=renderer.sharedMaterials.Single(m=>m.name=="PULSE_Mask_Woven_Strap");Assert.That(material.GetTexture("_BaseMap").name,Is.EqualTo("Mask_PULSE_Strap_BaseColor_2K"));
+            }finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Serializable] private sealed class SourceFile{public string file,sha256;}
+        [Serializable] private sealed class SourceReceipt{public string asset_id,license;public SourceFile[] downloads;}
+        [Serializable] private sealed class SourceExportReceipt{public SourceReceipt walnut_source;}
+        [Test] public void NaturalWalnutSourceFilesRetainTheirDeclaredCC0Hashes()
+        {
+            var data=JsonUtility.FromJson<SourceReceipt>(File.ReadAllText(Root+"/Models/Source~/Walnut/provenance.json"));
+            Assert.That(data.asset_id,Is.EqualTo("natural_walnut_veneer"));Assert.That(data.license,Is.EqualTo("CC0-1.0"));Assert.That(data.downloads.Length,Is.EqualTo(2));
+            var export=JsonUtility.FromJson<SourceExportReceipt>(File.ReadAllText(Root+"/Documentation/natural-asset-manifest.json"));
+            Assert.That(export.walnut_source,Is.Not.Null,"The model export must declare the actual wood source, not only have a downloaded file nearby.");
+            Assert.That(export.walnut_source.asset_id,Is.EqualTo(data.asset_id));Assert.That(export.walnut_source.downloads.Select(f=>f.sha256),Is.EqualTo(data.downloads.Select(f=>f.sha256)));
+            using(var sha=SHA256.Create())foreach(var item in data.downloads)
+                Assert.That(BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(Root+"/Models/Source~/Walnut/"+item.file))).Replace("-","").ToLowerInvariant(),Is.EqualTo(item.sha256));
+        }
         [Test] public void EyewearSelectionIsExclusiveAndSurvivesAllMotionAndInspectionPoses()
         {
             var rig=Create();
@@ -68,7 +101,7 @@ namespace Biathlon.PlayModeTests
             var field=studio.GetComponent<UIDocument>().rootVisualElement.Q<DropdownField>("athlete-eyewear");Assert.That(field,Is.Not.Null);
             field.index=1;yield return null;Assert.That(studio.Rig.Eyewear,Is.EqualTo(Biathlete167Eyewear.Mask));
             field.index=0;yield return null;Assert.That(studio.Rig.Eyewear,Is.EqualTo(Biathlete167Eyewear.Glasses));
-            string folder=Path.Combine(Application.dataPath,"../artifacts/m16-7-equipment-20261106/native");Directory.CreateDirectory(folder);
+            string folder=Path.Combine(Application.dataPath,"../artifacts/m16-7-polish-20261106/native");Directory.CreateDirectory(folder);
             studio.Motion.Stop();studio.Rig.SetPose(0);
             using(var target=new BenchmarkRenderTarget(1100,1400))
             {
@@ -77,6 +110,16 @@ namespace Biathlon.PlayModeTests
                     field.index=option;studio.SetView(3);yield return null;target.Render(studio.View);yield return new WaitForEndOfFrame();target.SavePng(folder+"/"+(option==0?"glasses-face":"mask-face")+".png");
                     studio.SetView(0);yield return null;target.Render(studio.View);yield return new WaitForEndOfFrame();target.SavePng(folder+"/"+(option==0?"glasses-full":"mask-full")+".png");
                 }
+                var reviewCameraObject=new GameObject("Equipment detail evidence camera");var camera=reviewCameraObject.AddComponent<Camera>();camera.CopyFrom(studio.View);camera.enabled=false;
+                try
+                {
+                    foreach(var item in new[]{("mask-side-detail",new Vector3(.72f,1.70f,.03f),new Vector3(0,1.69f,0)),("mask-rear-detail",new Vector3(.50f,1.72f,-.60f),new Vector3(0,1.70f,0)),("rifle-detail",new Vector3(.7f,1.38f,-1.9f),new Vector3(0,1.36f,-.18f))})
+                    {
+                        camera.transform.position=studio.Rig.transform.TransformPoint(item.Item2);camera.transform.LookAt(studio.Rig.transform.TransformPoint(item.Item3));
+                        yield return null;target.Render(camera);yield return new WaitForEndOfFrame();target.SavePng(folder+"/"+item.Item1+".png");
+                    }
+                }
+                finally{Object.Destroy(reviewCameraObject);}
                 studio.SetView(1);studio.Motion.MainReference.State=SkiMotionState.Tuck;studio.Motion.EvaluateCycle(.25f);yield return null;target.Render(studio.View);yield return new WaitForEndOfFrame();target.SavePng(folder+"/mask-tuck.png");
                 studio.SetView(4);yield return null;target.Render(studio.View);yield return new WaitForEndOfFrame();target.SavePng(folder+"/rifle-tuck.png");
             }

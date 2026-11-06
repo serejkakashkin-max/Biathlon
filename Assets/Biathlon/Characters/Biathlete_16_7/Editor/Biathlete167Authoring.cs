@@ -69,7 +69,7 @@ namespace Biathlon.Unity
                 else if(data.name=="PULSE_Pole_Carbon_Weave")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Pole_PULSE_Carbon_BaseColor_2K");}
                 else if(data.name=="PULSE_Mask_Woven_Strap")
-                {Normal(material,"Textile_Normal_4K",.08f);}
+                {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Mask_PULSE_Strap_BaseColor_2K");Normal(material,"Textile_Normal_4K",.08f);}
                 else if(data.name=="Anatomical_Skin_CC0_2K")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","MakeHuman_Skin_BaseColor_2K");material.SetFloat("_Smoothness",.38f);}
                 else if(data.name=="PULSE_Bib_Printed_Textile")

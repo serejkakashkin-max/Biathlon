@@ -32,3 +32,13 @@ project font license. No donor commercial brand logos are transferred.
 
 M16.7 remains an isolated art checkpoint. Race integration and professional
 art acceptance remain open; no new Windows player is built during BUILD HOLD.
+
+2026-11-06 material refinement: Natural Walnut Veneer by Jenelle van Heerden,
+Poly Haven, CC0-1.0: https://polyhaven.com/a/natural_walnut_veneer
+https://polyhaven.com/license
+Downloaded public2Kcolor/OpenGLnormal maps retained with SHA256 in Source~/Walnut.
+PULSE adaptation applies a warm stain, longitudinal UV mapping and satin finish;
+the original project stripe texture is superseded for the Natural rifle only.
+The optional mask now has original solid cap-fitted webbing, woven PULSE print,
+temple clips and curved adjustment hardware; the licensed lens/frame/padding
+remain derivatives of Skiing Lady as credited above. Original glasses preserved.

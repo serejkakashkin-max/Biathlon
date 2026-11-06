@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "id": "m167_mask_webbing_walnut_polish_20261106",
+  "status": "ISOLATED_ART_IN_PROGRESS_BUILD_HOLD",
+  "source_fbx_sha256": "461b6a794d5638da17e9cde344b60ceb1ed8fb6e340b06a81408de64f4989e04",
+  "source_blend_sha256": "c1ccf948a64d44ed3880cd11584a18e89f33858352a67b3964b26167c895d741",
+  "native": {
+    "PlayMode": 91,
+    "EditMode": 3,
+    "failed": 0,
+    "skipped": 0,
+    "full_assembly_pass_claimed": false
+  },
+  "console": {
+    "after_sequence": 427369,
+    "Error": 0,
+    "Exception": 0,
+    "Assert": 0
+  },
+  "mask_strap": [
+    {
+      "name": "closed_solid_webbing",
+      "pass": true,
+      "nonmanifold_edges": 0,
+      "volume_m3": 2.016342353204301e-05
+    },
+    {
+      "name": "rear_webbing_on_cap",
+      "pass": true,
+      "minimum_signed_gap_m": 0.0002667585722520016,
+      "maximum_signed_gap_m": 0.0023951939849666815,
+      "samples": 500
+    }
+  ],
+  "rifle_prop_mounts": {
+    "qualified": 10,
+    "rejected_before": 8,
+    "gate": "at least0.2mm overlap with actual closed stock shell"
+  },
+  "source_grips": "6positive+2expected-negativePASS",
+  "cloth": "16actual BakeMesh poses,0strict interior cloth crossings; sampled not continuous",
+  "baseline_git_commit": "370b1cdcbbcb47f5316763f38940f879934c11b7",
+  "baseline_blend_sha256": "16d594867b3d7766c704857ec0da0ac70c844948859d498cc7d6db41bb28878d",
+  "default_glasses_lod0_triangles": 148713,
+  "all_stored_triangles": 234608,
+  "walnut_source": {
+    "schema_version": 1,
+    "id": "pulse_natural_walnut_veneer_source",
+    "asset_id": "natural_walnut_veneer",
+    "url": "https://polyhaven.com/a/natural_walnut_veneer",
+    "license": "CC0-1.0",
+    "license_url": "https://polyhaven.com/license",
+    "authors": {
+      "Jenelle van Heerden": "All"
+    },
+    "downloads": [
+      {
+        "role": "Diffuse",
+        "file": "natural_walnut_veneer_diff_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/natural_walnut_veneer/natural_walnut_veneer_diff_2k.jpg",
+        "sha256": "4a1a84e9537b291ac0cce1e2b8908fb9b5d1057a246ee0b3c25345565ac9686d",
+        "bytes": 2484434
+      },
+      {
+        "role": "nor_gl",
+        "file": "natural_walnut_veneer_nor_gl_2k.png",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/natural_walnut_veneer/natural_walnut_veneer_nor_gl_2k.png",
+        "sha256": "182d447283b43fb9f001557d6d853aa4bab47895ffa95a3fc4a7de4a32b87ebb",
+        "bytes": 19369837
+      }
+    ],
+    "usage": "surface color/normal for decorative3Dprop stock only; PULSE UV adaptation and satin finish"
+  },
+  "evidence_sha256": {
+    "actual-posed-cloth.json.gz": "1f6841f1e61518866556e72ef2da8d9178f1a48014f6ec2b672c4a6138bfbbc3",
+    "before-flat-strap.png": "a1f03e85763bc412fd9dd34db5d57f1b156a54fac14f41524c7839871dd95bce",
+    "before-rifle.png": "7b39769aaa8e668c58d68088f3f36d2af20d0227dbfc6e10f17966557751bac9",
+    "blender-mask-side.png": "962e220b937694323d3ec4a46ef912afd40be153b3a2b0156879b95c701876de",
+    "blender-rifle-profile.png": "dce1c4ce9aa02d82f1c4f8f27b6b310fc7bb888d1d3eea5d615c59cf64047d39",
+    "blender-rifle-three-quarter.png": "2e2d85a3460b25c6e38028f58dd04099a8be79f9dd4df7a3c2d50d6e97be1939",
+    "equipment-current.json": "b308f1191cabdc949a06018da423285bd71edae7d02c0b3e3b30980bcdccf640",
+    "glasses-face.png": "0fe626d7561de04bd5ca25f2803bf93aa68fc86c364829dcbe19ae616659b530",
+    "glasses-full.png": "8a89d3fb76c3b2e844074252fb740d4492ac476ce88edd3cccdd72c90c89ae99",
+    "grip-anatomy.json": "a2efbcbe7bf2eb7457428fa1a9cf1199e1736dd61bc82c1c93fae9dea87c5e63",
+    "grip-distal-pads.json": "d024e9e1d674fbeb13946bf9ef614a3e09428c3baff349da2863ab9802452981",
+    "grip-finger-clearance.json": "447c394d7d286842105d0cfe80c2c7b94c049d6aa0be3c4b44ca164fc96e20ab",
+    "grip-handle-and-straps.json": "ecaedf578abd1ab7f84a327ca5eb27140eb82ac71db47b6a3150a596df100cfe",
+    "grip-rejected_claw_grip.json": "b3936b5d9c750034f44f0e2c6b14d422e821d14b8878f1c9adf67d6deff1d459",
+    "grip-rejected_working_grip.json": "5c7856367bc8a2456a94fe1b9327d9b86dd27b53230878bb885356ce4b6b4878",
+    "grip-summary.json": "6fe5f5aa1392fb2485a2c972c948f41c34a185e80a8490c3fc4c13d0bcc0f6bd",
+    "grip-surface-parity.json": "b75b0194731445b4543f5d8d184e89018a599da3c664d0df5d5408c47697001c",
+    "grip-thumb-side.json": "d52e54ee177a422707f573341ab351f8df011dc3698a06161689d6f593623f04",
+    "mask-face.png": "ea84850adcfb37cb5b5175b250d69c6a0f2b5661331bfcf610e5b6e30ccbe140",
+    "mask-full.png": "78bf1574e344d42ad224d16f00347abfea7cc26c046b034824a6ab376a30f75b",
+    "mask-rear-detail.png": "8bbdb3f107da1529d83490f43fe6e1c6823fdd632aa15cc2a58f0b65d9d6841d",
+    "mask-side-detail.png": "47e328756be5b600e4865dd3a6f3319364f2f919f23a993a5d5ab469fab17eea",
+    "mask-tuck.png": "2818c40518bc26382bc4889ec335073c113438720bc30de55324c8585a6d8a29",
+    "mounts-final.json": "d760fce6284aeffb94f2699a689677d74b866f9a2efe3a9e66ecbd13b72209db",
+    "mounts-red.json": "661fa8ec8e3d6066d64db22dd4356d3163926077006750240f091ed9a9e603be",
+    "mounts-upper-rejected.json": "d906c55aa35360a8f3ad532b81edfc0709520449ba15b60e1c8633c7fd1a4bb1",
+    "native-editmode.json": "f8ec7aaadb0b73b12e17f8bf4d090c939d5b1fba063e50e7c054f259c57c1e98",
+    "native-playmode.json": "a3f608dac68e4aa5ff4cc6c124e75c5439a9cec5dceb57e3555f3c3220c75da0",
+    "native-strap-red.json": "3271177bdab668705d444f4cae7fc73c1d19941e0217ba404dd9a387b73b5bae",
+    "posed-cloth-final.json": "59bcf79bb33f62aefbd4e3a0cb876673f58ceeee904a008a7d4b094c5eafc96d",
+    "rifle-detail.png": "bdd4482b7b37d4d26e61ffe533f11c184075aa1ca1cb70d8e0aae981c672b023",
+    "rifle-tuck.png": "18f1ae25da8442879719989b91eac15d11b94d3c1835a98cd4f38cbd8fbf9dd4",
+    "strap-current.json": "5d04f35a458acfdced250c847baaf3be29f682c9ee8f62cca833182a89331f9d",
+    "strap-fixture-red.json": "b9a6c20ab998b4b355b4e3ba70c38144b2d629511c47453d9064dcdffc616dcb",
+    "strap-red.json": "6cc2dd379c4a19e5a6045342093367e6d947d9b5edf3901ae21239001c8db5f0"
+  }
+}

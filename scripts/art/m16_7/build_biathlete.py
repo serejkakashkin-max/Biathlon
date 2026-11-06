@@ -14,6 +14,7 @@ from equipment_refine import CONTACT_SETTINGS, HANDLE_PROFILE, grip_frame, tuck_
 from refine_garments import GARMENT_SETTINGS, race_bib, transfer_weights, analytic_panel_material, anatomical_grip, continuous_collar, projected_print, fitted_harness
 from bib_print import apply_bib_print
 from equipment_detail import SETTINGS as EQUIPMENT_SETTINGS, SETTINGS_PATH as EQUIPMENT_SETTINGS_PATH, mask_parts, ski_and_pole_materials, pole_details, reference_rifle
+from mask_webbing import finish_mask
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -577,6 +578,7 @@ puller=block('Zip_Puller',zip_points[3]+Vector((0,-.002,0)),(.008,.002,.013),all
 puller.rotation_euler=(zip_points[0]-zip_points[6]).to_track_quat('Z','X').to_euler()
 transfer_weights(puller,clothes,arm)
 fit_surface(cap,body,.0035)
+mask_webbing_receipt=finish_mask(mask_meshes,cap,mesh,tube,block,rigid,materials,out,EQUIPMENT_SETTINGS)
 for obj in list(objects):
     if obj.name.startswith(('Bib27_','Bib_Header','Bib_Footer')):
         bm=bmesh.new();bm.from_mesh(obj.data)
@@ -659,6 +661,8 @@ manifest['equipment_detail_definition_sha256']=hashlib.sha256(EQUIPMENT_SETTINGS
 manifest['eyewear_variants']=['glasses','mask']
 manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/provenance.json').read_text())
 manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
+manifest['mask_webbing']=mask_webbing_receipt
+manifest['walnut_source']=json.loads((anatomy_path.parents[2]/'Walnut/provenance.json').read_text())
 for obj in character_objects:
     if obj.type=='MESH':obj.data.calc_loop_triangles();manifest['meshes'].append({'name':obj.name,'triangles':len(obj.data.loop_triangles),'vertices':len(obj.data.vertices),'uv_layers':len(obj.data.uv_layers),'skinned':any(m.type=='ARMATURE' for m in obj.modifiers),'bone_parent':obj.parent_bone})
 for m in materials:manifest['materials'].append({'name':m.name,'color':list(m.diffuse_color),'roughness':m.node_tree.nodes.get('Principled BSDF').inputs['Roughness'].default_value,'metallic':m.node_tree.nodes.get('Principled BSDF').inputs['Metallic'].default_value})

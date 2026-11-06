@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "f76309faf66ec0195b4d248335f99c52a7b2114dcdaf115dc1440c52286788e3",
+  "export_fbx_sha256": "461b6a794d5638da17e9cde344b60ceb1ed8fb6e340b06a81408de64f4989e04",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -18,16 +18,16 @@
     },
     {
       "name": "Eyewear_Mask",
-      "triangles": 7152,
-      "vertices": 3952,
+      "triangles": 8724,
+      "vertices": 4614,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "Head"
     },
     {
       "name": "Rifle_Prop",
-      "triangles": 15100,
-      "vertices": 8253,
+      "triangles": 17302,
+      "vertices": 9354,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "Spine"
@@ -107,14 +107,14 @@
     {
       "name": "Biathlete_Body_LOD1",
       "triangles": 36934,
-      "vertices": 19971,
+      "vertices": 19973,
       "uv_layers": 1,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 12926,
+      "triangles": 12925,
       "vertices": 7522,
       "uv_layers": 1,
       "skinned": true,
@@ -438,7 +438,7 @@
         0.02500000037252903,
         1.0
       ],
-      "roughness": 0.3799999952316284,
+      "roughness": 0.4399999976158142,
       "metallic": 0.0
     },
     {
@@ -494,7 +494,7 @@
     "Pole_Left_Socket",
     "Pole_Right_Socket"
   ],
-  "equipment_detail_definition_sha256": "abb894b7ba57eb753dcc63dcce5ac2328f90827fcc2eb7b375e5300b3f8a7243",
+  "equipment_detail_definition_sha256": "d6fe7573a400e93696acbe1923779f070fc461f09096aad96a2d446be14db23b",
   "eyewear_variants": [
     "glasses",
     "mask"
@@ -518,6 +518,43 @@
     "selected_blend_sha256": "bf8e90c5e502bf93e24e6dd58cf2b32f43f91226a845ce565e44e977b398af44"
   },
   "rifle_reference_usage": "view-only visual reference; independently authored external stock/fittings, no source model copied",
+  "mask_webbing": {
+    "construction": "closed_solid_cap_fitted_webbing",
+    "width_m": 0.024,
+    "thickness_m": 0.0016,
+    "cap_gap_m": 0.0008,
+    "solid_vertices": 708,
+    "buckle": "curved_adjuster_with_crossbar",
+    "texture": "Mask_PULSE_Strap_BaseColor_2K.png"
+  },
+  "walnut_source": {
+    "schema_version": 1,
+    "id": "pulse_natural_walnut_veneer_source",
+    "asset_id": "natural_walnut_veneer",
+    "url": "https://polyhaven.com/a/natural_walnut_veneer",
+    "license": "CC0-1.0",
+    "license_url": "https://polyhaven.com/license",
+    "authors": {
+      "Jenelle van Heerden": "All"
+    },
+    "downloads": [
+      {
+        "role": "Diffuse",
+        "file": "natural_walnut_veneer_diff_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/natural_walnut_veneer/natural_walnut_veneer_diff_2k.jpg",
+        "sha256": "4a1a84e9537b291ac0cce1e2b8908fb9b5d1057a246ee0b3c25345565ac9686d",
+        "bytes": 2484434
+      },
+      {
+        "role": "nor_gl",
+        "file": "natural_walnut_veneer_nor_gl_2k.png",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/natural_walnut_veneer/natural_walnut_veneer_nor_gl_2k.png",
+        "sha256": "182d447283b43fb9f001557d6d853aa4bab47895ffa95a3fc4a7de4a32b87ebb",
+        "bytes": 19369837
+      }
+    ],
+    "usage": "surface color/normal for decorative3Dprop stock only; PULSE UV adaptation and satin finish"
+  },
   "rifle_cc0_reused_visible_components": 30,
   "contact_frames": [
     "Left_Pole_Grip_Contact",
@@ -900,7 +937,7 @@
       }
     }
   },
-  "triangles": 230835,
-  "stored_lod0_triangles": 180975,
-  "active_lod0_triangles": 146511
+  "triangles": 234608,
+  "stored_lod0_triangles": 184749,
+  "active_lod0_triangles": 148713
 }

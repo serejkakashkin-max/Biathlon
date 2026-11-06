@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "m167_visible_external_prop_mount_contact",
+  "pass": false,
+  "mounts": [
+    {
+      "object": "PULSE_Cheek_Rest_Post",
+      "minimum_signed_stock_distance_m": -0.011000004564266419,
+      "samples": 52,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Cheek_Rest_Post.001",
+      "minimum_signed_stock_distance_m": -0.012701467843726277,
+      "samples": 52,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Magazine_Rail",
+      "minimum_signed_stock_distance_m": -0.0030000507801865675,
+      "samples": 194,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Magazine_Rail.001",
+      "minimum_signed_stock_distance_m": -0.0030000209837414043,
+      "samples": 194,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Magazine_Rail.002",
+      "minimum_signed_stock_distance_m": -0.0030000510169531924,
+      "samples": 194,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Magazine_Rail.003",
+      "minimum_signed_stock_distance_m": -0.0030000358818482835,
+      "samples": 194,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Stock_Fastener",
+      "minimum_signed_stock_distance_m": -0.0014999955895837731,
+      "samples": 52,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Stock_Fastener.001",
+      "minimum_signed_stock_distance_m": 0.006558031600434333,
+      "samples": 52,
+      "pass": false
+    },
+    {
+      "object": "PULSE_Stock_Fastener.002",
+      "minimum_signed_stock_distance_m": -0.0015000104904174805,
+      "samples": 52,
+      "pass": true
+    },
+    {
+      "object": "PULSE_Stock_Fastener.003",
+      "minimum_signed_stock_distance_m": 0.006558086039149202,
+      "samples": 52,
+      "pass": false
+    }
+  ],
+  "method": "saved evaluated decorative mesh vertices and face barycentres against nearest real stock surface; at least0.2mm embed required; not a functional mechanism/assembly test"
+}

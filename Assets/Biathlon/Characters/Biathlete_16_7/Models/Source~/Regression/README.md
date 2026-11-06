@@ -17,3 +17,5 @@ and licenses: ../MakeHuman/Natural/provenance.json and ../MakeHuman/provenance.j
 
 Run with the current unwarped Natural anatomy as --anatomy. Actual red and
 green receipts: docs/quality/m16-7-wrist/receipts. These tests do not certify art.
+
+2026-11-06: rejected_flat_mask_webbing.blend contains only the project cap and old flat strap, with evaluated world geometry and no donor mask/textures. verify_mask_strap.py --asset <fixture> --output <receipt> must reject it(exit2); no --anatomy argument is needed. Evidence: docs/quality/m16-7-polish.
