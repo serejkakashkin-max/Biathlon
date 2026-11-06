@@ -3,13 +3,18 @@ using System.Collections;
 using Biathlon.Unity.Presentation;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.TestTools;
 namespace Biathlon.PlayModeTests
 {
     public class BenchmarkProfilingTests
     {
-        [UnityTest] public IEnumerator OffscreenCameraRendersAndLeavesTargetAndLoopIntact()
+        [UnityTest] public IEnumerator OffscreenCameraRendersAndLeavesTargetAndLoopIntact()=>RenderOffscreen(false);
+        [UnityTest] public IEnumerator BuiltinCameraRendersAndRestoresBothTargetsAndTheLoop()=>RenderOffscreen(true);
+        private IEnumerator RenderOffscreen(bool builtin)
         {
+            var priorDefault=GraphicsSettings.defaultRenderPipeline;var priorQuality=QualitySettings.renderPipeline;
             int leases=CountRenderLeases();
             var go=new GameObject("Offscreen profiling test");var camera=go.AddComponent<Camera>();
             camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.red;camera.cullingMask=0;
@@ -18,6 +23,11 @@ namespace Biathlon.PlayModeTests
             string path=System.IO.Path.Combine(Application.temporaryCachePath,"biathlon-profile-target-test.png");
             try
             {
+                var pipeline=builtin?null:Resources.Load<UniversalRenderPipelineAsset>("Biathlon/Rendering/balanced");
+                if(!builtin)Assert.That(pipeline,Is.Not.Null);
+                GraphicsSettings.defaultRenderPipeline=null;QualitySettings.renderPipeline=pipeline;
+                yield return null;yield return null;
+                Assert.That(GraphicsSettings.currentRenderPipeline,Is.SameAs(pipeline));
                 Assert.That(CountRenderLeases(),Is.EqualTo(leases+1));
                 Assert.Throws<ArgumentNullException>(()=>target.Render(null));target.Render(camera);target.Render(camera);
                 Assert.That(camera.targetTexture,Is.SameAs(previous));
@@ -35,6 +45,7 @@ namespace Biathlon.PlayModeTests
             {
                 target.Dispose();UnityEngine.Object.Destroy(go);UnityEngine.Object.Destroy(previous);UnityEngine.Object.Destroy(image);
                 if(System.IO.File.Exists(path))System.IO.File.Delete(path);
+                QualitySettings.renderPipeline=priorQuality;GraphicsSettings.defaultRenderPipeline=priorDefault;
             }
         }
         private static int CountRenderLeases()

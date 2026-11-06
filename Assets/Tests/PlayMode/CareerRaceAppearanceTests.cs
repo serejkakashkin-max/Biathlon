@@ -77,11 +77,12 @@ namespace Biathlon.PlayModeTests
             }
             finally{Object.DestroyImmediate(a.gameObject);Object.DestroyImmediate(b.gameObject);}
         }
-        [Test] public void CountryPaletteCoversEverySavedRosterNationAndKeepsUnknownCountriesNeutral()
+        [TestCase("career_roster_v1")][TestCase("career_roster_v2")]
+        public void CountryPaletteCoversEverySavedRosterNationAndKeepsUnknownCountriesNeutral(string rosterId)
         {
-            var roster=CareerRosterDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/career_roster_v1"));
+            var roster=CareerRosterDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/"+rosterId));
             var colors=new System.Collections.Generic.HashSet<Color>();
-            Assert.That(AthleteAppearancePresentation.NationCount,Is.EqualTo(roster.NationCount));
+            Assert.That(AthleteAppearancePresentation.NationCount,Is.GreaterThanOrEqualTo(roster.NationCount),"The shared palette must cover both the legacy and expanded saved rosters.");
             var rig=AthleteRigFactory.Create(null);
             try
             {

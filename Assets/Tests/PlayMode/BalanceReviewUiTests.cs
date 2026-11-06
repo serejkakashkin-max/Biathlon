@@ -95,33 +95,45 @@ namespace Biathlon.PlayModeTests
             Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(saved),"The selected age/league is durable, not a cosmetic creation preview.");
         }
 
-        [UnityTest] public IEnumerator EquipmentCardsActuallyPaintEachCatalogSkiColor()
+        [UnityTest] public IEnumerator EquipmentCardsActuallyPaintEachShippingSkiArtwork()
         {
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("ski_colors_ui","Алекс","NOR",11);menu.Session.OpenCareerPage(FrontEndScreen.Equipment);menu.RefreshFrontEnd();
-            yield return Capture("equipment-colors-ru","ru",0,1440,900,false,pixels=>
+            var seen=new HashSet<string>();int count=menu.Session.EquipmentCatalog.Count;
+            for(int page=0;page<count;page++)
             {
-                var graphics=new List<VisualElement>();menu.Root.Q("equipment_tiles").Query<VisualElement>().ForEach(element=>{if(element.GetType().Name=="SkiPairGraphic")graphics.Add(element);});
-                var catalog=menu.Session.EquipmentCatalog;Assert.That(graphics.Count,Is.EqualTo(catalog.Count));
-                var rootBounds=menu.Root.worldBound;var image=pixels.GetPixels32();
-                for(int index=0;index<graphics.Count;index++)
+                yield return Capture("equipment-art-ru-page"+page,"ru",0,1440,900,false,pixels=>
                 {
-                    var rect=graphics[index].worldBound;Assert.That(rect.width,Is.GreaterThan(80));Assert.That(rect.height,Is.GreaterThan(40));
-                    var definition=CareerSkiAppearance.Catalog.Get(catalog.Get(index).Id);
-                    Assert.That(ColorUtility.TryParseHtmlString(definition.BaseColorHex,out var expected),Is.True);Color.RGBToHSV(expected,out float expectedHue,out _,out _);
+                var rootBounds=menu.Root.worldBound;var image=pixels.GetPixels32();
+                int visible=0;
+                foreach(var card in menu.Root.Q("equipment_tiles").Children())
+                {
+                    if(card.resolvedStyle.display==DisplayStyle.None)continue;
+                    string id=card.name.Substring("equipment_card_".Length);var art=card.Q<Image>();
+                    Assert.That(art,Is.Not.Null,id);Assert.That(art.image,Is.SameAs(Resources.Load<Texture2D>(CareerMenuArt.ResourceRoot+id)),id);
+                    var rect=art.worldBound;Assert.That(rect.width,Is.GreaterThan(80));Assert.That(rect.height,Is.GreaterThan(40));
+                    Assert.That(rect.yMin,Is.GreaterThanOrEqualTo(rootBounds.yMin));Assert.That(rect.yMax,Is.LessThanOrEqualTo(rootBounds.yMax));
                     int minX=Mathf.Clamp(Mathf.FloorToInt((rect.xMin-rootBounds.xMin)/rootBounds.width*pixels.width),0,pixels.width-1);
                     int maxX=Mathf.Clamp(Mathf.CeilToInt((rect.xMax-rootBounds.xMin)/rootBounds.width*pixels.width),0,pixels.width);
                     int minY=Mathf.Clamp(Mathf.FloorToInt(pixels.height-(rect.yMax-rootBounds.yMin)/rootBounds.height*pixels.height),0,pixels.height-1);
                     int maxY=Mathf.Clamp(Mathf.CeilToInt(pixels.height-(rect.yMin-rootBounds.yMin)/rootBounds.height*pixels.height),0,pixels.height);
-                    int matching=0;
+                    var colors=new HashSet<int>();int colored=0;
                     for(int y=minY;y<maxY;y++)for(int x=minX;x<maxX;x++)
                     {
-                        Color.RGBToHSV(image[y*pixels.width+x],out float hue,out float saturation,out float value);
-                        float distance=Mathf.Abs(hue-expectedHue);distance=Mathf.Min(distance,1-distance);
-                        if(distance<.04f&&saturation>.25f&&value>.25f)matching++;
+                        var pixel=image[y*pixels.width+x];Color.RGBToHSV(pixel,out _,out float saturation,out float value);
+                        if(saturation>.25f&&value>.25f)colored++;
+                        colors.Add((pixel.r>>4)*256+(pixel.g>>4)*16+(pixel.b>>4));
                     }
-                    Assert.That(matching,Is.GreaterThan(20),definition.Id+": the actual retained graphic must visibly render its catalog deck color.");
+                    Assert.That(colored,Is.GreaterThan(20),id+": shipping artwork must actually paint colored pixels.");
+                    Assert.That(colors.Count,Is.GreaterThan(20),id+": a flat placeholder is not product artwork.");
+                    Assert.That(seen.Add(id),Is.True,id+": pagination repeated a product.");visible++;
                 }
-            });
+                Assert.That(visible,Is.InRange(1,3));
+                });
+                var next=menu.Root.Q<Button>("equipment_tiles_next");Assert.That(next,Is.Not.Null);
+                if(!next.enabledSelf)break;
+                Submit("equipment_tiles_next");yield return null;yield return null;
+            }
+            Assert.That(seen.Count,Is.EqualTo(count),"Every catalog product must be painted through the actual page controls.");
         }
     }
 }

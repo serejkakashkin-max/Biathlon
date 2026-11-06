@@ -30,9 +30,14 @@ namespace Biathlon.Unity.Presentation
         {
             if(queuedCamera==null||target==null)return;
             var camera=queuedCamera;queuedCamera=null;
-            var previous=RenderTexture.active;
-            try{RenderPipeline.SubmitRenderRequest(camera,request);}
-            finally{RenderTexture.active=previous;}
+            var previous=RenderTexture.active;var previousTarget=camera.targetTexture;
+            try
+            {
+                if(GraphicsSettings.currentRenderPipeline==null)
+                {camera.targetTexture=target;camera.Render();}
+                else RenderPipeline.SubmitRenderRequest(camera,request);
+            }
+            finally{camera.targetTexture=previousTarget;RenderTexture.active=previous;}
         }
         private void ChangeLoop(bool add)
         {
