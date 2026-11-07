@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "m167_actual_contact_measurements",
+  "sampled_actions": 5,
+  "phases_per_action": 129,
+  "wrist_by_action": [
+    {
+      "action": "RangeEntry",
+      "maximum_wrist_axial_twist_degrees": 8.782317e-05
+    },
+    {
+      "action": "EnterStanding",
+      "maximum_wrist_axial_twist_degrees": 6.10351563e-05
+    },
+    {
+      "action": "EnterProne",
+      "maximum_wrist_axial_twist_degrees": 4.79313276e-05
+    },
+    {
+      "action": "Standing",
+      "maximum_wrist_axial_twist_degrees": 6.182267e-05
+    },
+    {
+      "action": "Prone",
+      "maximum_wrist_axial_twist_degrees": 6.10351563e-05
+    }
+  ],
+  "maximum_wrist_axial_twist_degrees": 8.782317e-05,
+  "maximum_coordinate_forearm_roll_degrees": 179.512238,
+  "maximum_wrist_bend_degrees": 25.0016441,
+  "maximum_engaged_palm_residual_m": 0.00055886124,
+  "prone": {
+    "maximum_actual_pupil_aperture_height_error_m": 0.00200006366,
+    "remaining_lateral_offset_m": 0.08582019,
+    "remaining_forward_eye_aperture_distance_m": 0.157086253,
+    "full_optical_fit_accepted": false
+  }
+}

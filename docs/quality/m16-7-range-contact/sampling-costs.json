@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "m167_editor_range_sampling_costs",
+  "samples_per_action": 256,
+  "actions": [
+    {
+      "action": "RangeEntry",
+      "mean_ms": 0.5472078125000004,
+      "p95_ms": 0.8641000000000001,
+      "maximum_ms": 0.9028
+    },
+    {
+      "action": "EnterStanding",
+      "mean_ms": 1.9440500000000005,
+      "p95_ms": 3.4838,
+      "maximum_ms": 8.0472
+    },
+    {
+      "action": "EnterProne",
+      "mean_ms": 1.479071484375001,
+      "p95_ms": 3.2427,
+      "maximum_ms": 9.8611
+    },
+    {
+      "action": "Standing",
+      "mean_ms": 3.0388839843749995,
+      "p95_ms": 3.0944000000000003,
+      "maximum_ms": 3.1443000000000003
+    },
+    {
+      "action": "Prone",
+      "mean_ms": 0.7140542968749997,
+      "p95_ms": 0.7384000000000001,
+      "maximum_ms": 0.8433
+    }
+  ]
+}

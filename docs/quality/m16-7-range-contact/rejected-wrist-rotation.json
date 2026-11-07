@@ -1,0 +1,24 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 16,
+    "PassedTests": 14,
+    "FailedTests": 2,
+    "SkippedTests": 0,
+    "Duration": "00:00:06.1874491"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.ReachingWristRotationsDoNotJumpAcrossQuaternionBranches(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0590000",
+      "Message": "  EnterStanding phase=44 wrist=1: no sudden relative wrist flip during reaching.\r\n  Expected: less than 12.0f\r\n  But was:  39.310276f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.ReachingWristRotationsDoNotJumpAcrossQuaternionBranches(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0480000",
+      "Message": "  EnterProne phase=44 wrist=1: no sudden relative wrist flip during reaching.\r\n  Expected: less than 12.0f\r\n  But was:  39.310276f\r\n"
+    }
+  ]
+}

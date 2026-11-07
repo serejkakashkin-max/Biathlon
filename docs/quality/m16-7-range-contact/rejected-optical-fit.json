@@ -1,0 +1,54 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 20,
+    "PassedTests": 13,
+    "FailedTests": 7,
+    "SkippedTests": 0,
+    "Duration": "00:00:15.6007909"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Standing,0.25f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.1640000",
+      "Message": "  Standing/0,25 actual stock/barrel crosses the skinned body at (0.13, 1.56, 0.04) bones=Head:302\r\n  Expected: 0\r\n  But was:  302\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Prone,0.25f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0580000",
+      "Message": "  Prone/0,25 actual stock/barrel crosses the skinned body at (0.10, 0.38, 0.63) bones=Spine:42, Head:260, neck:20, RightShoulder:3\r\n  Expected: 0\r\n  But was:  325\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:03.0460000",
+      "Message": "  EnterStanding/0,7109375 actual stock/barrel crosses the skinned body at (0.35, 1.57, 0.19) bones=RightForeArm:38\r\n  Expected: 0\r\n  But was:  38\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:03.4830000",
+      "Message": "  EnterProne/0,8359375 actual stock/barrel crosses the skinned body at (0.11, 0.97, 0.33) bones=Head:47\r\n  Expected: 0\r\n  But was:  47\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(Standing)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0430000",
+      "Message": "  Standing/0 actual stock/barrel crosses the skinned body at (0.13, 1.56, 0.04) bones=Head:296\r\n  Expected: 0\r\n  But was:  296\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0530000",
+      "Message": "  Prone/0 actual stock/barrel crosses the skinned body at (0.10, 0.38, 0.62) bones=Spine:43, Head:253, neck:23\r\n  Expected: 0\r\n  But was:  319\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupDoesNotSnapTheArmsOrWeapon(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.1920000",
+      "Message": "  EnterStanding phase 182 RightLowerArm\r\n  Expected: less than 0.0500000007f\r\n  But was:  0.317319095f\r\n"
+    }
+  ]
+}

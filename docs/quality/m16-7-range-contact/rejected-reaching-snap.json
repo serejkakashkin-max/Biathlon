@@ -1,0 +1,42 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 20,
+    "PassedTests": 15,
+    "FailedTests": 5,
+    "SkippedTests": 0,
+    "Duration": "00:00:20.3599370"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.ActualRifleStructuralEdgesDoNotCrossTheSkinnedBody(Prone,0.25f)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0620000",
+      "Message": "  Prone/0,25 actual stock/barrel crosses the skinned body at (0.11, 0.34, 0.44) bones=RightArm:9, RightShoulder:17, Spine:1\r\n  Expected: 0\r\n  But was:  27\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:03.1270000",
+      "Message": "  EnterStanding/0,71875 actual stock/barrel crosses the skinned body at (0.36, 1.53, 0.20) bones=RightForeArm:63\r\n  Expected: 0\r\n  But was:  63\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:03.7160000",
+      "Message": "  EnterProne/0,8828125 actual stock/barrel crosses the skinned body at (0.12, 0.67, 0.33) bones=RightShoulder:11\r\n  Expected: 0\r\n  But was:  11\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.CompleteSetupKeepsTheActualStockAndBarrelOutsideTheBody(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0500000",
+      "Message": "  Prone/0 actual stock/barrel crosses the skinned body at (0.11, 0.34, 0.44) bones=RightArm:9, RightShoulder:16, neck:2\r\n  Expected: 0\r\n  But was:  27\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeFitTests.SetupDoesNotSnapTheArmsOrWeapon(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.1880000",
+      "Message": "  EnterStanding phase 184 RightLowerArm\r\n  Expected: less than 0.0500000007f\r\n  But was:  0.317284107f\r\n"
+    }
+  ]
+}

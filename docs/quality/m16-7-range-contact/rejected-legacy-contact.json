@@ -1,0 +1,65 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 9,
+    "PassedTests": 1,
+    "FailedTests": 8,
+    "SkippedTests": 0,
+    "Duration": "00:00:04.9407832"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.ActualRearApertureSitsOnTheDominantPupilsSightLine(Standing)",
+      "Status": "Failed",
+      "Duration": "00:00:00.1140000",
+      "Message": "  Standing eye/aperture error=0,08117314 m; rear height relative to pupil=-0,02948451\r\n  Expected: less than 0.00600000005f\r\n  But was:  0.0811731443f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.ActualRearApertureSitsOnTheDominantPupilsSightLine(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0200000",
+      "Message": "  Prone eye/aperture error=0,1095696 m; rear height relative to pupil=0,06896493\r\n  Expected: less than 0.00600000005f\r\n  But was:  0.109569579f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.ApproachKeepsHeldPoleTipsBelowTheHandsUntilRelease",
+      "Status": "Failed",
+      "Duration": "00:00:00.0240000",
+      "Message": "  Approach phase=0 pole 0 points up beside the torso.\r\n  Expected: less than -0.25f\r\n  But was:  0.504867435f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.CaptureActualRangeContacts",
+      "Status": "Passed",
+      "Duration": "00:00:04.5530000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.WristsDoNotTakeTheForearmsAxialPronation(RangeEntry)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0370000",
+      "Message": "  RangeEntry phase=68/128 side=1: distribute axial rotation through the forearm, not the wrist seam.\r\n  Expected: less than or equal to 20.1000004f\r\n  But was:  29.2846985f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.WristsDoNotTakeTheForearmsAxialPronation(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0240000",
+      "Message": "  EnterStanding phase=17/128 side=1: distribute axial rotation through the forearm, not the wrist seam.\r\n  Expected: less than or equal to 20.1000004f\r\n  But was:  22.6204834f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.WristsDoNotTakeTheForearmsAxialPronation(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0340000",
+      "Message": "  EnterProne phase=17/128 side=1: distribute axial rotation through the forearm, not the wrist seam.\r\n  Expected: less than or equal to 20.1000004f\r\n  But was:  22.6204834f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.WristsDoNotTakeTheForearmsAxialPronation(Standing)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0150000",
+      "Message": "  Standing phase=0/128 side=0: distribute axial rotation through the forearm, not the wrist seam.\r\n  Expected: less than or equal to 20.1000004f\r\n  But was:  143.804794f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.WristsDoNotTakeTheForearmsAxialPronation(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0140000",
+      "Message": "  Prone phase=0/128 side=0: distribute axial rotation through the forearm, not the wrist seam.\r\n  Expected: less than or equal to 20.1000004f\r\n  But was:  118.303986f\r\n"
+    }
+  ]
+}

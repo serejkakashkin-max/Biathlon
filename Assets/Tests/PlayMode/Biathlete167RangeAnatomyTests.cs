@@ -151,16 +151,31 @@ namespace Biathlon.PlayModeTests
             }
         }
         [TestCase(Biathlete167Action.Standing),TestCase(Biathlete167Action.Prone)]
-        public void LaidPoleFootprintsRemainOutsideBothSkis(Biathlete167Action action)
+        public void LaidPolesStayCloseAndAboveTheSnow(Biathlete167Action action)
         {
+            // Owner correction 2026-11-07: projected pole/ski overlap is allowed.
+            // Poles may rest on skis; distance and actual solid intersections
+            // matter, rather than prohibiting all overlap in a top-down image.
             var skis=new[]{Ski(rig.Bone(HumanBodyBones.LeftFoot)),Ski(rig.Bone(HumanBodyBones.RightFoot))};var poles=new[]{Ski(rig.Bone(HumanBodyBones.LeftHand)),Ski(rig.Bone(HumanBodyBones.RightHand))};motion.EvaluateAction(action,.25f);
-            Vector2[] Points(Transform t)=>t.GetComponent<MeshFilter>().sharedMesh.vertices.Select(v=>{var p=rig.transform.InverseTransformPoint(t.TransformPoint(v));return new Vector2(p.x,p.z);}).ToArray();
-            Vector2 Direction(Transform t){var size=t.GetComponent<MeshFilter>().sharedMesh.bounds.size;var axis=size.x>size.y&&size.x>size.z?Vector3.right:size.y>size.z?Vector3.up:Vector3.forward;var d=rig.transform.InverseTransformDirection(t.TransformDirection(axis));return new Vector2(d.x,d.z).normalized;}
-            foreach(var ski in skis)foreach(var pole in poles)
+            foreach(var pole in poles)
             {
-                var a=Points(ski);var b=Points(pole);var u=Direction(ski);var v=Direction(pole);float separation=float.NegativeInfinity;
-                foreach(var axis in new[]{u,new Vector2(-u.y,u.x),v,new Vector2(-v.y,v.x)}){float aMin=a.Min(p=>Vector2.Dot(p,axis)),aMax=a.Max(p=>Vector2.Dot(p,axis)),bMin=b.Min(p=>Vector2.Dot(p,axis)),bMax=b.Max(p=>Vector2.Dot(p,axis));separation=Mathf.Max(separation,Mathf.Max(bMin-aMax,aMin-bMax));}
-                Assert.That(separation,Is.GreaterThan(.005f),action+" laid pole crosses a ski: keep the entire shaft and basket outside its footprint.");
+                var vertices=pole.GetComponent<MeshFilter>().sharedMesh.vertices.Select(v=>rig.transform.InverseTransformPoint(pole.TransformPoint(v))).ToArray();
+                Assert.That(vertices.Min(p=>p.y),Is.GreaterThanOrEqualTo(-.002f),"A laid shaft or basket must not sink into snow.");
+                Assert.That(vertices.Max(p=>p.y),Is.LessThan(.13f),"A laid pole must remain near the snow/skis.");
+                var grip=vertices.OrderByDescending(p=>p.z).First();Assert.That(new Vector2(grip.x,grip.z).magnitude,Is.LessThan(.8f),"Keep handles beside the athlete, not across the neighbouring shooting mat.");
+            }
+            foreach(var ski in skis)
+            {
+                var go=new GameObject("Actual laid pole / ski contact probe");go.transform.SetParent(ski,false);var collider=go.AddComponent<MeshCollider>();collider.sharedMesh=ski.GetComponent<MeshFilter>().sharedMesh;
+                try{foreach(var pole in poles)
+                {
+                    var mesh=pole.GetComponent<MeshFilter>().sharedMesh;var vertices=mesh.vertices;var triangles=mesh.triangles;
+                    for(int i=0;i<triangles.Length;i+=3)for(int edge=0;edge<3;edge++)
+                    {
+                        var a=pole.TransformPoint(vertices[triangles[i+edge]]);var b=pole.TransformPoint(vertices[triangles[i+(edge+1)%3]]);float length=Vector3.Distance(a,b);if(length<=.004f)continue;var direction=(b-a)/length;
+                        Assert.That(collider.Raycast(new Ray(a+direction*.002f,direction),out _,length-.004f)||collider.Raycast(new Ray(b-direction*.002f,-direction),out _,length-.004f),Is.False,"Rest on a ski surface without passing the shaft through the ski.");
+                    }
+                }}finally{Object.DestroyImmediate(go);}
             }
         }
         [UnityTest] public IEnumerator CaptureActualSkiStancesAndArmRemoval()

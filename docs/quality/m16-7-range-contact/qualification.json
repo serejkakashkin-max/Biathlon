@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "m167_range_contact_20261107",
+  "status": "focused_checkpoint_not_final_art",
+  "playmode": {
+    "Status": "Passed",
+    "TotalTests": 210,
+    "PassedTests": 210,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:01:33.9411234"
+  },
+  "editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:23.4158817"
+  },
+  "console_baseline_sequence": 432226,
+  "new_console_errors_exceptions_asserts": 0,
+  "editor_compiled_idle": true,
+  "native_png_count": 97,
+  "video_actual_source_frames": 573,
+  "source_geometry_unchanged": {
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Biathlete_16_7_Natural.blend": "6cf47b06e00bf006d70d8e2aec33c60ba629fde4759fdfb71bf33924fb916d9e"
+  },
+  "code_lf_hashes": {
+    "Assets/Biathlon/Characters/Biathlete_16_7/Scripts/Biathlete167SportMotion.cs": "11328e2f9156249c83333b872d8b008285f4ad9b0ee16b3d0d4b3bd5ab846343",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Scripts/Biathlete167EyeAnchor.cs": "db972b0198d5fe32ee2e6c99c931d380542f45f4833ef97637996174f5f22c56",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Documentation/performance-motion-v1.json": "75d2da305d64381eb32bacfbd57f5b6f9be9df77bc517ee0281d2d23e96aba7b",
+    "Assets/Tests/PlayMode/Biathlete167RangeAnatomyTests.cs": "1e37a7f0420f1194bc0f62d0215c42781d1d78cd1afca821f0ca154f2a940780",
+    "Assets/Tests/PlayMode/Biathlete167RangeContactTests.cs": "b7414fbd97b5b6b0b1f4235d6212a0612604da1c7125b6744f97a55a298f20a5"
+  },
+  "actual_metrics": {
+    "schema_version": 1,
+    "id": "m167_actual_contact_measurements",
+    "sampled_actions": 5,
+    "phases_per_action": 129,
+    "wrist_by_action": [
+      {
+        "action": "RangeEntry",
+        "maximum_wrist_axial_twist_degrees": 8.782317e-05
+      },
+      {
+        "action": "EnterStanding",
+        "maximum_wrist_axial_twist_degrees": 6.10351563e-05
+      },
+      {
+        "action": "EnterProne",
+        "maximum_wrist_axial_twist_degrees": 4.79313276e-05
+      },
+      {
+        "action": "Standing",
+        "maximum_wrist_axial_twist_degrees": 6.182267e-05
+      },
+      {
+        "action": "Prone",
+        "maximum_wrist_axial_twist_degrees": 6.10351563e-05
+      }
+    ],
+    "maximum_wrist_axial_twist_degrees": 8.782317e-05,
+    "maximum_coordinate_forearm_roll_degrees": 179.512238,
+    "maximum_wrist_bend_degrees": 25.0016441,
+    "maximum_engaged_palm_residual_m": 0.00055886124,
+    "prone": {
+      "maximum_actual_pupil_aperture_height_error_m": 0.00200006366,
+      "remaining_lateral_offset_m": 0.08582019,
+      "remaining_forward_eye_aperture_distance_m": 0.157086253,
+      "full_optical_fit_accepted": false
+    }
+  },
+  "state_history_prefix_preserved": true,
+  "build": "HOLD; no Windows player or race integration",
+  "authority_balance_saves": "unchanged",
+  "full_optical_fit_accepted": false,
+  "limitations": [
+    "Full eye/cheek/buttstock fit remains open; current lateral/forward offset recorded in actual-metrics.json.",
+    "Sampled structural/sleeve/ski contact checks are not continuous whole-volume collision proof.",
+    "Final art, trigger/support fingers, elbow support, textile/strap deformation, terrain/LOD/30-athlete FPS remain unqualified."
+  ]
+}
