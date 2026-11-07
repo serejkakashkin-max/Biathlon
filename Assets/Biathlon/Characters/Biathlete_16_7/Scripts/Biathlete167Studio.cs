@@ -17,6 +17,10 @@ namespace Biathlon.Unity.Presentation
         [SerializeField] private PanelSettings panel;
         private float yaw=12,distance=3.7f,height=1.02f;
         private bool rotating;
+        private Transform plinth;
+        private Vector3 plinthPosition;
+        private Quaternion plinthRotation;
+        private float previewGrade;
         private Label status;
         private Biathlete167Motion motion;
         private Slider phaseSlider;
@@ -31,6 +35,15 @@ namespace Biathlon.Unity.Presentation
         {
             GameBranding.ApplyWindowTitle(GameBranding.RussianTitle);
             Application.runInBackground=true;rig.Validate();rig.SetPose(0);
+            foreach (var stageObject in gameObject.scene.GetRootGameObjects())
+            {
+                if (!stageObject.TryGetComponent<MeshRenderer>(out var renderer) ||
+                    renderer.sharedMaterial == null || renderer.sharedMaterial.name != "Studio_Platform") continue;
+                plinth = stageObject.transform;
+                plinthPosition = plinth.position;
+                plinthRotation = plinth.rotation;
+                break;
+            }
             // This is a close inspection studio. Inspect the authored surface;
             // distance LOD transitions are qualified separately from anatomy.
             rig.Lods.ForceLOD(0);
@@ -52,8 +65,17 @@ namespace Biathlon.Unity.Presentation
             if(keyboard!=null)
             {if(keyboard.digit1Key.wasPressedThisFrame)Pose(0);if(keyboard.digit2Key.wasPressedThisFrame)Pose(1);if(keyboard.digit3Key.wasPressedThisFrame)Pose(2);if(keyboard.digit4Key.wasPressedThisFrame)Pose(3);}
             PlaceCamera();
+            if (rig.gameObject.activeInHierarchy)
+                SetPreviewGrade(motion.Mode == Biathlete167MotionMode.Performance ? motion.Performance.SurfaceGrade : 0);
             if(motion.Mode==Biathlete167MotionMode.SkateV2||motion.Mode==Biathlete167MotionMode.Performance)
             {phaseSlider.SetValueWithoutNotify(motion.Phase);int value=Mathf.RoundToInt(motion.Phase*100);if(value!=shownPhase){shownPhase=value;status.text=motion.Mode==Biathlete167MotionMode.Performance?actionPhaseLabels[(int)motion.Performance.Action][value]:phaseLabels[value];}}
+        }
+        public void SetPreviewGrade(float grade)
+        {
+            if (plinth == null || previewGrade == grade) return;
+            previewGrade = grade;
+            var rotation = Quaternion.AngleAxis(-Mathf.Atan(grade) * Mathf.Rad2Deg, rig.transform.right);
+            plinth.SetPositionAndRotation(rig.transform.position + rotation * (plinthPosition - rig.transform.position), rotation * plinthRotation);
         }
         private void PlaceCamera()
         {

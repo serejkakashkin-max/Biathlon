@@ -227,3 +227,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-07: explicitly author the isolated coast/rest elbow plane and wrist targets, preserving held pole contacts after fitting. Adapt the grip around the pole shaft before bounding wrist swing/pronation. Author the right-hand reach as an upper/front arc with a C2 contact-settling envelope; do not interpolate straight up behind the armpit. Offline elbow guides remain explicit-phase data, no history/physics/BakeMesh in runtime. New actual pose/path and wrist regressions plus existing strict body/contact gates:218focusednativePASS. ../quality/m16-7-upper-reach. No source geometry, race authority, balance or integration change; BUILD HOLD.
+
+
+2026-11-07: the studio retargets the shipping gait, then seats the actual ski hull on the authored plane and fits the real pole shaft using the glove axis and a bounded wrist bend. Pre-touchdown pelvis transfer and the integrated sprint cadence are explicit phase functions. The preview plinth uses the same uphill grade. Runtime fitting uses cached geometry and no mesh baking. 225 focused native tests passed. [Evidence](../quality/m16-7-skate-fit/REVIEW_RU.md). Moving terrain and world-space pole lock remain field qualification work. BUILD HOLD.

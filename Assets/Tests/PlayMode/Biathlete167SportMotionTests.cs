@@ -44,6 +44,79 @@ namespace Biathlon.PlayModeTests
             motion.EvaluateAction(Biathlete167Action.Acceleration,.9f);Assert.That(motion.Performance.SpeedMetersPerSecond,Is.GreaterThan(start+4));
             motion.EvaluateAction(Biathlete167Action.RangeEntry,1);Assert.That(motion.Performance.SpeedMetersPerSecond,Is.Zero);Assert.That(motion.Performance.RifleTransfer,Is.Zero);
         }
+        [TestCase(Biathlete167Action.Skate, 0f)]
+        [TestCase(Biathlete167Action.Acceleration, 0f)]
+        [TestCase(Biathlete167Action.Uphill, .115f)]
+        public void TravelKeepsActualSkisAndPolesOnTheAuthoredSurface(Biathlete167Action action, float grade)
+        {
+            Transform root = rig.transform;
+            var normal = new Vector3(0, 1, -grade).normalized;
+            MeshFilter Longest(HumanBodyBones bone) => rig.Bone(bone).GetComponentsInChildren<MeshFilter>(true)
+                .OrderByDescending(mesh => mesh.sharedMesh.bounds.size.sqrMagnitude).First();
+            var skis = new[] { Longest(HumanBodyBones.LeftFoot), Longest(HumanBodyBones.RightFoot) };
+            var poles = new[] { Longest(HumanBodyBones.LeftHand), Longest(HumanBodyBones.RightHand) };
+            var skiVertices = skis.Select(s => s.sharedMesh.vertices).ToArray();
+            var toeInSki = skis.Select((s, i) => s.transform.InverseTransformPoint(rig.ToeHinge(i == 1).position)).ToArray();
+            var gripInPole = poles.Select((p, i) => p.transform.InverseTransformPoint(rig.GripContact(i == 1).position)).ToArray();
+            var tipInPole = poles.Select((p, i) => p.sharedMesh.vertices.OrderByDescending(v => (v - gripInPole[i]).sqrMagnitude).First()).ToArray();
+            var lastTips = new Vector3[2];
+            var highestSki = new float[2];
+            var highestPole = new float[2];
+            var contacts = new int[2];
+            for (int frame = 0; frame <= 512; frame++)
+            {
+                motion.EvaluateAction(action, frame / 512f);
+                float support = float.PositiveInfinity;
+                for (int side = 0; side < 2; side++)
+                {
+                    var ski = skis[side].transform;
+                    var pole = poles[side].transform;
+                    float bottom = skiVertices[side].Min(v => Vector3.Dot(root.InverseTransformPoint(ski.TransformPoint(v)), normal));
+                    support = Mathf.Min(support, bottom);
+                    highestSki[side] = Mathf.Max(highestSki[side], bottom);
+                    Assert.That(bottom, Is.GreaterThanOrEqualTo(-.002f), $"{action} ski {side}, frame {frame}");
+                    Assert.That(Vector3.Distance(ski.TransformPoint(toeInSki[side]), rig.ToeHinge(side == 1).position), Is.LessThan(.001f));
+                    Assert.That(Vector3.Distance(pole.TransformPoint(gripInPole[side]), rig.GripContact(side == 1).position), Is.LessThan(.001f));
+
+                    var tip = root.InverseTransformPoint(pole.TransformPoint(tipInPole[side]));
+                    float height = Vector3.Dot(tip, normal);
+                    Assert.That(height, Is.InRange(-.006f, .32f), $"{action} pole {side}, frame {frame}");
+                    if (frame > 0) Assert.That(Vector3.Distance(tip, lastTips[side]), Is.LessThan(.085f), $"{action} pole jump at frame {frame}");
+                    lastTips[side] = tip;
+                    highestPole[side] = Mathf.Max(highestPole[side], height);
+                    if (Mathf.Abs(height) < .012f) contacts[side]++;
+                }
+                Assert.That(support, Is.LessThan(.007f), $"{action} floats above the snow at frame {frame}");
+            }
+            for (int side = 0; side < 2; side++)
+            {
+                Assert.That(highestSki[side], Is.GreaterThan(.04f));
+                Assert.That(highestPole[side], Is.GreaterThan(.09f));
+                Assert.That(contacts[side], Is.GreaterThan(120), "Both poles need a usable snow contact phase.");
+            }
+        }
+
+        [Test] public void AccelerationActuallyIncreasesStrokeFrequency()
+        {
+            double CyclesBetween(int start, int end)
+            {
+                motion.EvaluateAction(Biathlete167Action.Acceleration, start / 128f);
+                double previous = motion.MainReference.SourceDriver.Cycle;
+                double cycles = 0;
+                for (int i = start + 1; i <= end; i++)
+                {
+                    motion.EvaluateAction(Biathlete167Action.Acceleration, i / 128f);
+                    double current = motion.MainReference.SourceDriver.Cycle;
+                    double delta = current - previous;
+                    cycles += delta >= 0 ? delta : delta + 1;
+                    previous = current;
+                }
+                return cycles;
+            }
+            double early = CyclesBetween(0, 32);
+            double late = CyclesBetween(96, 128);
+            Assert.That(late, Is.GreaterThan(early * 1.4));
+        }
         [Test] public void RangeBodyRetargetsTheActualShippingShootingChain()
         {
             var reference=motion.MainReference;var ids=new[]{HumanBodyBones.Hips,HumanBodyBones.Spine,HumanBodyBones.Chest,HumanBodyBones.Neck,HumanBodyBones.Head};
@@ -113,13 +186,14 @@ namespace Biathlon.PlayModeTests
                     for(int i=0;i<count;i++)
                     {
                         float phase=motion.Performance.Loops?i/(float)count:i/(float)(count-1);motion.EvaluateAction(action,phase);
+                        studio.SetPreviewGrade(motion.Performance.SurfaceGrade);
                         float low=action==Biathlete167Action.Prone?1:action==Biathlete167Action.EnterProne?Mathf.SmoothStep(0,1,Mathf.InverseLerp(.6f,1,phase)):0;
                         var focus=new Vector3(0,Mathf.Lerp(.96f,.35f,low),0);camera.transform.position=rig.transform.TransformPoint(focus+new Vector3(4.7f,.15f,0));camera.transform.LookAt(rig.transform.TransformPoint(focus));
                         yield return null;target.Render(camera);yield return new WaitForEndOfFrame();target.Render(camera);yield return new WaitForEndOfFrame();target.SavePng(folder+"/frame-"+(frame++).ToString("D4")+".png");
                     }
                 }
                 receipt.cycles=cycles.ToArray();File.WriteAllText(folder+"/complete.json",JsonUtility.ToJson(receipt,true)+"\n");
-            }}finally{studio.Rig.gameObject.SetActive(true);Object.Destroy(go);motion.Stop();}
+            }}finally{studio.SetPreviewGrade(0);studio.Rig.gameObject.SetActive(true);Object.Destroy(go);motion.Stop();}
         }
         [UnityTest] public IEnumerator CaptureActualSportsAndRangePoses()
         {
@@ -135,7 +209,7 @@ namespace Biathlon.PlayModeTests
                     float[] phases=action==Biathlete167Action.EnterProne||action==Biathlete167Action.EnterStanding?new[]{.2f,.45f,.7f,1f}:new[]{.25f,.75f};
                     foreach(float phase in phases)
                     {
-                        motion.EvaluateAction(action,phase);bool low=action==Biathlete167Action.Prone||(action==Biathlete167Action.EnterProne&&phase>.65f);var focus=new Vector3(0,low?.35f:.96f,low?.05f:0);
+                        motion.EvaluateAction(action,phase);studio.SetPreviewGrade(motion.Performance.SurfaceGrade);bool low=action==Biathlete167Action.Prone||(action==Biathlete167Action.EnterProne&&phase>.65f);var focus=new Vector3(0,low?.35f:.96f,low?.05f:0);
                         foreach(var item in new[]{("side",new Vector3(3.6f,.12f,0)),("front",new Vector3(.15f,.12f,3.8f))})
                         {camera.transform.position=rig.transform.TransformPoint(focus+item.Item2);camera.transform.LookAt(rig.transform.TransformPoint(focus));yield return null;target.Render(camera);yield return new WaitForEndOfFrame();target.Render(camera);yield return new WaitForEndOfFrame();target.SavePng(Evidence+"/native/"+action+"-"+phase.ToString("F2",System.Globalization.CultureInfo.InvariantCulture)+"-"+item.Item1+".png");}
                     }
@@ -146,7 +220,7 @@ namespace Biathlon.PlayModeTests
                     camera.transform.position=hand+new Vector3(right?-.38f:.38f,.15f,.55f);camera.transform.LookAt(hand);yield return null;target.Render(camera);yield return new WaitForEndOfFrame();target.Render(camera);yield return new WaitForEndOfFrame();
                     target.SavePng(Evidence+"/native/hand-"+action+"-"+phase.ToString("F2",System.Globalization.CultureInfo.InvariantCulture)+"-"+(right?"right":"left")+".png");
                 }
-            }}finally{studio.Rig.gameObject.SetActive(true);Object.Destroy(cameraObject);motion.Stop();}
+            }}finally{studio.SetPreviewGrade(0);studio.Rig.gameObject.SetActive(true);Object.Destroy(cameraObject);motion.Stop();}
         }
     }
 }

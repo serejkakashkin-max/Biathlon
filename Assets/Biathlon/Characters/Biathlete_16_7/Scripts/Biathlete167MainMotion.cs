@@ -35,6 +35,7 @@ namespace Biathlon.Unity.Presentation
         public float PelvisClearanceLiftMeters{get;private set;}
         public float MaximumBindingResidualMeters{get;private set;}
         public float MaximumHeelRiseDegrees{get;private set;}
+        internal float MinimumGripHalfWidthMeters => settings.minimum_grip_half_width_m;
         private readonly Renderer[] hiddenRenderers;
         private readonly bool[] referenceRendererStates;
         private bool referenceVisible;

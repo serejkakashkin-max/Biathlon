@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "id": "m167_skate_travel_measurements",
+  "phases_per_action": 257,
+  "baseline_wrist_metric": "old donor adapter's wrist bend",
+  "final_wrist_metric": "actual travel fit wrist bend",
+  "before": {
+    "Skate": {
+      "maximum_lowest_ski_height_m": 0.0241659433,
+      "minimum_ski_height_m": 0.008708298,
+      "maximum_recovering_ski_height_m": 0.0506896973,
+      "minimum_ski_volume_separating_axis_m": 0.0593796968,
+      "minimum_pole_tip_height_m": -0.09178811,
+      "maximum_pole_tip_height_m": 1.01802158,
+      "maximum_tip_step_m": 0.08468076028227325,
+      "maximum_toe_gap_m": 1.02720787e-06,
+      "maximum_wrist_swing_deg": 25.0476551,
+      "pole_contact_samples": [
+        6,
+        6
+      ]
+    },
+    "Acceleration": {
+      "maximum_lowest_ski_height_m": 0.0390909165,
+      "minimum_ski_height_m": 0.008363426,
+      "maximum_recovering_ski_height_m": 0.07949082,
+      "minimum_ski_volume_separating_axis_m": 0.194741249,
+      "minimum_pole_tip_height_m": -0.127008319,
+      "maximum_pole_tip_height_m": 0.8221053,
+      "maximum_tip_step_m": 0.34156996294185715,
+      "maximum_toe_gap_m": 1.01152432e-06,
+      "maximum_wrist_swing_deg": 25.0497036,
+      "pole_contact_samples": [
+        9,
+        19
+      ],
+      "first_second_measured_cycle_count": 0.8550000326633448,
+      "last_second_measured_cycle_count": 1.1849999298254648
+    },
+    "Uphill": {
+      "maximum_lowest_ski_height_m": 0.04780643,
+      "minimum_ski_height_m": 0.04331486,
+      "maximum_recovering_ski_height_m": 0.08640064,
+      "minimum_ski_volume_separating_axis_m": 0.119466364,
+      "minimum_pole_tip_height_m": -0.0987275243,
+      "maximum_pole_tip_height_m": 0.8238815,
+      "maximum_tip_step_m": 0.04393964444001507,
+      "maximum_toe_gap_m": 1.08931465e-06,
+      "maximum_wrist_swing_deg": 25.0493717,
+      "pole_contact_samples": [
+        18,
+        7
+      ]
+    }
+  },
+  "after": {
+    "Skate": {
+      "maximum_lowest_ski_height_m": 0.00200038962,
+      "minimum_ski_height_m": 0.00199863315,
+      "maximum_recovering_ski_height_m": 0.0569967031,
+      "minimum_ski_volume_separating_axis_m": 0.059367,
+      "minimum_pole_tip_height_m": -0.00463790447,
+      "maximum_pole_tip_height_m": 0.207997322,
+      "maximum_tip_step_m": 0.02854593128954195,
+      "maximum_toe_gap_m": 1.24029236e-06,
+      "maximum_wrist_swing_deg": 20.0001316,
+      "pole_contact_samples": [
+        145,
+        141
+      ]
+    },
+    "Acceleration": {
+      "maximum_lowest_ski_height_m": 0.002000168,
+      "minimum_ski_height_m": 0.00199878216,
+      "maximum_recovering_ski_height_m": 0.08299774,
+      "minimum_ski_volume_separating_axis_m": 0.201638386,
+      "minimum_pole_tip_height_m": -0.00326830149,
+      "maximum_pole_tip_height_m": 0.2238329,
+      "maximum_tip_step_m": 0.12597169906829464,
+      "maximum_toe_gap_m": 9.499417e-07,
+      "maximum_wrist_swing_deg": 20.00011,
+      "pole_contact_samples": [
+        136,
+        134
+      ],
+      "first_second_measured_cycle_count": 0.7462500452399252,
+      "last_second_measured_cycle_count": 1.173750164886318
+    },
+    "Uphill": {
+      "maximum_lowest_ski_height_m": 0.00200047065,
+      "minimum_ski_height_m": 0.00199868134,
+      "maximum_recovering_ski_height_m": 0.0769962743,
+      "minimum_ski_volume_separating_axis_m": 0.1194168,
+      "minimum_pole_tip_height_m": -0.003217934,
+      "maximum_pole_tip_height_m": 0.153207034,
+      "maximum_tip_step_m": 0.021370842664867665,
+      "maximum_toe_gap_m": 1.04137689e-06,
+      "maximum_wrist_swing_deg": 25.025795,
+      "pole_contact_samples": [
+        105,
+        132
+      ]
+    }
+  }
+}
