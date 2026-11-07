@@ -18,8 +18,11 @@ CHAPTERS = {
     "skis": ("Лыжи и ботинки", "Гоночный профиль лыжи, крепление носка, подошва и карбоновая манжета."),
     "skis_top": ("Лыжи сверху", "Профиль носка и пятки, карбоновый рисунок, надписи и крепления."),
     "skate": ("Коньковый ход V2", "Woodland Basin. Одна траектория, скорость 6 м/с, общий ракурс."),
+    "skate_front": ("Коньковый ход V2 · спереди", "Мягкая опорная нога, положение локтей и перенос веса между лыжами."),
     "acceleration": ("Разгон", "Сравните рост частоты шага, работу рук и перенос веса."),
+    "acceleration_front": ("Разгон · спереди", "Согласованная работа рук и ног при постепенном увеличении частоты."),
     "uphill": ("Подъём V1", "Участок подъёма Woodland Basin. Сравните опору лыжи и работу палок."),
+    "uphill_front": ("Подъём V1 · спереди", "Разная высота кистей при постановке и один парный толчок на два шага."),
     "entry": ("Заход на огневой рубеж", "Один поворот на дорожку № 15. Торможение, укладка палок и подъём очков."),
     "standing": ("Изготовка стоя", "Снятие винтовки с плеч, хват и выход на линию прицеливания."),
     "prone": ("Изготовка лёжа", "Переход на коврик, опора рук, положение ног и лыж."),
@@ -34,6 +37,8 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
     fps = studio["fps"]
     expected = list(CHAPTERS)
     if not any(shot["id"] == "skis_top" for shot in shots): expected.remove("skis_top")
+    for optional in ("skate_front", "acceleration_front", "uphill_front"):
+        if not any(shot["id"] == optional for shot in shots): expected.remove(optional)
     assert fps == woodland["fps"] and [shot["id"] for shot in shots] == expected
     regular = font_dir / "segoeui.ttf"
     bold = font_dir / "seguisb.ttf"

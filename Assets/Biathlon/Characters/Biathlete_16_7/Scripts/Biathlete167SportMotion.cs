@@ -19,7 +19,6 @@ namespace Biathlon.Unity.Presentation
             public float acceleration_duration_s,range_entry_duration_s,standing_transition_duration_s,prone_transition_duration_s,breathing_cycle_s,breathing_displacement_m,start_speed_mps,sprint_speed_mps,uphill_speed_mps,uphill_grade,deceleration_start_speed_mps,rifle_hidden_harness_fraction,loose_harness_sag_m,loose_harness_width_m,loose_harness_thickness_m,maximum_range_wrist_bend_degrees,rifle_transfer_side_m,rifle_transfer_up_m,rifle_transfer_forward_m;
             public float sprint_start_cadence_hz,sprint_end_cadence_hz,travel_ski_clearance_m;
             public TravelStyle flat_style,sprint_style,uphill_style;
-            public Vector3 travel_plant_elbow_hint,travel_finish_elbow_hint;
             public float eyewear_raise_start,eyewear_raise_end,eyewear_touch_start,eyewear_touch_peak,eyewear_release_start,eyewear_release_end,poles_drop_start,poles_drop_end;
             public float rifle_turn_start,rifle_turn_end,support_hand_start,support_hand_end;
             public float forearm_radius_m,wrist_radius_m,upperarm_radius_m;
@@ -42,7 +41,8 @@ namespace Biathlon.Unity.Presentation
             public float sight_height_settle_start,sight_height_settle_end;
             public Vector3 prone_neck_settle_degrees,prone_shoulder_settle_m;
             public float prone_body_lower_m, prone_left_elbow_height_m, prone_right_elbow_height_m, prone_chest_yaw_degrees;
-            public float prone_mat_start, prone_mat_end, travel_minimum_elbow_degrees;
+            public float prone_mat_start, prone_mat_end, travel_plant_lift_m;
+            public float flat_cycle_seconds, uphill_cycle_seconds;
             public Vector3 standing_left_elbow_hint,standing_right_elbow_hint,prone_left_elbow_hint,rifle_butt_local,rifle_trigger_local,rifle_support_local,left_pole_stow,right_pole_stow,prone_support_local,loose_harness_upper,loose_harness_lower,standing_shoulder_pocket,prone_shoulder_pocket,rifle_reach_local,right_grip_hint_root,right_grip_hint_rifle;
             public Vector3 eyewear_pivot,glasses_raise_offset,mask_raise_offset,glasses_raise_euler,mask_raise_euler,eyewear_touch_point;
             private static bool Span(float a,float b)=>float.IsFinite(a)&&float.IsFinite(b)&&a>=0&&a<b&&b<=1;
@@ -66,7 +66,9 @@ namespace Biathlon.Unity.Presentation
                     !(prone_left_elbow_height_m > 0 && prone_left_elbow_height_m < .07f) ||
                     !(prone_right_elbow_height_m > 0 && prone_right_elbow_height_m < .07f) ||
                     !(prone_chest_yaw_degrees >= 0 && prone_chest_yaw_degrees <= 20f) ||
-                    !(travel_minimum_elbow_degrees >= 55f && travel_minimum_elbow_degrees <= 80f))
+                    !(travel_plant_lift_m >= 0 && travel_plant_lift_m <= .12f) ||
+                    !(flat_cycle_seconds >= 1.2f && flat_cycle_seconds <= 2.2f) ||
+                    !(uphill_cycle_seconds >= 1.1f && uphill_cycle_seconds <= 2f))
                     throw new ArgumentException("Invalid mat support or skating elbow definition.");
                 foreach(var curve in new[]{standing_right_elbow_curve,prone_right_elbow_curve})
                 {if(curve==null||curve.Length<2||curve.Length>4097)throw new ArgumentException("Baked right elbow guide missing.");foreach(var v in curve)if(!float.IsFinite(v.sqrMagnitude)||v.sqrMagnitude<.0001f||v.sqrMagnitude>1)throw new ArgumentException("Invalid baked right elbow guide.");}
@@ -74,23 +76,17 @@ namespace Biathlon.Unity.Presentation
         }
         [Serializable] private sealed class TravelStyle
         {
-            public float pelvis_follow,handoff_fraction,ski_recovery_m,pole_recovery_m,pole_drive_fraction,pole_splay_degrees;
-            public float follow_through_fraction;
-            public float glide_extension_m, release_heel_degrees, torso_open_degrees;
-            public Vector3 plant_grip_from_shoulder,drive_end_grip_from_shoulder,release_grip_from_shoulder,offset_grip,return_arc_m;
+            public float pelvis_follow,handoff_fraction,ski_recovery_m,pole_recovery_m,pole_splay_degrees;
+            public float glide_extension_m, release_heel_degrees, torso_open_degrees, maximum_knee_degrees, follow_through_degrees, follow_through_elbow_degrees;
 
             public bool IsValid => pelvis_follow >= 0 && pelvis_follow <= .8f && handoff_fraction >= .08f && handoff_fraction <= .3f &&
                 ski_recovery_m >= .025f && ski_recovery_m <= .13f && pole_recovery_m >= .06f && pole_recovery_m <= .4f &&
-                pole_drive_fraction >= .25f && pole_drive_fraction <= .65f && pole_splay_degrees >= 0 && pole_splay_degrees <= 18 &&
-                follow_through_fraction >= .06f && follow_through_fraction <= .32f &&
+                pole_splay_degrees >= 0 && pole_splay_degrees <= 18 &&
                 glide_extension_m > 0 && glide_extension_m <= .22f && release_heel_degrees > 0 && release_heel_degrees <= 35 &&
                 torso_open_degrees >= 0 && torso_open_degrees <= 15 &&
-                ValidGrip(plant_grip_from_shoulder) && ValidGrip(drive_end_grip_from_shoulder) && ValidGrip(release_grip_from_shoulder) &&
-                float.IsFinite(return_arc_m.sqrMagnitude) && return_arc_m.sqrMagnitude <= .14f * .14f &&
-                float.IsFinite(offset_grip.sqrMagnitude) && offset_grip.sqrMagnitude <= .12f * .12f;
-
-            private static bool ValidGrip(Vector3 grip) => grip.x >= .015f && grip.x <= .19f && grip.y >= -.36f && grip.y <= .24f &&
-                grip.z >= -.28f && grip.z <= .56f;
+                maximum_knee_degrees >= 135 && maximum_knee_degrees <= 155 &&
+                follow_through_degrees >= 0 && follow_through_degrees <= 35 &&
+                follow_through_elbow_degrees >= 130 && follow_through_elbow_degrees <= 160;
         }
         private static readonly HumanBodyBones[] BoneIds={HumanBodyBones.Hips,HumanBodyBones.Spine,HumanBodyBones.Chest,HumanBodyBones.Neck,HumanBodyBones.Head,HumanBodyBones.LeftUpperArm,HumanBodyBones.LeftLowerArm,HumanBodyBones.LeftHand,HumanBodyBones.RightUpperArm,HumanBodyBones.RightLowerArm,HumanBodyBones.RightHand,HumanBodyBones.LeftUpperLeg,HumanBodyBones.LeftLowerLeg,HumanBodyBones.LeftFoot,HumanBodyBones.RightUpperLeg,HumanBodyBones.RightLowerLeg,HumanBodyBones.RightFoot};
         private readonly Biathlete167Rig rig;private readonly Biathlete167MainMotion main;private readonly Definition d;private readonly SkiMotionSettings ski;
@@ -100,8 +96,6 @@ namespace Biathlon.Unity.Presentation
         private readonly Biathlete167GlassesRetainer glassesRetainer;
         private readonly Vector3[] handGrip=new Vector3[2];private readonly Quaternion[] gripInHand=new Quaternion[2];
         private readonly Vector3[] forearmInHand=new Vector3[2];
-        private readonly Vector3[] poleAxisInHand = new Vector3[2];
-        private readonly Quaternion[] poleFrameInHand = new Quaternion[2];
         private readonly Quaternion[] handInForearm=new Quaternion[2];
         private readonly Vector3[] poleReleasePositions=new Vector3[2];private readonly Quaternion[] poleReleaseRotations=new Quaternion[2];
         private readonly SkinnedMeshRenderer[] skins;private readonly Material[][] visibleMaterials,hiddenMaterials;private readonly Material[] hiddenHarness;
@@ -133,7 +127,16 @@ namespace Biathlon.Unity.Presentation
         public float EyewearLift{get;private set;}
         public Vector3 SupportContact{get;private set;}
         public Vector3 TriggerContact{get;private set;}
-        public float DurationSeconds=>Action==Biathlete167Action.Acceleration?d.acceleration_duration_s:Action==Biathlete167Action.RangeEntry?d.range_entry_duration_s:Action==Biathlete167Action.EnterStanding?d.standing_transition_duration_s:Action==Biathlete167Action.EnterProne?d.prone_transition_duration_s:Action==Biathlete167Action.Standing||Action==Biathlete167Action.Prone?d.breathing_cycle_s:main.CycleSeconds;
+        public float DurationSeconds => Action switch
+        {
+            Biathlete167Action.Acceleration => d.acceleration_duration_s,
+            Biathlete167Action.RangeEntry => d.range_entry_duration_s,
+            Biathlete167Action.EnterStanding => d.standing_transition_duration_s,
+            Biathlete167Action.EnterProne => d.prone_transition_duration_s,
+            Biathlete167Action.Standing or Biathlete167Action.Prone => d.breathing_cycle_s,
+            Biathlete167Action.Uphill => d.uphill_cycle_seconds,
+            _ => d.flat_cycle_seconds
+        };
         public bool Loops=>Action==Biathlete167Action.Skate||Action==Biathlete167Action.Uphill||Action==Biathlete167Action.Standing||Action==Biathlete167Action.Prone;
         public Biathlete167SportMotion(Biathlete167Rig target,Biathlete167MainMotion reference)
         {
@@ -145,9 +148,7 @@ namespace Biathlon.Unity.Presentation
             if (d.flat_style == null || !d.flat_style.IsValid || d.sprint_style == null || !d.sprint_style.IsValid ||
                 d.uphill_style == null || !d.uphill_style.IsValid || !(d.sprint_start_cadence_hz > 0 &&
                 d.sprint_end_cadence_hz > d.sprint_start_cadence_hz && d.sprint_end_cadence_hz <= 1.6f) ||
-                !(d.travel_ski_clearance_m >= 0 && d.travel_ski_clearance_m <= .01f) ||
-                !(d.travel_plant_elbow_hint.sqrMagnitude > .1f && d.travel_plant_elbow_hint.sqrMagnitude < 4f) ||
-                !(d.travel_finish_elbow_hint.sqrMagnitude > .1f && d.travel_finish_elbow_hint.sqrMagnitude < 4f))
+                !(d.travel_ski_clearance_m >= 0 && d.travel_ski_clearance_m <= .01f))
                 throw new ArgumentException("Invalid hero skate, acceleration or uphill definition.");
             rig.SetPose(0);
             for(int i=0;i<bones.Length;i++)bones[i]=rig.Bone(BoneIds[i]);
@@ -167,8 +168,6 @@ namespace Biathlon.Unity.Presentation
                 handInForearm[i]=Quaternion.Inverse(hand.parent.rotation)*hand.rotation;
                 poles[i]=ReadProp(Longest(hand),frame);
                 poles[i].RootRotation=Quaternion.Inverse(root.rotation)*poles[i].Transform.rotation;
-                poleAxisInHand[i] = hand.InverseTransformDirection(poles[i].Transform.TransformDirection(poles[i].Axis));
-                poleFrameInHand[i] = Quaternion.LookRotation(Vector3.ProjectOnPlane(forearmInHand[i], poleAxisInHand[i]), poleAxisInHand[i]);
             }
             skins=Array.ConvertAll(rig.Lods.GetLODs(),lod=>Array.Find(lod.renderers,r=>r is SkinnedMeshRenderer)as SkinnedMeshRenderer);
             eyeAnchor=new Biathlete167EyeAnchor(rig,skins[0]);
@@ -243,141 +242,54 @@ namespace Biathlon.Unity.Presentation
             main.Evaluate(cycle);
             float stride = (float)main.SourceDriver.Cycle;
             shootingSkis.ApplyGlide(stride, ski.glide_fraction, grade, style.ski_recovery_m,
-                d.travel_ski_clearance_m, style.pelvis_follow, style.handoff_fraction, style.glide_extension_m, style.release_heel_degrees);
+                d.travel_ski_clearance_m, style.pelvis_follow, style.handoff_fraction, style.glide_extension_m,
+                style.release_heel_degrees, style.maximum_knee_degrees);
             var normal = root.TransformDirection(new Vector3(0, 1, -grade).normalized);
-            float stroke = Mathf.Repeat((float)main.SourceDriver.PoleCycle + (uphill ? .5f : 0f), 1);
+            float stroke = (float)main.SourceDriver.PoleCycle;
             var gaze = bones[4].rotation;
             float opening = .55f + .45f * (.5f + .5f * Mathf.Cos(stroke * Mathf.PI * 2));
             bones[2].rotation = Quaternion.AngleAxis(-style.torso_open_degrees * opening, root.right) * bones[2].rotation;
             bones[4].rotation = gaze;
-            bodyClearance.Update();
-            FitTravelPole(0, stroke, normal, style, uphill);
-            FitTravelPole(1, stroke, normal, style, uphill);
+            FitTravelPole(0, normal, style);
+            FitTravelPole(1, normal, style);
         }
 
-        private void FitTravelPole(int side, float stroke, Vector3 normal, TravelStyle style, bool uphill)
+        private void FitTravelPole(int side, Vector3 normal, TravelStyle style)
         {
             int hand = side == 0 ? 7 : 10;
-            float sign = side == 0 ? -1 : 1;
             var pole = poles[side];
-            var offset = TravelGrip(stroke, style, out float recovery, out float reachForward);
-            if (uphill) offset += style.offset_grip * sign;
-            offset.x *= sign;
-            var palmInRoot = root.InverseTransformPoint(bones[hand - 2].position) + offset;
-            palmInRoot.x = sign * Mathf.Max(main.MinimumGripHalfWidthMeters, palmInRoot.x * sign);
-            var palm = root.TransformPoint(palmInRoot);
-            var backward = Vector3.ProjectOnPlane(-root.forward, normal).normalized;
-            var trailing = Quaternion.AngleAxis(-sign * style.pole_splay_degrees, normal) * backward;
-            // The tip leaves the surface during the follow-through, before the hand swings forward.
-            float swing = Mathf.Sin(Mathf.PI * Mathf.Pow(recovery, .88f));
-            float tipHeight = style.pole_recovery_m * swing * swing;
-            float length = pole.Transform.TransformVector(pole.Tip - pole.Grip).magnitude;
-            // Leave the shaft room to sweep back at a high plant. A nearly
-            // vertical shaft turns tiny changes in grip height into tip snaps.
-            const float maximumVerticalComponent = .88f;
-            float down = Mathf.Clamp((Vector3.Dot(palm - root.position, normal) - tipHeight) / length, 0, maximumVerticalComponent);
-            var shaft = trailing * Mathf.Sqrt(1 - down * down) - normal * down;
-
-            var inverseFrame = Quaternion.Inverse(poleFrameInHand[side]);
-            var rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(root.forward, shaft), shaft) * inverseFrame;
-            float gripAngle = Vector3.Angle(poleAxisInHand[side], forearmInHand[side]);
-            float wristAllowance = d.maximum_range_wrist_bend_degrees * .8f;
-            float minimumDot = Mathf.Cos(Mathf.Min(180, gripAngle + wristAllowance) * Mathf.Deg2Rad);
-            float maximumDot = Mathf.Cos(Mathf.Max(0, gripAngle - wristAllowance) * Mathf.Deg2Rad);
-            var elbowGuide = Vector3.Lerp(d.travel_finish_elbow_hint, d.travel_plant_elbow_hint, reachForward);
-            elbowGuide.x *= sign;
-            var preferred = root.TransformDirection(elbowGuide);
-            for (int pass = 0; pass < 6; pass++)
-            {
-                var wrist = palm - rotation * Vector3.Scale(handGrip[side], bones[hand].lossyScale);
-                var shoulder = bones[hand - 2].position;
-                float upperLength = Vector3.Distance(shoulder, bones[hand - 1].position);
-                float lowerLength = Vector3.Distance(bones[hand - 1].position, bones[hand].position);
-                float minimumReach = Mathf.Sqrt(upperLength * upperLength + lowerLength * lowerLength -
-                    2 * upperLength * lowerLength * Mathf.Cos(d.travel_minimum_elbow_degrees * Mathf.Deg2Rad));
-                var reach = wrist - shoulder;
-                if (reach.sqrMagnitude < minimumReach * minimumReach)
-                {
-                    // Open the elbow sideways without accelerating the authored forward/back stroke.
-                    var outward = root.right * sign;
-                    float lateral = Vector3.Dot(reach, outward);
-                    float extra = Mathf.Sqrt(minimumReach * minimumReach - reach.sqrMagnitude + lateral * lateral) - lateral;
-                    wrist += outward * extra;
-                }
-                wrist = bodyClearance.Outside(wrist, sign, d.wrist_radius_m);
-                var hint = TravelElbowHint(hand, wrist, preferred, shaft, minimumDot, maximumDot, sign);
-                Solve(hand - 2, wrist, hint, avoidBody:true);
-                var actual = bones[hand].position - bones[hand - 1].position;
-                var current = Vector3.ProjectOnPlane(rotation * (poleFrameInHand[side] * Vector3.forward), shaft);
-                var projected = Vector3.ProjectOnPlane(actual, shaft);
-                if (projected.sqrMagnitude > .000001f)
-                {
-                    float alignment = Vector3.Dot(current.normalized, projected.normalized);
-                    float weight = .4f * Smooth(Mathf.InverseLerp(.18f, .8f, alignment));
-                    if (weight > 0)
-                        rotation = Quaternion.Slerp(rotation, Quaternion.LookRotation(projected, shaft) * inverseFrame, weight);
-                }
-            }
-            OrientWristAndForearm(hand, side, rotation);
-            // Preserve the planted shaft when the wrist hits its anatomical bound.
-            down = Mathf.Clamp((Vector3.Dot(rig.GripContact(side == 1).position - root.position, normal) - tipHeight) / length, 0, maximumVerticalComponent);
-            shaft = trailing * Mathf.Sqrt(1 - down * down) - normal * down;
-            SeatPole(side, shaft);
-        }
-
-        private static Vector3 TravelGrip(float stroke, TravelStyle style, out float recovery, out float reachForward)
-        {
-            recovery = Mathf.InverseLerp(style.pole_drive_fraction, 1, stroke);
-            if (stroke <= style.pole_drive_fraction)
-            {
-                float drive = StrokeProgress(stroke / style.pole_drive_fraction);
-                reachForward = 1 - drive;
-                return Vector3.Lerp(style.plant_grip_from_shoulder, style.drive_end_grip_from_shoulder, drive);
-            }
-
-            float followThrough = Smooth(recovery / style.follow_through_fraction);
-            float returnPhase = Mathf.InverseLerp(style.follow_through_fraction, 1, recovery);
-            float returnTravel = StrokeProgress(returnPhase);
-            float arc = Mathf.Sin(returnPhase * Mathf.PI);
-            reachForward = Smooth(Mathf.Sqrt(returnPhase));
-            var end = Vector3.Lerp(style.drive_end_grip_from_shoulder, style.release_grip_from_shoulder, followThrough);
-            return Vector3.Lerp(end, style.plant_grip_from_shoulder, returnTravel) + style.return_arc_m * (arc * arc);
-        }
-
-        private static float StrokeProgress(float phase)
-        {
-            // Ease in and out, with a steadier speed through the middle of the stroke.
-            const float ramp = .22f;
-            float edge = Mathf.Min(phase, 1 - phase);
-            float travel = edge < ramp ? edge * edge / (2 * ramp) : edge - ramp * .5f;
-            travel /= 1 - ramp;
-            return phase < .5f ? travel : 1 - travel;
-        }
-
-        private Vector3 TravelElbowHint(int hand, Vector3 wrist, Vector3 preferred, Vector3 shaft, float minimumDot, float maximumDot, float sign)
-        {
+            float followThrough = .5f + .5f * Mathf.Cos(((float)main.SourceDriver.PoleCycle - ski.pole_drive_end) * Mathf.PI * 2);
+            bones[hand - 2].rotation = Quaternion.AngleAxis(style.follow_through_degrees * followThrough, root.right) * bones[hand - 2].rotation;
+            var upperDirection = bones[hand - 1].position - bones[hand - 2].position;
+            var lowerDirection = bones[hand].position - bones[hand - 1].position;
+            float elbowAngle = Vector3.Angle(-upperDirection, lowerDirection);
+            float extension = Mathf.Max(0, style.follow_through_elbow_degrees - elbowAngle) * followThrough;
+            bones[hand - 1].rotation = Quaternion.Slerp(Quaternion.identity,
+                Quaternion.FromToRotation(lowerDirection, upperDirection), extension / Mathf.Max(.001f, 180 - elbowAngle)) * bones[hand - 1].rotation;
+            // Retain the donor's shoulder/forearm hinge and its anatomical bend.
+            // Lift into the plant without choosing a new elbow plane from the shaft.
+            float plant = (ski.curves[3].AtContinuous((float)main.SourceDriver.PoleCycle) + 1) * .5f;
+            var rotation = bones[hand].rotation;
+            var hint = bones[hand - 1].position - (bones[hand - 2].position + bones[hand].position) * .5f;
             var shoulder = bones[hand - 2].position;
-            var elbow = bones[hand - 1].position;
-            float upper = Vector3.Distance(shoulder, elbow), lower = Vector3.Distance(elbow, bones[hand].position);
+            var wrist = bones[hand].position + normal * (d.travel_plant_lift_m * plant);
+            float upper = Vector3.Distance(shoulder, bones[hand - 1].position);
+            float lower = Vector3.Distance(bones[hand - 1].position, bones[hand].position);
+            float minimumReach = Mathf.Sqrt(upper * upper + lower * lower + 2 * upper * lower * Mathf.Cos(ski.arm_max_flex_deg * Mathf.Deg2Rad));
             var reach = wrist - shoulder;
-            var axis = reach.normalized;
-            float distance = Mathf.Clamp(reach.magnitude, Mathf.Abs(upper - lower) + .0001f, upper + lower - .0001f);
-            float along = (upper * upper - lower * lower + distance * distance) / (2 * distance);
-            float radius = Mathf.Sqrt(Mathf.Max(0, upper * upper - along * along));
-            var lateralShaft = Vector3.ProjectOnPlane(shaft, axis);
-            if (lateralShaft.sqrMagnitude < 1e-6f || radius < .001f) return preferred;
+            if (reach.sqrMagnitude < minimumReach * minimumReach) wrist = shoulder + reach.normalized * minimumReach;
+            Solve(hand - 2, wrist, hint);
+            OrientWristAndForearm(hand, side, rotation);
 
-            var direction = lateralShaft.normalized;
-            float axial = (distance - along) * Vector3.Dot(shaft, axis);
-            float leverage = radius * lateralShaft.magnitude;
-            float low = Mathf.Clamp((axial - lower * maximumDot) / leverage, -1, 1);
-            float high = Mathf.Clamp((axial - lower * minimumDot) / leverage, -1, 1);
-            float natural = Vector3.Dot(Vector3.ProjectOnPlane(preferred, axis).normalized, direction);
-            float cosine = Mathf.Clamp(natural, low, high);
-            // Keep the outward elbow branch on each side throughout the stroke.
-            var perpendicular = Vector3.Cross(axis, direction) * sign;
-            return direction * cosine + perpendicular * Mathf.Sqrt(1 - cosine * cosine);
+            float lift = main.SourceDriver.PoleRecoveryClearance;
+            float tipHeight = style.pole_recovery_m * lift * lift;
+            float length = pole.Transform.TransformVector(pole.Tip - pole.Grip).magnitude;
+            float down = Mathf.Clamp((Vector3.Dot(rig.GripContact(side == 1).position - root.position, normal) - tipHeight) / length, 0, .98f);
+            var trailing = Quaternion.AngleAxis((side == 0 ? 1 : -1) * style.pole_splay_degrees, normal) *
+                Vector3.ProjectOnPlane(-root.forward, normal).normalized;
+            SeatPole(side, trailing * Mathf.Sqrt(1 - down * down) - normal * down);
         }
+
         private void Approach(float phase)
         {
             SpeedMetersPerSecond=Mathf.Lerp(d.deceleration_start_speed_mps,0,Smooth(Mathf.InverseLerp(0,.72f,phase)));

@@ -81,6 +81,8 @@ namespace Biathlon.PlayModeTests
                     var tip = root.InverseTransformPoint(pole.TransformPoint(tipInPole[side]));
                     float height = Vector3.Dot(tip, normal);
                     Assert.That(height, Is.InRange(-.006f, .32f), $"{action} pole {side}, frame {frame}");
+                    if (motion.MainReference.SourceDriver.PoleDriveActive)
+                        Assert.That(height, Is.LessThan(.012f), $"{action} pole {side} must stay planted during the powered stroke, frame {frame}");
                     if (frame > 0) Assert.That(Vector3.Distance(tip, lastTips[side]), Is.LessThan(.085f), $"{action} pole jump at frame {frame}");
                     lastTips[side] = tip;
                     highestPole[side] = Mathf.Max(highestPole[side], height);
@@ -146,7 +148,9 @@ namespace Biathlon.PlayModeTests
                     Assert.That(lateral, Is.GreaterThan(.012f), $"{action} elbow drawn into torso at frame {frame}, side {side}");
                     highestGrip[side] = Mathf.Max(highestGrip[side], gripHeight);
                     lowestGrip[side] = Mathf.Min(lowestGrip[side], gripHeight);
-                    if (gripHeight > .065f)
+                    // V1 uses an offset plant, with the left hand below the lead hand.
+                    float plantHeight = action == Biathlete167Action.Uphill && side == 0 ? -.04f : .065f;
+                    if (gripHeight > plantHeight)
                         forwardElbow[side] = Mathf.Max(forwardElbow[side], Vector3.Dot(upper, rig.transform.forward));
                     if (gripHeight < -.27f)
                         openedAtFinish[side] = Mathf.Max(openedAtFinish[side], angle);

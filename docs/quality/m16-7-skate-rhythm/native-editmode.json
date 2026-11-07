@@ -1,0 +1,87 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 15,
+    "PassedTests": 15,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:23.0304161"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.AppearanceDefinitionTests.DetailedAppearanceRoundTripsAllStableIdsAndRemainsDetachedFromItsSource",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.Tests.AppearanceDefinitionTests.DetailedCosmeticSaveNeverChangesStatsInventoryMoneyOrSimulationRandomState",
+      "Status": "Passed",
+      "Duration": "00:00:00.0730000"
+    },
+    {
+      "Name": "Biathlon.Tests.AppearanceDefinitionTests.EveryAuthoredCosmeticIsSelectableAndInvalidEditsAreAtomic",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.Tests.AppearanceDefinitionTests.InvalidPolicyVersionsDuplicateIdsAndNonColorsFailBeforeCreatingAProfile",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.Tests.AppearanceDefinitionTests.LegacyAndV1ProfilesDoNotAcquireUnrequestedNewFields",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerAppearanceProfileTests.ExplicitCosmeticsAndCreationProvenanceSurviveSaveLoadWithoutChangingAbilities",
+      "Status": "Passed",
+      "Duration": "00:00:00.0120000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerAppearanceProfileTests.MigrationLeavesExistingRacePayloadAndFingerprintByteForByteIntact",
+      "Status": "Passed",
+      "Duration": "00:00:00.0100000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerAppearanceProfileTests.ProfileVersionsMixedModesAndUnsafeResourceIdsAreRejected",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerAppearanceProfileTests.V2MigrationIsIdempotentAndPreservesEveryExistingCareerFieldAndRng",
+      "Status": "Passed",
+      "Duration": "00:00:00.0160000"
+    },
+    {
+      "Name": "Biathlon.Tests.M166AppearanceTests.AuthoredGogglesPolicyAllowsCompleteAbsenceWithoutChangingOtherChoices",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.Tests.M166AppearanceTests.LoadingAnOldCareerNeverGeneratesDetailedProfilesAndCatalogSelectionRetainsItsSavedLook",
+      "Status": "Passed",
+      "Duration": "00:00:00.0850000"
+    },
+    {
+      "Name": "Biathlon.Tests.M166AppearanceTests.NewRivalProfilesAreDiversePersistedAndCannotConsumeCareerRandomOrChangeAbilities",
+      "Status": "Passed",
+      "Duration": "00:00:00.0250000"
+    },
+    {
+      "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegeneratingAnOpenedPreviewKeepsOneSavedStudio",
+      "Status": "Passed",
+      "Duration": "00:00:00.4000000"
+    },
+    {
+      "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RegenerationPreservesAnUnsavedPreview",
+      "Status": "Passed",
+      "Duration": "00:00:00.2060000"
+    },
+    {
+      "Name": "Biathlon.EditorTests.Biathlete167AuthoringTests.RepeatedNaturalAuthoringPersistsTheLoadedImporter",
+      "Status": "Passed",
+      "Duration": "00:00:21.0450000"
+    }
+  ]
+}

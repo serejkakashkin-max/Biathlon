@@ -1,0 +1,30 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 3,
+    "PassedTests": 0,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:03.1733108"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Skate)",
+      "Status": "Failed",
+      "Duration": "00:00:01.2970000",
+      "Message": "  Locked-looking leg 161,5 degrees\nHigh elbow at low finish 0,062 m\nAbrupt hand return 7,37 m/s at normal playback speed\r\n  Expected: <empty>\r\n  But was:  < \"Locked-looking leg 161,5 degrees\", \"High elbow at low finish 0,062 m\", \"Abrupt hand return 7,37 m/s at normal playback speed\" >\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Acceleration)",
+      "Status": "Failed",
+      "Duration": "00:00:00.8590000",
+      "Message": "  Locked-looking leg 161,5 degrees\nHigh elbow at low finish 0,094 m\nAbrupt hand return 7,93 m/s at normal playback speed\r\n  Expected: <empty>\r\n  But was:  < \"Locked-looking leg 161,5 degrees\", \"High elbow at low finish 0,094 m\", \"Abrupt hand return 7,93 m/s at normal playback speed\" >\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Uphill)",
+      "Status": "Failed",
+      "Duration": "00:00:00.9220000",
+      "Message": "  Locked-looking leg 161,5 degrees\nHigh elbow at low finish 0,056 m\nAbrupt hand return 4,74 m/s at normal playback speed\r\n  Expected: <empty>\r\n  But was:  < \"Locked-looking leg 161,5 degrees\", \"High elbow at low finish 0,056 m\", \"Abrupt hand return 4,74 m/s at normal playback speed\" >\r\n"
+    }
+  ]
+}

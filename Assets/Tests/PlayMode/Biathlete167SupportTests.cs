@@ -68,8 +68,10 @@ namespace Biathlon.PlayModeTests
             File.WriteAllLines(Evidence + "/" + action + ".csv", rows);
             TestContext.WriteLine($"{action}: seated {seated}/{loadedFrames}, heel {heelPeak:F1}, knee {kneeLow:F1}–{kneeHigh:F1}, hands {followThrough:F3}");
             Assert.That(seated / loadedFrames, Is.GreaterThan(.68f), "A loaded ski needs a seated boot during the majority of glide.");
-            Assert.That(kneeHigh, Is.GreaterThan(action == Biathlete167Action.Uphill ? 143 : 153), "Open the knee over the supporting ski.");
-            Assert.That(kneeHigh-kneeLow, Is.GreaterThan(18), "Retain loading and extension within the stride.");
+            // Owner review rejected the earlier 162-degree rise. Keep a visible
+            // extension during glide while retaining a soft supporting knee.
+            Assert.That(kneeHigh, Is.InRange(137f, 150f), "Extend through glide without locking the supporting knee.");
+            Assert.That(kneeHigh-kneeLow, Is.GreaterThan(12), "Retain loading and extension without an exaggerated rise.");
             Assert.That(followThrough, Is.LessThan(-.035f), "Finish the pole stroke behind the hips.");
         }
 

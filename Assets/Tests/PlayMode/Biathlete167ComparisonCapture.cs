@@ -22,7 +22,7 @@ namespace Biathlon.PlayModeTests
     {
         private const string Hero = "Assets/Biathlon/Characters/Biathlete_16_7";
         private const string Venue = "Biathlon/Venues/woodland_basin_v1/";
-        private const string Output = "artifacts/m16-7-support-motion/native";
+        private const string Output = "artifacts/m16-7-skate-rhythm/native";
         private const int OldLayer = 27, NewLayer = 28;
         private const int Fps = 24;
         private GameObject fixture;
@@ -176,6 +176,37 @@ namespace Biathlon.PlayModeTests
                 renderer.enabled = newSkis.Contains(renderer);
         }
 
+        [UnityTest, Timeout(180000)] public IEnumerator CaptureTravelPoses()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(Hero + "/Preview/Biathlete_16_7_Preview.unity", new LoadSceneParameters(LoadSceneMode.Single));
+            yield return null;
+            var studio = Object.FindAnyObjectByType<Biathlete167Studio>();
+            studio.Rig.gameObject.SetActive(false);
+            studio.View.enabled = false;
+            Create();
+            try
+            {
+                PutBoth(Vector3.zero, Vector3.forward);
+                var receipt = new Receipt { id = "poses", shots = new[] {
+                    new Shot("pose_skate_front", .5f), new Shot("pose_skate_side", .5f),
+                    new Shot("pose_sprint_front", .5f), new Shot("pose_sprint_side", .5f),
+                    new Shot("pose_uphill_front", .5f), new Shot("pose_uphill_side", .5f) } };
+                yield return Capture(receipt, (shot, time, phase) =>
+                {
+                    bool uphill = shot.id.Contains("uphill"), sprint = shot.id.Contains("sprint");
+                    motion.EvaluateAction(uphill ? Biathlete167Action.Uphill : sprint ? Biathlete167Action.Acceleration : Biathlete167Action.Skate, phase);
+                    SampleOriginal(new LocomotionInput(motion.Performance.SpeedMetersPerSecond, motion.Performance.SurfaceGrade, sprint ? 1.2f : .9f, sprint:sprint), phase * motion.MainReference.CycleSeconds);
+                    Aim(Vector3.up * .9f, shot.id.EndsWith("front") ? new Vector3(.15f, .16f, 3.7f) : new Vector3(3.7f, .16f, .05f), 38);
+                });
+            }
+            finally
+            {
+                Object.Destroy(fixture);
+                studio.Rig.gameObject.SetActive(true);
+                studio.View.enabled = true;
+            }
+        }
+
         [UnityTest, Timeout(420000)] public IEnumerator CaptureStudio()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(Hero + "/Preview/Biathlete_16_7_Preview.unity", new LoadSceneParameters(LoadSceneMode.Single));
@@ -233,6 +264,11 @@ namespace Biathlon.PlayModeTests
                         view.fieldOfView = 50;
                         return;
                     }
+                    if (shot.id == "orbit")
+                    {
+                        motion.EvaluateAction(Biathlete167Action.Skate, Mathf.Repeat(time / motion.CycleSeconds, 1));
+                        SampleOriginal(SkiMotionComparison.Input(SkiMotionState.Flat), time);
+                    }
                     float angle, distance, height, rise, fov;
                     switch (shot.id)
                     {
@@ -289,13 +325,16 @@ namespace Biathlon.PlayModeTests
                 float authoredUphillGrade = motion.Performance.SurfaceGrade;
                 motion.Stop();
                 var receipt = new Receipt { id = "woodland", shots = new[] {
-                    new Shot("skate", 4), new Shot("acceleration", 4), new Shot("uphill", 4), new Shot("entry", 4),
+                    new Shot("skate", 4), new Shot("skate_front", 4),
+                    new Shot("acceleration", 4), new Shot("acceleration_front", 4),
+                    new Shot("uphill", 4), new Shot("uphill_front", 4), new Shot("entry", 4),
                     new Shot("standing", 4.5f), new Shot("prone", 5) } };
                 yield return Capture(receipt, (shot, time, phase) =>
                 {
-                    if (shot.id is "skate" or "acceleration" or "uphill")
+                    string technique = shot.id.Replace("_front", "");
+                    if (technique is "skate" or "acceleration" or "uphill")
                     {
-                        bool uphill = shot.id == "uphill", acceleration = shot.id == "acceleration";
+                        bool uphill = technique == "uphill", acceleration = technique == "acceleration";
                         double metres = (uphill ? 139 : acceleration ? 371 : 246) + (acceleration ? 3 * time + .58 * time * time : (uphill ? 4.2 : 6.0) * time);
                         var p = main.Sample(metres);
                         var before = main.Sample(metres - .4); var after = main.Sample(metres + .4);
@@ -309,11 +348,13 @@ namespace Biathlon.PlayModeTests
                         float pitch = (Mathf.Atan(authoredGrade) - Mathf.Atan(grade)) * Mathf.Rad2Deg;
                         hero.transform.rotation *= Quaternion.Euler(pitch, 0, 0);
                         var action = uphill ? Biathlete167Action.Uphill : acceleration ? Biathlete167Action.Acceleration : Biathlete167Action.Skate;
-                        motion.EvaluateAction(action, acceleration ? phase : Mathf.Repeat(time / Mathf.Max(.35f, motion.MainReference.CycleSeconds), 1));
+                        motion.EvaluateAction(action, acceleration ? phase : Mathf.Repeat(time / Mathf.Max(.35f, motion.CycleSeconds), 1));
                         float speed = uphill ? 4.2f : acceleration ? 3 + 1.16f * time : 6;
                         SampleOriginal(new LocomotionInput(speed, grade, uphill ? .95f : 1f, sprint: acceleration), time);
                         float sweep = Mathf.Lerp(-.65f, .85f, phase);
-                        Aim(at + Vector3.up * .87f, original.transform.TransformDirection(new Vector3(4.5f, .63f, sweep * 2.5f)), 40);
+                        var cameraOffset = shot.id.EndsWith("_front") ? new Vector3(Mathf.Lerp(.4f, -.4f, phase), .63f, 4.8f) :
+                            new Vector3(4.5f, .63f, sweep * 2.5f);
+                        Aim(at + Vector3.up * .87f, original.transform.TransformDirection(cameraOffset), 40);
                         return;
                     }
                     if (shot.id == "entry")

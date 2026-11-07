@@ -70,7 +70,8 @@ namespace Biathlon.Unity.Presentation
             }
         }
         public void ApplyGlide(float cycle, float glideFraction, float grade, float recoveryHeight,
-            float clearance, float pelvisFollow, float transitionFraction, float extensionMeters, float heelReleaseDegrees)
+            float clearance, float pelvisFollow, float transitionFraction, float extensionMeters, float heelReleaseDegrees,
+            float maximumKneeDegrees)
         {
             var normal = new Vector3(0, 1, -grade).normalized;
             var terrain = Quaternion.LookRotation(new Vector3(0, grade, 1), normal);
@@ -125,8 +126,9 @@ namespace Biathlon.Unity.Presentation
                 var upper = root.InverseTransformPoint(f.Upper.position);
                 upper.x += pelvis.x - root.InverseTransformPoint(hips.position).x;
                 var delta = root.InverseTransformPoint(glideAnkles[side]) - upper;
-                float leg = Vector3.Distance(f.Upper.position, f.Knee.position) + Vector3.Distance(f.Knee.position, f.Ankle.position);
-                float reach = leg * .987f;
+                float thigh = Vector3.Distance(f.Upper.position, f.Knee.position);
+                float shin = Vector3.Distance(f.Knee.position, f.Ankle.position);
+                float reach = Mathf.Sqrt(thigh * thigh + shin * shin - 2 * thigh * shin * Mathf.Cos(maximumKneeDegrees * Mathf.Deg2Rad));
                 liftLimit = Mathf.Min(liftLimit, delta.y + Mathf.Sqrt(Mathf.Max(0, reach * reach - delta.x * delta.x - delta.z * delta.z)));
             }
 
