@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "id": "m167_skate_tracking_qualification",
+  "baseline_commit": "672018b4e0d50bb35199929dca4adb93dc60f716",
+  "preferred_earlier_motion_commit": "b1738355",
+  "tests": {
+    "PlayMode": {
+      "Status": "Passed",
+      "TotalTests": 276,
+      "PassedTests": 276,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:03:28.8543289"
+    },
+    "EditMode": {
+      "Status": "Passed",
+      "TotalTests": 15,
+      "PassedTests": 15,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:25.0498592"
+    }
+  },
+  "new_errors_exceptions_asserts": 0,
+  "editor_idle": true,
+  "media": {
+    "comparison.mp4": {
+      "frames": 1392,
+      "seconds": 58.0,
+      "fps": 24,
+      "resolution": [
+        1512,
+        900
+      ],
+      "sha256": "011b472e0deba2d49611e18efcced28528cdf6405341548a7ede1063bdbbe4af"
+    },
+    "before-after.mp4": {
+      "frames": 576,
+      "seconds": 24.0,
+      "fps": 24,
+      "resolution": [
+        1512,
+        900
+      ],
+      "sha256": "e34e812a9de972903342894cf9ed7924fa05886a8219c555f717b7676a0bcf2e"
+    }
+  },
+  "scope": "Isolated character presentation; G2 gameplay donor bend plane preserved; no race integration",
+  "m16_7": "OPEN / BUILD HOLD",
+  "rejected_baseline_regression_tests": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Skate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.1940000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Acceleration)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0580000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0760000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Skate)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0800000",
+      "Message": "  Exaggerated lateral pelvis sway: 0,318 m\r\n  Expected: <empty>\r\n  But was:  < \"Exaggerated lateral pelvis sway: 0,318 m\" >\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Acceleration)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0720000",
+      "Message": "  Exaggerated lateral pelvis sway: 0,382 m\nOutward-bowed knee: 0,084 m\r\n  Expected: <empty>\r\n  But was:  < \"Exaggerated lateral pelvis sway: 0,382 m\", \"Outward-bowed knee: 0,084 m\" >\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Uphill)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0570000",
+      "Message": "  Exaggerated lateral pelvis sway: 0,355 m\nOutward-bowed knee: 0,065 m\nOverextended arm in Uphill: 159,1 degrees\r\n  Expected: <empty>\r\n  But was:  < \"Exaggerated lateral pelvis sway: 0,355 m\", \"Outward-bowed knee: 0,065 m\", \"Overextended arm in Uphill: 159,1 degrees\" >\r\n"
+    }
+  ],
+  "regression_thresholds": "Project animation review gates; not claimed as universal biomechanical limits",
+  "media_sha256": {
+    "before-after.mp4": "e34e812a9de972903342894cf9ed7924fa05886a8219c555f717b7676a0bcf2e",
+    "comparison.mp4": "011b472e0deba2d49611e18efcced28528cdf6405341548a7ede1063bdbbe4af",
+    "correction-preview.jpg": "4c8539f6eb1ff156c1cc431ba5435e2de94f068c1ce74b6f2a7b6b1721dadeae",
+    "details.jpg": "8de22fbad3dd6391cc30c815578b15a5be71c24874748388788aaf9b52144c92",
+    "pose-review.jpg": "cd54f4890e067b4dbc6d4f42a0f8ca988a8e8b552572a5c9ccd55853414c041f",
+    "preview.jpg": "0e0bc6a3fae72e7a576384c9d0f6d555ad72b8f8ab6ee382f714373453d42fd5",
+    "skis-top.jpg": "e4c842fb510adebfc9671d863c26527d2820596e3ed839eb4fc0a4bd1b56494a"
+  }
+}

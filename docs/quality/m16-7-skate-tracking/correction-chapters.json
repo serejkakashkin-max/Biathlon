@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "m167_skate_tracking_before_after",
+  "fps": 24,
+  "frames": 576,
+  "seconds": 24,
+  "before_commit": "672018b4e0d50bb35199929dca4adb93dc60f716",
+  "before_capture": "artifacts/m16-7-skate-rhythm/native",
+  "after_capture": "artifacts/m16-7-skate-tracking/native",
+  "chapters": [
+    {
+      "id": "skate",
+      "title_ru": "V2 · сбоку",
+      "start_seconds": 0,
+      "frames": 96,
+      "before_frames_sha256": "0dd6918b0f9b7c49ef67a254586f783518249c5d1a94d2ae09be91c80271cc37",
+      "after_frames_sha256": "0f5e6ab914bb487051dce424f165228ab0238af423a8efd75ae4f2453c2c9f60"
+    },
+    {
+      "id": "skate_front",
+      "title_ru": "V2 · спереди",
+      "start_seconds": 4,
+      "frames": 96,
+      "before_frames_sha256": "c9698d5e2842553751ae4aeced5bbb239f37d249c9589b139f335e924c152c8f",
+      "after_frames_sha256": "54061150d538018a10bc28f0b9ddecc9935dff3bad46494a8ef125e6d648eb91"
+    },
+    {
+      "id": "acceleration",
+      "title_ru": "Разгон · сбоку",
+      "start_seconds": 8,
+      "frames": 96,
+      "before_frames_sha256": "d7ea693191f5092b32e3226b8d0b05113b3b2d5d05513ce1591e8c88fff7115e",
+      "after_frames_sha256": "b32f49ca1ff67ba6567cb09cde998c874b484bc188632e6dcc076f42ee259ced"
+    },
+    {
+      "id": "acceleration_front",
+      "title_ru": "Разгон · спереди",
+      "start_seconds": 12,
+      "frames": 96,
+      "before_frames_sha256": "228b6b4754cf9e11a61821a7880e6e1e3b0f15c994ab537f2b5dc664de7a4be1",
+      "after_frames_sha256": "7a5205df732b9bcdac2109ccb99cc25ae9370e9f7373f9b87d1463eb4c9c9982"
+    },
+    {
+      "id": "uphill",
+      "title_ru": "Подъём V1 · сбоку",
+      "start_seconds": 16,
+      "frames": 96,
+      "before_frames_sha256": "365e60f37cac9803e309939c5ed480cdfe9be91d1d11f97de33baab23d7bbce7",
+      "after_frames_sha256": "62c9acc2d6946f417acc0d2f5a22db6a565dc81c810f42dc76800c68b8fad854"
+    },
+    {
+      "id": "uphill_front",
+      "title_ru": "Подъём V1 · спереди",
+      "start_seconds": 20,
+      "frames": 96,
+      "before_frames_sha256": "e37336e875f25b5ca895ba28122e2aa5a563d41dc18d34ca780802f9452a59cd",
+      "after_frames_sha256": "ec926f0067c58210088e042b7c8a29c8ad71d7e8baeaaa1badce8bf0755d3b6a"
+    }
+  ]
+}

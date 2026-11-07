@@ -1,0 +1,45 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 6,
+    "PassedTests": 3,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.6509016"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Skate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.1940000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Acceleration)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0580000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0760000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Skate)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0800000",
+      "Message": "  Exaggerated lateral pelvis sway: 0,318 m\r\n  Expected: <empty>\r\n  But was:  < \"Exaggerated lateral pelvis sway: 0,318 m\" >\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Acceleration)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0720000",
+      "Message": "  Exaggerated lateral pelvis sway: 0,382 m\nOutward-bowed knee: 0,084 m\r\n  Expected: <empty>\r\n  But was:  < \"Exaggerated lateral pelvis sway: 0,382 m\", \"Outward-bowed knee: 0,084 m\" >\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SkateQualityTests.SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Uphill)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0570000",
+      "Message": "  Exaggerated lateral pelvis sway: 0,355 m\nOutward-bowed knee: 0,065 m\nOverextended arm in Uphill: 159,1 degrees\r\n  Expected: <empty>\r\n  But was:  < \"Exaggerated lateral pelvis sway: 0,355 m\", \"Outward-bowed knee: 0,065 m\", \"Overextended arm in Uphill: 159,1 degrees\" >\r\n"
+    }
+  ]
+}

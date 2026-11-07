@@ -29,6 +29,46 @@ namespace Biathlon.PlayModeTests
         [TestCase(Biathlete167Action.Skate)]
         [TestCase(Biathlete167Action.Acceleration)]
         [TestCase(Biathlete167Action.Uphill)]
+        public void SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Biathlete167Action action)
+        {
+            float leftmost = float.PositiveInfinity, rightmost = float.NegativeInfinity;
+            float bow = 0, elbowPeak = 0;
+            var records = new List<string> { "phase,side,hip_x_m,knee_outward_m,elbow_deg" };
+            for (int frame = 0; frame <= 512; frame++)
+            {
+                motion.EvaluateAction(action, frame / 512f);
+                float hipX = rig.transform.InverseTransformPoint(rig.Bone(HumanBodyBones.Hips).position).x;
+                leftmost = Mathf.Min(leftmost, hipX); rightmost = Mathf.Max(rightmost, hipX);
+                for (int side = 0; side < 2; side++)
+                {
+                    var hip = rig.Bone(side == 0 ? HumanBodyBones.LeftUpperLeg : HumanBodyBones.RightUpperLeg).position;
+                    var knee = rig.Bone(side == 0 ? HumanBodyBones.LeftLowerLeg : HumanBodyBones.RightLowerLeg).position;
+                    var foot = rig.Bone(side == 0 ? HumanBodyBones.LeftFoot : HumanBodyBones.RightFoot).position;
+                    var shoulder = rig.Bone(side == 0 ? HumanBodyBones.LeftUpperArm : HumanBodyBones.RightUpperArm).position;
+                    var elbow = rig.Bone(side == 0 ? HumanBodyBones.LeftLowerArm : HumanBodyBones.RightLowerArm).position;
+                    var hand = rig.Bone(side == 0 ? HumanBodyBones.LeftHand : HumanBodyBones.RightHand).position;
+                    float outward = Vector3.Dot(Vector3.ProjectOnPlane(knee - hip, foot - hip), rig.transform.right) * (side == 0 ? -1 : 1);
+                    float angle = Vector3.Angle(shoulder - elbow, hand - elbow);
+                    bow = Mathf.Max(bow, outward); elbowPeak = Mathf.Max(elbowPeak, angle);
+                    records.Add(FormattableString.Invariant($"{frame / 512f},{side},{hipX},{outward},{angle}"));
+                }
+            }
+            const string folder = "artifacts/m16-7-skate-tracking";
+            Directory.CreateDirectory(folder);
+            File.WriteAllLines(folder + "/" + action + ".csv", records);
+            TestContext.WriteLine($"{action}: pelvis span {rightmost-leftmost:F3} m, outward knee {bow:F3} m, elbow {elbowPeak:F1} degrees");
+            var defects = new List<string>();
+            if (rightmost-leftmost < .045f) defects.Add("The pelvis lost its weight transfer entirely");
+            if (rightmost-leftmost > .12f) defects.Add($"Exaggerated lateral pelvis sway: {rightmost-leftmost:F3} m");
+            if (bow > .06f) defects.Add($"Outward-bowed knee: {bow:F3} m");
+            float elbowLimit = action == Biathlete167Action.Uphill ? 145 : action == Biathlete167Action.Skate ? 155 : 165;
+            if (elbowPeak > elbowLimit) defects.Add($"Overextended arm in {action}: {elbowPeak:F1} degrees");
+            Assert.That(defects, Is.Empty, string.Join("\n", defects));
+        }
+
+        [TestCase(Biathlete167Action.Skate)]
+        [TestCase(Biathlete167Action.Acceleration)]
+        [TestCase(Biathlete167Action.Uphill)]
         public void SkatingKeepsSoftKneesLowFinishingElbowsAndAnEvenHandReturn(Biathlete167Action action)
         {
             var shoulders = new[] { rig.Bone(HumanBodyBones.LeftUpperArm), rig.Bone(HumanBodyBones.RightUpperArm) };

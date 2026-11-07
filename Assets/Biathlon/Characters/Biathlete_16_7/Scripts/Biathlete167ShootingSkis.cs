@@ -120,7 +120,9 @@ namespace Biathlon.Unity.Presentation
 
                 glideToes[side] = root.TransformPoint(toe);
                 glideAnkles[side] = glideToes[side] - footRotation * Vector3.Scale(f.ToeInFoot, f.Ankle.lossyScale);
-                glideHints[side] = root.TransformDirection(unedged * Vector3.forward);
+                // Keep the production leg's bend plane. Turning this plane with
+                // the edged ski bows the knees outward independently of the hip.
+                glideHints[side] = f.Knee.position - (f.Upper.position + f.Ankle.position) * .5f;
                 glideSkiRotations[side] = skiRotation;
                 glideFootRotations[side] = footRotation;
                 var upper = root.InverseTransformPoint(f.Upper.position);

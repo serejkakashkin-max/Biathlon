@@ -22,7 +22,7 @@ namespace Biathlon.PlayModeTests
     {
         private const string Hero = "Assets/Biathlon/Characters/Biathlete_16_7";
         private const string Venue = "Biathlon/Venues/woodland_basin_v1/";
-        private const string Output = "artifacts/m16-7-skate-rhythm/native";
+        private const string Output = "artifacts/m16-7-skate-tracking/native";
         private const int OldLayer = 27, NewLayer = 28;
         private const int Fps = 24;
         private GameObject fixture;

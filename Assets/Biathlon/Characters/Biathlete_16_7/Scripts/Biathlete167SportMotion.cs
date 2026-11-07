@@ -77,7 +77,7 @@ namespace Biathlon.Unity.Presentation
         [Serializable] private sealed class TravelStyle
         {
             public float pelvis_follow,handoff_fraction,ski_recovery_m,pole_recovery_m,pole_splay_degrees;
-            public float glide_extension_m, release_heel_degrees, torso_open_degrees, maximum_knee_degrees, follow_through_degrees, follow_through_elbow_degrees;
+            public float glide_extension_m, release_heel_degrees, torso_open_degrees, maximum_knee_degrees, follow_through_degrees, follow_through_elbow_degrees, maximum_elbow_degrees;
 
             public bool IsValid => pelvis_follow >= 0 && pelvis_follow <= .8f && handoff_fraction >= .08f && handoff_fraction <= .3f &&
                 ski_recovery_m >= .025f && ski_recovery_m <= .13f && pole_recovery_m >= .06f && pole_recovery_m <= .4f &&
@@ -86,7 +86,8 @@ namespace Biathlon.Unity.Presentation
                 torso_open_degrees >= 0 && torso_open_degrees <= 15 &&
                 maximum_knee_degrees >= 135 && maximum_knee_degrees <= 155 &&
                 follow_through_degrees >= 0 && follow_through_degrees <= 35 &&
-                follow_through_elbow_degrees >= 130 && follow_through_elbow_degrees <= 160;
+                follow_through_elbow_degrees >= 110 && follow_through_elbow_degrees <= 160 &&
+                maximum_elbow_degrees >= follow_through_elbow_degrees && maximum_elbow_degrees <= 165;
         }
         private static readonly HumanBodyBones[] BoneIds={HumanBodyBones.Hips,HumanBodyBones.Spine,HumanBodyBones.Chest,HumanBodyBones.Neck,HumanBodyBones.Head,HumanBodyBones.LeftUpperArm,HumanBodyBones.LeftLowerArm,HumanBodyBones.LeftHand,HumanBodyBones.RightUpperArm,HumanBodyBones.RightLowerArm,HumanBodyBones.RightHand,HumanBodyBones.LeftUpperLeg,HumanBodyBones.LeftLowerLeg,HumanBodyBones.LeftFoot,HumanBodyBones.RightUpperLeg,HumanBodyBones.RightLowerLeg,HumanBodyBones.RightFoot};
         private readonly Biathlete167Rig rig;private readonly Biathlete167MainMotion main;private readonly Definition d;private readonly SkiMotionSettings ski;
@@ -276,8 +277,9 @@ namespace Biathlon.Unity.Presentation
             float upper = Vector3.Distance(shoulder, bones[hand - 1].position);
             float lower = Vector3.Distance(bones[hand - 1].position, bones[hand].position);
             float minimumReach = Mathf.Sqrt(upper * upper + lower * lower + 2 * upper * lower * Mathf.Cos(ski.arm_max_flex_deg * Mathf.Deg2Rad));
+            float maximumReach = Mathf.Sqrt(upper * upper + lower * lower - 2 * upper * lower * Mathf.Cos(style.maximum_elbow_degrees * Mathf.Deg2Rad));
             var reach = wrist - shoulder;
-            if (reach.sqrMagnitude < minimumReach * minimumReach) wrist = shoulder + reach.normalized * minimumReach;
+            wrist = shoulder + reach.normalized * Mathf.Clamp(reach.magnitude, minimumReach, maximumReach);
             Solve(hand - 2, wrist, hint);
             OrientWristAndForearm(hand, side, rotation);
 

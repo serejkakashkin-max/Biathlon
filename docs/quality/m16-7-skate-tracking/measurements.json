@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "m167_skate_tracking_measurements",
+  "baseline_commit": "672018b4e0d50bb35199929dca4adb93dc60f716",
+  "before": {
+    "Skate": {
+      "samples": 1026,
+      "pelvis_span_m": 0.3179048,
+      "maximum_knee_outward_m": 0.05687992,
+      "maximum_elbow_degrees": 151.5372
+    },
+    "Acceleration": {
+      "samples": 1026,
+      "pelvis_span_m": 0.3816916,
+      "maximum_knee_outward_m": 0.08447842,
+      "maximum_elbow_degrees": 159.9334
+    },
+    "Uphill": {
+      "samples": 1026,
+      "pelvis_span_m": 0.3554137,
+      "maximum_knee_outward_m": 0.06502864,
+      "maximum_elbow_degrees": 159.0988
+    }
+  },
+  "after": {
+    "Skate": {
+      "samples": 1026,
+      "pelvis_span_m": 0.07518069,
+      "maximum_knee_outward_m": 0.0151015,
+      "maximum_elbow_degrees": 145.0001
+    },
+    "Acceleration": {
+      "samples": 1026,
+      "pelvis_span_m": 0.09681587,
+      "maximum_knee_outward_m": 0.04795191,
+      "maximum_elbow_degrees": 158.0001
+    },
+    "Uphill": {
+      "samples": 1026,
+      "pelvis_span_m": 0.10720964999999999,
+      "maximum_knee_outward_m": 0.01822636,
+      "maximum_elbow_degrees": 136.0001
+    }
+  }
+}
