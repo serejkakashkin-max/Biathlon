@@ -22,7 +22,7 @@ namespace Biathlon.PlayModeTests
     {
         private const string Hero = "Assets/Biathlon/Characters/Biathlete_16_7";
         private const string Venue = "Biathlon/Venues/woodland_basin_v1/";
-        private const string Output = "artifacts/m16-7-athlete-comparison/native";
+        private const string Output = "artifacts/m16-7-support-motion/native";
         private const int OldLayer = 27, NewLayer = 28;
         private const int Fps = 24;
         private GameObject fixture;
@@ -161,6 +161,21 @@ namespace Biathlon.PlayModeTests
             File.WriteAllText(Path.Combine(Output, receipt.id + ".json"), JsonUtility.ToJson(receipt, true));
         }
 
+        private void ShowSkisOnly()
+        {
+            var gameSkis = new[] { AthleteSocket.LeftSkiBinding, AthleteSocket.RightSkiBinding }
+                .SelectMany(socket => original.Socket(socket).GetComponentsInChildren<MeshRenderer>(false)).ToArray();
+            var newSkis = new[] { HumanBodyBones.LeftFoot, HumanBodyBones.RightFoot }
+                .Select(bone => hero.Bone(bone).GetComponentsInChildren<MeshFilter>(false)
+                    .OrderByDescending(mesh => mesh.sharedMesh.bounds.size.sqrMagnitude).First().GetComponent<MeshRenderer>()).ToArray();
+            Assert.That(gameSkis.Length, Is.GreaterThanOrEqualTo(2));
+            Assert.That(newSkis, Is.All.Not.Null);
+            foreach (var renderer in original.GetComponentsInChildren<Renderer>(true))
+                renderer.enabled = gameSkis.Contains(renderer);
+            foreach (var renderer in hero.GetComponentsInChildren<Renderer>(true))
+                renderer.enabled = newSkis.Contains(renderer);
+        }
+
         [UnityTest, Timeout(420000)] public IEnumerator CaptureStudio()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(Hero + "/Preview/Biathlete_16_7_Preview.unity", new LoadSceneParameters(LoadSceneMode.Single));
@@ -182,7 +197,7 @@ namespace Biathlon.PlayModeTests
                 var start = appearance.Current;
                 var clearFace = looks.Edit(start, gogglesId: "raised");
                 var receipt = new Receipt { id = "studio", shots = new[] {
-                    new Shot("orbit", 6), new Shot("face", 3.5f), new Shot("rifle", 3.5f), new Shot("skis", 3.5f) } };
+                    new Shot("orbit", 6), new Shot("face", 3.5f), new Shot("rifle", 3.5f), new Shot("skis", 3.5f), new Shot("skis_top", 4) } };
                 yield return Capture(receipt, (shot, time, phase) =>
                 {
                     if (shot.id == "face" && time == 0)
@@ -197,6 +212,26 @@ namespace Biathlon.PlayModeTests
                     {
                         appearance.ApplyProfile(start);
                         original.GetComponent<AthleteAppearancePresentation>().ApplyProfile(start);
+                    }
+                    if (shot.id == "skis_top")
+                    {
+                        if (time == 0)
+                        {
+                            ShowSkisOnly();
+                            var fill = new GameObject("Top ski detail light").AddComponent<Light>();
+                            fill.transform.SetParent(fixture.transform, false);
+                            fill.transform.rotation = Quaternion.Euler(72, -25, 0);
+                            fill.type = LightType.Directional;
+                            fill.color = new Color(.96f, .97f, 1);
+                            fill.intensity = .9f;
+                            fill.cullingMask = (1 << OldLayer) | (1 << NewLayer);
+                        }
+                        float close = Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.46f, .95f, phase));
+                        var focus = new Vector3(0, .04f, Mathf.Lerp(.03f, .29f, close));
+                        var offset = new Vector3(Mathf.Lerp(.12f, -.12f, phase), Mathf.Lerp(2.45f, 1.36f, close), -.14f);
+                        view.transform.SetPositionAndRotation(focus + offset, Quaternion.LookRotation(-offset, Vector3.forward) * Quaternion.Euler(0, 0, Mathf.Lerp(-11, 11, phase)));
+                        view.fieldOfView = 50;
+                        return;
                     }
                     float angle, distance, height, rise, fov;
                     switch (shot.id)
@@ -224,7 +259,7 @@ namespace Biathlon.PlayModeTests
             var previous = SceneManager.GetActiveScene();
             var previousStudio = Object.FindAnyObjectByType<Biathlete167Studio>();
             var stageRoots = previousStudio == null ? Array.Empty<GameObject>() :
-                previousStudio.gameObject.scene.GetRootGameObjects().Where(root => root.activeSelf).ToArray();
+                previousStudio.gameObject.scene.GetRootGameObjects().Where(root => root.activeSelf && root != previousStudio.transform.root.gameObject).ToArray();
             foreach (var root in stageRoots) root.SetActive(false);
             var scene = SceneManager.CreateScene("M16.7 Woodland comparison");
             SceneManager.SetActiveScene(scene);

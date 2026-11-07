@@ -21,6 +21,8 @@ namespace Biathlon.Unity.Presentation
     internal sealed class Biathlete167ShootingSkis
     {
         private readonly Transform root,hips;private readonly Foot[] feet=new Foot[2];
+        private readonly Vector3[] glideAnkles = new Vector3[2], glideToes = new Vector3[2], glideHints = new Vector3[2];
+        private readonly Quaternion[] glideSkiRotations = new Quaternion[2], glideFootRotations = new Quaternion[2];
         private sealed class Foot
         {public Transform Upper,Knee,Ankle,Toe,Ski;public Vector3 ToeInFoot,ToeInSki,ForwardInFoot,ForwardInSki,UpInSki;public Quaternion FootBind,SkiBind;public Vector2[] SupportHull;}
         public float MaximumBindingResidualMeters{get;private set;}
@@ -68,7 +70,7 @@ namespace Biathlon.Unity.Presentation
             }
         }
         public void ApplyGlide(float cycle, float glideFraction, float grade, float recoveryHeight,
-            float clearance, float pelvisFollow, float transitionFraction)
+            float clearance, float pelvisFollow, float transitionFraction, float extensionMeters, float heelReleaseDegrees)
         {
             var normal = new Vector3(0, 1, -grade).normalized;
             var terrain = Quaternion.LookRotation(new Vector3(0, grade, 1), normal);
@@ -81,9 +83,8 @@ namespace Biathlon.Unity.Presentation
             float leftSupport = transferPhase < .5f ? handoff : 1f - handoff;
             var pelvis = root.InverseTransformPoint(hips.position);
             pelvis.x = Mathf.Lerp(pelvis.x, Mathf.Lerp(rightToe.x, leftToe.x, leftSupport), pelvisFollow);
-            hips.position = root.TransformPoint(pelvis);
-
             MaximumBindingResidualMeters = 0;
+            float liftLimit = float.PositiveInfinity;
             for (int side = 0; side < feet.Length; side++)
             {
                 var f = feet[side];
@@ -92,7 +93,13 @@ namespace Biathlon.Unity.Presentation
                 var skiUp = f.Ski.TransformDirection(f.UpInSki);
                 var footForward = f.Ankle.TransformDirection(f.ForwardInFoot);
                 var lateral = Vector3.Cross(skiUp, skiForward);
-                float heel = Vector3.SignedAngle(skiForward, footForward, lateral);
+                float inheritedHeel = Vector3.SignedAngle(skiForward, footForward, lateral);
+                float phase = Mathf.Repeat(cycle + side * .5f, 1);
+                // A loaded ski carries the whole boot. Hinge at the toe as
+                // load leaves the ski, then reseat the boot before touchdown.
+                float release = Smooth(Mathf.InverseLerp(glideFraction * .76f, glideFraction + .06f, phase)) *
+                    (1 - Smooth(Mathf.InverseLerp(glideFraction + .14f, .94f, phase)));
+                float heel = Mathf.Clamp(inheritedHeel, 0, heelReleaseDegrees) * release;
                 var direction = Quaternion.Inverse(terrain) * root.InverseTransformDirection(skiForward);
                 float yaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 var unedged = terrain * Quaternion.AngleAxis(yaw, Vector3.up);
@@ -102,7 +109,6 @@ namespace Biathlon.Unity.Presentation
                 var skiRotation = root.rotation * frame * f.SkiBind;
                 var footRotation = root.rotation * frame * Quaternion.AngleAxis(heel, Vector3.right) * f.FootBind;
 
-                float phase = Mathf.Repeat(cycle + side * .5f, 1);
                 float recovery = Mathf.Sin(Mathf.PI * Mathf.InverseLerp(glideFraction, 1, phase));
                 float lift = clearance + recoveryHeight * recovery * recovery;
                 float sine = Mathf.Sin(roll * Mathf.Deg2Rad), cosine = Mathf.Cos(roll * Mathf.Deg2Rad);
@@ -111,13 +117,34 @@ namespace Biathlon.Unity.Presentation
                     bottom = Mathf.Min(bottom, point.x * sine + point.y * cosine);
                 toe.y = (lift - bottom - normal.z * toe.z) / normal.y;
 
-                var targetToe = root.TransformPoint(toe);
-                var ankle = targetToe - footRotation * Vector3.Scale(f.ToeInFoot, f.Ankle.lossyScale);
-                Solve(f, ankle, root.TransformDirection(unedged * Vector3.forward));
-                f.Ankle.rotation = footRotation;
+                glideToes[side] = root.TransformPoint(toe);
+                glideAnkles[side] = glideToes[side] - footRotation * Vector3.Scale(f.ToeInFoot, f.Ankle.lossyScale);
+                glideHints[side] = root.TransformDirection(unedged * Vector3.forward);
+                glideSkiRotations[side] = skiRotation;
+                glideFootRotations[side] = footRotation;
+                var upper = root.InverseTransformPoint(f.Upper.position);
+                upper.x += pelvis.x - root.InverseTransformPoint(hips.position).x;
+                var delta = root.InverseTransformPoint(glideAnkles[side]) - upper;
+                float leg = Vector3.Distance(f.Upper.position, f.Knee.position) + Vector3.Distance(f.Knee.position, f.Ankle.position);
+                float reach = leg * .987f;
+                liftLimit = Mathf.Min(liftLimit, delta.y + Mathf.Sqrt(Mathf.Max(0, reach * reach - delta.x * delta.x - delta.z * delta.z)));
+            }
+
+            // Rise over the new glide ski and compress gradually into the next push.
+            float glide = Mathf.Repeat(cycle * 2, 1);
+            float extension = .48f + .52f * (.5f + .5f * Mathf.Cos((glide - .29f) * Mathf.PI * 2));
+            pelvis.y += Mathf.Min(liftLimit, extensionMeters * extension);
+            hips.position = root.TransformPoint(pelvis);
+
+            for (int side = 0; side < feet.Length; side++)
+            {
+                var f = feet[side];
+                Solve(f, glideAnkles[side], glideHints[side]);
+                f.Ankle.rotation = glideFootRotations[side];
                 // Preserve the real toe hinge even when an extreme target is out of reach.
-                f.Ski.SetPositionAndRotation(f.Toe.position - skiRotation * Vector3.Scale(f.ToeInSki, f.Ski.lossyScale), skiRotation);
-                MaximumBindingResidualMeters = Mathf.Max(MaximumBindingResidualMeters, Vector3.Distance(targetToe, f.Toe.position));
+                var rotation = glideSkiRotations[side];
+                f.Ski.SetPositionAndRotation(f.Toe.position - rotation * Vector3.Scale(f.ToeInSki, f.Ski.lossyScale), rotation);
+                MaximumBindingResidualMeters = Mathf.Max(MaximumBindingResidualMeters, Vector3.Distance(glideToes[side], f.Toe.position));
             }
         }
         private static void Solve(Foot f,Vector3 target,Vector3 hint)

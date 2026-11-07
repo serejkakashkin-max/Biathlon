@@ -96,12 +96,16 @@
   "prone_transition_duration_s": 5.8,
   "breathing_cycle_s": 3.2,
   "breathing_displacement_m": 0.002,
-  "sprint_start_cadence_hz": 0.72,
-  "sprint_end_cadence_hz": 1.2,
+  "sprint_start_cadence_hz": 0.70,
+  "sprint_end_cadence_hz": 1.08,
   "travel_ski_clearance_m": 0.002,
+  "travel_minimum_elbow_degrees": 63,
   "travel_plant_elbow_hint": { "x": 0.17, "y": -0.58, "z": 0.75 },
   "travel_finish_elbow_hint": { "x": 0.31, "y": -1, "z": -0.05 },
   "flat_style": {
+    "glide_extension_m": 0.126,
+    "release_heel_degrees": 23,
+    "torso_open_degrees": 8,
     "pelvis_follow": 0.52,
     "handoff_fraction": 0.23,
     "ski_recovery_m": 0.055,
@@ -109,27 +113,33 @@
     "pole_drive_fraction": 0.42,
     "pole_splay_degrees": 4,
     "plant_grip_from_shoulder": { "x": 0.066, "y": 0.112, "z": 0.427 },
-    "drive_end_grip_from_shoulder": { "x": 0.165, "y": -0.335, "z": 0.165 },
-    "release_grip_from_shoulder": { "x": 0.17, "y": -0.36, "z": 0.115 },
+    "drive_end_grip_from_shoulder": { "x": 0.135, "y": -0.36, "z": -0.086 },
+    "release_grip_from_shoulder": { "x": 0.14, "y": -0.355, "z": -0.185 },
     "follow_through_fraction": 0.18,
     "return_arc_m": { "x": 0.012, "y": 0.051, "z": 0.061 },
     "offset_grip": { "x": 0, "y": 0, "z": 0 }
   },
   "sprint_style": {
+    "glide_extension_m": 0.156,
+    "release_heel_degrees": 27,
+    "torso_open_degrees": 10,
     "pelvis_follow": 0.48,
     "handoff_fraction": 0.22,
     "ski_recovery_m": 0.081,
-    "pole_recovery_m": 0.22,
-    "pole_drive_fraction": 0.42,
+    "pole_recovery_m": 0.18,
+    "pole_drive_fraction": 0.41,
     "pole_splay_degrees": 5,
-    "plant_grip_from_shoulder": { "x": 0.066, "y": 0.196, "z": 0.442 },
-    "drive_end_grip_from_shoulder": { "x": 0.14, "y": -0.335, "z": 0.11 },
-    "release_grip_from_shoulder": { "x": 0.135, "y": -0.36, "z": 0.085 },
+    "plant_grip_from_shoulder": { "x": 0.066, "y": 0.108, "z": 0.388 },
+    "drive_end_grip_from_shoulder": { "x": 0.185, "y": -0.31, "z": -0.075 },
+    "release_grip_from_shoulder": { "x": 0.16, "y": -0.32, "z": -0.225 },
     "follow_through_fraction": 0.16,
-    "return_arc_m": { "x": 0.012, "y": 0.049, "z": 0.055 },
+    "return_arc_m": { "x": 0.035, "y": 0.0, "z": 0.02 },
     "offset_grip": { "x": 0, "y": 0, "z": 0 }
   },
   "uphill_style": {
+    "glide_extension_m": 0.132,
+    "release_heel_degrees": 19,
+    "torso_open_degrees": 5,
     "pelvis_follow": 0.4,
     "handoff_fraction": 0.17,
     "ski_recovery_m": 0.075,
@@ -137,8 +147,8 @@
     "pole_drive_fraction": 0.39,
     "pole_splay_degrees": 5,
     "plant_grip_from_shoulder": { "x": 0.07, "y": 0.162, "z": 0.395 },
-    "drive_end_grip_from_shoulder": { "x": 0.105, "y": -0.31, "z": 0.195 },
-    "release_grip_from_shoulder": { "x": 0.1, "y": -0.335, "z": 0.17 },
+    "drive_end_grip_from_shoulder": { "x": 0.105, "y": -0.345, "z": -0.065 },
+    "release_grip_from_shoulder": { "x": 0.11, "y": -0.355, "z": -0.15 },
     "follow_through_fraction": 0.16,
     "return_arc_m": { "x": 0.01, "y": 0.032, "z": 0.055 },
     "offset_grip": { "x": 0, "y": 0.036, "z": 0.035 }
@@ -264,12 +274,12 @@
     "left_ankle_from_hip": {
       "x": -0.1,
       "y": 0,
-      "z": -0.86
+      "z": -0.876
     },
     "right_ankle_from_hip": {
       "x": 0.1,
       "y": 0,
-      "z": -0.85
+      "z": -0.866
     },
     "turn_full_weight": 0.8
   },
@@ -5445,20 +5455,22 @@
     "y": 10,
     "z": -8
   },
-  "prone_shoulder_settle_m": {
-    "x": 0.016,
-    "y": 0,
-    "z": -0.027
-  },
+  "prone_body_lower_m": 0.121,
+  "prone_mat_start": 0.885,
+  "prone_mat_end": 0.997,
+  "prone_chest_yaw_degrees": 8,
+  "prone_left_elbow_height_m": 0.009,
+  "prone_right_elbow_height_m": 0.032,
+  "prone_shoulder_settle_m": { "x": 0.04, "y": 0, "z": -0.018 },
   "resting_elbow_hint": {
     "x": 0.15,
     "y": -1,
     "z": -0.6
   },
   "coast_wrist_offset": {
-    "x": 0,
-    "y": -0.06,
-    "z": 0.18
+    "x": 0.09,
+    "y": -0.05,
+    "z": 0.105
   },
   "rifle_reach_lift_m": 0.52,
   "rifle_reach_front_m": 0.22,

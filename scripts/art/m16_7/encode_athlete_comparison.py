@@ -16,6 +16,7 @@ CHAPTERS = {
     "face": ("Лицо и очки", "Форма лица, кожа, шапочка и посадка поднятых очков."),
     "rifle": ("Винтовка и ремни", "Приклад, ствол, крепления и отдельный стартовый номер поверх формы."),
     "skis": ("Лыжи и ботинки", "Гоночный профиль лыжи, крепление носка, подошва и карбоновая манжета."),
+    "skis_top": ("Лыжи сверху", "Профиль носка и пятки, карбоновый рисунок, надписи и крепления."),
     "skate": ("Коньковый ход V2", "Woodland Basin. Одна траектория, скорость 6 м/с, общий ракурс."),
     "acceleration": ("Разгон", "Сравните рост частоты шага, работу рук и перенос веса."),
     "uphill": ("Подъём V1", "Участок подъёма Woodland Basin. Сравните опору лыжи и работу палок."),
@@ -31,7 +32,9 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
     woodland = json.loads((source / "woodland.json").read_text(encoding="utf-8-sig"))
     shots = studio["shots"] + woodland["shots"]
     fps = studio["fps"]
-    assert fps == woodland["fps"] and [shot["id"] for shot in shots] == list(CHAPTERS)
+    expected = list(CHAPTERS)
+    if not any(shot["id"] == "skis_top" for shot in shots): expected.remove("skis_top")
+    assert fps == woodland["fps"] and [shot["id"] for shot in shots] == expected
     regular = font_dir / "segoeui.ttf"
     bold = font_dir / "seguisb.ttf"
     brand = ImageFont.truetype(bold, 19)
@@ -83,7 +86,8 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
                 progress = ImageDraw.Draw(composed)
                 progress.rectangle((left, 883, width-padding, 886), fill=(36, 55, 67))
                 progress.rectangle((left, 883, left+(width-padding-left)*(written+1)/total, 886), fill=accent)
-                showcase = int(shot["frames"] * (.83 if name in ("standing", "prone") else .5))
+                showcase_phase = .83 if name in ("standing", "prone", "skis_top") else .5
+                showcase = int(shot["frames"] * showcase_phase)
                 if frame == showcase:
                     thumbnails[name] = composed.copy()
                 writer.stdin.write(composed.tobytes())
@@ -98,11 +102,13 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
     board = Image.new("RGB", (1512, 940), paper)
     draw = ImageDraw.Draw(board)
     draw.text((24, 17), "М16.7  /  ДЕТАЛИ СПОРТСМЕНА", font=title_font, fill=main)
-    for row, names in enumerate((("face", "rifle"), ("skis", "prone"))):
+    for row, names in enumerate((("face", "rifle"), ("skis_top" if "skis_top" in thumbnails else "skis", "prone"))):
         for column, name in enumerate(names):
             preview = thumbnails[name].resize((720, 428), Image.Resampling.LANCZOS)
             board.paste(preview, (24 + column*744, 62 + row*436))
     board.save(destination / "details.jpg", quality=93)
+    if "skis_top" in thumbnails:
+        thumbnails["skis_top"].save(destination / "skis-top.jpg", quality=95)
     evidence = {"schema_version": 1, "id": "m167_shipping_vs_natural_comparison", "fps": fps, "resolution": [width,height],
                 "frames": written, "duration_seconds": written/fps, "capture_method": "paired native Unity renders",
                 "original_asset": studio["original_asset"], "candidate_asset": studio["candidate_asset"], "chapters": summary}

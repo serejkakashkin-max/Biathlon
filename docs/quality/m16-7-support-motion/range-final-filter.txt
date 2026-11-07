@@ -1,0 +1,1 @@
+tests | where mode == "PlayMode" and (fullName contains "Biathlete167RangeAnatomyTests." or fullName contains "Biathlete167RangeFitTests." or fullName contains "Biathlete167RangeContactTests." or fullName contains "Biathlete167RangeGestureTests." or fullName contains "Biathlete167SupportTests.Prone" or fullName contains "Biathlete167ComparisonCapture.CaptureWoodland")

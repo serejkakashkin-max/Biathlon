@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "id": "m167_glide_and_mat_support_qualification",
+  "baseline_commit": "b1738355354ef8cf1663d4ec398dd798113669a2",
+  "baseline_reproductions": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.ApproachCarriesTheGripsNearTheHipsUntilRelease",
+      "Status": "Failed",
+      "Message": "  Glide with soft elbows and the grips near the hips.\r\n  Expected: less than 0.219999999f\r\n  But was:  0.57975173f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.ProneSleevesActuallyRestOnTheMat",
+      "Status": "Failed",
+      "Message": "  Both elbows must meet the actual mat plane.\r\n  Expected: less than 0.0120000001f\r\n  But was:  0.225884736f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Skate)",
+      "Status": "Failed",
+      "Message": "  A loaded ski needs a seated boot during the majority of glide.\r\n  Expected: greater than 0.680000007f\r\n  But was:  0.360465109f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Acceleration)",
+      "Status": "Failed",
+      "Message": "  A loaded ski needs a seated boot during the majority of glide.\r\n  Expected: greater than 0.680000007f\r\n  But was:  0.356725156f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Uphill)",
+      "Status": "Failed",
+      "Message": "  A loaded ski needs a seated boot during the majority of glide.\r\n  Expected: greater than 0.680000007f\r\n  But was:  0.0f\r\n"
+    }
+  ],
+  "playmode": {
+    "distinct_passed": 269,
+    "initial_full": {
+      "Status": "Failed",
+      "TotalTests": 269,
+      "PassedTests": 268,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:03:19.6949608"
+    },
+    "final_range_rerun": {
+      "Status": "Passed",
+      "TotalTests": 72,
+      "PassedTests": 72,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:02:07.9756654"
+    }
+  },
+  "editmode": {
+    "Status": "Passed",
+    "TotalTests": 15,
+    "PassedTests": 15,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:24.6331144"
+  },
+  "new_and_capture_tests": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167ComparisonCapture.CaptureStudio",
+      "Status": "Passed",
+      "Duration": "00:00:16.8500000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167ComparisonCapture.CaptureWoodland",
+      "Status": "Passed",
+      "Duration": "00:01:00.1630000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.ApproachCarriesTheGripsNearTheHipsUntilRelease",
+      "Status": "Passed",
+      "Duration": "00:00:00.0730000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.ProneSleevesActuallyRestOnTheMat",
+      "Status": "Passed",
+      "Duration": "00:00:00.1490000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Skate)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2700000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Acceleration)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2590000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Uphill)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2630000"
+    }
+  ],
+  "console_start_sequence": 436158,
+  "new_errors_exceptions_asserts": 0,
+  "editor_final": "1 result\nisPlaying|isCompiling\nfalse|false",
+  "frames_decoded": 1104,
+  "fps": 24,
+  "resolution": [
+    1512,
+    900
+  ],
+  "duration_seconds": 46.0,
+  "paired_native_input_frames": 1104,
+  "m16_7": "OPEN / BUILD HOLD",
+  "sha256": {
+    "comparison.mp4": "2cb65942b43470bb02a796b2d3b7a13c626f297873348dda6759d779ccec0e03",
+    "details.jpg": "19493909375d6860847c683a635a771c324e420a944928101ac6f126b8c92809",
+    "measurements.json": "bf40855057a6d58b603d41916498f5a0d9c15f26daf8163aed6c1baad328ecf0",
+    "preview.jpg": "76bf111e7f56615302a63f3406c35889e2ffc3668f632d90e7b891f0d76a5544",
+    "skis-top.jpg": "6e85fdd388f467abecabae45789d0cf50d9976eca45df0889dbcc785364ebe00"
+  }
+}

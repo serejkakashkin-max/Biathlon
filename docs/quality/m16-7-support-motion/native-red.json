@@ -1,0 +1,47 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 5,
+    "PassedTests": 0,
+    "FailedTests": 5,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.6855609"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.ApproachCarriesTheGripsNearTheHipsUntilRelease",
+      "Status": "Failed",
+      "Duration": "00:00:00.1950000",
+      "Message": "  Glide with soft elbows and the grips near the hips.\r\n  Expected: less than 0.219999999f\r\n  But was:  0.57975173f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167SupportTests.ApproachCarriesTheGripsNearTheHipsUntilRelease () [0x000c8] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167SupportTests.cs:89\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.ProneSleevesActuallyRestOnTheMat",
+      "Status": "Failed",
+      "Duration": "00:00:00.1440000",
+      "Message": "  Both elbows must meet the actual mat plane.\r\n  Expected: less than 0.0120000001f\r\n  But was:  0.225884736f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167SupportTests.ProneSleevesActuallyRestOnTheMat () [0x0021b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167SupportTests.cs:118\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Skate)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0680000",
+      "Message": "  A loaded ski needs a seated boot during the majority of glide.\r\n  Expected: greater than 0.680000007f\r\n  But was:  0.360465109f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush (Biathlon.Unity.Presentation.Biathlete167Action action) [0x003b9] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167SupportTests.cs:70\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Acceleration)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0740000",
+      "Message": "  A loaded ski needs a seated boot during the majority of glide.\r\n  Expected: greater than 0.680000007f\r\n  But was:  0.356725156f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush (Biathlon.Unity.Presentation.Biathlete167Action action) [0x003b9] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167SupportTests.cs:70\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush(Uphill)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0590000",
+      "Message": "  A loaded ski needs a seated boot during the majority of glide.\r\n  Expected: greater than 0.680000007f\r\n  But was:  0.0f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167SupportTests.TravelHasSeatedHeelsAHighGlideAndACompletePush (Biathlon.Unity.Presentation.Biathlete167Action action) [0x003b9] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167SupportTests.cs:70\r\n"
+    }
+  ]
+}
