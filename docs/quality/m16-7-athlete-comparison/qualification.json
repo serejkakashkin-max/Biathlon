@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "m167_shipping_vs_natural_capture_qualification",
+  "asset_baseline_commit": "9392e3a92b52f1ec6b1b65c331dbbadd04f3ba30",
+  "capture_tests": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 2,
+      "PassedTests": 2,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:13.1045690"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.Biathlete167ComparisonCapture.CaptureStudio",
+        "Status": "Passed",
+        "Duration": "00:00:14.2100000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.Biathlete167ComparisonCapture.CaptureWoodland",
+        "Status": "Passed",
+        "Duration": "00:00:58.8010000"
+      }
+    ]
+  },
+  "unity_console_new_errors_exceptions_asserts": 0,
+  "unity_editor_idle": true,
+  "decoded_frames": 1008,
+  "fps": 24,
+  "runtime_seconds": 42,
+  "resolution": [
+    1512,
+    900
+  ],
+  "sampled_background_mean_rgb_delta_0_255": {
+    "skate": 0.0,
+    "uphill": 0.0,
+    "entry": 0.0,
+    "standing": 0.0,
+    "prone": 0.0
+  },
+  "scope": "native presentation comparison on authored Woodland Basin snow and range with scripted trajectories",
+  "m16_7": "OPEN / BUILD HOLD",
+  "media_sha256": {
+    "comparison.mp4": "fe793fbb5b84135db4d92ee35be85019248aa4f774ccb9ff2f788c8640ccc243",
+    "preview.jpg": "7e15bde689ccd9e2148dfaa8f233aa0305ea7781e31141f83659643427a7be71",
+    "details.jpg": "1e7796d8f5e3ccc3f17732e7ad57645cf239bf0c15f9163604c8353a489708cb"
+  }
+}
