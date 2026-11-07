@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Biathlon.Career;
 using Biathlon.Unity.Presentation;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -26,6 +27,7 @@ namespace Biathlon.Unity
         [Serializable] private class Manifest {public MaterialRecord[] materials;public NationalTextiles national_textiles;}
         [Serializable] private class GarmentRecord {public int schema_version;public string id;public float textile_normal_strength,bib_normal_strength;}
         [Serializable] private class EquipmentRecord {public int schema_version;public string id;public float rifle_walnut_roughness,rifle_walnut_normal_strength;}
+        [Serializable] private class AppearanceRecord {public float hair_roughness,hair_normal_strength;}
         private static readonly (string human,string bone)[] Mapping={
             ("Hips","Hips"),("Spine","Spine02"),("Chest","Spine01"),("UpperChest","Spine"),("Neck","neck"),("Head","Head"),
             ("LeftShoulder","LeftShoulder"),("RightShoulder","RightShoulder"),("LeftUpperArm","LeftArm"),("RightUpperArm","RightArm"),
@@ -50,6 +52,7 @@ namespace Biathlon.Unity
             var manifest=JsonUtility.FromJson<Manifest>(File.ReadAllText(Root+(natural?"/Documentation/natural-asset-manifest.json":"/Documentation/asset-manifest.json")));
             var garment=natural?JsonUtility.FromJson<GarmentRecord>(File.ReadAllText(Root+"/Documentation/garment-detail-v1.json")):null;
             var equipmentDetail=natural?JsonUtility.FromJson<EquipmentRecord>(File.ReadAllText(Root+"/Documentation/equipment-detail-v1.json")):null;
+            var appearanceDetail=natural?JsonUtility.FromJson<AppearanceRecord>(File.ReadAllText(Root+"/Documentation/appearance-variants-v1.json")):null;
             if(natural&&(equipmentDetail.schema_version!=1||string.IsNullOrWhiteSpace(equipmentDetail.id)||equipmentDetail.rifle_walnut_normal_strength<=0||equipmentDetail.rifle_walnut_roughness<=0||equipmentDetail.rifle_walnut_roughness>1))throw new InvalidDataException("Invalid equipment detail definition.");
             if(natural&&(garment.schema_version!=1||string.IsNullOrWhiteSpace(garment.id)||garment.textile_normal_strength<=0||garment.bib_normal_strength<=0))throw new InvalidDataException("Invalid garment definition.");
             var materials=new Dictionary<string,Material>(StringComparer.Ordinal);
@@ -72,6 +75,14 @@ namespace Biathlon.Unity
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Pole_PULSE_Carbon_BaseColor_2K");}
                 else if(data.name=="PULSE_Boot_Carbon")
                 {Map(material,"_BaseMap","Boot_PULSE_Carbon_BaseColor_1K");}
+                else if(data.name=="PULSE_Hair_Crew"||data.name=="PULSE_Hair_Short")
+                {
+                    Map(material,"_BaseMap","Hair_PULSE_"+(data.name=="PULSE_Hair_Crew"?"crew":"short_swept")+"_BaseColor_2K");
+                    material.SetFloat("_Smoothness",1-appearanceDetail.hair_roughness);
+                    if(data.name=="PULSE_Hair_Short")Normal(material,"Hair_PULSE_short_swept_Normal_2K",appearanceDetail.hair_normal_strength);
+                    material.SetFloat("_AlphaClip",1);material.SetFloat("_Cutoff",.28f);material.EnableKeyword("_ALPHATEST_ON");
+                    material.SetOverrideTag("RenderType","TransparentCutout");material.renderQueue=2450;
+                }
                 else if(data.name=="PULSE_Boot_Upper"||data.name=="PULSE_Boot_Outsole")
                 {Map(material,"_BaseMap","Textile_BaseColor_4K");Normal(material,"Textile_Normal_4K",data.name=="PULSE_Boot_Upper"?.23f:.10f);}
                 else if(data.name=="PULSE_Mask_Woven_Strap")
@@ -99,6 +110,7 @@ namespace Biathlon.Unity
             var importer=(ModelImporter)AssetImporter.GetAtPath(modelPath);if(importer==null)throw new InvalidOperationException("Missing generated FBX.");
             importer.importCameras=false;importer.importLights=false;importer.addCollider=false;importer.importAnimation=false;importer.optimizeGameObjects=false;
             importer.isReadable=true;importer.skinWeights=ModelImporterSkinWeights.Custom;importer.maxBonesPerVertex=4;importer.minBoneWeight=.001f;
+            importer.importBlendShapes=true;
             importer.materialImportMode=ModelImporterMaterialImportMode.ImportStandard;
             foreach(var pair in materials)importer.AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Material),pair.Key),pair.Value);
             var model=AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
@@ -169,6 +181,8 @@ namespace Biathlon.Unity
                 if(natural)
                 {
                     ConfigureNationalKits(root,manifest.national_textiles,materials,skin);
+                    ConfigureAppearance(root,binding,materials,Find("Headband_Prop").gameObject,
+                        Find("Hair_Crew_Prop").gameObject,Find("Hair_Short_Prop").gameObject);
                     binding.ConfigurePerformance(AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/performance-motion-v1.json"),AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/performance-locomotion-v1.json"));
                 }
                 if(root.GetComponentsInChildren<Collider>(true).Length!=0)throw new InvalidOperationException("Visual prefab cannot acquire gameplay colliders.");
@@ -206,6 +220,51 @@ namespace Biathlon.Unity
         private static void Map(Material material,string property,string name)
         {var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(Root+"/Textures/"+name+".png");if(texture==null)throw new InvalidDataException("Missing PBR map "+name);material.SetTexture(property,texture);}
         private static void Normal(Material material,string name,float strength){Map(material,"_BumpMap",name);material.SetFloat("_BumpScale",strength);material.EnableKeyword("_NORMALMAP");}
+        private static void ConfigureAppearance(GameObject root,Biathlete167Rig rig,
+            Dictionary<string,Material> sources,GameObject band,GameObject crew,GameObject swept)
+        {
+            string folder=Root+"/Materials/Appearance";
+            if(!AssetDatabase.IsValidFolder(folder))AssetDatabase.CreateFolder(Root+"/Materials","Appearance");
+            var faces=AthleteFaceCatalog.Load();
+            var definition=AthleteLookCatalog.Load();
+            var roles=new[]{
+                ("Anatomical_Skin_CC0_2K","skin"),("Eye_Iris","eye_color"),
+                ("PULSE_Hair_Crew","hair_color"),("PULSE_Hair_Short","hair_color"),
+                ("Amber_Mirror","lens"),("PULSE_Mask_Amber_Lens","lens"),
+                ("Race_Glove_Softshell","gloves"),("Race_Glove_Palm_Grip","gloves"),
+                ("PULSE_Boot_Upper","boots")};
+            var palettes=new List<Biathlete167Appearance.SurfacePalette>();
+            foreach(var (sourceName,group) in roles)
+            {
+                var source=sources[sourceName];
+                int count=group=="skin"?faces.skin_ids.Length:definition.OptionCount(group);
+                var variants=new Material[count];
+                for(int i=0;i<count;i++)
+                {
+                    string id=group=="skin"?faces.skin_ids[i]:definition.Option(group,i).Id;
+                    string optionFolder=folder+"/"+group+"_"+id;
+                    if(!AssetDatabase.IsValidFolder(optionFolder))AssetDatabase.CreateFolder(folder,group+"_"+id);
+                    string path=optionFolder+"/"+sourceName+".mat";
+                    var variant=AssetDatabase.LoadAssetAtPath<Material>(path);
+                    if(variant==null){variant=new Material(source);AssetDatabase.CreateAsset(variant,path);}
+                    EditorUtility.CopySerialized(source,variant);variant.name=sourceName;
+                    if(group=="skin")
+                    {
+                        int reference=0;
+                        if(i>=4){Map(variant,"_BaseMap","MakeHuman_Skin_Deep_BaseColor_2K");reference=5;}
+                        else if(i==2||i==3){Map(variant,"_BaseMap","MakeHuman_Skin_Warm_BaseColor_2K");reference=2;}
+                        var color=faces.SkinColor(i);var basis=faces.SkinColor(reference);
+                        variant.SetColor("_BaseColor",new Color(color.r/basis.r,color.g/basis.g,color.b/basis.b,1));
+                    }
+                    else if(i!=0||group=="eye_color"||group=="hair_color"||group=="lens")
+                        variant.SetColor("_BaseColor",AthleteLookCatalog.Color(group,id));
+                    variants[i]=variant;EditorUtility.SetDirty(variant);AssetDatabase.SaveAssetIfDirty(variant);
+                }
+                palettes.Add(new Biathlete167Appearance.SurfacePalette{
+                    sourceMaterial=sourceName,optionGroup=group,materials=variants});
+            }
+            root.AddComponent<Biathlete167Appearance>().Configure(rig,band,crew,swept,palettes.ToArray());
+        }
         private static void GenerateScene(string prefabPath)
         {
             var previous=SceneManager.GetActiveScene();bool cleanUntitled=string.IsNullOrEmpty(previous.path)&&!previous.isDirty;

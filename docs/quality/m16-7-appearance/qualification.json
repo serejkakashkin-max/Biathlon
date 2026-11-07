@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "m167_career_appearance_20261107",
+  "baseline_commit": "20fff8d4a54f922e0b031bab5625cf3dd26fc42c",
+  "test_summaries": {
+    "playmode": {
+      "Status": "Passed",
+      "TotalTests": 253,
+      "PassedTests": 253,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:53.0676608"
+    },
+    "editmode": {
+      "Status": "Passed",
+      "TotalTests": 15,
+      "PassedTests": 15,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:24.5696010"
+    }
+  },
+  "console_baseline_sequence": 435120,
+  "new_errors_exceptions_asserts": 0,
+  "compiled_editor_idle": true,
+  "asset_hash_policy": "raw binaries; canonical LF text, trimmed Unity prefab whitespace as staged in Git",
+  "asset_sha256": {
+    "Models/Biathlete_16_7_Natural.fbx": "c3c077b1fba591d12e751d4d6b50cedeba27f7b270a34d562a9d551bd349b737",
+    "Models/Source~/Biathlete_16_7_Natural.blend": "bc991d9eb6b8a1ee40c203f81b5008ab90dd62ff1ce2d38bb6ac40f8c80b6dd2",
+    "Documentation/appearance-variants-v1.json": "50d30cfddbde277cba427099788b56d8f81ce4a30815c93c3f667a6a7386a9cc",
+    "Documentation/natural-asset-manifest.json": "e6de6e8bc03c1c7aa2f97e87c98a8089b9e6513e9357b4ffae248c7a72f3cae8",
+    "Prefabs/Biathlete_16_7_Natural.prefab": "481d89d64c975b2def7500833e78be1ca4a3be116827e60e3f4f896644ca9279"
+  },
+  "source_verification": "source-verification.json",
+  "default_active_lod0_triangles": 182561,
+  "runtime_budget_qualification": "default only; all-variant race rendering/performance remains open",
+  "raw_unity_portraits": 16,
+  "appearance_profile_compatibility": [
+    "legacy",
+    "v1",
+    "v2"
+  ],
+  "headwear": [
+    "cap",
+    "headband",
+    "none"
+  ],
+  "limitations": [
+    "studio only; no race factory integration",
+    "body size, shoulder width and training attire are preserved in profile but not visually adapted",
+    "faces are variants of one anatomy, not six photogrammetry heads",
+    "hair/eyes require further art polish",
+    "full sight/finger/cloth/terrain/LOD/field qualification remains open"
+  ],
+  "m16_6": "CLOSED",
+  "m16_7": "OPEN / BUILD HOLD",
+  "windows_player_built": false,
+  "simulation_or_balance_changed": false,
+  "memory": "unchanged — no new durable facts; isolated art variants are still under qualification"
+}

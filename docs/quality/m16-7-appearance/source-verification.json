@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "m167_cc0_appearance_source_verification",
+  "verified_source_files": [
+    "l-cheek-volume-incr.target",
+    "r-cheek-volume-incr.target",
+    "chin-height-incr.target",
+    "chin-prominent-incr.target",
+    "chin-width-incr.target",
+    "head-oval.target",
+    "head-rectangular.target",
+    "head-round.target",
+    "head-scale-horiz-decr.target",
+    "head-square.target",
+    "young_darkskinned_male_diffuse.png",
+    "young_lightskinned_male_diffuse3.png",
+    "short01.mhclo",
+    "short01.mhmat",
+    "short01.obj",
+    "short01_diffuse.png",
+    "short02.obj",
+    "short02.mhclo",
+    "short02.mhmat",
+    "short02_diffuse.png",
+    "short02_normal.png"
+  ],
+  "faces": {
+    "FaceIdentity_oval": {
+      "maximum_displacement_m": 0.0,
+      "moved_vertices": 0
+    },
+    "FaceIdentity_angular": {
+      "maximum_displacement_m": 0.004078849777289408,
+      "moved_vertices": 564
+    },
+    "FaceIdentity_round": {
+      "maximum_displacement_m": 0.004974616139645971,
+      "moved_vertices": 1526
+    },
+    "FaceIdentity_narrow": {
+      "maximum_displacement_m": 0.0043401266616726565,
+      "moved_vertices": 1703
+    },
+    "FaceIdentity_broad": {
+      "maximum_displacement_m": 0.003665731639108414,
+      "moved_vertices": 506
+    },
+    "FaceIdentity_defined_chin": {
+      "maximum_displacement_m": 0.004149199256511027,
+      "moved_vertices": 396
+    }
+  },
+  "headband_nonmanifold_edges": 0,
+  "headband_volume_m3": 1.3828015464068443e-05,
+  "pass": true,
+  "preserved_basis_meshes": 150,
+  "added_meshes": [
+    "Hair_Crew_Prop",
+    "Hair_Short_Prop",
+    "Headband_Prop"
+  ]
+}

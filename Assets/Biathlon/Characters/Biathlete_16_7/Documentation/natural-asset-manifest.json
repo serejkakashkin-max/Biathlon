@@ -1,13 +1,37 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "e4333612e94fd5bb0749516adee28082a4c6f14f769a4b3dffd68c400dd1b4a8",
+  "export_fbx_sha256": "c3c077b1fba591d12e751d4d6b50cedeba27f7b270a34d562a9d551bd349b737",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
   "material_color_space": "scene-linear",
   "source_license": "CC0 MakeHuman hm08 anatomy/skin and CC0 Poly Haven rifle (Mateusz Sadek); mask adapted from Skiing Lady by lancehuang526, CC-BY-4.0; project-authored garments/equipment adaptations",
   "meshes": [
+    {
+      "name": "Headband_Prop",
+      "triangles": 1920,
+      "vertices": 960,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "Head"
+    },
+    {
+      "name": "Hair_Crew_Prop",
+      "triangles": 3678,
+      "vertices": 2984,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "Head"
+    },
+    {
+      "name": "Hair_Short_Prop",
+      "triangles": 3344,
+      "vertices": 1755,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "Head"
+    },
     {
       "name": "Eyewear_Glasses",
       "triangles": 6204,
@@ -549,6 +573,28 @@
         1.0
       ],
       "roughness": 0.8199999928474426,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Hair_Crew",
+      "color": [
+        0.11999999731779099,
+        0.07000000029802322,
+        0.03999999910593033,
+        1.0
+      ],
+      "roughness": 0.9200000166893005,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Hair_Short",
+      "color": [
+        0.11999999731779099,
+        0.07000000029802322,
+        0.03999999910593033,
+        1.0
+      ],
+      "roughness": 0.9200000166893005,
       "metallic": 0.0
     }
   ],
@@ -1187,8 +1233,8 @@
       }
     }
   },
-  "triangles": 286941,
-  "stored_lod0_triangles": 218597,
+  "triangles": 295883,
+  "stored_lod0_triangles": 227539,
   "active_lod0_triangles": 182561,
   "source_edit_export": "same runtime assembly and LOD code as build_biathlete.py; textile maps reused unchanged",
   "harness_routes": {
@@ -1209,5 +1255,6 @@
       "https://www.salomon.com/en-us/product/s-lab-equipe-skate-boa-li1215",
       "https://www.fischersports.com/us_en/speedmax-9-skate-rl-boa/9002973202871"
     ]
-  }
+  },
+  "appearance_definition": "appearance-variants-v1.json"
 }

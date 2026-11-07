@@ -153,3 +153,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-07: для Nordic-ботинок изучены официальные Salomon S/Lab Equipe Skate BOA и Fischer Speedmax 9. Использованы конструктивные признаки карбонового шасси/манжеты, тканевого верха, закрытой молнии и низкой подошвы. Геометрия PULSE создана в проекте. Подробности поиска бесплатного донора и его лицензионной пригодности находятся в [отчёте](quality/m16-7-cap-boots/REVIEW_RU.md). [Salomon](https://www.salomon.com/en-us/product/s-lab-equipe-skate-boa-li1215) · [Fischer](https://www.fischersports.com/us_en/speedmax-9-skate-rl-boa/9002973202871).
+
+
+2026-11-07: для внешности использованы официальные CC0-формы лица MakeHuman и графический system-assets pack. Лицензия допускает повторное использование в собственном редакторе персонажей. Никакого кода MakeHuman или ассетов с неизвестной лицензией не импортировано. Отдельно проверены SHA-256 21 исходного файла и совместимость с ID действующей карьеры. [Лицензия и источники](https://static.makehumancommunity.org/mpfb/faq/build_other_chargen.html) · [Реальные портреты и ограничения](quality/m16-7-appearance/REVIEW_RU.md).

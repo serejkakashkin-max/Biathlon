@@ -14,6 +14,8 @@ namespace Biathlon.Unity.Presentation
         private Material[][] working;
         private byte[][] slots;
         public string Nation=>nation;
+        public event Action<string> NationChanged;
+        public Material HeadwearMaterial=>caps[Array.IndexOf(nations,nation)];
         public IReadOnlyList<string> Nations=>Array.AsReadOnly(nations);
         public void Configure(string[] codes,Material[] suitVariants,Material[] capVariants,Material[] accentVariants,SkinnedMeshRenderer[] renderers)
         {
@@ -39,6 +41,7 @@ namespace Biathlon.Unity.Presentation
                 skins[i].sharedMaterials=working[i];
             }
             nation=code;
+            NationChanged?.Invoke(code);
         }
     }
 }

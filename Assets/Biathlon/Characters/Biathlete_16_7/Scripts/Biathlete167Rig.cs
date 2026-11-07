@@ -22,6 +22,9 @@ namespace Biathlon.Unity.Presentation
         [SerializeField] private GameObject[] skateGloves,tuckGloves;
         [SerializeField] private GameObject glasses,mask;
         [SerializeField] private Biathlete167Eyewear eyewear;
+        [SerializeField] private bool eyewearVisible=true;
+        public bool PreviewEyewearRaised {get;set;}
+        public void SetEyewearVisible(bool visible){eyewearVisible=visible;SetEyewear(eyewear);}
         public Biathlete167Eyewear Eyewear=>eyewear;
         public bool HasEyewearChoice=>glasses!=null&&mask!=null;
         public Transform EyewearRoot(Biathlete167Eyewear value)=>value==Biathlete167Eyewear.Glasses?glasses.transform:value==Biathlete167Eyewear.Mask?mask.transform:throw new ArgumentOutOfRangeException(nameof(value));
@@ -35,7 +38,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(value!=Biathlete167Eyewear.Glasses&&value!=Biathlete167Eyewear.Mask)throw new ArgumentOutOfRangeException(nameof(value));
             if(!HasEyewearChoice)throw new InvalidOperationException("Eyewear options are not configured.");
-            eyewear=value;glasses.SetActive(value==Biathlete167Eyewear.Glasses);mask.SetActive(value==Biathlete167Eyewear.Mask);
+            eyewear=value;glasses.SetActive(eyewearVisible&&value==Biathlete167Eyewear.Glasses);mask.SetActive(eyewearVisible&&value==Biathlete167Eyewear.Mask);
         }
         private bool tuckGrip;
         [SerializeField] private TextAsset contactDefinition;

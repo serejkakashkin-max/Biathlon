@@ -396,6 +396,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void ApplyEyewear(float amount)
         {
+            amount=Mathf.Max(amount,rig.PreviewEyewearRaised?1:0);
             EyewearLift=amount;var frame=bones[4].rotation*Quaternion.Inverse(headNeutral);var pivot=bones[4].position+frame*d.eyewear_pivot;
             for(int i=0;i<eyewear.Length;i++)
             {
@@ -404,6 +405,7 @@ namespace Biathlon.Unity.Presentation
                 prop.Transform.SetPositionAndRotation(pivot+turn*(position-pivot)+frame*((i==0?d.glasses_raise_offset:d.mask_raise_offset)*amount),turn*rotation);
             }
         }
+        public void RefreshPreviewEyewear(float amount)=>ApplyEyewear(amount);
         private Vector3 EyewearPoint(Vector3 point)
         {
             var frame=bones[4].rotation*Quaternion.Inverse(headNeutral);var pivot=bones[4].position+frame*d.eyewear_pivot;bool mask=rig.Eyewear==Biathlete167Eyewear.Mask;

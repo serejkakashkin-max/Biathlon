@@ -19,6 +19,7 @@ from rifle_visual_fit import fit_rifle
 from rifle_suspension import add_suspension
 from garment_materials import finish_suit,finish_bib
 from headwear_and_boots import build_boots,finish_cap_hem,construction_receipt
+from appearance_variants import prepare_source,add_runtime_shapes
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -609,6 +610,7 @@ for obj in objects:
 character_objects=[arm]+[o for o in objects if o.name in bpy.data.objects]
 # Main scene stores a clean rest rig. Renders use presentation-only poses in a separate review file.
 (out/'Models/Source~').mkdir(exist_ok=True)
+materials.extend(prepare_source(out/'Textures'))
 blendpath=out/'Models/Source~/Biathlete_16_7_Natural.blend';bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(blendpath))
 # Runtime derivative: one weighted body, independent rifle/skis/poles and3 true LODs.
 def join_meshes(name,parts,bone=None,origin=None):
@@ -629,6 +631,10 @@ def join_meshes(name,parts,bone=None,origin=None):
         mod=obj.modifiers.new('Humanoid skin','ARMATURE');mod.object=arm
     return obj
 allmesh=[o for o in scene.objects if o.type=='MESH'];gear=[];rigged=[]
+for obj in allmesh:
+    if obj.data.shape_keys:obj.shape_key_clear()
+for name in ('Headband_Prop','Hair_Crew_Prop','Hair_Short_Prop'):
+    if name in bpy.data.objects:gear.append(bpy.data.objects[name])
 glasses=join_meshes('Eyewear_Glasses',glasses_parts,'Head',heads['Head']);gear.append(glasses)
 mask=join_meshes('Eyewear_Mask',mask_meshes,'Head',heads['Head']);mask.hide_render=True;gear.append(mask)
 rifle=join_meshes('Rifle_Prop',rifleparts,EQUIPMENT_SETTINGS['rifle_carry_bone'],(.045,.188,1.36));gear.append(rifle)
@@ -649,6 +655,7 @@ for level,ratio in [(1,.40),(2,.14)]:
     lod=gamebody.copy();lod.data=gamebody.data.copy();bpy.context.collection.objects.link(lod);lod.name='Biathlete_Body_LOD'+str(level)
     bpy.ops.object.select_all(action='DESELECT');lod.select_set(True);bpy.context.view_layer.objects.active=lod
     modifier=lod.modifiers.new('Measured geometry LOD','DECIMATE');modifier.ratio=ratio;bpy.ops.object.modifier_apply(modifier=modifier.name);lod.hide_render=True;rigged.append(lod)
+add_runtime_shapes(rigged)
 character_objects=[arm]+gear+rigged+[o for o in scene.objects if o.type=='EMPTY']
 bpy.ops.object.select_all(action='DESELECT')
 for obj in character_objects:obj.select_set(True)
@@ -660,6 +667,7 @@ manifest={'schema_version':1,'id':'biathlete_16_7_natural_v1','export_fbx_sha256
 manifest['equipment_detail_definition_sha256']=hashlib.sha256(EQUIPMENT_SETTINGS_PATH.read_bytes()).hexdigest()
 manifest['eyewear_variants']=['glasses','mask']
 manifest['headwear_and_boots']=construction_receipt()
+manifest['appearance_definition']='appearance-variants-v1.json'
 manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/provenance.json').read_text())
 manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
 manifest['rifle_visual_fit']=rifle_visual_receipt
@@ -698,7 +706,7 @@ manifest['power_grip_finger_pose']={pre:{str(digit):solve_finger(anatomy_metadat
 
 manifest['triangles']=sum(x['triangles'] for x in manifest['meshes'])
 manifest['stored_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')))
-manifest['active_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')) and not x['name'].endswith('Tuck_Glove') and x['name']!='Eyewear_Mask')
+manifest['active_lod0_triangles']=sum(x['triangles'] for x in manifest['meshes'] if not x['name'].endswith(('LOD1','LOD2')) and not x['name'].endswith('Tuck_Glove') and x['name'] not in ('Eyewear_Mask','Headband_Prop','Hair_Crew_Prop','Hair_Short_Prop'))
 (out/'Documentation/natural-asset-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 (review/'model-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 # Studio render, actual model only. World/light floor are not exported with the rig.

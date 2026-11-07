@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Biathlon.Career;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -90,7 +91,7 @@ namespace Biathlon.Unity.Presentation
             {case 0:yaw=0;distance=3.7f;height=.98f;break;case 1:yaw=90;distance=3.7f;height=.98f;break;case 2:yaw=180;distance=3.7f;height=.98f;break;case 3:yaw=8;distance=.77f;height=1.65f;break;case 4:yaw=170;distance=1.65f;height=1.25f;break;case 5:yaw=30;distance=1.12f;height=.17f;break;default:throw new ArgumentOutOfRangeException(nameof(index));}
             PlaceCamera();
         }
-        private void Pose(int index){motion.Stop();shownPhase=-1;rig.SetPose(index);status.text=new[]{"Стойка","Согнутые колени","Руки вверх","Подготовка к стрельбе"}[index];}
+        private void Pose(int index){motion.Stop();shownPhase=-1;rig.SetPose(index);motion.RefreshAppearance();status.text=new[]{"Стойка","Согнутые колени","Руки вверх","Подготовка к стрельбе"}[index];}
         private void BuildUi()
         {
             for(int i=0;i<phaseLabels.Length;i++)phaseLabels[i]=(rig.IsNaturalAnatomy?"Основной спортсмен · ":"Коньковый ход · ")+i+"%";
@@ -117,6 +118,42 @@ namespace Biathlon.Unity.Presentation
             string[] views={"Спереди","Сбоку","Сзади","Лицо и очки","Винтовка и ремни","Ботинки и крепления"};
             for(int i=0;i<views.Length;i++){int at=i;Button(views[i],()=>SetView(at));}
             Button("Вращать автоматически",()=>rotating=!rotating);
+            var appearance=rig.GetComponent<Biathlete167Appearance>();
+            if(appearance!=null)
+            {
+                Line("Внешность спортсмена",16);
+                var faces=AthleteFaceCatalog.Load();
+                var looks=AthleteLookCatalog.Load();
+                void Choice(string title,string name,List<string> labels,int selected,Action<int> change)
+                {
+                    var field=new DropdownField(title,labels,selected){name=name};
+                    field.RegisterValueChangedCallback(_=>change(field.index));rail.Add(field);
+                }
+                var faceLabels=new List<string>{"Овальное","Угловатое","Округлое","Узкое","Широкое","Выраженный подбородок"};
+                Choice("Лицо","athlete-face",faceLabels,Array.FindIndex(faces.profiles,f=>f.id==appearance.Current.FaceId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,faceId:faces.profiles[index].id)));
+                Choice("Оттенок кожи","athlete-skin",new List<string>{"Светлый нейтральный","Светлый тёплый","Загорелый","Оливковый","Смуглый тёплый","Тёмный тёплый","Тёмный нейтральный","Глубокий тёмный"},
+                    faces.SkinIndex(appearance.Current.SkinId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,skinId:faces.skin_ids[index])));
+                Choice("Головной убор","athlete-headwear",new List<string>{"Шапочка","Повязка","Без головного убора"},
+                    looks.Index("headwear",appearance.Current.HeadwearId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,headwearId:looks.Option("headwear",index).Id)));
+                Choice("Причёска","athlete-hair-style",new List<string>{"Короткая","Зачёсанная"},
+                    looks.Index("hair_style",appearance.Current.HairStyleId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,hairStyleId:looks.Option("hair_style",index).Id)));
+                Choice("Цвет волос","athlete-hair-color",new List<string>{"Тёмно-каштановый","Чёрный","Каштановый","Светлый","Рыжеватый","Седой"},
+                    looks.Index("hair_color",appearance.Current.HairColorId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,hairColorId:looks.Option("hair_color",index).Id)));
+                Choice("Цвет глаз","athlete-eye-color",new List<string>{"Карие","Голубые","Зелёные","Серые"},
+                    looks.Index("eye_color",appearance.Current.EyeColorId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,eyeColorId:looks.Option("eye_color",index).Id)));
+                Choice("Положение очков","athlete-goggles",new List<string>{"На глазах","Подняты","Без очков"},
+                    looks.Index("goggles",appearance.Current.GogglesId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,gogglesId:looks.Option("goggles",index).Id)));
+                Choice("Цвет линз","athlete-lens-color",new List<string>{"Ледяной","Янтарный","Розовый"},
+                    looks.Index("lens",appearance.Current.LensId),
+                    index=>appearance.ApplyProfile(looks.Edit(appearance.Current,lensId:looks.Option("lens",index).Id)));
+            }
             if(rig.HasEyewearChoice)
             {
                 var eyewear=new DropdownField("Очки / маска",new List<string>{"Спортивные очки","Лыжная маска"},(int)rig.Eyewear){name="athlete-eyewear"};

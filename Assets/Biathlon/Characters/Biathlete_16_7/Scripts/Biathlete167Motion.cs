@@ -154,6 +154,7 @@ namespace Biathlon.Unity.Presentation
             PlaybackEnabled = false;
             Mode = Biathlete167MotionMode.Inspection;
             if (rig != null) rig.SetPose(0);
+            RefreshAppearance();
         }
 
         private void LateUpdate()
@@ -171,7 +172,9 @@ namespace Biathlon.Unity.Presentation
         {
             RequireInitialized();if(performance==null)throw new InvalidOperationException("Natural hero sports choreography is not configured.");
             performance.Evaluate(action,normalizedPhase);phase=normalizedPhase;Mode=Biathlete167MotionMode.Performance;
+            RefreshAppearance();
         }
+        public void RefreshAppearance()=>performance?.RefreshPreviewEyewear(Mode==Biathlete167MotionMode.Performance?performance.EyewearLift:0);
 
         /// <summary>
         /// Apply an exact phase for scrubbing/capture/tests, independently of playback or frame order.
@@ -187,6 +190,7 @@ namespace Biathlon.Unity.Presentation
             {
                 phase=Mathf.Repeat(normalizedPhase,1);Mode=Biathlete167MotionMode.SkateV2;
                 mainReference.Evaluate(phase);MaximumReachError=0;PelvisReachAdjustment=0;
+                RefreshAppearance();
                 PolesPlanted=mainReference.SourceDriver.PoleDriveActive;return;
             }
             if (Mode != Biathlete167MotionMode.SkateV2) rig.SetPose(0);

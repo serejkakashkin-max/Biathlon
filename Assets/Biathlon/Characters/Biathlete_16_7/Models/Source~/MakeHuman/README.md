@@ -58,3 +58,8 @@ outside the finger skin and must not be treated as a contact point. The CC0
 anatomical vertices and their proportions are unchanged. Natural provenance
 hashes include this metadata enrichment. Saved glove regression fixtures live
 in the sibling `Regression/` folder, outside the active runtime asset.
+
+
+## Career head options
+
+FaceTargets pins ten CC0 graphical target files to the upstream commit in provenance.json. HeadOptions contains eleven selected graphical files from the official CC0 system-assets pack: short01/short02 hair proxies, textures and two skin atlases. Original bytes are protected by local .gitattributes and SHA-256. No upstream program code is included. appearance-variants-v1.json maps existing career IDs to restrained face morphs and hair fitting; original hm08 anatomy and neck/scalp/eye anchors remain. See docs/quality/m16-7-appearance/REVIEW_RU.md for sources, actual Unity portraits and scope limitations.

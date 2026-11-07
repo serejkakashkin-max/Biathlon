@@ -221,3 +221,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-07: ровная тканевая кромка шапочки под поднятыми очками, повторная посадка ремешка маски. Новые Nordic-ботинки с закрытой подошвой, карбоновым шасси/манжетой, тканевым верхом и ремнём. Карты и материалы импортируются автоматически через GenerateNatural. Редактируемый исходник обновлён. Генератор reexport_source.py поддерживает --refit-headwear-and-boots и повторное применение. Проверка исходника — scripts/art/m16_7/verify_headwear_and_boots.py. [Кадры и протокол](../../../../../docs/quality/m16-7-cap-boots/REVIEW_RU.md). М16.7 OPEN/BUILD HOLD.
+
+
+2026-11-07: в студии добавлены шесть форм лица, восемь оттенков кожи, две причёски, цвета волос/глаз/линз и cap/headband/none. Используются существующие ID карьеры и read-only AppearanceProfile. Новые графические исходники MakeHuman CC0 сохранены с provenance. Перегенерация: reexport_source.py --prepare-appearance, затем Biathlete167Authoring.GenerateNatural(). Система разделяет личные цвета и национальную форму; нет покадровой пересборки материалов. [Портреты и проверка](../../../../../docs/quality/m16-7-appearance/REVIEW_RU.md). Параметры тела и тренировочный наряд пока только сохраняются в профиле; визуальный перенос открыт. М16.7 OPEN/BUILD HOLD.
