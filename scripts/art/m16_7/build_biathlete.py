@@ -18,6 +18,7 @@ from mask_webbing import finish_mask
 from rifle_visual_fit import fit_rifle
 from rifle_suspension import add_suspension
 from garment_materials import finish_suit,finish_bib
+from headwear_and_boots import build_boots,finish_cap_hem,construction_receipt
 
 parser=argparse.ArgumentParser();parser.add_argument('--source',required=True);parser.add_argument('--output',required=True);parser.add_argument('--review',required=True);parser.add_argument('--anatomy');parser.add_argument('--fast',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);src=Path(args.source).resolve();out=Path(args.output).resolve();review=Path(args.review).resolve()
@@ -408,22 +409,11 @@ for side in [-1,1]:
             if value>0:cuff.vertex_groups[name].add([vertex.index],value,'REPLACE')
 bpy.data.objects.remove(hand_source,do_unlink=True)
 
-# Nordic boots: narrow forefoot, flexible sole, carbon ankle cuff and zip covers.
-for side in [-1,1]:
-    pre='Left' if side>0 else 'Right';x=heads[pre+'Foot'].x
-    bootrings=[(x,-.022,.043,.047,.145),(x,-.024,.052,.048,.146),(x,-.025,.073,.046,.144),(x,-.022,.095,.045,.135),(x,.008,.119,.043,.105),(x,.049,.145,.039,.067),(x,.056,.195,.037,.056),(x,.056,.238,.036,.052)]
-    def bootweight(p,j=0,i=0):
-        t=max(0,min(1,(p.z-.14)/.075));t=t*t*(3-2*t)
-        return {pre+'Foot':1-t,pre+'Leg':t}
-    loft(pre+'_Nordic_Boot',interpolated(bootrings,3),[black,scarlet],lambda u,v:1 if v<.14 else 0,weight=bootweight,n=64)
-    loft(pre+'_Carbon_Ankle_Cuff',[(x,.057,.175,.041,.059),(x,.057,.209,.041,.059),(x,.057,.226,.039,.055)], [carbon],weight=lambda p,j,i:{pre+'Leg':1},n=56)
-    for z in [.053,.066]:tube(pre+'_Boot_Sole_Seam',[(x+.048*math.cos(t*math.tau/80),-.024+.146*math.sin(t*math.tau/80),z) for t in range(81)],.0012,stitch,pre+'Foot')
-    tube(pre+'_Boot_Zip',[(x,-.158,.084),(x,-.113,.108),(x,-.029,.14),(x,.001,.21)],.002,alloy)
-    boot_zip=objects[-1]
-    for vertex in boot_zip.data.vertices:
-        for group in list(vertex.groups):boot_zip.vertex_groups[group.group].remove([vertex.index])
-        for name,value in bootweight(vertex.co).items():boot_zip.vertex_groups[name].add([vertex.index],value,'REPLACE')
-    block(pre+'_Ankle_Ratchet',(x,-.004,.205),(.068,.012,.016),scarlet,.003,pre+'Leg')
+# Nordic boots share the original toe-bar datum and ski contact markers.
+boots,boot_mats=build_boots(arm,heads,out/'Textures')
+objects.extend(boots);materials.extend(boot_mats)
+for pre in ('Left','Right'):
+    x=heads[pre+'Foot'].x
     tube(pre+'_Toe_Hinge_Pin',[(x-.018,-.171,.055),(x+.018,-.171,.055)],.003,alloy,pre+'Foot')
     # Skis in true metre scale; slender44mm waist and rising Nordic tip.
     vs=[];uv=[];fs=[];mi=[]
@@ -587,6 +577,7 @@ puller=block('Zip_Puller',zip_points[3]+Vector((0,-.002,0)),(.008,.002,.013),all
 puller.rotation_euler=(zip_points[0]-zip_points[6]).to_track_quat('Z','X').to_euler()
 transfer_weights(puller,clothes,arm)
 fit_surface(cap,body,.0035)
+finish_cap_hem(cap,body)
 mask_webbing_receipt=finish_mask(mask_meshes,cap,mesh,tube,block,rigid,materials,out,EQUIPMENT_SETTINGS)
 for obj in list(objects):
     if obj.name.startswith(('Bib27_','Bib_Header','Bib_Footer')):
@@ -668,6 +659,7 @@ shutil.copyfile(src/'01_Character/man-base-character-rigged.fbx',out/'Animations
 manifest={'schema_version':1,'id':'biathlete_16_7_natural_v1','export_fbx_sha256':hashlib.sha256((out/'Models/Biathlete_16_7_Natural.fbx').read_bytes()).hexdigest(),'blender':bpy.app.version_string,'height_m':1.8,'bones':len(arm.data.bones),'material_color_space':'scene-linear','source_license':'CC0 MakeHuman hm08 anatomy/skin and CC0 Poly Haven rifle (Mateusz Sadek); mask adapted from Skiing Lady by lancehuang526, CC-BY-4.0; project-authored garments/equipment adaptations','meshes':[],'materials':[],'sockets':[x[0] for x in sockets]}
 manifest['equipment_detail_definition_sha256']=hashlib.sha256(EQUIPMENT_SETTINGS_PATH.read_bytes()).hexdigest()
 manifest['eyewear_variants']=['glasses','mask']
+manifest['headwear_and_boots']=construction_receipt()
 manifest['mask_provenance']=json.loads((anatomy_path.parents[2]/'SkiingLady/provenance.json').read_text())
 manifest['rifle_reference_usage']=EQUIPMENT_SETTINGS['rifle_reference_usage']
 manifest['rifle_visual_fit']=rifle_visual_receipt

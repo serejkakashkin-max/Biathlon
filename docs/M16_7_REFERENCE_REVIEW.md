@@ -150,3 +150,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-07: из тренерского разбора взяты высокий вынос локтей в V2, опора с согнутыми руками и последующее раскрытие локтей, а также более высокая ведущая рука в V1. Проверка в Unity включает одинаковые кадры V2 спереди и сбоку, покадровые замеры и видео трёх движений. [Разбор Team Aker Dæhlie](https://www.teamakerdahlie.com/technique/technique) · [Результат в студии](quality/m16-7-skate-arms/REVIEW_RU.md).
+
+
+2026-11-07: для Nordic-ботинок изучены официальные Salomon S/Lab Equipe Skate BOA и Fischer Speedmax 9. Использованы конструктивные признаки карбонового шасси/манжеты, тканевого верха, закрытой молнии и низкой подошвы. Геометрия PULSE создана в проекте. Подробности поиска бесплатного донора и его лицензионной пригодности находятся в [отчёте](quality/m16-7-cap-boots/REVIEW_RU.md). [Salomon](https://www.salomon.com/en-us/product/s-lab-equipe-skate-boa-li1215) · [Fischer](https://www.fischersports.com/us_en/speedmax-9-skate-rl-boa/9002973202871).

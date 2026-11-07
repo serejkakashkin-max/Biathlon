@@ -224,6 +224,90 @@ namespace Biathlon.PlayModeTests
             var provenance=File.ReadAllText(Root+"/Models/Source~/SkiingLady/provenance.json");
             Assert.That(provenance,Does.Contain("CC-BY-4.0").And.Contain("lancehuang526"));
         }
+        [Test] public void RacingBootMaterialsAndSoleWeightsSurviveImport()
+        {
+            var rig=Create();
+            try
+            {
+                var skin=rig.Lods.GetLODs()[0].renderers.OfType<SkinnedMeshRenderer>().Single();
+                var materials=skin.sharedMaterials;
+                var upper=materials.Single(m=>m.name=="PULSE_Boot_Upper");
+                var carbon=materials.Single(m=>m.name=="PULSE_Boot_Carbon");
+                var outsole=materials.Single(m=>m.name=="PULSE_Boot_Outsole");
+                Assert.That(upper.GetTexture("_BumpMap").name,Is.EqualTo("Textile_Normal_4K"));
+                Assert.That(carbon.GetTexture("_BaseMap").name,Is.EqualTo("Boot_PULSE_Carbon_BaseColor_1K"));
+                Assert.That(outsole.GetFloat("_Smoothness"),Is.LessThan(upper.GetFloat("_Smoothness")));
+                var feet=new[]{rig.Bone(HumanBodyBones.LeftFoot),rig.Bone(HumanBodyBones.RightFoot)};
+                var footIds=feet.Select(foot=>Array.IndexOf(skin.bones,foot)).ToArray();
+                var weights=skin.sharedMesh.boneWeights;
+                var sole=skin.sharedMesh.GetTriangles(Array.IndexOf(materials,outsole)).Distinct().ToArray();
+                Assert.That(sole.Length,Is.GreaterThan(300));
+                Assert.That(sole.All(i=>footIds.Contains(weights[i].boneIndex0)&&weights[i].weight0>.999f),Is.True);
+                Assert.That(sole.Select(i=>weights[i].boneIndex0).Distinct().Count(),Is.EqualTo(2));
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [UnityTest] public IEnumerator CaptureCapAndBootCloseups()
+        {
+            var studio=Object.FindAnyObjectByType<Biathlete167Studio>();
+            if(studio==null)
+            {
+                yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(
+                    Root+"/Preview/Biathlete_16_7_Preview.unity",
+                    new UnityEngine.SceneManagement.LoadSceneParameters(UnityEngine.SceneManagement.LoadSceneMode.Single));
+                yield return null;
+                studio=Object.FindAnyObjectByType<Biathlete167Studio>();
+            }
+            Assert.That(studio,Is.Not.Null);
+            var rig=Create();
+            var cameraObject=new GameObject("Equipment inspection camera");
+            var camera=cameraObject.AddComponent<Camera>();
+            camera.CopyFrom(studio.View);
+            camera.enabled=false;
+            camera.orthographic=true;
+            var folder="artifacts/m16-7-cap-boots-20261107/native";
+            Directory.CreateDirectory(folder);
+            studio.Rig.gameObject.SetActive(false);
+            try
+            {
+                var motion=rig.gameObject.AddComponent<Biathlete167Motion>();
+                motion.Initialize(rig,true);
+                using var target=new BenchmarkRenderTarget(1000,800);
+                foreach(var eyewear in new[]{Biathlete167Eyewear.Glasses,Biathlete167Eyewear.Mask})
+                {
+                    rig.SetEyewear(eyewear);
+                    motion.EvaluateAction(Biathlete167Action.Standing,.3f);
+                    var focus=rig.Bone(HumanBodyBones.Head).position+Vector3.up*.048f;
+                    camera.orthographicSize=.137f;
+                    foreach(var view in new[]{("front",new Vector3(.2f,.025f,.70f)),("side",new Vector3(.72f,.03f,.24f))})
+                    {
+                        camera.transform.position=focus+view.Item2;
+                        camera.transform.LookAt(focus);
+                        yield return null;
+                        target.Render(camera);
+                        yield return new WaitForEndOfFrame();
+                        target.Render(camera);
+                        target.SavePng(folder+"/"+eyewear+"-"+view.Item1+".png");
+                    }
+                }
+                rig.SetPose(0);
+                var footFocus=rig.Bone(HumanBodyBones.LeftFoot).position+Vector3.up*.014f+Vector3.forward*.052f;
+                camera.transform.position=footFocus+new Vector3(.62f,.20f,.42f);
+                camera.transform.LookAt(footFocus);
+                camera.orthographicSize=.19f;
+                yield return null;
+                target.Render(camera);
+                yield return new WaitForEndOfFrame();
+                target.Render(camera);
+                target.SavePng(folder+"/boots.png");
+            }
+            finally
+            {
+                studio.Rig.gameObject.SetActive(true);
+                Object.Destroy(cameraObject);
+                Object.Destroy(rig.gameObject);
+            }
+        }
         [UnityTest] public IEnumerator StudioEyewearMenuSwitchesTheActualImportedRenderers()
         {
             var studio=Object.FindAnyObjectByType<Biathlete167Studio>();

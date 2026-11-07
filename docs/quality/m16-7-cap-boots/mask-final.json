@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "m167_mask_strap_volume_and_cap_fit",
+  "pass": true,
+  "rows": [
+    {
+      "name": "closed_solid_webbing",
+      "pass": true,
+      "nonmanifold_edges": 0,
+      "volume_m3": 2.005757822509011e-05
+    },
+    {
+      "name": "rear_webbing_on_cap",
+      "pass": true,
+      "minimum_signed_gap_m": 0.0007392258315235267,
+      "maximum_signed_gap_m": 0.0023981945752211686,
+      "samples": 500
+    }
+  ],
+  "method": "saved evaluated actual mesh; welded manifold volume and signed nearest-cap distance for all rear webbing vertices; rest pose only"
+}

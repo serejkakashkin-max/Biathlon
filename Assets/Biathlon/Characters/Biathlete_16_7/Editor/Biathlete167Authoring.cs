@@ -70,6 +70,10 @@ namespace Biathlon.Unity
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Ski_PULSE_Topsheet_BaseColor_4K");}
                 else if(data.name=="PULSE_Pole_Carbon_Weave")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Pole_PULSE_Carbon_BaseColor_2K");}
+                else if(data.name=="PULSE_Boot_Carbon")
+                {Map(material,"_BaseMap","Boot_PULSE_Carbon_BaseColor_1K");}
+                else if(data.name=="PULSE_Boot_Upper"||data.name=="PULSE_Boot_Outsole")
+                {Map(material,"_BaseMap","Textile_BaseColor_4K");Normal(material,"Textile_Normal_4K",data.name=="PULSE_Boot_Upper"?.23f:.10f);}
                 else if(data.name=="PULSE_Mask_Woven_Strap")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Mask_PULSE_Strap_BaseColor_2K");Normal(material,"Textile_Normal_4K",.08f);}
                 else if(data.name=="PULSE_Rifle_Carry_Webbing")
@@ -86,6 +90,8 @@ namespace Biathlon.Unity
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap",manifest.national_textiles.kits[0].texture);Normal(material,"Natural_Suit_Knit_Normal_4K",garment.textile_normal_strength);Map(material,"_MetallicGlossMap","Natural_Suit_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");material.SetFloat("_Smoothness",1);}
                 else if(data.name=="PULSE_Tailored_Textile")
                 {material.SetColor("_BaseColor",Color.white);Map(material,"_BaseMap","Suit_Panels_BaseColor_4K");Normal(material,"Textile_Normal_4K",.28f);Map(material,"_MetallicGlossMap","Textile_MetallicSmoothness_4K");material.EnableKeyword("_METALLICSPECGLOSSMAP");}
+                else if(natural&&data.name=="PULSE_Race_Red")
+                {Map(material,"_BaseMap","Textile_BaseColor_4K");Normal(material,"Textile_Normal_4K",.07f);material.SetFloat("_Smoothness",.22f);}
                 else if(data.name.Contains("Race_Red")||data.name.Contains("Stretch")||data.name.Contains("Bib_")||data.name.Contains("Thread"))
                 {Map(material,"_BaseMap","Textile_BaseColor_4K");Normal(material,"Textile_Normal_4K",.22f);material.SetFloat("_Smoothness",.33f);}
                 material.SetFloat("_Cull",0);material.doubleSidedGI=true;material.enableInstancing=true;EditorUtility.SetDirty(material);AssetDatabase.SaveAssetIfDirty(material);materials[data.name]=material;

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
+  "export_fbx_sha256": "e4333612e94fd5bb0749516adee28082a4c6f14f769a4b3dffd68c400dd1b4a8",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -98,25 +98,25 @@
     },
     {
       "name": "Biathlete_Body_LOD0",
-      "triangles": 129063,
-      "vertices": 65842,
-      "uv_layers": 1,
+      "triangles": 126567,
+      "vertices": 64360,
+      "uv_layers": 2,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD1",
-      "triangles": 51625,
-      "vertices": 26902,
-      "uv_layers": 1,
+      "triangles": 50626,
+      "vertices": 26178,
+      "uv_layers": 2,
       "skinned": true,
       "bone_parent": ""
     },
     {
       "name": "Biathlete_Body_LOD2",
-      "triangles": 18068,
-      "vertices": 9814,
-      "uv_layers": 1,
+      "triangles": 17718,
+      "vertices": 9502,
+      "uv_layers": 2,
       "skinned": true,
       "bone_parent": ""
     }
@@ -517,6 +517,39 @@
       ],
       "roughness": 0.85,
       "metallic": 0
+    },
+    {
+      "name": "PULSE_Boot_Upper",
+      "color": [
+        0.02199999988079071,
+        0.03099999949336052,
+        0.041999999433755875,
+        1.0
+      ],
+      "roughness": 0.7200000286102295,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Boot_Carbon",
+      "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "roughness": 0.44999998807907104,
+      "metallic": 0.05000000074505806
+    },
+    {
+      "name": "PULSE_Boot_Outsole",
+      "color": [
+        0.008999999612569809,
+        0.012000000104308128,
+        0.014999999664723873,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
+      "metallic": 0.0
     }
   ],
   "sockets": [
@@ -1154,9 +1187,9 @@
       }
     }
   },
-  "triangles": 290786,
-  "stored_lod0_triangles": 221093,
-  "active_lod0_triangles": 185057,
+  "triangles": 286941,
+  "stored_lod0_triangles": 218597,
+  "active_lod0_triangles": 182561,
   "source_edit_export": "same runtime assembly and LOD code as build_biathlete.py; textile maps reused unchanged",
   "harness_routes": {
     "schema_version": 1,
@@ -1165,5 +1198,16 @@
     "rear_vertical_loops": 0,
     "route": "upper rifle junction over smooth padded shoulder/front, narrow underarm return to lower rifle junction; four full-width seated connections",
     "material": "PULSE_Rifle_Carry_Webbing"
+  },
+  "headwear_and_boots": {
+    "schema_version": 1,
+    "id": "m167_fitted_cap_and_nordic_racing_boots",
+    "geometry": "Project-authored fitted cap hem, closed outsoles, carbon chassis and cuff, textile gaiter and power strap",
+    "carbon_texture": "Boot_PULSE_Carbon_BaseColor_1K.png",
+    "carbon_texture_source": "Project-authored procedural weave",
+    "references": [
+      "https://www.salomon.com/en-us/product/s-lab-equipe-skate-boa-li1215",
+      "https://www.fischersports.com/us_en/speedmax-9-skate-rl-boa/9002973202871"
+    ]
   }
 }
