@@ -1,0 +1,35 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 4,
+    "PassedTests": 1,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:03.5037688"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeGestureTests.CaptureActualUpperReachAndGlidingElbows",
+      "Status": "Passed",
+      "Duration": "00:00:03.2640000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeGestureTests.GlidingElbowsRemainLowAndCloseInsteadOfHandsOnHips",
+      "Status": "Failed",
+      "Duration": "00:00:00.0210000",
+      "Message": "  Approach phase=0 elbow=False: no raised side-wing upper arm.\r\n  Expected: less than 0.119999997f\r\n  But was:  0.210032746f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeGestureTests.RemovalPalmRisesBeforeItPassesBehindTheShoulder(EnterStanding)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0540000",
+      "Message": "  EnterStanding phase=70/128: the hand first goes above the right shoulder/head, then back to the barrel, not up from behind the armpit.\r\n  Expected: greater than 0.0149999997f\r\n  But was:  -0.325451732f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeGestureTests.RemovalPalmRisesBeforeItPassesBehindTheShoulder(EnterProne)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0670000",
+      "Message": "  EnterProne phase=70/128: the hand first goes above the right shoulder/head, then back to the barrel, not up from behind the armpit.\r\n  Expected: greater than 0.0149999997f\r\n  But was:  -0.325451732f\r\n"
+    }
+  ]
+}

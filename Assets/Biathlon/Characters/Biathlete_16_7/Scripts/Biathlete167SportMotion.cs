@@ -27,6 +27,9 @@ namespace Biathlon.Unity.Presentation
             public float rifle_reach_wrist_side_m,arm_guide_bias,arm_free_guide_bias;
             public float maximum_forearm_pronation_degrees,maximum_wrist_twist_degrees;
             public Vector3 left_pole_lay_direction,right_pole_lay_direction;
+            public Vector3 resting_elbow_hint;
+            public Vector3 coast_wrist_offset;
+            public float rifle_reach_lift_m,rifle_reach_front_m,rifle_reach_settle_weight;
             public float rifle_hand_reach_end,rifle_removal_start,rifle_removal_end;
             public float reaching_elbow_roll_degrees,shooting_elbow_roll_degrees;
             public Vector3[] standing_right_elbow_curve,prone_right_elbow_curve;
@@ -45,6 +48,10 @@ namespace Biathlon.Unity.Presentation
                 foreach(var v in new[]{left_free_hand_from_shoulder,right_free_hand_from_shoulder,rifle_reach_elbow_hint})if(!float.IsFinite(v.sqrMagnitude))throw new ArgumentException("Non-finite arm guide.");
                 if(!(maximum_forearm_pronation_degrees>0&&maximum_forearm_pronation_degrees<=180&&maximum_wrist_twist_degrees>=0&&maximum_wrist_twist_degrees<=20&&180-maximum_forearm_pronation_degrees<=maximum_wrist_twist_degrees))throw new ArgumentException("Invalid forearm/wrist rotation distribution.");
                 foreach(var v in new[]{left_pole_lay_direction,right_pole_lay_direction})if(!float.IsFinite(v.sqrMagnitude)||v.sqrMagnitude<.5f||v.y>0)throw new ArgumentException("Invalid downward pole lay direction.");
+                if(!float.IsFinite(resting_elbow_hint.sqrMagnitude)||resting_elbow_hint.sqrMagnitude<.1f||resting_elbow_hint.x<0||resting_elbow_hint.y>=0)throw new ArgumentException("Invalid resting elbow direction.");
+                if(!float.IsFinite(coast_wrist_offset.sqrMagnitude)||coast_wrist_offset.sqrMagnitude>.09f)throw new ArgumentException("Invalid coast wrist offset.");
+                if(!float.IsFinite(rifle_reach_lift_m)||rifle_reach_lift_m<0||rifle_reach_lift_m>.7f||!float.IsFinite(rifle_reach_front_m)||rifle_reach_front_m<0||rifle_reach_front_m>.4f)throw new ArgumentException("Invalid overhead rifle reach arc.");
+                if(!float.IsFinite(rifle_reach_settle_weight)||rifle_reach_settle_weight<.8f||rifle_reach_settle_weight>=1)throw new ArgumentException("Invalid rifle reach contact settling.");
                 if(!Span(sight_height_settle_start,sight_height_settle_end)||!float.IsFinite(rear_aperture_local.sqrMagnitude)||rear_aperture_local.sqrMagnitude<.01f)throw new ArgumentException("Invalid pupil / aperture height fitting definition.");
                 foreach(var curve in new[]{standing_right_elbow_curve,prone_right_elbow_curve})
                 {if(curve==null||curve.Length<2||curve.Length>4097)throw new ArgumentException("Baked right elbow guide missing.");foreach(var v in curve)if(!float.IsFinite(v.sqrMagnitude)||v.sqrMagnitude<.0001f||v.sqrMagnitude>1)throw new ArgumentException("Invalid baked right elbow guide.");}
@@ -186,7 +193,6 @@ namespace Biathlon.Unity.Presentation
         {
             SpeedMetersPerSecond=Mathf.Lerp(d.deceleration_start_speed_mps,0,Smooth(Mathf.InverseLerp(0,.72f,phase)));
             main.State=SkiMotionState.NoPole;main.PreviewInput=new LocomotionInput(SpeedMetersPerSecond,0,.15f,travelling:SpeedMetersPerSecond>.1f);main.Evaluate(phase*1.3f);
-            for(int i=0;i<2;i++){poleReleasePositions[i]=poles[i].Transform.position;poleReleaseRotations[i]=poles[i].Transform.rotation;}
             if(phase>.45f)
             {
                 var hip=bones[0].position;for(int i=0;i<bones.Length;i++)savedRotations[i]=bones[i].rotation;
@@ -194,7 +200,9 @@ namespace Biathlon.Unity.Presentation
                 bones[0].position=Vector3.Lerp(hip,bones[0].position,settle);for(int i=0;i<bones.Length;i++)bones[i].rotation=Quaternion.Slerp(savedRotations[i],bones[i].rotation,settle);
             }
             float release=Smooth(Mathf.InverseLerp(d.poles_drop_start,d.poles_drop_end,phase));
-            bodyClearance.Update();rifleInverse=rig.Rifle.worldToLocalMatrix;PrepareHeldArms(1-release);PrepareFreeArms(release);
+            bodyClearance.Update();rifleInverse=rig.Rifle.worldToLocalMatrix;PrepareHeldArms(1-release);
+            for(int i=0;i<2;i++){poleReleasePositions[i]=poles[i].Transform.position;poleReleaseRotations[i]=poles[i].Transform.rotation;}
+            PrepareFreeArms(release);
             ApplyEyewear(Smooth(Mathf.InverseLerp(d.eyewear_raise_start,d.eyewear_raise_end,phase)));
             float gesture=Smooth(Mathf.InverseLerp(d.eyewear_touch_start,d.eyewear_touch_peak,phase))*(1-Smooth(Mathf.InverseLerp(d.eyewear_release_start,d.eyewear_release_end,phase)));
             if(gesture>0)Grip(true,EyewearPoint(d.eyewear_touch_point),-root.forward,-root.up,d.standing_right_elbow_hint,gesture);
@@ -275,7 +283,8 @@ namespace Biathlon.Unity.Presentation
                 var wrist=point-rotation*Vector3.Scale(handGrip[index],bones[hand].lossyScale);
                 var hint=right&&weapon?Vector3.Slerp(root.TransformDirection(d.rifle_reach_elbow_hint),rig.Rifle.TransformDirection(d.right_grip_hint_rifle)+root.TransformDirection(d.right_grip_hint_root),Smooth(RifleTransfer)):root.TransformDirection(elbow);
                 hint=Vector3.Slerp(inheritedHint.normalized,hint.normalized,weight);
-                var destination=Vector3.Lerp(start,wrist,weight);if(right&&weapon)destination+=root.right*(Mathf.Sin(weight*Mathf.PI)*d.rifle_reach_wrist_side_m);
+                var destination=Vector3.Lerp(start,wrist,weight);
+                if(right&&weapon){float arc=weight>=1?0:Mathf.Sin(weight*Mathf.PI)*(1-Smooth(Mathf.InverseLerp(d.rifle_reach_settle_weight,1,weight)));destination+=root.TransformVector(new Vector3(d.rifle_reach_wrist_side_m,d.rifle_reach_lift_m,d.rifle_reach_front_m))*arc;}
                 if(weight<.999f)destination=bodyClearance.Outside(destination,right?1:-1,d.wrist_radius_m);
                 Solve(hand-2,destination,hint,right&&weapon,true,right&&weapon?weight:0);
                 var actual=(bones[hand].position-bones[hand-1].position).normalized;var desired=rotation*forearmInHand[index].normalized;
@@ -298,12 +307,15 @@ namespace Biathlon.Unity.Presentation
                 if(bend>d.maximum_range_wrist_bend_degrees)bones[hand].rotation=Quaternion.Slerp(Quaternion.identity,Quaternion.FromToRotation(desired,actual),(bend-d.maximum_range_wrist_bend_degrees)/bend)*bones[hand].rotation;
                 MaximumWristBendDegrees=Mathf.Max(MaximumWristBendDegrees,Vector3.Angle(bones[hand].TransformDirection(forearmInHand[index]),actual));
             }
-            ApplyForearmPronation(hand,index,bones[hand].rotation);
+            OrientWristAndForearm(hand,index,bones[hand].rotation);
             if(weight>.999f)MaximumPalmFitResidualMeters=Mathf.Max(MaximumPalmFitResidualMeters,Vector3.Distance(point,rig.GripContact(right).position));
         }
-        private void ApplyForearmPronation(int hand,int side,Quaternion desired)
+        private void OrientWristAndForearm(int hand,int side,Quaternion desired)
         {
-            var lower=bones[hand-1];var axis=(bones[hand].position-lower.position).normalized;var neutral=lower.rotation*handInForearm[side];
+            var lower=bones[hand-1];var axis=(bones[hand].position-lower.position).normalized;var modelAxis=desired*forearmInHand[side];float bend=Vector3.Angle(modelAxis,axis);
+            if(bend>d.maximum_range_wrist_bend_degrees)desired=Quaternion.Slerp(Quaternion.identity,Quaternion.FromToRotation(modelAxis,axis),(bend-d.maximum_range_wrist_bend_degrees)/bend)*desired;
+            MaximumWristBendDegrees=Mathf.Max(MaximumWristBendDegrees,Vector3.Angle(desired*forearmInHand[side],axis));
+            var neutral=lower.rotation*handInForearm[side];
             var delta=desired*Quaternion.Inverse(neutral);float sine=Vector3.Dot(new Vector3(delta.x,delta.y,delta.z),axis);float twist=Mathf.DeltaAngle(0,2*Mathf.Atan2(sine,delta.w)*Mathf.Rad2Deg);
             float roll=Mathf.Clamp(twist,-d.maximum_forearm_pronation_degrees,d.maximum_forearm_pronation_degrees);lower.rotation=Quaternion.AngleAxis(roll,axis)*lower.rotation;bones[hand].rotation=desired;
             MaximumForearmPronationDegrees=Mathf.Max(MaximumForearmPronationDegrees,Mathf.Abs(roll));MaximumWristTwistDegrees=Mathf.Max(MaximumWristTwistDegrees,Mathf.Abs(twist-roll));
@@ -326,7 +338,7 @@ namespace Biathlon.Unity.Presentation
             {
                 int hand=side==0?7:10;var before=bones[hand].rotation;var start=bones[hand].position;var at=bones[hand-2].position+root.TransformVector(side==0?d.left_free_hand_from_shoulder:d.right_free_hand_from_shoulder);
                 var local=root.InverseTransformPoint(at);local.y=Mathf.Max(local.y,d.free_hand_minimum_height_m);at=bodyClearance.Outside(root.TransformPoint(local),side==0?-1:1,d.wrist_radius_m);
-                Solve(hand-2,Vector3.Lerp(start,at,weight),root.right*(side==0?-1:1)-root.up,side==1,true);ApplyForearmPronation(hand,side,Quaternion.Slerp(before,bones[hand-1].rotation*handInForearm[side],weight));
+                Solve(hand-2,Vector3.Lerp(start,at,weight),RestingElbowHint(side),side==1,true);OrientWristAndForearm(hand,side,Quaternion.Slerp(before,bones[hand-1].rotation*handInForearm[side],weight));
             }
         }
         private void PrepareHeldArms(float weight)
@@ -334,13 +346,20 @@ namespace Biathlon.Unity.Presentation
             if(weight<=0)return;
             for(int side=0;side<2;side++)
             {
-                int hand=side==0?7:10;var rotation=bones[hand].rotation;
+                int hand=side==0?7:10;var rotation=bones[hand].rotation;var poleAxis=poles[side].Transform.TransformDirection(poles[side].Axis).normalized;
                 // Adapt the thicker imported sleeves around the inherited G2
                 // grip, preserving the hand and held-pole frame in world space.
-                Solve(hand-2,bones[hand].position,root.right*(side==0?-1:1)-root.up,side==1,true);
-                ApplyForearmPronation(hand,side,rotation);
+                var offset=d.coast_wrist_offset;offset.x*=side==0?-1:1;
+                Solve(hand-2,bones[hand].position+root.TransformVector(offset)*weight,RestingElbowHint(side),side==1,true);
+                // Rotate the grip around the shaft before changing its pitch:
+                // this preserves the down/back pole direction while adapting
+                // the palm to the lower, closer elbow.
+                var actual=bones[hand].position-bones[hand-1].position;var expected=rotation*forearmInHand[side];
+                float turn=Vector3.SignedAngle(Vector3.ProjectOnPlane(expected,poleAxis),Vector3.ProjectOnPlane(actual,poleAxis),poleAxis);
+                OrientWristAndForearm(hand,side,Quaternion.AngleAxis(turn*weight,poleAxis)*rotation);
             }
         }
+        private Vector3 RestingElbowHint(int side)=>root.TransformDirection(new Vector3(d.resting_elbow_hint.x*(side==0?-1:1),d.resting_elbow_hint.y,d.resting_elbow_hint.z));
         private void CaptureEnds()
         {for(int i=0;i<4;i++){int index=i==0?7:i==1?10:i==2?13:16;ends[i]=bones[index].position;endRotations[i]=bones[index].rotation;}}
         private void RestoreEnds()

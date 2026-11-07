@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "m167_upper_reach_20261107",
+  "status": "focused_checkpoint_not_final_art",
+  "playmode": {
+    "Status": "Passed",
+    "TotalTests": 215,
+    "PassedTests": 215,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:01:36.9598071"
+  },
+  "editmode": {
+    "Status": "Passed",
+    "TotalTests": 3,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:23.2932080"
+  },
+  "console_baseline_sequence": 433066,
+  "new_console_errors_exceptions_asserts": 0,
+  "editor_compiled_idle": true,
+  "native_png_count": 66,
+  "video_actual_source_frames": 573,
+  "source_geometry_unchanged": {
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Biathlete_16_7_Natural.fbx": "7ab853e6eac76de4cfe0f4f6aaeee0447b2691ec9198a438e3960ff5e287b23f",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Models/Source~/Biathlete_16_7_Natural.blend": "6cf47b06e00bf006d70d8e2aec33c60ba629fde4759fdfb71bf33924fb916d9e"
+  },
+  "code_lf_hashes": {
+    "Assets/Biathlon/Characters/Biathlete_16_7/Scripts/Biathlete167SportMotion.cs": "19816eaffba2bbe41c3c3ffe237c69fa27fd71c9e4656d42b9ef8848ee12da49",
+    "Assets/Biathlon/Characters/Biathlete_16_7/Documentation/performance-motion-v1.json": "101aee4b768e294fae2fc106c79da8d37e041f007b3c1702b83d61a96ae7f717",
+    "Assets/Tests/PlayMode/Biathlete167RangeGestureTests.cs": "c9caab3f899774e6fd885f8b1719e2e58913265b12f0829e32dc36b8e0d2fd1b"
+  },
+  "measurements": {
+    "coast_maximum_lateral_elbow_offset_m": 0.07681672,
+    "coast_minimum_elbow_drop_m": 0.1655221,
+    "approach_actual_maximum_wrist_bend_degrees": 25.0076561,
+    "removal": [
+      {
+        "action": "EnterStanding",
+        "first_behind_shoulder_phase": 0.3269531,
+        "palm_above_head_at_first_crossing_m": 0.0307701826,
+        "peak_palm_above_head_m": 0.196174741
+      },
+      {
+        "action": "EnterProne",
+        "first_behind_shoulder_phase": 0.3269531,
+        "palm_above_head_at_first_crossing_m": 0.0307701826,
+        "peak_palm_above_head_m": 0.196174741
+      }
+    ],
+    "maximum_engaged_palm_residual_during_reach_m": 0.000544758164
+  },
+  "state_history_prefix_preserved": true,
+  "build": "HOLD; no Windows player or race integration",
+  "authority_balance_saves": "unchanged",
+  "full_optical_fit_accepted": false,
+  "limitations": [
+    "Full eye/cheek/buttstock and finger/sling/textile fit remains open.",
+    "Collision checks sample phases and surfaces; not continuous whole-volume proof.",
+    "Terrain/LOD/30-athlete FPS and final art acceptance remain unqualified."
+  ]
+}
