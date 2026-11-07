@@ -1,0 +1,19 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 1,
+    "PassedTests": 0,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.3043382"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RaisedGlassesRestOnTheActualHeadInsteadOfFloatingAboveIt",
+      "Status": "Failed",
+      "Duration": "00:00:00.2210000",
+      "Message": "  Raised lower lens rim floats 19,4 mm from the actual head/cap.\r\n  Expected: less than 0.0120000001f\r\n  But was:  0.0194111392f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RaisedGlassesRestOnTheActualHeadInsteadOfFloatingAboveIt () [0x0039a] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167EyewearSeatTests.cs:65\r\n"
+    }
+  ]
+}

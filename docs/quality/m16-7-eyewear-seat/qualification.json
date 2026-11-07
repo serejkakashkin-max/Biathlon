@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "m167_raised_glasses_seat_20261107",
+  "baseline_commit": "54b50c47b5edacc6b1e8b733878d8900a035b45f",
+  "tests": {
+    "native-playmode.json": {
+      "Status": "Passed",
+      "TotalTests": 256,
+      "PassedTests": 256,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:46.7362192"
+    },
+    "native-editmode.json": {
+      "Status": "Passed",
+      "TotalTests": 15,
+      "PassedTests": 15,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:23.2235849"
+    }
+  },
+  "console_baseline_sequence": 435200,
+  "new_errors_exceptions_asserts": 0,
+  "compiled_editor_idle": true,
+  "before_maximum_lens_rim_gap_m": 0.0194111392,
+  "after_measured_gaps": {
+    "cap": {
+      "headwear": "cap",
+      "minimum_gap_m": 0.002724085934460163,
+      "maximum_gap_m": 0.0036184010095894337
+    },
+    "headband": {
+      "headwear": "headband",
+      "minimum_gap_m": 0.005332994740456343,
+      "maximum_gap_m": 0.007096888963133097
+    },
+    "none": {
+      "headwear": "none",
+      "minimum_gap_m": 0.005332994740456343,
+      "maximum_gap_m": 0.007096888963133097
+    }
+  },
+  "actual_tested_poses": 51,
+  "actual_lens_rim_ray_measurements": 153,
+  "maximum_allowed_rim_ray_gap_m": 0.012,
+  "head_relative_repeatability_position_tolerance_m": 0.0001,
+  "head_relative_repeatability_rotation_tolerance_degrees": 0.03,
+  "performance_definition_sha256": "210636a115ec71379de6c22affe3b082190e779cf6e2e31fc7febc9417160c64",
+  "unchanged_model_sha256": {
+    "Models/Biathlete_16_7_Natural.fbx": "c3c077b1fba591d12e751d4d6b50cedeba27f7b270a34d562a9d551bd349b737",
+    "Models/Source~/Biathlete_16_7_Natural.blend": "bc991d9eb6b8a1ee40c203f81b5008ab90dd62ff1ce2d38bb6ac40f8c80b6dd2"
+  },
+  "simulation_balance_save_changed": false,
+  "m16_7": "OPEN / BUILD HOLD",
+  "windows_player_built": false,
+  "limitations": [
+    "isolated studio; no race athlete replacement",
+    "mask pose unchanged and not requalified for seating",
+    "lens rim ray gaps are measured to skin/cap, not hair or the separate headband"
+  ],
+  "memory": "unchanged — no new durable facts"
+}

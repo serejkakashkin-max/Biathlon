@@ -224,3 +224,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-07: в студии добавлены шесть форм лица, восемь оттенков кожи, две причёски, цвета волос/глаз/линз и cap/headband/none. Используются существующие ID карьеры и read-only AppearanceProfile. Новые графические исходники MakeHuman CC0 сохранены с provenance. Перегенерация: reexport_source.py --prepare-appearance, затем Biathlete167Authoring.GenerateNatural(). Система разделяет личные цвета и национальную форму; нет покадровой пересборки материалов. [Портреты и проверка](../../../../../docs/quality/m16-7-appearance/REVIEW_RU.md). Параметры тела и тренировочный наряд пока только сохраняются в профиле; визуальный перенос открыт. М16.7 OPEN/BUILD HOLD.
+
+
+2026-11-07: поднятые спортивные очки посажены на лоб вместо положения над макушкой. Исправлены glasses_raise_offset и glasses_raise_euler в performance-motion-v1.json; геометрия и импорт не менялись. [Замеры, кадры и регрессия](../../../../../docs/quality/m16-7-eyewear-seat/REVIEW_RU.md). М16.7 OPEN/BUILD HOLD.
