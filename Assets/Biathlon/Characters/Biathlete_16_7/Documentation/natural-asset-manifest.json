@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "biathlete_16_7_natural_v1",
-  "export_fbx_sha256": "c3c077b1fba591d12e751d4d6b50cedeba27f7b270a34d562a9d551bd349b737",
+  "export_fbx_sha256": "50ebf7df6392e9b0695bfa24366fb3e7a5847921217f3bbecdf2c137b17ce6b4",
   "blender": "4.5.15 LTS",
   "height_m": 1.8,
   "bones": 24,
@@ -34,8 +34,16 @@
     },
     {
       "name": "Eyewear_Glasses",
-      "triangles": 6204,
-      "vertices": 3253,
+      "triangles": 4656,
+      "vertices": 2461,
+      "uv_layers": 1,
+      "skinned": false,
+      "bone_parent": "Head"
+    },
+    {
+      "name": "Glasses_Retainer",
+      "triangles": 516,
+      "vertices": 260,
       "uv_layers": 1,
       "skinned": false,
       "bone_parent": "Head"
@@ -595,6 +603,17 @@
         1.0
       ],
       "roughness": 0.9200000166893005,
+      "metallic": 0.0
+    },
+    {
+      "name": "PULSE_Glasses_Elastic",
+      "color": [
+        0.006000000052154064,
+        0.008999999612569809,
+        0.014000000432133675,
+        1.0
+      ],
+      "roughness": 0.8199999928474426,
       "metallic": 0.0
     }
   ],
@@ -1233,9 +1252,9 @@
       }
     }
   },
-  "triangles": 295883,
-  "stored_lod0_triangles": 227539,
-  "active_lod0_triangles": 182561,
+  "triangles": 294851,
+  "stored_lod0_triangles": 226507,
+  "active_lod0_triangles": 181529,
   "source_edit_export": "same runtime assembly and LOD code as build_biathlete.py; textile maps reused unchanged",
   "harness_routes": {
     "schema_version": 1,

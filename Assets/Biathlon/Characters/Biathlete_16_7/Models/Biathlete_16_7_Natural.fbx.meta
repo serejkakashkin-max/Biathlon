@@ -77,6 +77,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PULSE_Glasses_Elastic
+    second: {fileID: 2100000, guid: e687e032bda8e684aa88791e46a1e690, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: PULSE_Hair_Crew
     second: {fileID: 2100000, guid: 0552d1b66ec6d7542a50d62227f7e29b, type: 2}
   - first:
@@ -689,6 +694,11 @@ ModelImporter:
       position: {x: -0, y: -0.00000025331974, z: -0.000000011175871}
       rotation: {x: -0.7059454, y: 0, z: -0, w: 0.70826626}
       scale: {x: 1, y: 0.9999999, z: 1.0000001}
+    - name: Glasses_Retainer
+      parentName:
+      position: {x: -0, y: -0.041605894, z: -1.6483705}
+      rotation: {x: -0.000000059604645, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Eyewear_Mask
       parentName:
       position: {x: -0, y: -0.00000025331974, z: -0.000000011175871}

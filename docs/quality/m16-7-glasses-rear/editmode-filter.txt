@@ -1,0 +1,1 @@
+tests | where mode == "EditMode" and (fullName contains "Biathlete167AuthoringTests." or fullName contains "AppearanceDefinitionTests." or fullName contains "CareerAppearanceProfileTests." or fullName contains "M166AppearanceTests.")

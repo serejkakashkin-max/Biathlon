@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "m167_glasses_retainer_20261107",
+  "baseline_commit": "19e0b65f4bc5bf9c9f52921cd7a6fb65b1f08db1",
+  "tests": {
+    "native-playmode.json": {
+      "Status": "Passed",
+      "TotalTests": 262,
+      "PassedTests": 262,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:57.4181818"
+    },
+    "native-editmode.json": {
+      "Status": "Passed",
+      "TotalTests": 15,
+      "PassedTests": 15,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:27.9618835"
+    }
+  },
+  "console_baseline_sequence": 435396,
+  "new_errors_exceptions_asserts": 0,
+  "compiled_editor_idle": true,
+  "before_maximum_rear_gap_m": 0.0450285971,
+  "after_maximum_rear_gap_m": {
+    "cap-crew": 0.0028364378958940506,
+    "headband-crew": 0.005320832133293152,
+    "headband-short_swept": 0.0047694966197013855,
+    "none-crew": 0.005320832133293152,
+    "none-short_swept": 0.0047694966197013855
+  },
+  "sampled_poses": 40,
+  "rear_surface_rays": 640,
+  "hinge_distance_limit_m": 0.004,
+  "source_sha256": {
+    "Models/Source~/Biathlete_16_7_Natural.blend": "2e0ede6f2ae71088b1dd4c77e317c1f8dca33f2bf40a06d9c09cf49490afd662",
+    "Models/Biathlete_16_7_Natural.fbx": "50ebf7df6392e9b0695bfa24366fb3e7a5847921217f3bbecdf2c137b17ce6b4",
+    "Documentation/glasses-strap-fit-v1.json": "526cc9e8ce803e014a2709ab7a9333752d5c064e84f14c3d8a9be0be54ef8672"
+  },
+  "m16_7": "OPEN / BUILD HOLD"
+}

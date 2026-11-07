@@ -171,6 +171,8 @@ namespace Biathlon.Unity
                 var lodGroup=root.AddComponent<LODGroup>();lodGroup.SetLODs(levels);lodGroup.fadeMode=LODFadeMode.None;lodGroup.RecalculateBounds();
                 var binding=root.AddComponent<Biathlete167Rig>();binding.Configure(animator,sockets,weapon,equipment.Where(r=>r.name.Contains("Pole_Prop")).Cast<Renderer>().ToArray(),lodGroup,natural);
                 if(natural)binding.ConfigureEyewear(Find("Eyewear_Glasses").gameObject,Find("Eyewear_Mask").gameObject);
+                if(natural)binding.ConfigureGlassesRetainer(Find("Glasses_Retainer").GetComponent<MeshFilter>(),
+                    AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/glasses-strap-fit-v1.json"));
                 if(natural)binding.ConfigureContacts(Find("Left_Pole_Grip_Contact"),Find("Right_Pole_Grip_Contact"),Find("Left_Toe_Hinge_Contact"),Find("Right_Toe_Hinge_Contact"),AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Documentation/contact-adaptation-v1.json"));
                 if(natural)binding.ConfigureGripVariants(Find("Left_Tuck_Grip_Contact"),Find("Right_Tuck_Grip_Contact"),
                     new[]{Find("Left_Skate_Glove").gameObject,Find("Right_Skate_Glove").gameObject},

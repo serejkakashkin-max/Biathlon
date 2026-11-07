@@ -86,6 +86,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Transform root;private readonly Transform[] bones=new Transform[17];private readonly Quaternion[] savedRotations=new Quaternion[17];
         private readonly Prop[] poles=new Prop[2];private readonly Prop rifle;
         private readonly Prop[] eyewear=new Prop[2];private readonly Quaternion headNeutral;
+        private readonly Biathlete167GlassesRetainer glassesRetainer;
         private readonly Vector3[] handGrip=new Vector3[2];private readonly Quaternion[] gripInHand=new Quaternion[2];
         private readonly Vector3[] forearmInHand=new Vector3[2];
         private readonly Vector3[] poleAxisInHand = new Vector3[2];
@@ -142,6 +143,11 @@ namespace Biathlon.Unity.Presentation
             shootingSkis=new Biathlete167ShootingSkis(rig);
             headNeutral=Quaternion.Inverse(root.rotation)*bones[4].rotation;
             for(int i=0;i<2;i++)eyewear[i]=ReadProp(rig.EyewearRoot((Biathlete167Eyewear)i),null);
+            if (rig.GlassesRetainer != null)
+            {
+                glassesRetainer = new Biathlete167GlassesRetainer(rig, bones[4]);
+                glassesRetainer.Apply(0);
+            }
             rifle=ReadProp(rig.Rifle,null);
             for(int i=0;i<2;i++)
             {
@@ -404,6 +410,7 @@ namespace Biathlon.Unity.Presentation
                 var position=prop.Parent.TransformPoint(prop.Position);var rotation=prop.Parent.rotation*prop.Rotation;
                 prop.Transform.SetPositionAndRotation(pivot+turn*(position-pivot)+frame*((i==0?d.glasses_raise_offset:d.mask_raise_offset)*amount),turn*rotation);
             }
+            glassesRetainer?.Apply(amount);
         }
         public void RefreshPreviewEyewear(float amount)=>ApplyEyewear(amount);
         private Vector3 EyewearPoint(Vector3 point)
@@ -599,7 +606,7 @@ namespace Biathlon.Unity.Presentation
         private static void Restore(Prop p){p.Transform.SetParent(p.Parent,false);p.Transform.SetLocalPositionAndRotation(p.Position,p.Rotation);}
         public void Release()
         {RestoreProps();CarryVisible(true);main.PreviewInput=null;if(configured){main.SourceDriver.Configure(SkiMotionSettings.Load());configured=false;}rig.SetPose(0);}
-        public void Dispose(){Release();foreach(var material in hiddenHarness)if(material!=null){if(Application.isPlaying)Object.Destroy(material);else Object.DestroyImmediate(material);}if(Application.isPlaying){Object.Destroy(looseHarness);Object.Destroy(looseMesh);}else{Object.DestroyImmediate(looseHarness);Object.DestroyImmediate(looseMesh);}}
+        public void Dispose(){Release();glassesRetainer?.Dispose();foreach(var material in hiddenHarness)if(material!=null){if(Application.isPlaying)Object.Destroy(material);else Object.DestroyImmediate(material);}if(Application.isPlaying){Object.Destroy(looseHarness);Object.Destroy(looseMesh);}else{Object.DestroyImmediate(looseHarness);Object.DestroyImmediate(looseMesh);}}
         private static Prop ReadProp(Transform transform,Transform frame)
         {
             var result=new Prop{Transform=transform,Parent=transform.parent,Position=transform.localPosition,Rotation=transform.localRotation};

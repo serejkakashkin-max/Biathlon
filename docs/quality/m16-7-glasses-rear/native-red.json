@@ -1,0 +1,33 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 3,
+    "PassedTests": 0,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.2925762"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RearOfRaisedGlassesHugsTheActualHead(\"cap\")",
+      "Status": "Failed",
+      "Duration": "00:00:00.1500000",
+      "Message": "  Rear glasses band floats 41,6 mm from the actual head.\r\n  Expected: less than 0.00600000005f\r\n  But was:  0.0415553004f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RearOfRaisedGlassesHugsTheActualHead (System.String headwear) [0x0030b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167EyewearSeatTests.cs:53\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RearOfRaisedGlassesHugsTheActualHead(\"headband\")",
+      "Status": "Failed",
+      "Duration": "00:00:00.0280000",
+      "Message": "  Rear glasses band floats 45,0 mm from the actual head.\r\n  Expected: less than 0.00600000005f\r\n  But was:  0.0450285971f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RearOfRaisedGlassesHugsTheActualHead (System.String headwear) [0x0030b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167EyewearSeatTests.cs:53\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RearOfRaisedGlassesHugsTheActualHead(\"none\")",
+      "Status": "Failed",
+      "Duration": "00:00:00.0340000",
+      "Message": "  Rear glasses band floats 45,0 mm from the actual head.\r\n  Expected: less than 0.00600000005f\r\n  But was:  0.0450285971f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167EyewearSeatTests.RearOfRaisedGlassesHugsTheActualHead (System.String headwear) [0x0030b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167EyewearSeatTests.cs:53\r\n"
+    }
+  ]
+}

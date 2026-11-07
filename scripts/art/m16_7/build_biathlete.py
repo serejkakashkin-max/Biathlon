@@ -611,6 +611,10 @@ character_objects=[arm]+[o for o in objects if o.name in bpy.data.objects]
 # Main scene stores a clean rest rig. Renders use presentation-only poses in a separate review file.
 (out/'Models/Source~').mkdir(exist_ok=True)
 materials.extend(prepare_source(out/'Textures'))
+from glasses_strap import prepare_source as fit_glasses
+materials.append(fit_glasses(out/'Documentation'))
+objects=[o for o in scene.objects if o.type in ['MESH','EMPTY']]
+glasses_parts=[o for o in objects if o.type=='MESH' and o.name.startswith(('Panoramic_Amber_Lens','Goggle_'))]
 blendpath=out/'Models/Source~/Biathlete_16_7_Natural.blend';bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(blendpath))
 # Runtime derivative: one weighted body, independent rifle/skis/poles and3 true LODs.
 def join_meshes(name,parts,bone=None,origin=None):
@@ -635,7 +639,13 @@ for obj in allmesh:
     if obj.data.shape_keys:obj.shape_key_clear()
 for name in ('Headband_Prop','Hair_Crew_Prop','Hair_Short_Prop'):
     if name in bpy.data.objects:gear.append(bpy.data.objects[name])
-glasses=join_meshes('Eyewear_Glasses',glasses_parts,'Head',heads['Head']);gear.append(glasses)
+retainer=bpy.data.objects.get('Goggle_Elastic_Strap')
+fitted=retainer and any(m.name=='PULSE_Glasses_Elastic' for m in retainer.data.materials)
+glasses=join_meshes('Eyewear_Glasses',[part for part in glasses_parts if not fitted or part!=retainer],'Head',heads['Head']);gear.append(glasses)
+if fitted:
+    bpy.context.view_layer.update();matrix=retainer.matrix_world.copy()
+    retainer.parent=glasses;retainer.parent_type='OBJECT';retainer.matrix_world=matrix
+    retainer.name='Glasses_Retainer';gear.append(retainer)
 mask=join_meshes('Eyewear_Mask',mask_meshes,'Head',heads['Head']);mask.hide_render=True;gear.append(mask)
 rifle=join_meshes('Rifle_Prop',rifleparts,EQUIPMENT_SETTINGS['rifle_carry_bone'],(.045,.188,1.36));gear.append(rifle)
 for pre in ['Left','Right']:

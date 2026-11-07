@@ -227,3 +227,6 @@ Final91PlayMode+3EditMode PASS/0FAIL/0SKIP; Console after427369 has0newError/Exc
 
 
 2026-11-07: поднятые спортивные очки посажены на лоб вместо положения над макушкой. Исправлены glasses_raise_offset и glasses_raise_euler в performance-motion-v1.json; геометрия и импорт не менялись. [Замеры, кадры и регрессия](../../../../../docs/quality/m16-7-eyewear-seat/REVIEW_RU.md). М16.7 OPEN/BUILD HOLD.
+
+
+2026-11-07. Поднятые очки получили подогнанную заднюю ленту с двумя креплениями к оправе. Перегенерация через `reexport_source.py --fit-glasses-strap`, затем `Biathlete167Authoring.GenerateNatural()`. Варианты шапочки, повязки и обеих причёсок проверены в покое и при подъёме. [Кадры и замеры](../../../../../docs/quality/m16-7-glasses-rear/REVIEW_RU.md).

@@ -177,6 +177,14 @@ def fitted_hair(recipe, raw, scale, floor, arm, textures):
         radial = Vector((math.cos(theta), math.sin(theta), 0))
         point, _, _, _ = scalp.ray_cast(centre + radial * .2, -radial, .2)
         if point is not None:
+            if recipe["id"] == "short_swept":
+                # Keep the crown volume above the raised eyewear. The temples,
+                # nape and fringe underneath the frame sit closer to the scalp.
+                front = max(0, -math.sin(theta))
+                upper = 1.763 + .014 * front
+                seating = smooth((p.z - 1.652) / .014) * (1 - smooth((p.z - upper) / .02))
+                if (p - point).dot(radial) > .0022:
+                    p = p.lerp(point + radial * .0022, seating)
             # Preserve the coiffure above the band, with a cropped temple below.
             vertex.co = p.lerp(point + radial * .0012, strength)
     mat = bpy.data.materials.get(recipe["material"]) or bpy.data.materials.new(recipe["material"])

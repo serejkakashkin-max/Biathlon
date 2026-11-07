@@ -21,6 +21,17 @@ namespace Biathlon.Unity.Presentation
         [SerializeField] private Transform[] anatomicalHands;
         [SerializeField] private GameObject[] skateGloves,tuckGloves;
         [SerializeField] private GameObject glasses,mask;
+        [SerializeField] private MeshFilter glassesRetainer;
+        [SerializeField] private TextAsset glassesRetainerFit;
+        internal MeshFilter GlassesRetainer => glassesRetainer;
+        internal TextAsset GlassesRetainerFit => glassesRetainerFit;
+        public void ConfigureGlassesRetainer(MeshFilter retainer, TextAsset fit)
+        {
+            if (retainer == null || fit == null || !retainer.transform.IsChildOf(glasses.transform))
+                throw new ArgumentException("Missing fitted glasses retainer.");
+            glassesRetainer = retainer;
+            glassesRetainerFit = fit;
+        }
         [SerializeField] private Biathlete167Eyewear eyewear;
         [SerializeField] private bool eyewearVisible=true;
         public bool PreviewEyewearRaised {get;set;}
