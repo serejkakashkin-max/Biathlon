@@ -130,9 +130,9 @@
     "z": -0.21
   },
   "rifle_support_local": {
-    "x": 0,
+    "x": 0.041785,
     "y": 0.042,
-    "z": -0.04
+    "z": -0.065
   },
   "left_pole_stow": {
     "x": 0.42,
@@ -146,9 +146,9 @@
   },
   "rifle_hidden_harness_fraction": 0.34,
   "prone_support_local": {
-    "x": 0,
+    "x": 0.019442,
     "y": 0.042,
-    "z": -0.18
+    "z": -0.15
   },
   "provenance": "Shipping body choreography retargeted from AthleteShootingPose + AthleteRiflePresentation + AthleteGroundContact + AthleteGripPresentation. Hero shoulder fit, clearance corridor, smooth contact handover, pole lay and eyewear gesture are isolated presentation; no gameplay authority.",
   "loose_harness_sag_m": 0.21,
@@ -5396,6 +5396,16 @@
   },
   "sight_height_settle_start": 0.65,
   "sight_height_settle_end": 0.95,
+  "prone_neck_settle_degrees": {
+    "x": 22,
+    "y": 10,
+    "z": -8
+  },
+  "prone_shoulder_settle_m": {
+    "x": 0.016,
+    "y": 0,
+    "z": -0.027
+  },
   "resting_elbow_hint": {
     "x": 0.15,
     "y": -1,

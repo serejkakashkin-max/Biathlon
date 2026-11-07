@@ -85,6 +85,66 @@ namespace Biathlon.PlayModeTests
                 Assert.That(error,Is.LessThan(.006f),"Prone aperture/pupil height error="+error+" m. This checks the owner's height defect; lateral cheek/stock fitting remains open.");
             }}finally{Object.DestroyImmediate(baked);}
         }
+        [Test] public void ProneEyeSettlesCloserToTheActualRearSight()
+        {
+            var baked = new Mesh();
+            try
+            {
+                for (int sample = 0; sample <= 32; sample++)
+                {
+                    motion.EvaluateAction(Biathlete167Action.Prone, sample / 32f);
+                    skin.BakeMesh(baked);
+                    var vertices = baked.vertices;
+                    var pupil = rightPupil.Aggregate(Vector3.zero,
+                        (sum, i) => sum + skin.transform.TransformPoint(vertices[i])) / rightPupil.Length;
+                    var rear = rig.Rifle.TransformPoint(rearSight);
+                    var sightLine = (rig.Rifle.TransformPoint(frontSight) - rear).normalized;
+                    float relief = Vector3.Dot(rear - pupil, sightLine);
+                    Assert.That(relief, Is.InRange(.085f, .115f), $"Prone eye relief at sample {sample}");
+                    Assert.That(Vector3.Cross(pupil - rear, sightLine).magnitude, Is.LessThan(.081f),
+                        "Moving the rifle closer must also improve the full distance to the sight line.");
+                }
+            }
+            finally { Object.DestroyImmediate(baked); }
+        }
+
+        [TestCase(Biathlete167Action.Standing)]
+        [TestCase(Biathlete167Action.Prone)]
+        public void SupportingPalmMeetsTheActualWalnutForeEnd(Biathlete167Action action)
+        {
+            var rifle = rig.Rifle;
+            var imported = rifle.GetComponent<MeshFilter>().sharedMesh;
+            int walnut = Array.FindIndex(rifle.GetComponent<Renderer>().sharedMaterials,
+                material => material.name == "PULSE_Natural_Rifle_Walnut");
+            Assert.That(walnut, Is.GreaterThanOrEqualTo(0));
+            var surface = new Mesh { vertices = imported.vertices, triangles = imported.GetTriangles(walnut) };
+            var probe = new GameObject("Walnut contact test surface");
+            try
+            {
+                var collider = probe.AddComponent<MeshCollider>();
+                collider.sharedMesh = surface;
+                foreach (float phase in new[] { 0f, .25f, .5f, .75f })
+                {
+                    motion.EvaluateAction(action, phase);
+                    probe.transform.SetPositionAndRotation(rifle.position, rifle.rotation);
+                    probe.transform.localScale = rifle.lossyScale;
+                    Physics.SyncTransforms();
+                    var palm = rig.GripContact(false).position;
+                    var ray = new Ray(palm - rifle.right * .065f, rifle.right);
+                    Assert.That(collider.Raycast(ray, out var hit, .13f), Is.True,
+                        $"{action} supporting palm points to empty space under the stock");
+                    Assert.That(Vector3.Distance(hit.point, palm), Is.LessThan(.002f),
+                        $"{action} supporting palm must rest against the actual underside");
+                    Assert.That(Vector3.Distance(palm, rig.GripContact(true).position), Is.GreaterThan(.065f),
+                        $"{action} supporting and trigger hands need separate places on the stock");
+                }
+            }
+            finally
+            {
+                Object.DestroyImmediate(probe);
+                Object.DestroyImmediate(surface);
+            }
+        }
         [UnityTest] public IEnumerator CaptureActualRangeContacts()
         {
             var studio=Object.FindAnyObjectByType<Biathlete167Studio>();if(studio==null){yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(Root+"/Preview/Biathlete_16_7_Preview.unity",new UnityEngine.SceneManagement.LoadSceneParameters(UnityEngine.SceneManagement.LoadSceneMode.Single));yield return null;studio=Object.FindAnyObjectByType<Biathlete167Studio>();}

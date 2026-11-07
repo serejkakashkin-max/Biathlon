@@ -1,0 +1,30 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 3,
+    "PassedTests": 0,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.3424404"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.ProneEyeSettlesCloserToTheActualRearSight",
+      "Status": "Failed",
+      "Duration": "00:00:00.1960000",
+      "Message": "  Prone eye relief at sample 0\r\n  Expected: in range (0,085,0,115)\r\n  But was:  0.157079592f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.SupportingPalmMeetsTheActualWalnutForeEnd(Standing)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0220000",
+      "Message": "  Standing supporting palm must rest against the actual underside\r\n  Expected: less than 0.00200000009f\r\n  But was:  0.0440744162f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RangeContactTests.SupportingPalmMeetsTheActualWalnutForeEnd(Prone)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0160000",
+      "Message": "  Prone supporting palm must rest against the actual underside\r\n  Expected: less than 0.00200000009f\r\n  But was:  0.0164091289f\r\n"
+    }
+  ]
+}

@@ -37,6 +37,7 @@ namespace Biathlon.Unity.Presentation
             public Biathlete167SkiStance standing_ski_stance,prone_ski_stance;
             public Vector3 rear_aperture_local;
             public float sight_height_settle_start,sight_height_settle_end;
+            public Vector3 prone_neck_settle_degrees,prone_shoulder_settle_m;
             public Vector3 standing_left_elbow_hint,standing_right_elbow_hint,prone_left_elbow_hint,rifle_butt_local,rifle_trigger_local,rifle_support_local,left_pole_stow,right_pole_stow,prone_support_local,loose_harness_upper,loose_harness_lower,standing_shoulder_pocket,prone_shoulder_pocket,rifle_reach_local,right_grip_hint_root,right_grip_hint_rifle;
             public Vector3 eyewear_pivot,glasses_raise_offset,mask_raise_offset,glasses_raise_euler,mask_raise_euler,eyewear_touch_point;
             private static bool Span(float a,float b)=>float.IsFinite(a)&&float.IsFinite(b)&&a>=0&&a<b&&b<=1;
@@ -53,6 +54,9 @@ namespace Biathlon.Unity.Presentation
                 if(!float.IsFinite(rifle_reach_lift_m)||rifle_reach_lift_m<0||rifle_reach_lift_m>.7f||!float.IsFinite(rifle_reach_front_m)||rifle_reach_front_m<0||rifle_reach_front_m>.4f)throw new ArgumentException("Invalid overhead rifle reach arc.");
                 if(!float.IsFinite(rifle_reach_settle_weight)||rifle_reach_settle_weight<.8f||rifle_reach_settle_weight>=1)throw new ArgumentException("Invalid rifle reach contact settling.");
                 if(!Span(sight_height_settle_start,sight_height_settle_end)||!float.IsFinite(rear_aperture_local.sqrMagnitude)||rear_aperture_local.sqrMagnitude<.01f)throw new ArgumentException("Invalid pupil / aperture height fitting definition.");
+                if (!float.IsFinite(prone_neck_settle_degrees.sqrMagnitude) || prone_neck_settle_degrees.sqrMagnitude > 30f * 30f ||
+                    !float.IsFinite(prone_shoulder_settle_m.sqrMagnitude) || prone_shoulder_settle_m.sqrMagnitude > .05f * .05f)
+                    throw new ArgumentException("Invalid prone aim settling pose.");
                 foreach(var curve in new[]{standing_right_elbow_curve,prone_right_elbow_curve})
                 {if(curve==null||curve.Length<2||curve.Length>4097)throw new ArgumentException("Baked right elbow guide missing.");foreach(var v in curve)if(!float.IsFinite(v.sqrMagnitude)||v.sqrMagnitude<.0001f||v.sqrMagnitude>1)throw new ArgumentException("Invalid baked right elbow guide.");}
             }
@@ -223,6 +227,15 @@ namespace Biathlon.Unity.Presentation
             }
             shootingSkis.Apply(prone?d.prone_ski_stance:d.standing_ski_stance,progress,prone);
             float sightWeight=Smooth(Mathf.InverseLerp(d.sight_height_settle_start,d.sight_height_settle_end,progress));
+            if (prone)
+            {
+                // Let the neck bring the head forward while the eyes stay on the lane.
+                // Rotating the joint keeps both neck and head bone lengths fixed.
+                var gaze = bones[4].rotation;
+                var settle = root.rotation * Quaternion.Euler(d.prone_neck_settle_degrees * sightWeight) * Quaternion.Inverse(root.rotation);
+                bones[3].rotation = settle * bones[3].rotation;
+                bones[4].rotation = gaze;
+            }
             bodyClearance.Update();
             ApplyEyewear(1);
             var buttPoint=d.rifle_butt_local;
@@ -231,11 +244,12 @@ namespace Biathlon.Unity.Presentation
             var authoredRotation=main.ShootingReadyRotation*Quaternion.AngleAxis(90,Vector3.forward);
             var rotation=Quaternion.Slerp(carryRotation,authoredRotation,Smooth(Mathf.InverseLerp(d.rifle_turn_start,d.rifle_turn_end,transfer)));
             var sourceButt=bones[8].position+root.TransformVector(prone?d.prone_shoulder_pocket:d.standing_shoulder_pocket);
-            // Correct the reported height without dragging the rectangular
-            // stock sideways through the cheek. Lateral stock/cheek fitting
-            // remains a separate asset-authoring task.
-            var aperture=sourceButt+authoredRotation*Vector3.Scale(d.rear_aperture_local-buttPoint,rig.Rifle.lossyScale);
-            if(prone)sourceButt+=root.up*(Vector3.Dot(eyeAnchor.Position-aperture,root.up)*sightWeight);
+            if (prone)
+            {
+                sourceButt += root.TransformVector(d.prone_shoulder_settle_m * sightWeight);
+                var aperture = sourceButt + authoredRotation * Vector3.Scale(d.rear_aperture_local - buttPoint, rig.Rifle.lossyScale);
+                sourceButt += root.up * (Vector3.Dot(eyeAnchor.Position - aperture, root.up) * sightWeight);
+            }
             float breathing=Mathf.Sin(breathPhase*Mathf.PI*2)*d.breathing_displacement_m*main.ShootingAlignment;
             var first=carryButt+root.TransformVector(new Vector3(d.rifle_transfer_first_side_m,d.rifle_transfer_up_m,0));
             var second=sourceButt+root.TransformVector(new Vector3(d.rifle_transfer_side_m,d.rifle_transfer_up_m,d.rifle_transfer_forward_m));
