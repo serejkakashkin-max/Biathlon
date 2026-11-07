@@ -117,6 +117,48 @@ namespace Biathlon.PlayModeTests
             double late = CyclesBetween(96, 128);
             Assert.That(late, Is.GreaterThan(early * 1.4));
         }
+
+        [TestCase(Biathlete167Action.Skate)]
+        [TestCase(Biathlete167Action.Acceleration)]
+        [TestCase(Biathlete167Action.Uphill)]
+        public void ArmsOpenThroughThePushAndSwingForwardAgain(Biathlete167Action action)
+        {
+            var shoulders = new[] { rig.Bone(HumanBodyBones.LeftUpperArm), rig.Bone(HumanBodyBones.RightUpperArm) };
+            var elbows = new[] { rig.Bone(HumanBodyBones.LeftLowerArm), rig.Bone(HumanBodyBones.RightLowerArm) };
+            var wrists = new[] { rig.Bone(HumanBodyBones.LeftHand), rig.Bone(HumanBodyBones.RightHand) };
+            var palms = new[] { rig.GripContact(false), rig.GripContact(true) };
+            var highestGrip = new[] { float.NegativeInfinity, float.NegativeInfinity };
+            var lowestGrip = new[] { float.PositiveInfinity, float.PositiveInfinity };
+            var forwardElbow = new float[2];
+            var openedAtFinish = new float[2];
+            for (int frame = 0; frame <= 256; frame++)
+            {
+                motion.EvaluateAction(action, frame / 256f);
+                for (int side = 0; side < 2; side++)
+                {
+                    var upper = elbows[side].position - shoulders[side].position;
+                    var forearm = wrists[side].position - elbows[side].position;
+                    var grip = palms[side].position - shoulders[side].position;
+                    float angle = Vector3.Angle(-upper, forearm);
+                    float gripHeight = Vector3.Dot(grip, rig.transform.up);
+                    float lateral = Vector3.Dot(upper, rig.transform.right) * (side == 0 ? -1 : 1);
+                    Assert.That(angle, Is.GreaterThan(57f), $"{action} elbow folded at frame {frame}, side {side}");
+                    Assert.That(lateral, Is.GreaterThan(.012f), $"{action} elbow drawn into torso at frame {frame}, side {side}");
+                    highestGrip[side] = Mathf.Max(highestGrip[side], gripHeight);
+                    lowestGrip[side] = Mathf.Min(lowestGrip[side], gripHeight);
+                    if (gripHeight > .065f)
+                        forwardElbow[side] = Mathf.Max(forwardElbow[side], Vector3.Dot(upper, rig.transform.forward));
+                    if (gripHeight < -.27f)
+                        openedAtFinish[side] = Mathf.Max(openedAtFinish[side], angle);
+                }
+            }
+            for (int side = 0; side < 2; side++)
+            {
+                Assert.That(highestGrip[side] - lowestGrip[side], Is.GreaterThan(.42f), "The grip should travel from a high plant to a low finish.");
+                Assert.That(openedAtFinish[side], Is.GreaterThan(77f), "The elbow should open while the hand finishes low.");
+                Assert.That(forwardElbow[side], Is.GreaterThan(.13f), "The elbow should swing forward into the high plant.");
+            }
+        }
         [Test] public void RangeBodyRetargetsTheActualShippingShootingChain()
         {
             var reference=motion.MainReference;var ids=new[]{HumanBodyBones.Hips,HumanBodyBones.Spine,HumanBodyBones.Chest,HumanBodyBones.Neck,HumanBodyBones.Head};
@@ -206,7 +248,8 @@ namespace Biathlon.PlayModeTests
             {
                 foreach(Biathlete167Action action in Enum.GetValues(typeof(Biathlete167Action)))
                 {
-                    float[] phases=action==Biathlete167Action.EnterProne||action==Biathlete167Action.EnterStanding?new[]{.2f,.45f,.7f,1f}:new[]{.25f,.75f};
+                    float[] phases=action==Biathlete167Action.EnterProne||action==Biathlete167Action.EnterStanding?new[]{.2f,.45f,.7f,1f}:
+                        action==Biathlete167Action.Skate?new[]{0,.10f,.25f,.40f,.75f}:new[]{.25f,.75f};
                     foreach(float phase in phases)
                     {
                         motion.EvaluateAction(action,phase);studio.SetPreviewGrade(motion.Performance.SurfaceGrade);bool low=action==Biathlete167Action.Prone||(action==Biathlete167Action.EnterProne&&phase>.65f);var focus=new Vector3(0,low?.35f:.96f,low?.05f:0);

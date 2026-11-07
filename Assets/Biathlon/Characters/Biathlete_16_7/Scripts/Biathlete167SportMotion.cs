@@ -19,6 +19,7 @@ namespace Biathlon.Unity.Presentation
             public float acceleration_duration_s,range_entry_duration_s,standing_transition_duration_s,prone_transition_duration_s,breathing_cycle_s,breathing_displacement_m,start_speed_mps,sprint_speed_mps,uphill_speed_mps,uphill_grade,deceleration_start_speed_mps,rifle_hidden_harness_fraction,loose_harness_sag_m,loose_harness_width_m,loose_harness_thickness_m,maximum_range_wrist_bend_degrees,rifle_transfer_side_m,rifle_transfer_up_m,rifle_transfer_forward_m;
             public float sprint_start_cadence_hz,sprint_end_cadence_hz,travel_ski_clearance_m;
             public TravelStyle flat_style,sprint_style,uphill_style;
+            public Vector3 travel_plant_elbow_hint,travel_finish_elbow_hint;
             public float eyewear_raise_start,eyewear_raise_end,eyewear_touch_start,eyewear_touch_peak,eyewear_release_start,eyewear_release_end,poles_drop_start,poles_drop_end;
             public float rifle_turn_start,rifle_turn_end,support_hand_start,support_hand_end;
             public float forearm_radius_m,wrist_radius_m,upperarm_radius_m;
@@ -66,12 +67,15 @@ namespace Biathlon.Unity.Presentation
         [Serializable] private sealed class TravelStyle
         {
             public float pelvis_follow,handoff_fraction,ski_recovery_m,pole_recovery_m,pole_drive_fraction,pole_splay_degrees;
-            public Vector3 plant_grip_from_shoulder,release_grip_from_shoulder,offset_grip;
+            public float follow_through_fraction;
+            public Vector3 plant_grip_from_shoulder,drive_end_grip_from_shoulder,release_grip_from_shoulder,offset_grip,return_arc_m;
 
             public bool IsValid => pelvis_follow >= 0 && pelvis_follow <= .8f && handoff_fraction >= .08f && handoff_fraction <= .3f &&
                 ski_recovery_m >= .025f && ski_recovery_m <= .13f && pole_recovery_m >= .06f && pole_recovery_m <= .4f &&
                 pole_drive_fraction >= .25f && pole_drive_fraction <= .65f && pole_splay_degrees >= 0 && pole_splay_degrees <= 18 &&
-                ValidGrip(plant_grip_from_shoulder) && ValidGrip(release_grip_from_shoulder) &&
+                follow_through_fraction >= .06f && follow_through_fraction <= .32f &&
+                ValidGrip(plant_grip_from_shoulder) && ValidGrip(drive_end_grip_from_shoulder) && ValidGrip(release_grip_from_shoulder) &&
+                float.IsFinite(return_arc_m.sqrMagnitude) && return_arc_m.sqrMagnitude <= .14f * .14f &&
                 float.IsFinite(offset_grip.sqrMagnitude) && offset_grip.sqrMagnitude <= .12f * .12f;
 
             private static bool ValidGrip(Vector3 grip) => grip.x >= .015f && grip.x <= .19f && grip.y >= -.36f && grip.y <= .24f &&
@@ -129,7 +133,9 @@ namespace Biathlon.Unity.Presentation
             if (d.flat_style == null || !d.flat_style.IsValid || d.sprint_style == null || !d.sprint_style.IsValid ||
                 d.uphill_style == null || !d.uphill_style.IsValid || !(d.sprint_start_cadence_hz > 0 &&
                 d.sprint_end_cadence_hz > d.sprint_start_cadence_hz && d.sprint_end_cadence_hz <= 1.6f) ||
-                !(d.travel_ski_clearance_m >= 0 && d.travel_ski_clearance_m <= .01f))
+                !(d.travel_ski_clearance_m >= 0 && d.travel_ski_clearance_m <= .01f) ||
+                !(d.travel_plant_elbow_hint.sqrMagnitude > .1f && d.travel_plant_elbow_hint.sqrMagnitude < 4f) ||
+                !(d.travel_finish_elbow_hint.sqrMagnitude > .1f && d.travel_finish_elbow_hint.sqrMagnitude < 4f))
                 throw new ArgumentException("Invalid hero skate, acceleration or uphill definition.");
             rig.SetPose(0);
             for(int i=0;i<bones.Length;i++)bones[i]=rig.Bone(BoneIds[i]);
@@ -232,9 +238,7 @@ namespace Biathlon.Unity.Presentation
             int hand = side == 0 ? 7 : 10;
             float sign = side == 0 ? -1 : 1;
             var pole = poles[side];
-            float recovery = Mathf.InverseLerp(style.pole_drive_fraction, 1, stroke);
-            float push = stroke < style.pole_drive_fraction ? Smooth(stroke / style.pole_drive_fraction) : 1 - Smooth(recovery);
-            var offset = Vector3.Lerp(style.plant_grip_from_shoulder, style.release_grip_from_shoulder, push);
+            var offset = TravelGrip(stroke, style, out float recovery, out float reachForward);
             if (uphill) offset += style.offset_grip * sign;
             offset.x *= sign;
             var palmInRoot = root.InverseTransformPoint(bones[hand - 2].position) + offset;
@@ -242,7 +246,8 @@ namespace Biathlon.Unity.Presentation
             var palm = root.TransformPoint(palmInRoot);
             var backward = Vector3.ProjectOnPlane(-root.forward, normal).normalized;
             var trailing = Quaternion.AngleAxis(-sign * style.pole_splay_degrees, normal) * backward;
-            float swing = Mathf.Sin(Mathf.PI * recovery);
+            // The tip leaves the surface during the follow-through, before the hand swings forward.
+            float swing = Mathf.Sin(Mathf.PI * Mathf.Pow(recovery, .72f));
             float tipHeight = style.pole_recovery_m * swing * swing;
             float length = pole.Transform.TransformVector(pole.Tip - pole.Grip).magnitude;
             float down = Mathf.Clamp((Vector3.Dot(palm - root.position, normal) - tipHeight) / length, 0, .99f);
@@ -254,16 +259,41 @@ namespace Biathlon.Unity.Presentation
             float wristAllowance = d.maximum_range_wrist_bend_degrees * .8f;
             float minimumDot = Mathf.Cos(Mathf.Min(180, gripAngle + wristAllowance) * Mathf.Deg2Rad);
             float maximumDot = Mathf.Cos(Mathf.Max(0, gripAngle - wristAllowance) * Mathf.Deg2Rad);
-            var preferred = RestingElbowHint(side);
-            for (int pass = 0; pass < 6; pass++)
+            var elbowGuide = Vector3.Lerp(d.travel_finish_elbow_hint, d.travel_plant_elbow_hint, reachForward);
+            elbowGuide.x *= sign;
+            var preferred = root.TransformDirection(elbowGuide);
+            for (int pass = 0; pass < 10; pass++)
             {
                 var wrist = palm - rotation * Vector3.Scale(handGrip[side], bones[hand].lossyScale);
                 var hint = TravelElbowHint(hand, wrist, preferred, shaft, minimumDot, maximumDot, sign);
                 Solve(hand - 2, wrist, hint);
                 var actual = bones[hand].position - bones[hand - 1].position;
-                rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(actual, shaft), shaft) * inverseFrame;
+                var aligned = Quaternion.LookRotation(Vector3.ProjectOnPlane(actual, shaft), shaft) * inverseFrame;
+                if (Quaternion.Angle(rotation, aligned) < .01f) break;
+                // Turning the glove moves the wrist around its fixed palm contact.
+                // Relax that feedback so the fit does not alternate between wrist poses.
+                rotation = Quaternion.Slerp(rotation, aligned, .6f);
             }
             OrientWristAndForearm(hand, side, rotation);
+        }
+
+        private static Vector3 TravelGrip(float stroke, TravelStyle style, out float recovery, out float reachForward)
+        {
+            recovery = Mathf.InverseLerp(style.pole_drive_fraction, 1, stroke);
+            if (stroke <= style.pole_drive_fraction)
+            {
+                float drive = Smooth(stroke / style.pole_drive_fraction);
+                reachForward = 1 - drive;
+                return Vector3.Lerp(style.plant_grip_from_shoulder, style.drive_end_grip_from_shoulder, drive);
+            }
+
+            float followThrough = Smooth(recovery / style.follow_through_fraction);
+            float returnPhase = Mathf.InverseLerp(style.follow_through_fraction, 1, recovery);
+            float returnTravel = Smooth(returnPhase);
+            float arc = Mathf.Sin(returnPhase * Mathf.PI);
+            reachForward = Smooth(Mathf.Sqrt(returnPhase));
+            var end = Vector3.Lerp(style.drive_end_grip_from_shoulder, style.release_grip_from_shoulder, followThrough);
+            return Vector3.Lerp(end, style.plant_grip_from_shoulder, returnTravel) + style.return_arc_m * (arc * arc);
         }
 
         private Vector3 TravelElbowHint(int hand, Vector3 wrist, Vector3 preferred, Vector3 shaft, float minimumDot, float maximumDot, float sign)

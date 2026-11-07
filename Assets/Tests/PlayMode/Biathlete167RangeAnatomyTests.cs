@@ -72,7 +72,8 @@ namespace Biathlon.PlayModeTests
             public void Dispose(){Object.DestroyImmediate(go);Object.DestroyImmediate(body);Object.DestroyImmediate(baked);}
         }
         [TestCase(Biathlete167Action.RangeEntry),TestCase(Biathlete167Action.EnterStanding),TestCase(Biathlete167Action.EnterProne),TestCase(Biathlete167Action.Standing),TestCase(Biathlete167Action.Prone)]
-        public void SleevesDoNotPassThroughTheActualTorsoDuringRifleRemoval(Biathlete167Action action)
+        [TestCase(Biathlete167Action.Skate), TestCase(Biathlete167Action.Acceleration), TestCase(Biathlete167Action.Uphill)]
+        public void SleevesDoNotPassThroughTheActualTorsoDuringMotion(Biathlete167Action action)
         {
             using(var probe=new BodyProbe(rig))for(int i=0;i<=128;i++)
             {motion.EvaluateAction(action,i/128f);probe.Sample();Assert.That(probe.Crossings,Is.Zero,action+" phase="+i+"/128 sleeve/torso crossings at "+probe.Witness);}
