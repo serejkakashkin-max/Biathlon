@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "m167_mat_comparison_qualification",
+  "master": "BIATHLON_PULSE_Before_After_Mat_1440p60.mp4",
+  "width": 2560,
+  "height": 1440,
+  "fps": 60,
+  "seconds": 70.5,
+  "frames": 4230,
+  "native_pair_count": 4230,
+  "audio": {
+    "codec": "AAC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "integrated_lufs": -25.4,
+    "peak_dbfs": -12.6,
+    "recorded_pole_plant_events": 24,
+    "sources": "Original project Foley and menu air"
+  },
+  "full_decode": "ffmpeg -xerror, both streams, exit 0",
+  "bytes": 391422893,
+  "sha256": "728c31aedb2b0671d5626c7f6cab5d40eec538ec9827cde6dffad0e81d408814"
+}

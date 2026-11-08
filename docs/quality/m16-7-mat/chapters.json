@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "id": "m167_shipping_vs_natural_comparison",
+  "fps": 60,
+  "resolution": [
+    2560,
+    1440
+  ],
+  "frames": 4230,
+  "duration_seconds": 70.5,
+  "capture_method": "paired native Unity renders",
+  "original_asset": "Biathlon/Athletes/G2Hero/HeroAthlete",
+  "candidate_asset": "Assets/Biathlon/Characters/Biathlete_16_7/Prefabs/Biathlete_16_7_Natural.prefab",
+  "chapters": [
+    {
+      "id": "orbit",
+      "title_ru": "Круговой обзор",
+      "start_frame": 0,
+      "start_seconds": 0.0,
+      "frames": 510,
+      "duration_seconds": 8.5,
+      "pole_plant_seconds": [
+        0.11666666716337204,
+        1.0166666507720947,
+        1.9166666269302368,
+        2.816666603088379,
+        3.7166666984558105,
+        4.616666793823242,
+        5.516666889190674,
+        6.416666507720947,
+        7.316666603088379,
+        8.216666221618652
+      ],
+      "pole_lay_seconds": -1.0
+    },
+    {
+      "id": "face",
+      "title_ru": "Лицо и очки",
+      "start_frame": 510,
+      "start_seconds": 8.5,
+      "frames": 360,
+      "duration_seconds": 6.0,
+      "pole_plant_seconds": [],
+      "pole_lay_seconds": -1.0
+    },
+    {
+      "id": "rifle",
+      "title_ru": "Винтовка и ремни",
+      "start_frame": 870,
+      "start_seconds": 14.5,
+      "frames": 360,
+      "duration_seconds": 6.0,
+      "pole_plant_seconds": [],
+      "pole_lay_seconds": -1.0
+    },
+    {
+      "id": "skis",
+      "title_ru": "Лыжи и ботинки",
+      "start_frame": 1230,
+      "start_seconds": 20.5,
+      "frames": 360,
+      "duration_seconds": 6.0,
+      "pole_plant_seconds": [],
+      "pole_lay_seconds": -1.0
+    },
+    {
+      "id": "skis_top",
+      "title_ru": "Лыжи сверху",
+      "start_frame": 1590,
+      "start_seconds": 26.5,
+      "frames": 390,
+      "duration_seconds": 6.5,
+      "pole_plant_seconds": [],
+      "pole_lay_seconds": -1.0
+    },
+    {
+      "id": "skate",
+      "title_ru": "Коньковый ход V2",
+      "start_frame": 1980,
+      "start_seconds": 33.0,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.11666666716337204,
+        1.0166666507720947,
+        1.9166666269302368,
+        2.816666603088379,
+        3.7166666984558105
+      ],
+      "pole_lay_seconds": -1
+    },
+    {
+      "id": "skate_front",
+      "title_ru": "Коньковый ход V2 · спереди",
+      "start_frame": 2220,
+      "start_seconds": 37.0,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.11666666716337204,
+        1.0166666507720947,
+        1.9166666269302368,
+        2.816666603088379,
+        3.7166666984558105
+      ],
+      "pole_lay_seconds": -1
+    },
+    {
+      "id": "acceleration",
+      "title_ru": "Разгон",
+      "start_frame": 2460,
+      "start_seconds": 41.0,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.21666666865348816,
+        1.75,
+        2.8499999046325684,
+        3.7833333015441895
+      ],
+      "pole_lay_seconds": -1
+    },
+    {
+      "id": "acceleration_front",
+      "title_ru": "Разгон · спереди",
+      "start_frame": 2700,
+      "start_seconds": 45.0,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.21666666865348816,
+        1.75,
+        2.8499999046325684,
+        3.7833333015441895
+      ],
+      "pole_lay_seconds": -1
+    },
+    {
+      "id": "uphill",
+      "title_ru": "Подъём V1",
+      "start_frame": 2940,
+      "start_seconds": 49.0,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.18333333730697632,
+        1.6333333253860474,
+        3.0833332538604736
+      ],
+      "pole_lay_seconds": -1
+    },
+    {
+      "id": "uphill_front",
+      "title_ru": "Подъём V1 · спереди",
+      "start_frame": 3180,
+      "start_seconds": 53.0,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.18333333730697632,
+        1.6333333253860474,
+        3.0833332538604736
+      ],
+      "pole_lay_seconds": -1
+    },
+    {
+      "id": "entry",
+      "title_ru": "Заход на огневой рубеж",
+      "start_frame": 3420,
+      "start_seconds": 57.0,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [],
+      "pole_lay_seconds": -1.0
+    },
+    {
+      "id": "standing",
+      "title_ru": "Изготовка стоя",
+      "start_frame": 3660,
+      "start_seconds": 61.0,
+      "frames": 270,
+      "duration_seconds": 4.5,
+      "pole_plant_seconds": [],
+      "pole_lay_seconds": 1.1100000143051147
+    },
+    {
+      "id": "prone",
+      "title_ru": "Изготовка лёжа",
+      "start_frame": 3930,
+      "start_seconds": 65.5,
+      "frames": 300,
+      "duration_seconds": 5.0,
+      "pole_plant_seconds": [],
+      "pole_lay_seconds": 1.1100000143051147
+    }
+  ]
+}
