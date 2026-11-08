@@ -217,7 +217,13 @@ namespace Biathlon.Simulation
         private void CheckAxis(double initial,double final,double from,double to)
         {
             if(initial*final<0)
-            {double at=from+(to-from)*(-initial)/(final-initial);Sample(at/DurationSeconds);}
+            {
+                // Opposite signs put the exact zero inside [from,to]. The
+                // multiply/divide can round it one ULP beyond the endpoint.
+                // Bound this validation witness, never the actual trajectory.
+                double at=Math.Max(from,Math.Min(to,from+(to-from)*(-initial)/(final-initial)));
+                Sample(at/DurationSeconds);
+            }
         }
     }
 }

@@ -7,6 +7,15 @@ namespace Biathlon.Tests
 {
     public class ManualSkiContactDriveTests
     {
+        [Test] public void NearEndpointVelocityZeroCannotRoundOutsideTheCoordinateValidationInterval()
+        {
+            var f=new Fixture();var trajectory=f.Drive(f.Actor(6));
+            // Numeric witness for the real first-range approach failure: the zero lies inside
+            // this interval, but multiply/divide rounds its time one ULP past .05.
+            const double initial=3.8590365566515456e-05,final=-2.9348947937107006e-28;
+            var check=typeof(SkiDrivenContactTrajectory).GetMethod("CheckAxis",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);
+            Assert.DoesNotThrow(()=>check.Invoke(trajectory,new object[]{initial,final,0d,.05d}));
+        }
         private sealed class Fixture
         {
             internal readonly ManualRacePathCatalogTests.Fixture Source=new ManualRacePathCatalogTests.Fixture();
