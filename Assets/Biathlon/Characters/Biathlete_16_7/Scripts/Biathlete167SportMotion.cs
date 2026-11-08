@@ -99,6 +99,12 @@ namespace Biathlon.Unity.Presentation
         private readonly Vector3[] forearmInHand=new Vector3[2];
         private readonly Quaternion[] handInForearm=new Quaternion[2];
         private readonly Vector3[] poleReleasePositions=new Vector3[2];private readonly Quaternion[] poleReleaseRotations=new Quaternion[2];
+        private readonly Quaternion[] approachBones = new Quaternion[17], approachPoleRotations = new Quaternion[2];
+        private readonly Vector3[] approachPolePositions = new Vector3[2];
+        private Vector3 approachHips;
+        private double lastRaceTime = -1;
+        private bool wasOnMat, hasApproach;
+        private readonly RangeMatMotion rangeMat;
         private readonly SkinnedMeshRenderer[] skins;private readonly Material[][] visibleMaterials,hiddenMaterials;private readonly Material[] hiddenHarness;
         private readonly Biathlete167Outfit outfit;private string materialNation;
         private readonly List<Material> materialScratch=new List<Material>(64);
@@ -142,6 +148,7 @@ namespace Biathlon.Unity.Presentation
         public Biathlete167SportMotion(Biathlete167Rig target,Biathlete167MainMotion reference)
         {
             rig=target??throw new ArgumentNullException(nameof(target));main=reference??throw new ArgumentNullException(nameof(reference));root=rig.transform;
+            rangeMat = RangeMatMotion.Load();
             if(rig.PerformanceDefinition==null||rig.PerformanceLocomotion==null)throw new InvalidOperationException("Authored sport motion definitions missing.");
             d=JsonUtility.FromJson<Definition>(rig.PerformanceDefinition.text);ski=SkiMotionSettings.FromJson(rig.PerformanceLocomotion.text);
             if(d==null||d.schema_version!=1||string.IsNullOrWhiteSpace(d.id)||d.acceleration_duration_s<=0||d.prone_transition_duration_s<=0||d.maximum_range_wrist_bend_degrees<=0||d.maximum_range_wrist_bend_degrees>35||d.loose_harness_sag_m<=0)throw new ArgumentException("Invalid sports choreography.");
@@ -265,10 +272,70 @@ namespace Biathlon.Unity.Presentation
         {
             if(frame.Athlete.ShootingActive)
             {
-                RenderEvaluatedShooting(frame.Athlete.Stance,frame.ShootingProgress,frame.Athlete.Sight,(float)frame.Athlete.BreathingPhaseCycles);
+                if (!wasOnMat || frame.TimeSeconds < lastRaceTime)
+                {
+                    hasApproach = !wasOnMat && lastRaceTime >= 0 && frame.TimeSeconds >= lastRaceTime && frame.TimeSeconds - lastRaceTime <= .25 &&
+                        (frame.Athlete.ShootingPhase == ShootingPhase.Setup || frame.Athlete.ShootingPhase == ShootingPhase.AwaitingLane);
+                    if (hasApproach) CaptureApproach();
+                }
+                var ray = frame.Athlete.Sight.Ray;
+                evaluatedSightRotation = Quaternion.LookRotation(new Vector3((float)ray.DirectionX, (float)ray.DirectionY, (float)ray.DirectionZ));
+                bool prone = frame.Athlete.Stance == Biathlon.Domain.ShootingStance.Prone;
+                Action = prone ? Biathlete167Action.Prone : Biathlete167Action.Standing;
+                main.RetargetEvaluatedSource(true);
+                ApplyMatSetup(prone, frame.ShootingProgress, (float)frame.Athlete.BreathingPhaseCycles, frame.MatEntryYaw);
+                lastRaceTime = frame.TimeSeconds;
+                wasOnMat = true;
                 return;
             }
             RenderEvaluatedTravel((float)frame.PresentationGrade);
+            lastRaceTime = frame.TimeSeconds;
+            wasOnMat = false;
+        }
+
+        internal float BodyShootingProgress(float setup) => rangeMat.BodyProgress(setup);
+        public static float MatSetupFacing(float setup) => RangeMatMotion.Load().TurnWeight(setup);
+        public static float MatPolePlacementFraction => RangeMatMotion.Load().poles_down;
+
+        public void EvaluateMatApproach(float phase)
+        {
+            Action = Biathlete167Action.RangeEntry;
+            ConfigureEvaluatedSource();
+            RestoreProps();
+            CarryVisible(true);
+            Approach(phase, keepPoles: true);
+        }
+
+        public void EvaluateMatSetup(Biathlon.Domain.ShootingStance stance, float setup, float breathPhase, float entryYaw = 0)
+        {
+            bool prone = stance == Biathlon.Domain.ShootingStance.Prone;
+            ConfigureEvaluatedSource();
+            main.EvaluateShooting(stance, BodyShootingProgress(setup));
+            evaluatedSightRotation = Quaternion.identity;
+            hasApproach = false;
+            ApplyMatSetup(prone, setup, breathPhase, entryYaw);
+        }
+
+        private void CaptureApproach()
+        {
+            approachHips = root.InverseTransformPoint(bones[0].position);
+            Quaternion inverse = Quaternion.Inverse(root.rotation);
+            for (int i = 0; i < bones.Length; i++) approachBones[i] = inverse * bones[i].rotation;
+            for (int side = 0; side < poles.Length; side++)
+            {
+                approachPolePositions[side] = root.InverseTransformPoint(poles[side].Transform.position);
+                approachPoleRotations[side] = inverse * poles[side].Transform.rotation;
+            }
+            shootingSkis.CaptureEntry();
+        }
+
+        private void ApplyMatSetup(bool prone, float setup, float breathPhase, float entryYaw)
+        {
+            var mat = rangeMat;
+            float progress = mat.BodyProgress(setup);
+            var matRotation = root.rotation * Quaternion.AngleAxis(entryYaw * (1 - mat.TurnWeight(setup)), Vector3.up);
+            RangePose(prone, progress, breathPhase, true, mat, setup, entryYaw, matRotation);
+            ApplyEyewear(Smooth(Mathf.InverseLerp(0, d.setup_pose_blend_end, progress)));
         }
 
         public void ConfigureEvaluatedSource()
@@ -341,7 +408,7 @@ namespace Biathlon.Unity.Presentation
             SeatPole(side, trailing * Mathf.Sqrt(1 - down * down) - normal * down);
         }
 
-        private void Approach(float phase)
+        private void Approach(float phase, bool keepPoles = false)
         {
             SpeedMetersPerSecond=Mathf.Lerp(d.deceleration_start_speed_mps,0,Smooth(Mathf.InverseLerp(0,.72f,phase)));
             main.State=SkiMotionState.NoPole;main.PreviewInput=new LocomotionInput(SpeedMetersPerSecond,0,.15f,travelling:SpeedMetersPerSecond>.1f);main.Evaluate(phase*1.3f);
@@ -351,8 +418,13 @@ namespace Biathlon.Unity.Presentation
                 main.PreviewInput=null;main.EvaluateShooting(Biathlon.Domain.ShootingStance.Standing,0);float settle=Smooth(Mathf.InverseLerp(.45f,.9f,phase));
                 bones[0].position=Vector3.Lerp(hip,bones[0].position,settle);for(int i=0;i<bones.Length;i++)bones[i].rotation=Quaternion.Slerp(savedRotations[i],bones[i].rotation,settle);
             }
-            float release=Smooth(Mathf.InverseLerp(d.poles_drop_start,d.poles_drop_end,phase));
+            float release=keepPoles ? 0 : Smooth(Mathf.InverseLerp(d.poles_drop_start,d.poles_drop_end,phase));
             bodyClearance.Update();rifleInverse=rig.Rifle.worldToLocalMatrix;PrepareHeldArms(1-release);
+            if (keepPoles)
+            {
+                ApplyEyewear(0);
+                return;
+            }
             for(int i=0;i<2;i++){poleReleasePositions[i]=poles[i].Transform.position;poleReleaseRotations[i]=poles[i].Transform.rotation;}
             PrepareFreeArms(release);
             ApplyEyewear(Smooth(Mathf.InverseLerp(d.eyewear_raise_start,d.eyewear_raise_end,phase)));
@@ -360,7 +432,8 @@ namespace Biathlon.Unity.Presentation
             if(gesture>0)Grip(true,EyewearPoint(d.eyewear_touch_point),-root.forward,-root.up,d.standing_right_elbow_hint,gesture);
             StowPoles(release,true);
         }
-        private void RangePose(bool prone,float progress,float breathPhase,bool referenceEvaluated=false)
+        private void RangePose(bool prone,float progress,float breathPhase,bool referenceEvaluated=false,
+            RangeMatMotion mat=null,float setup=0,float entryYaw=0,Quaternion matRotation=default)
         {
             var curve=prone?d.prone_right_elbow_curve:d.standing_right_elbow_curve;rightElbowGuide=authoringRightElbowGuide;
             if(!rightElbowGuide.HasValue&&curve!=null&&curve.Length>=2){float at=progress*(curve.Length-1);int i=Mathf.Min((int)at,curve.Length-2);rightElbowGuide=Vector3.Lerp(curve[i],curve[i+1],at-i);}
@@ -376,7 +449,22 @@ namespace Biathlon.Unity.Presentation
             float sightWeight=Smooth(Mathf.InverseLerp(d.sight_height_settle_start,d.sight_height_settle_end,progress));
             float matSupport = prone ? Smooth(Mathf.InverseLerp(d.prone_mat_start,d.prone_mat_end,progress)) : 0;
             if (prone) bones[0].position -= root.up * (d.prone_body_lower_m * matSupport);
-            shootingSkis.Apply(prone?d.prone_ski_stance:d.standing_ski_stance,progress,prone);
+            float approachWeight = mat != null && hasApproach ? 1 - Smooth(setup / mat.approach_blend_end) : 0;
+            if (mat != null && setup < mat.poles_down)
+            {
+                float dip = Smooth(Mathf.InverseLerp(mat.lower_poles_start, mat.pole_release_start, setup)) *
+                    (1 - Smooth(Mathf.InverseLerp(mat.pole_release_start, mat.poles_down, setup)));
+                bones[0].position -= root.up * (mat.knee_dip_m * dip);
+                bones[2].rotation = Quaternion.AngleAxis(mat.chest_pitch_deg * dip, root.right) * bones[2].rotation;
+            }
+            shootingSkis.Apply(prone?d.prone_ski_stance:d.standing_ski_stance,progress,prone,mat,setup,entryYaw);
+            if (approachWeight > 0)
+            {
+                bones[0].position = Vector3.Lerp(bones[0].position, root.TransformPoint(approachHips), approachWeight);
+                for (int i = 0; i < bones.Length; i++)
+                    bones[i].rotation = Quaternion.Slerp(bones[i].rotation, root.rotation * approachBones[i], approachWeight);
+                shootingSkis.BlendEntry(approachWeight);
+            }
             if (prone)
             {
                 // Let the neck bring the head forward while the eyes stay on the lane.
@@ -388,6 +476,13 @@ namespace Biathlon.Unity.Presentation
                 bones[4].rotation = gaze;
             }
             bodyClearance.Update();
+            if (mat != null && setup < mat.poles_down)
+            {
+                CarryVisible(true);
+                rifleInverse = rig.Rifle.worldToLocalMatrix;
+                PlaceMatPoles(mat, setup, matRotation, approachWeight);
+                return;
+            }
             ApplyEyewear(1);
             var buttPoint=d.rifle_butt_local;
             var carryButt=rig.Rifle.TransformPoint(buttPoint);var carryRotation=rig.Rifle.rotation;
@@ -416,8 +511,60 @@ namespace Biathlon.Unity.Presentation
             Grip(true,Vector3.Lerp(rightReach,TriggerContact,transfer),rig.Rifle.up,-rig.Rifle.right,Vector3.zero,Smooth(Mathf.InverseLerp(0,d.rifle_hand_reach_end,progress)),true,rightMatSupport);
             Grip(false,SupportContact,root.up,-root.forward,prone?d.prone_left_elbow_hint:d.standing_left_elbow_hint,Smooth(Mathf.InverseLerp(d.support_hand_start,d.support_hand_end,progress)),matSupport:matSupport);
             // Do this after arm fitting: the laid-down prop must not follow a
-            // later wrist rotation. Both poles stay beside the mat thereafter.
-            StowPoles(1);
+            // later wrist rotation. Both poles stay together on the mat thereafter.
+            StowPoles(1, mat: mat, matFrame: matRotation);
+        }
+
+        private void PlaceMatPoles(RangeMatMotion mat, float setup, Quaternion matRotation, float approachWeight)
+        {
+            float gather = Smooth(Mathf.InverseLerp(mat.gather_start, mat.handoff, setup));
+            float lower = Smooth(Mathf.InverseLerp(mat.lower_poles_start, mat.pole_release_start, setup));
+            float release = Smooth(Mathf.InverseLerp(mat.pole_release_start, mat.poles_down, setup));
+            var lowWrist = root.position + matRotation * Vector3.Scale(mat.lower_wrist, root.lossyScale);
+            MoveMatHand(1, Vector3.Lerp(root.TransformPoint(mat.gather_wrist), lowWrist, lower), gather);
+            var rightGrip = rig.GripContact(true).position;
+            float length = poles[1].Transform.TransformVector(poles[1].Tip - poles[1].Grip).magnitude;
+            float down = Mathf.Clamp01(Vector3.Dot(rightGrip - root.position, root.up) / length);
+            // Sweep the tips away from the knees while the handles meet in
+            // front, then align both shafts with the mat as the wrist lowers.
+            var sweep = matRotation * Quaternion.AngleAxis(-mat.bundle_sweep_deg * (1 - lower), Vector3.up);
+            var touching = sweep * new Vector3(0, -down, -Mathf.Sqrt(1 - down * down));
+            var gripOffset = sweep * Vector3.right * (mat.grip_spacing_m * root.lossyScale.x * .5f);
+            float returnLeft = Smooth(Mathf.InverseLerp(mat.handoff, mat.pole_release_start, setup));
+            // The left hand guides its pole in just below the right hand
+            // so both gloves have room on the handles during the pass.
+            var handoff = rightGrip - gripOffset + touching * mat.handoff_along_shaft_m;
+            var wrist = bones[7].position + handoff - rig.GripContact(false).position;
+            MoveMatHand(0, wrist, gather * (1 - returnLeft));
+            for (int side = 0; side < poles.Length; side++)
+            {
+                var pole = poles[side];
+                var heldAxis = hasApproach ? root.rotation * approachPoleRotations[side] * pole.Axis : root.TransformDirection(new Vector3(0, -.55f, -1));
+                var grip = side == 0
+                    ? Vector3.Lerp(rig.GripContact(false).position - touching * (gather * mat.handoff_along_shaft_m), rightGrip - gripOffset, gather)
+                    : rightGrip + gripOffset * gather;
+                SeatPole(side, Vector3.Slerp(heldAxis.normalized, touching, gather), grip);
+                float seamWeight = approachWeight * (1 - gather);
+                poleReleasePositions[side] = seamWeight > 0
+                    ? Vector3.Lerp(pole.Transform.position, root.TransformPoint(approachPolePositions[side]), seamWeight) : pole.Transform.position;
+                poleReleaseRotations[side] = seamWeight > 0
+                    ? Quaternion.Slerp(pole.Transform.rotation, root.rotation * approachPoleRotations[side], seamWeight) : pole.Transform.rotation;
+            }
+            PrepareFreeArm(0, returnLeft);
+            PrepareFreeArm(1, release);
+            StowPoles(release, true, mat, matRotation);
+        }
+
+        private void MoveMatHand(int side, Vector3 wrist, float weight)
+        {
+            if (weight <= 0) return;
+            int hand = side == 0 ? 7 : 10;
+            var rotation = bones[hand].rotation;
+            var start = bones[hand].position;
+            var inherited = bones[hand - 1].position - (bones[hand - 2].position + start) * .5f;
+            var hint = Vector3.Slerp(inherited.normalized, RestingElbowHint(side).normalized, weight);
+            Solve(hand - 2, Vector3.Lerp(start, wrist, weight), hint, side == 1, true);
+            OrientWristAndForearm(hand, side, rotation);
         }
         private void ApplyEyewear(float amount)
         {
@@ -502,13 +649,14 @@ namespace Biathlon.Unity.Presentation
         }
         private void PrepareFreeArms(float weight=1)
         {
+            for(int side=0;side<2;side++) PrepareFreeArm(side, weight);
+        }
+        private void PrepareFreeArm(int side, float weight)
+        {
             if(weight<=0)return;
-            for(int side=0;side<2;side++)
-            {
-                int hand=side==0?7:10;var before=bones[hand].rotation;var start=bones[hand].position;var at=bones[hand-2].position+root.TransformVector(side==0?d.left_free_hand_from_shoulder:d.right_free_hand_from_shoulder);
-                var local=root.InverseTransformPoint(at);local.y=Mathf.Max(local.y,d.free_hand_minimum_height_m);at=bodyClearance.Outside(root.TransformPoint(local),side==0?-1:1,d.wrist_radius_m);
-                Solve(hand-2,Vector3.Lerp(start,at,weight),RestingElbowHint(side),side==1,true);OrientWristAndForearm(hand,side,Quaternion.Slerp(before,bones[hand-1].rotation*handInForearm[side],weight));
-            }
+            int hand=side==0?7:10;var before=bones[hand].rotation;var start=bones[hand].position;var at=bones[hand-2].position+root.TransformVector(side==0?d.left_free_hand_from_shoulder:d.right_free_hand_from_shoulder);
+            var local=root.InverseTransformPoint(at);local.y=Mathf.Max(local.y,d.free_hand_minimum_height_m);at=bodyClearance.Outside(root.TransformPoint(local),side==0?-1:1,d.wrist_radius_m);
+            Solve(hand-2,Vector3.Lerp(start,at,weight),RestingElbowHint(side),side==1,true);OrientWristAndForearm(hand,side,Quaternion.Slerp(before,bones[hand-1].rotation*handInForearm[side],weight));
         }
         private void PrepareHeldArms(float weight)
         {
@@ -531,11 +679,11 @@ namespace Biathlon.Unity.Presentation
                 SeatPole(side,poleAxis);
             }
         }
-        private void SeatPole(int side, Vector3 axis)
+        private void SeatPole(int side, Vector3 axis, Vector3? gripPoint = null)
         {
             var pole = poles[side];
             var rotation = Quaternion.FromToRotation(pole.Transform.TransformDirection(pole.Axis), axis) * pole.Transform.rotation;
-            var grip = rig.GripContact(side == 1).position;
+            var grip = gripPoint ?? rig.GripContact(side == 1).position;
             pole.Transform.SetPositionAndRotation(grip - rotation * Vector3.Scale(pole.Grip, pole.Transform.lossyScale), rotation);
         }
         private Vector3 RestingElbowHint(int side)=>root.TransformDirection(new Vector3(d.resting_elbow_hint.x*(side==0?-1:1),d.resting_elbow_hint.y,d.resting_elbow_hint.z));
@@ -625,12 +773,15 @@ namespace Biathlon.Unity.Presentation
             }
             return sum;
         }
-        private void StowPoles(float weight,bool releaseSnapshot=false)
+        private void StowPoles(float weight, bool releaseSnapshot = false, RangeMatMotion mat = null, Quaternion matFrame = default)
         {
             for(int i=0;i<2;i++)
             {
-                var p=poles[i];var direction=root.TransformDirection(i==0?d.left_pole_lay_direction:d.right_pole_lay_direction);var baseline=root.rotation*p.RootRotation;var rotation=Quaternion.FromToRotation(baseline*p.Axis,direction)*baseline;
-                var target=root.TransformPoint(i==0?d.left_pole_stow:d.right_pole_stow);var at=target-rotation*Vector3.Scale(p.Grip,p.Transform.lossyScale);
+                var p=poles[i];var frame=mat==null?root.rotation:matFrame;
+                var direction=frame*(mat!=null?Vector3.back:i==0?d.left_pole_lay_direction:d.right_pole_lay_direction);
+                var baseline=frame*p.RootRotation;var rotation=Quaternion.FromToRotation(baseline*p.Axis,direction)*baseline;
+                var local=mat!=null?mat.laid_grip+Vector3.right*(mat.grip_spacing_m*(i==0?-.5f:.5f)):i==0?d.left_pole_stow:d.right_pole_stow;
+                var target=root.position+frame*Vector3.Scale(local,root.lossyScale);var at=target-rotation*Vector3.Scale(p.Grip,p.Transform.lossyScale);
                 p.Transform.SetPositionAndRotation(Vector3.Lerp(releaseSnapshot?poleReleasePositions[i]:p.Transform.position,at,weight),Quaternion.Slerp(releaseSnapshot?poleReleaseRotations[i]:p.Transform.rotation,rotation,weight));
             }
         }

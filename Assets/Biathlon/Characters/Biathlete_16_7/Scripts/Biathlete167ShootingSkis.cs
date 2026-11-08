@@ -4,6 +4,60 @@ using UnityEngine;
 
 namespace Biathlon.Unity.Presentation
 {
+    [Serializable] internal sealed class RangeMatMotion
+    {
+        public int schema_version, shuffle_steps;
+        public string id;
+        public float approach_blend_end, gather_start, handoff, lower_poles_start, pole_release_start, poles_down;
+        public float turn_start, turn_end, step_height_m, knee_dip_m, chest_pitch_deg;
+        public Vector3 gather_wrist, lower_wrist, laid_grip;
+        public float bundle_sweep_deg, grip_spacing_m, handoff_along_shaft_m;
+        public float ski_gap_m, boot_clearance_m;
+        private static RangeMatMotion current;
+
+        public static RangeMatMotion Load()
+        {
+            if (current != null) return current;
+            var asset = Resources.Load<TextAsset>("Biathlon/m167_mat_motion_v1");
+            var value = asset == null ? null : JsonUtility.FromJson<RangeMatMotion>(asset.text);
+            if (value == null || value.schema_version != 1 || string.IsNullOrEmpty(value.id) ||
+                !(0 < value.gather_start && value.gather_start < value.handoff && value.handoff <= value.lower_poles_start &&
+                    value.lower_poles_start < value.pole_release_start && value.pole_release_start < value.poles_down && value.poles_down < .5f) ||
+                !(value.approach_blend_end > 0 && value.approach_blend_end < value.pole_release_start) ||
+                !(0 < value.turn_start && value.turn_start < value.turn_end && value.turn_end <= 1) ||
+                value.shuffle_steps < 2 || value.shuffle_steps > 12 || value.shuffle_steps % 2 != 0 ||
+                !(value.ski_gap_m >= .02f && value.ski_gap_m < .1f && value.boot_clearance_m > .045f && value.boot_clearance_m < .15f) ||
+                !(value.step_height_m > 0 && value.step_height_m <= .09f && value.knee_dip_m > 0 && value.knee_dip_m < .4f &&
+                    value.chest_pitch_deg > 0 && value.chest_pitch_deg < 60) ||
+                !(value.gather_wrist.y > value.lower_wrist.y && value.lower_wrist.y > value.laid_grip.y &&
+                    value.laid_grip.y > 0 && value.laid_grip.x > 0 &&
+                    value.bundle_sweep_deg > 0 && value.bundle_sweep_deg < 90 &&
+                    value.grip_spacing_m > .025f && value.grip_spacing_m < .07f &&
+                    value.handoff_along_shaft_m > 0 && value.handoff_along_shaft_m < .1f))
+                throw new InvalidOperationException("Invalid mat entry animation definition.");
+            return current = value;
+        }
+
+        public static float Ease(float t) => Mathf.SmoothStep(0, 1, t);
+        public float BodyProgress(float at) => Mathf.InverseLerp(poles_down, 1, at);
+        public float TurnWeight(float at) => Ease(Mathf.InverseLerp(turn_start, turn_end, at));
+
+        public void Step(float at, int side, out float fraction, out float lift)
+        {
+            float phase = Mathf.InverseLerp(turn_start, turn_end, at) * shuffle_steps;
+            fraction = lift = 0;
+            for (int step = side; step < shuffle_steps; step += 2)
+            {
+                float swing = Mathf.Clamp01(phase - step);
+                fraction += Ease(swing);
+                float height = Mathf.Sin(Mathf.PI * swing);
+                lift = Mathf.Max(lift, height * height);
+            }
+            fraction /= shuffle_steps / 2;
+            lift *= step_height_m;
+        }
+    }
+
     [Serializable] public sealed class Biathlete167SkiStance
     {
         public Vector3 left_euler,right_euler,left_toe_offset,right_toe_offset,left_ankle_from_hip,right_ankle_from_hip;
@@ -23,8 +77,10 @@ namespace Biathlon.Unity.Presentation
         private readonly Transform root,hips;private readonly Foot[] feet=new Foot[2];
         private readonly Vector3[] glideAnkles = new Vector3[2], glideToes = new Vector3[2], glideHints = new Vector3[2];
         private readonly Quaternion[] glideSkiRotations = new Quaternion[2], glideFootRotations = new Quaternion[2];
+        private readonly Quaternion[] entrySkiRotations = new Quaternion[2];
+        private readonly Vector2[] matExtents = new Vector2[2];
         private sealed class Foot
-        {public Transform Upper,Knee,Ankle,Toe,Ski;public Vector3 ToeInFoot,ToeInSki,ForwardInFoot,ForwardInSki,UpInSki;public Quaternion FootBind,SkiBind;public Vector2[] SupportHull;}
+        {public Transform Upper,Knee,Ankle,Toe,Ski;public Vector3 ToeInFoot,ToeInSki,ForwardInFoot,ForwardInSki,UpInSki;public Quaternion FootBind,SkiBind;public Vector2[] SupportHull,Footprint;}
         public float MaximumBindingResidualMeters{get;private set;}
         public Biathlete167ShootingSkis(Biathlete167Rig rig)
         {
@@ -35,15 +91,33 @@ namespace Biathlon.Unity.Presentation
                 foreach(var mesh in ankle.GetComponentsInChildren<MeshFilter>(true))if(mesh.sharedMesh.bounds.size.sqrMagnitude>length){longest=mesh;length=mesh.sharedMesh.bounds.size.sqrMagnitude;}
                 if(longest==null)throw new InvalidOperationException("Actual Nordic ski is missing.");var ski=longest.transform;var toe=rig.ToeHinge(side==1);
                 var f=new Foot{Upper=rig.Bone(side==0?HumanBodyBones.LeftUpperLeg:HumanBodyBones.RightUpperLeg),Knee=rig.Bone(side==0?HumanBodyBones.LeftLowerLeg:HumanBodyBones.RightLowerLeg),Ankle=ankle,Toe=toe,Ski=ski,ToeInFoot=ankle.InverseTransformPoint(toe.position),ToeInSki=ski.InverseTransformPoint(toe.position),FootBind=Quaternion.Inverse(root.rotation)*ankle.rotation,SkiBind=Quaternion.Inverse(root.rotation)*ski.rotation,ForwardInFoot=ankle.InverseTransformDirection(root.forward),ForwardInSki=ski.InverseTransformDirection(root.forward),UpInSki=ski.InverseTransformDirection(root.up)};
-                var points=new List<Vector2>();foreach(var vertex in longest.sharedMesh.vertices){var p=root.InverseTransformVector(ski.TransformVector(vertex-f.ToeInSki));points.Add(new Vector2(p.x,p.y));}f.SupportHull=Hull(points);feet[side]=f;
+                var points=new List<Vector2>();var footprint=new List<Vector2>();
+                foreach(var vertex in longest.sharedMesh.vertices)
+                {
+                    var p=root.InverseTransformVector(ski.TransformVector(vertex-f.ToeInSki));
+                    points.Add(new Vector2(p.x,p.y));footprint.Add(new Vector2(p.x,p.z));
+                }
+                f.SupportHull=Hull(points);f.Footprint=Hull(footprint);feet[side]=f;
             }
         }
-        public void Apply(Biathlete167SkiStance definition,float progress,bool prone)
+        public void Apply(Biathlete167SkiStance definition, float progress, bool prone,
+            RangeMatMotion mat = null, float setup = 0, float entryYaw = 0)
         {
-            MaximumBindingResidualMeters=0;float weight=Smooth(Mathf.InverseLerp(definition.blend_start,definition.blend_end,progress));if(weight<=0)return;
+            MaximumBindingResidualMeters=0;
+            float weight=Smooth(Mathf.InverseLerp(definition.blend_start,definition.blend_end,progress));
+            bool stepping = mat != null && !prone;
+            if(weight<=0 && !stepping && mat == null)return;
+            float facing = mat?.TurnWeight(setup) ?? 0;
             for(int side=0;side<2;side++)
             {
                 var f=feet[side];var angles=side==0?definition.left_euler:definition.right_euler;float turn=Smooth(Mathf.InverseLerp(0,definition.turn_full_weight,weight)),yaw=angles.y*turn,roll=angles.z*turn;
+                float lift = 0, supportYaw = 0;
+                if (stepping)
+                {
+                    mat.Step(setup, side, out float plantedHeading, out lift);
+                    supportYaw = (plantedHeading - facing) * entryYaw;
+                    yaw = angles.y * plantedHeading + supportYaw;
+                }
                 var frame=Quaternion.AngleAxis(yaw,Vector3.up)*Quaternion.AngleAxis(roll,Vector3.forward);
                 var skiRotation=root.rotation*frame*f.SkiBind;
                 var currentForward=f.Ankle.TransformDirection(f.ForwardInFoot);var skiForward=f.Ski.TransformDirection(f.ForwardInSki);var skiUp=f.Ski.TransformDirection(f.UpInSki);var lateral=Vector3.Cross(skiUp,skiForward).normalized;
@@ -54,6 +128,7 @@ namespace Biathlon.Unity.Presentation
                 // the old travelling toe while turning would pull the ankle
                 // sideways beyond the leg's reach. Prone uses authored spread.
                 var toe=root.InverseTransformPoint(prone?f.Toe.position:f.Ankle.position+footRotation*Vector3.Scale(f.ToeInFoot,f.Ankle.lossyScale));
+                if (stepping) toe = Quaternion.AngleAxis(supportYaw, Vector3.up) * toe;
                 if(prone)
                 {
                     // Author the extended leg from its own hip, rather than
@@ -61,12 +136,76 @@ namespace Biathlon.Unity.Presentation
                     var ankleGoal=f.Upper.position+root.TransformVector(side==0?definition.left_ankle_from_hip:definition.right_ankle_from_hip);
                     var toeGoal=root.InverseTransformPoint(ankleGoal+footRotation*Vector3.Scale(f.ToeInFoot,f.Ankle.lossyScale));toe=Vector3.Lerp(toe,toeGoal,weight);
                 }
-                toe+=(side==0?definition.left_toe_offset:definition.right_toe_offset)*weight;toe.y=definition.ground_clearance_m-bottom;var targetToe=root.TransformPoint(toe);
+                toe+=(side==0?definition.left_toe_offset:definition.right_toe_offset)*weight;toe.y=definition.ground_clearance_m-bottom+lift;var targetToe=root.TransformPoint(toe);
                 var ankle=targetToe-footRotation*Vector3.Scale(f.ToeInFoot,f.Ankle.lossyScale);var hint=f.Knee.position-(f.Upper.position+f.Ankle.position)*.5f;
                 var preferred=prone?-root.up:root.rotation*frame*Vector3.forward;hint=Vector3.Slerp(hint.normalized,preferred.normalized,weight);
-                Solve(f,ankle,hint);f.Ankle.rotation=footRotation;
-                f.Ski.SetPositionAndRotation(targetToe-skiRotation*Vector3.Scale(f.ToeInSki,f.Ski.lossyScale),skiRotation);
-                MaximumBindingResidualMeters=Mathf.Max(MaximumBindingResidualMeters,Vector3.Distance(f.Toe.position,f.Ski.TransformPoint(f.ToeInSki)));
+                glideToes[side] = targetToe; glideAnkles[side] = ankle; glideHints[side] = hint;
+                glideSkiRotations[side] = skiRotation; glideFootRotations[side] = footRotation;
+            }
+            if (stepping) SeparateMatSkis(mat);
+            for (int side = 0; side < feet.Length; side++)
+            {
+                var f = feet[side];
+                Solve(f,glideAnkles[side],glideHints[side]);f.Ankle.rotation=glideFootRotations[side];
+                var targetToe = glideToes[side];var skiRotation = glideSkiRotations[side];
+                Vector3 skiToe = mat == null ? targetToe : f.Toe.position;
+                f.Ski.SetPositionAndRotation(skiToe-skiRotation*Vector3.Scale(f.ToeInSki,f.Ski.lossyScale),skiRotation);
+                MaximumBindingResidualMeters=Mathf.Max(MaximumBindingResidualMeters,Vector3.Distance(f.Toe.position,targetToe));
+            }
+        }
+
+        private void SeparateMatSkis(RangeMatMotion mat)
+        {
+            var forward = (glideSkiRotations[0] * feet[0].ForwardInSki +
+                glideSkiRotations[1] * feet[1].ForwardInSki).normalized;
+            var across = Vector3.Cross(root.up, forward).normalized;
+            for (int side = 0; side < feet.Length; side++)
+            {
+                var rotation = glideSkiRotations[side] * Quaternion.Inverse(feet[side].SkiBind);
+                float minimum = float.PositiveInfinity, maximum = float.NegativeInfinity;
+                foreach (var point in feet[side].Footprint)
+                {
+                    float projection = Vector3.Dot(rotation * new Vector3(point.x, 0, point.y), across);
+                    minimum = Mathf.Min(minimum, projection); maximum = Mathf.Max(maximum, projection);
+                }
+                matExtents[side] = new Vector2(minimum, maximum);
+            }
+            float required = Mathf.Max(mat.ski_gap_m + matExtents[0].y - matExtents[1].x,
+                mat.boot_clearance_m + Mathf.Max(matExtents[0].y, -matExtents[1].x));
+            float gap = Vector3.Dot(glideToes[1] - glideToes[0], across);
+            var offset = across * (Mathf.Max(0, required - gap) * .5f);
+            glideToes[0] -= offset; glideAnkles[0] -= offset;
+            glideToes[1] += offset; glideAnkles[1] += offset;
+
+            // Widen through the hips and knees while retaining both leg lengths.
+            // Lower the pelvis only as far as the two actual ankle goals require.
+            float lower = 0;
+            for (int side = 0; side < feet.Length; side++)
+            {
+                var f = feet[side];
+                float reach = Vector3.Distance(f.Upper.position, f.Knee.position) +
+                    Vector3.Distance(f.Knee.position, f.Ankle.position) - .001f;
+                var delta = glideAnkles[side] - f.Upper.position;
+                float vertical = Vector3.Dot(delta, root.up);
+                float horizontal = Mathf.Max(0, delta.sqrMagnitude - vertical * vertical);
+                lower = Mathf.Max(lower, -vertical - Mathf.Sqrt(Mathf.Max(0, reach * reach - horizontal)));
+            }
+            hips.position -= root.up * lower;
+        }
+
+        public void CaptureEntry()
+        {
+            for (int side = 0; side < feet.Length; side++)
+                entrySkiRotations[side] = Quaternion.Inverse(root.rotation) * feet[side].Ski.rotation;
+        }
+
+        public void BlendEntry(float weight)
+        {
+            for (int side = 0; side < feet.Length; side++)
+            {
+                var f = feet[side];
+                var rotation = Quaternion.Slerp(f.Ski.rotation, root.rotation * entrySkiRotations[side], weight);
+                f.Ski.SetPositionAndRotation(f.Toe.position - rotation * Vector3.Scale(f.ToeInSki, f.Ski.lossyScale), rotation);
             }
         }
         public void ApplyGlide(float cycle, float glideFraction, float grade, float recoveryHeight,

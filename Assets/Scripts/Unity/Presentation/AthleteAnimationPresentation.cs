@@ -19,7 +19,8 @@ namespace Biathlon.Unity.Presentation
         public double PresentationCurvature { get; }
         public double PresentationGrade { get; }
         public double LateralMetersPerSecond { get; }
-        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha, double? presentationCurvature = null, double? presentationGrade = null,double lateralMetersPerSecond=0)
+        public float MatEntryYaw { get; }
+        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha, double? presentationCurvature = null, double? presentationGrade = null,double lateralMetersPerSecond=0, float matEntryYaw=0)
         {
             if (tick < 0 || frequency <= 0 || double.IsNaN(alpha) || double.IsInfinity(alpha) || alpha < 0 || alpha > 1)
                 throw new ArgumentOutOfRangeException(nameof(alpha));
@@ -29,6 +30,7 @@ namespace Biathlon.Unity.Presentation
             PresentationGrade = presentationGrade ?? athlete.CourseGrade;
             if(!double.IsFinite(lateralMetersPerSecond))throw new ArgumentOutOfRangeException(nameof(lateralMetersPerSecond));
             LateralMetersPerSecond=lateralMetersPerSecond;
+            MatEntryYaw=matEntryYaw;
             if (!double.IsFinite(PresentationGrade)) throw new ArgumentOutOfRangeException(nameof(presentationGrade));
             if (double.IsNaN(PresentationCurvature) || double.IsInfinity(PresentationCurvature)) throw new ArgumentOutOfRangeException(nameof(presentationCurvature));
             TimeSeconds = Math.Max(0, tick - 1 + alpha) / frequency;
@@ -90,8 +92,17 @@ namespace Biathlon.Unity.Presentation
             if (rig.Animator == null) rig.ResetPose();
             if (driver != null) driver.Apply(rig, frame);
             impact.Apply(rig,frame.TimeSeconds);
-            if (shootingPose != null) shootingPose.Render(rig, frame);
-            if (rifle != null) rifle.Render(rig, frame);
+            if (upgradedVisual != null && frame.Athlete.ShootingActive)
+            {
+                float bodyProgress = upgradedVisual.BodyShootingProgress(frame.ShootingProgress);
+                shootingPose?.Sample(rig, frame.Athlete.Stance, bodyProgress);
+                rifle?.Sample(rig, bodyProgress, frame.Athlete.Sight, frame.Athlete.Stance);
+            }
+            else
+            {
+                shootingPose?.Render(rig, frame);
+                rifle?.Render(rig, frame);
+            }
             if (contact != null) contact.Render(rig, frame);
             if (grip != null) grip.Render(rig);
             rig.ModelRoot.SetLocalPositionAndRotation(modelPosition, modelRotation);

@@ -31,6 +31,7 @@ namespace Biathlon.Unity.Presentation
         private ShootingPhase lastShootingPhase;
         public float GroundOffsetMeters {get;private set;}
         public void SetGroundSurface(Func<Vector3,float> height)=>groundSurface=height;
+        internal float BodyShootingProgress(float setup) => sport.BodyShootingProgress(setup);
         public Biathlete167Rig Rig { get; private set; }
         public AppearanceProfile AppliedProfile => appearance.Current;
         public string SelectedSkiId { get; private set; }

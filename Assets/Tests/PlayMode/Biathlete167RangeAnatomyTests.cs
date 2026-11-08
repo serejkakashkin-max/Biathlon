@@ -151,6 +151,45 @@ namespace Biathlon.PlayModeTests
                 Assert.That(separation,Is.GreaterThan(.002f),action+" phase="+phase+"/256 actual ski volumes have no separating axis: lift and turn one ski rather than passing through the other.");
             }
         }
+        [TestCase(0f), TestCase(38f), TestCase(-38f), TestCase(90f), TestCase(-90f)]
+        public void MatShuffleKeepsEachBootAndSkiClearOfTheOtherSki(float entryYaw)
+        {
+            var skis = new[] { Ski(rig.Bone(HumanBodyBones.LeftFoot)), Ski(rig.Bone(HumanBodyBones.RightFoot)) };
+            var vertices = skis.Select(s => s.GetComponent<MeshFilter>().sharedMesh.vertices).ToArray();
+            var forward = skis.Select(s => s.InverseTransformDirection(rig.transform.forward)).ToArray();
+            float worstGap = float.PositiveInfinity;
+            for (int phase = 0; phase <= 180; phase++)
+            {
+                float setup = phase / 180f;
+                rig.transform.rotation = Quaternion.AngleAxis(-entryYaw * (1 - Biathlete167SportMotion.MatSetupFacing(setup)), Vector3.up);
+                motion.Performance.EvaluateMatSetup(Biathlon.Domain.ShootingStance.Standing, setup, 0, entryYaw);
+                var points = skis.Select((s, side) => vertices[side].Select(s.TransformPoint).ToArray()).ToArray();
+                var directions = skis.Select((s, side) => s.TransformDirection(forward[side])).ToArray();
+                float separation = float.NegativeInfinity;
+                foreach (var direction in directions)
+                {
+                    var axis = Vector3.Cross(Vector3.up, direction).normalized;
+                    float aMin = points[0].Min(p => Vector3.Dot(p, axis)), aMax = points[0].Max(p => Vector3.Dot(p, axis));
+                    float bMin = points[1].Min(p => Vector3.Dot(p, axis)), bMax = points[1].Max(p => Vector3.Dot(p, axis));
+                    separation = Mathf.Max(separation, Mathf.Max(bMin - aMax, aMin - bMax));
+                }
+                worstGap = Mathf.Min(worstGap, separation);
+                Assert.That(separation, Is.GreaterThan(.015f), $"yaw {entryYaw}, frame {phase}: ski footprints cross during the mat shuffle.");
+                for (int side = 0; side < 2; side++)
+                {
+                    var toe = rig.ToeHinge(side == 1).position;
+                    var other = directions[1 - side];
+                    var axis = Vector3.Cross(Vector3.up, other).normalized;
+                    float coordinate = Vector3.Dot(toe, axis);
+                    float minimum = points[1 - side].Min(p => Vector3.Dot(p, axis));
+                    float maximum = points[1 - side].Max(p => Vector3.Dot(p, axis));
+                    Assert.That(Mathf.Max(minimum - coordinate, coordinate - maximum), Is.GreaterThan(.045f),
+                        $"yaw {entryYaw}, frame {phase}: boot {side} steps onto the other ski.");
+                }
+            }
+            Directory.CreateDirectory("artifacts/m16-7-range-smooth");
+            File.WriteAllText($"artifacts/m16-7-range-smooth/shuffle-gap-{entryYaw}.txt", worstGap.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        }
         [TestCase(Biathlete167Action.Standing),TestCase(Biathlete167Action.Prone)]
         public void LaidPolesStayCloseAndAboveTheSnow(Biathlete167Action action)
         {

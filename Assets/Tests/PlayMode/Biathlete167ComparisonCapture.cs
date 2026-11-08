@@ -22,11 +22,13 @@ namespace Biathlon.PlayModeTests
     {
         private const string Hero = "Assets/Biathlon/Characters/Biathlete_16_7";
         private const string Venue = "Biathlon/Venues/woodland_basin_v1/";
-        private static bool SmoothMaster => File.Exists("artifacts/m16-7-pace/capture-60.flag");
+        private static bool MatMaster => File.Exists("artifacts/m16-7-range-smooth/capture.flag");
+        private static bool SmoothMaster => MatMaster || File.Exists("artifacts/m16-7-pace/capture-60.flag");
         private static bool HighQuality => SmoothMaster || File.Exists("artifacts/m16-7-race-integration/capture-hq.flag");
-        private static string Output => SmoothMaster ? "artifacts/m16-7-pace/native-60" :
+        private static string Output => MatMaster ? "artifacts/m16-7-range-smooth/native-60" : SmoothMaster ? "artifacts/m16-7-pace/native-60" :
             HighQuality ? "artifacts/m16-7-race-integration/youtube-native" : "artifacts/m16-7-race-integration/native";
         private const int OldLayer = 27, NewLayer = 28;
+        private const float MatSetupSeconds = 3;
         private static int Fps => SmoothMaster ? 60 : HighQuality ? 30 : 24;
         private static int FeedSize => HighQuality ? 1220 : 720;
         private GameObject fixture;
@@ -46,6 +48,7 @@ namespace Biathlon.PlayModeTests
             public string id;
             public int frames;
             public List<float> pole_plant_seconds = new List<float>();
+            public float pole_lay_seconds = -1;
             public Shot(string id, float seconds) { this.id = id; frames = Mathf.RoundToInt(Fps * seconds); }
         }
 
@@ -238,8 +241,10 @@ namespace Biathlon.PlayModeTests
                 var appearance = hero.GetComponent<Biathlete167Appearance>();
                 var start = appearance.Current;
                 var clearFace = looks.Edit(start, gogglesId: "raised");
+                float extension = MatMaster ? 2.5f : 0;
                 var receipt = new Receipt { id = "studio", shots = new[] {
-                    new Shot("orbit", 6), new Shot("face", 3.5f), new Shot("rifle", 3.5f), new Shot("skis", 3.5f), new Shot("skis_top", 4) } };
+                    new Shot("orbit", 6 + extension), new Shot("face", 3.5f + extension), new Shot("rifle", 3.5f + extension),
+                    new Shot("skis", 3.5f + extension), new Shot("skis_top", 4 + extension) } };
                 yield return Capture(receipt, (shot, time, phase) =>
                 {
                     if (shot.id == "face" && time == 0)
@@ -335,7 +340,10 @@ namespace Biathlon.PlayModeTests
                 motion.EvaluateAction(Biathlete167Action.Uphill, 0);
                 float authoredUphillGrade = motion.Performance.SurfaceGrade;
                 motion.Stop();
-                var receipt = new Receipt { id = "woodland", shots = new[] {
+                var receipt = new Receipt { id = "woodland", shots = MatMaster ? new[] {
+                    new Shot("entry", 4),
+                    new Shot("standing", 4.5f) { pole_lay_seconds = MatSetupSeconds * Biathlete167SportMotion.MatPolePlacementFraction },
+                    new Shot("prone", 5) { pole_lay_seconds = MatSetupSeconds * Biathlete167SportMotion.MatPolePlacementFraction } } : new[] {
                     new Shot("skate", 4), new Shot("skate_front", 4),
                     new Shot("acceleration", 4), new Shot("acceleration_front", 4),
                     new Shot("uphill", 4), new Shot("uphill_front", 4), new Shot("entry", 4),
@@ -378,7 +386,8 @@ namespace Biathlon.PlayModeTests
                         var trackDirection = new Vector3((float)point.ForwardX, 0, (float)point.ForwardZ);
                         var facing = Vector3.Slerp(trackDirection, mat.forward, Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.49f, .72f, phase)));
                         PutBoth(at, facing);
-                        motion.EvaluateAction(Biathlete167Action.RangeEntry, phase);
+                        if (MatMaster) motion.Performance.EvaluateMatApproach(phase);
+                        else motion.EvaluateAction(Biathlete167Action.RangeEntry, phase);
                         SampleOriginal(new LocomotionInput(motion.Performance.SpeedMetersPerSecond, 0, .15f, travelling: phase < .72f), time);
                         var offset = mat.TransformDirection(new Vector3(4.6f, 1.15f, -2.1f));
                         Aim(at + Vector3.up * .8f, offset, 42);
@@ -386,13 +395,19 @@ namespace Biathlon.PlayModeTests
                     }
                     bool prone = shot.id == "prone";
                     PutBoth(mat.position, mat.forward);
-                    float setup = Mathf.Clamp01(time / (prone ? 3.2f : 2.85f));
+                    float setup = Mathf.Clamp01(time / (MatMaster ? MatSetupSeconds : prone ? 3.2f : 2.85f));
                     var stance = prone ? ShootingStance.Prone : ShootingStance.Standing;
-                    motion.EvaluateAction(setup < 1 ? (prone ? Biathlete167Action.EnterProne : Biathlete167Action.EnterStanding) :
+                    if (MatMaster)
+                    {
+                        float entryYaw = prone ? 0 : 38;
+                        hero.transform.rotation *= Quaternion.AngleAxis(-entryYaw * (1 - Biathlete167SportMotion.MatSetupFacing(setup)), Vector3.up);
+                        motion.Performance.EvaluateMatSetup(stance, setup, time, entryYaw);
+                    }
+                    else motion.EvaluateAction(setup < 1 ? (prone ? Biathlete167Action.EnterProne : Biathlete167Action.EnterStanding) :
                         (prone ? Biathlete167Action.Prone : Biathlete167Action.Standing), setup < 1 ? setup : Mathf.Repeat(time, 1));
                     SampleOriginal(new LocomotionInput(0, 0, 0, travelling: false), time, stance, setup);
                     float focus = prone ? Mathf.Lerp(.9f, .4f, Mathf.SmoothStep(0, 1, setup)) : .89f;
-                    Aim(mat.position + Vector3.up * focus, hero.transform.TransformDirection(new Vector3(3.95f, .92f, Mathf.Lerp(-.62f, 1.03f, phase))), 44);
+                    Aim(mat.position + Vector3.up * focus, mat.TransformDirection(new Vector3(3.95f, .92f, Mathf.Lerp(-.62f, 1.03f, phase))), 44);
                 });
             }
             finally

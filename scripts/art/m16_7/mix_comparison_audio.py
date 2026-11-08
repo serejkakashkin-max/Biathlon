@@ -63,6 +63,7 @@ def compose(chapters):
     # only a trace outdoors, where the Foley should carry the comparison.
     air = loop(cues["menu_air"], count)
     first_snow = next(chapter["start_seconds"] for chapter in chapters["chapters"] if chapter["id"] == "skate")
+    staged_mat = any(chapter.get("pole_lay_seconds", -1) >= 0 for chapter in chapters["chapters"])
     air *= np.interp(np.arange(count) / RATE, [0, first_snow - .4, first_snow + .6, duration], [.52, .52, .13, .13])
     add(smooth_fade(air, .75, 1.1), 0, 1)
 
@@ -86,11 +87,15 @@ def compose(chapters):
             for plant, at in enumerate(chapter.get("pole_plant_seconds", [])):
                 add(cues[f"pole_{plant % 3}"], start + at, .35, .25)
                 add(cues[f"pole_{(plant + 1) % 3}"], start + at + .022, .21, -.20)
-            if scene == "entry":
+            if scene == "entry" and not staged_mat:
                 add(cues["pole_1"], start + length * .43, .23, .17)
         if scene in {"entry", "standing", "prone"}:
             add(smooth_fade(loop(cues["crowd"], size, index * 21111), .34, .48), start, .19, -.28)
         if scene in {"standing", "prone"}:
+            pole_lay = chapter.get("pole_lay_seconds", -1)
+            if pole_lay >= 0:
+                add(cues["pole_1"], start + pole_lay, .19, .22)
+                add(cues["pole_2"], start + pole_lay + .018, .16, .28)
             add(cues["bolt"], start + length * .72, .25, .13)
             # A quiet shot from an adjacent lane, outside the comparison image.
             distant = cues["rifle_0"].copy()

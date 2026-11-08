@@ -115,6 +115,112 @@ namespace Biathlon.PlayModeTests
             finally{Object.DestroyImmediate(root);}
         }
 
+        [Test]
+        public void BothRaceSetupsCarryPolesAcrossTheArrivalSeam()
+        {
+            var runner = ChampionshipRaceFactory.Create(Read, Fixture, CompetitionFormat.Sprint,
+                new BalanceEventAudit(5), new AiDecisionCounts(), count: 1);
+            var geometry = TrackVisualDefinition.FromJson(Read("stadium_visual_v1.json"), runner.Field.Track);
+            var root = new GameObject("Arrival transition witness");
+            try
+            {
+                var feed = root.AddComponent<RacePresentationFeed>();
+                var view = root.AddComponent<AthleteProxyPresentation>();
+                view.Initialize(feed, geometry, shootingDirection: Vector3.right);
+                string id = runner.Field.GetAthlete(0).AthleteId.Value;
+                var checkedStances = new System.Collections.Generic.HashSet<ShootingStance>();
+                Transform pole = null, leftPole = null;
+                Biathlete167Rig athlete = null;
+                Biathlete167RacePresentation visual = null;
+                Vector3 gripLocal = default, leftGripLocal = default;
+                ShootingPhase previousPhase = ShootingPhase.Outside;
+                bool leftLift = false, rightLift = false;
+                var gathered = new System.Collections.Generic.HashSet<ShootingStance>();
+                var laidTogether = new System.Collections.Generic.HashSet<ShootingStance>();
+                var evidence = new System.Collections.Generic.List<string> { "stance,held_gap_m,previous_instant_stow_gap_m" };
+                for (int tick = 0; tick < 20000 && !runner.Field.IsComplete; tick++)
+                {
+                    runner.Step();
+                    var snapshot = RacePresentationSnapshot.Capture(runner.Field);
+                    var state = snapshot.Get(0);
+                    feed.Publish(snapshot);
+                    view.Render(1);
+                    if (pole == null)
+                    {
+                        visual = view.GetRig(id).GetComponent<Biathlete167RacePresentation>();
+                        athlete = visual.Rig;
+                        pole = FindSkiPole(athlete.Bone(HumanBodyBones.RightHand));
+                        leftPole = FindSkiPole(athlete.Bone(HumanBodyBones.LeftHand));
+                        gripLocal = pole.InverseTransformPoint(athlete.GripContact(true).position);
+                        leftGripLocal = leftPole.InverseTransformPoint(athlete.GripContact(false).position);
+                    }
+                    if (state.ShootingPhase == ShootingPhase.Setup && previousPhase != ShootingPhase.Setup)
+                    {
+                        float gap = Vector3.Distance(pole.TransformPoint(gripLocal), athlete.GripContact(true).position);
+                        Assert.That(gap, Is.LessThan(.12f), $"{state.Stance}: poles must stay in the hands on arrival.");
+                        // Exercise the earlier immediate-stow presentation on the same accepted setup frame.
+                        visual.RenderShootingPreview(state.Stance, 0, state.Sight);
+                        float oldGap = Vector3.Distance(pole.TransformPoint(gripLocal), athlete.GripContact(true).position);
+                        Assert.That(oldGap, Is.GreaterThan(.35f));
+                        evidence.Add(FormattableString.Invariant($"{state.Stance},{gap},{oldGap}"));
+                        view.Render(1);
+                        checkedStances.Add(state.Stance);
+                    }
+                    if (state.ShootingPhase == ShootingPhase.Setup)
+                    {
+                        float phase = (float)state.ShootingPhaseElapsedTicks / state.ShootingPhaseDurationTicks;
+                        var rightGrip = pole.TransformPoint(gripLocal);
+                        var leftGrip = leftPole.TransformPoint(leftGripLocal);
+                        float separation = Vector3.Distance(leftGrip, rightGrip);
+                        if (phase >= .20f && phase <= .30f)
+                        {
+                            var hand = athlete.GripContact(true).position;
+                            if (separation > .02f && separation < .07f &&
+                                Vector3.Distance(hand, rightGrip) < .045f && Vector3.Distance(hand, leftGrip) < .045f &&
+                                Vector3.Distance(athlete.GripContact(false).position, leftGrip) > .09f)
+                                gathered.Add(state.Stance);
+                        }
+                        if (phase >= .87f && separation > .02f && separation < .08f)
+                        {
+                            var localRight = athlete.transform.InverseTransformPoint(rightGrip);
+                            var localLeft = athlete.transform.InverseTransformPoint(leftGrip);
+                            if (localRight.x > .24f && localLeft.x > .24f &&
+                                Mathf.Abs(localRight.y) < .10f && Mathf.Abs(localLeft.y) < .10f)
+                                laidTogether.Add(state.Stance);
+                        }
+                        if (state.Stance == ShootingStance.Standing)
+                        {
+                            float difference = athlete.ToeHinge(false).position.y - athlete.ToeHinge(true).position.y;
+                            leftLift |= difference > .02f;
+                            rightLift |= difference < -.02f;
+                        }
+                    }
+                    if (checkedStances.Count == 2 && state.ShootingPhase == ShootingPhase.Aiming) break;
+                    previousPhase = state.ShootingPhase;
+                }
+                Assert.That(checkedStances.Count, Is.EqualTo(2));
+                Assert.That(gathered.Count, Is.EqualTo(2), "Both grips must follow the right hand before being laid down.");
+                Assert.That(laidTogether.Count, Is.EqualTo(2), "Both poles must rest together on the right of the mat.");
+                Assert.That(leftLift && rightLift, Is.True, "Alternate ski lifts before the standing aim.");
+                const string folder = "artifacts/m16-7-range-smooth";
+                Directory.CreateDirectory(folder);
+                File.WriteAllLines(folder + "/held-grip-seam.csv", evidence);
+            }
+            finally { Object.DestroyImmediate(root); }
+        }
+
+        private static Transform FindSkiPole(Transform hand)
+        {
+            Transform pole = null;
+            float largest = 0;
+            foreach (var mesh in hand.GetComponentsInChildren<MeshFilter>(true))
+            {
+                float size = mesh.sharedMesh.bounds.size.sqrMagnitude;
+                if (size > largest) { largest = size; pole = mesh.transform; }
+            }
+            return pole;
+        }
+
         [TestCase(0f,false)]
         [TestCase(.08f,false)]
         [TestCase(0f,true)]

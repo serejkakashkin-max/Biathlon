@@ -63,6 +63,12 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
     muted = (163, 181, 194)
     accent = (123, 222, 224)
     total = sum(shot["frames"] for shot in shots)
+    staged_mat = any(shot.get("pole_lay_seconds", -1) >= 0 for shot in shots)
+    mat_captions = {
+        "entry": "Подъезд к коврику и торможение. Палки остаются в руках.",
+        "standing": "Обе палки в одной руке. Укладка, переступание и выход в стойку.",
+        "prone": "Палки кладутся вместе. Опора локтей и положение лыж.",
+    }
     summary = []
     thumbnails = {}
     ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
@@ -76,6 +82,8 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
         for index, shot in enumerate(shots):
             name = shot["id"]
             label, caption = CHAPTERS[name]
+            if staged_mat:
+                caption = mat_captions.get(name, caption)
             template = Image.new("RGB", (width, height), paper)
             draw = ImageDraw.Draw(template)
             draw.text((left, 12 if panel==1220 else 9), "BIATHLON: PULSE   /   ЭВОЛЮЦИЯ СПОРТСМЕНА", font=brand, fill=accent)
@@ -90,7 +98,8 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
             draw.text((width-padding, footer), "ОДИН МАСШТАБ  ·  ОДНА КАМЕРА", font=small, fill=muted, anchor="rt")
             summary.append({"id": name, "title_ru": label, "start_frame": written, "start_seconds": written/fps,
                             "frames": shot["frames"], "duration_seconds": shot["frames"]/fps,
-                            "pole_plant_seconds": shot.get("pole_plant_seconds", [])})
+                            "pole_plant_seconds": shot.get("pole_plant_seconds", []),
+                            "pole_lay_seconds": shot.get("pole_lay_seconds", -1)})
             for frame in range(shot["frames"]):
                 composed = template.copy()
                 for x, side in ((left, "game"), (right, "hero")):

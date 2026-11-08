@@ -150,11 +150,12 @@ namespace Biathlon.Unity.Presentation
                 double sampleDistance=position.LocalMeters,lateral=position.LateralMeters;
                 // Explicit physical mats preserve the accepted body center throughout setup,
                 // shooting and recovery. Legacy schematic adapters keep their previous pose.
-                float setupWeight=0;
+                float setupWeight=0, matEntryYaw=0;
                 if(state.ShootingActive)
                 {
                     float setup=AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks,alpha);
-                    setupWeight=Mathf.SmoothStep(0,1,setup);if(!preserveAcceptedShootingLine)lateral*=1-setupWeight;
+                    setupWeight=rigPrefab==null ? RangeMatMotion.Load().TurnWeight(setup) : Mathf.SmoothStep(0,1,setup);
+                    if(!preserveAcceptedShootingLine)lateral*=1-setupWeight;
                 }
                 if(finished&&!state.WorldPose.IsValid){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
                 var point=route.Sample(sampleDistance);
@@ -183,7 +184,12 @@ namespace Biathlon.Unity.Presentation
                 }
                 // The entry/exit tangent can be perpendicular to the target bank. Reuse the
                 // observed rifle timing to turn only the visible body, including its return.
-                go.transform.localRotation=shootingRotation.HasValue&&state.ShootingActive?Quaternion.Slerp(heading,shootingRotation.Value,setupWeight):heading;
+                if(shootingRotation.HasValue&&state.ShootingActive)
+                {
+                    matEntryYaw=Vector3.SignedAngle(heading*Vector3.forward,shootingRotation.Value*Vector3.forward,Vector3.up);
+                    go.transform.localRotation=Quaternion.Slerp(heading,shootingRotation.Value,setupWeight);
+                }
+                else go.transform.localRotation=heading;
                 double curvature=physicalPose.IsValid?state.CourseCurvaturePerMeter:VisualRouteCurvature.Sample(route,position.LocalMeters,motionSettings.corner_sample_half_span_m);
                 double grade=physicalPose.IsValid?state.CourseGrade:VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
                 if(chaseCamera!=null&&chaseCamera.Target==go.transform)chaseCamera.SetTerrainGrade((float)grade);
@@ -201,7 +207,7 @@ namespace Biathlon.Unity.Presentation
                     if(prior.AthleteId==state.AthleteId&&prior.OnCourse&&prior.LoopId==state.LoopId&&!prior.ShootingActive)
                         lateralSpeed=(state.LateralMeters-prior.LateralMeters)*current.TickFrequency/(current.Tick-previous.Tick);
                 }
-                var frame=new AthleteAnimationFrame(state,poseTick,current.TickFrequency,poseAlpha,finished?0:curvature,grade,lateralSpeed);
+                var frame=new AthleteAnimationFrame(state,poseTick,current.TickFrequency,poseAlpha,finished?0:curvature,grade,lateralSpeed,matEntryYaw);
                 // Include the complete body, skis, rifle and a margin for the next chase-camera update.
                 bool visibleShootingPose = !state.ShootingActive || !qualifyFrustum ||
                     GeometryUtility.TestPlanesAABB(poseFrustum, new Bounds(go.transform.position, Vector3.one * 4));
