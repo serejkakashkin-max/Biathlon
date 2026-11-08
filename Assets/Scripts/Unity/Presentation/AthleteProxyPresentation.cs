@@ -25,6 +25,12 @@ namespace Biathlon.Unity.Presentation
         private SnowSprayPresentation snowSpray;
         private BreathVaporPresentation breathVapor;
         private AthleteEquipmentBatches equipmentBatches;
+        private Func<Vector3,float> visualGround;
+        public void SetVisualGroundSurface(Func<Vector3,float> height)
+        {
+            visualGround=height??throw new ArgumentNullException(nameof(height));
+            foreach(var adapter in animation.Values)adapter.Rig.GetComponent<Biathlete167RacePresentation>()?.SetGroundSurface(height);
+        }
         private FinishStagingSettings finishStaging;
         private Quaternion? shootingRotation;
         private bool preserveAcceptedShootingLine;
@@ -54,7 +60,12 @@ namespace Biathlon.Unity.Presentation
             careerBibs=leaders;
             if(animation.Count==0)return;
             equipmentBatches.Clear();
-            foreach(var entry in animation){ApplyCareerAppearance(entry.Key,entry.Value.Rig);equipmentBatches.Register(entry.Value.Rig);}
+            foreach(var entry in animation){ApplyCareerAppearance(entry.Key,entry.Value.Rig);RegisterEquipment(entry.Value.Rig);}
+        }
+        private void RegisterEquipment(AthleteRigBinding rig)
+        {
+            var upgraded=rig.GetComponent<Biathlete167RacePresentation>();
+            equipmentBatches.RegisterVisual(upgraded!=null?upgraded.Rig.transform:rig.transform);
         }
         private void ApplyCareerAppearance(string athleteId,AthleteRigBinding rig)
         {
@@ -89,7 +100,7 @@ namespace Biathlon.Unity.Presentation
                 direction=Quaternion.LookRotation(new Vector3(value.x,0,value.z).normalized,Vector3.up);
             }
             Clear();careerSkis.Clear();careerNations.Clear();careerBibs=null;prestartAthleteId=null;feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
-            rigPrefab=template;
+            rigPrefab=template;visualGround=null;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
             finishStaging=FinishStagingSettings.Load();
@@ -116,7 +127,9 @@ namespace Biathlon.Unity.Presentation
                     var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetNumber(i+1);
                     rig.GetComponent<AthleteAppearancePresentation>()?.ApplyIdentity(state.AthleteId);
                     ApplyCareerAppearance(state.AthleteId,rig);
-                    equipmentBatches.Register(rig);
+                    rig.transform.localPosition=Vector3.down;
+                    if(rigPrefab==null)Biathlete167RacePresentation.Attach(rig).SetGroundSurface(visualGround);
+                    RegisterEquipment(rig);
                     rig.transform.localPosition=Vector3.down;
                     var adapter=go.AddComponent<AthleteAnimationPresentation>();adapter.Initialize(rig);
                     proxies.Add(state.AthleteId,go);animation.Add(state.AthleteId,adapter);

@@ -32,7 +32,7 @@ namespace Biathlon.PlayModeTests
         public void SkatingTracksTheKneesWithoutExaggeratedPelvisSway(Biathlete167Action action)
         {
             float leftmost = float.PositiveInfinity, rightmost = float.NegativeInfinity;
-            float bow = 0, elbowPeak = 0;
+            float bow = 0, elbowPeak = 0, footLeft = float.PositiveInfinity, footRight = float.NegativeInfinity;
             var records = new List<string> { "phase,side,hip_x_m,knee_outward_m,elbow_deg" };
             for (int frame = 0; frame <= 512; frame++)
             {
@@ -44,6 +44,8 @@ namespace Biathlon.PlayModeTests
                     var hip = rig.Bone(side == 0 ? HumanBodyBones.LeftUpperLeg : HumanBodyBones.RightUpperLeg).position;
                     var knee = rig.Bone(side == 0 ? HumanBodyBones.LeftLowerLeg : HumanBodyBones.RightLowerLeg).position;
                     var foot = rig.Bone(side == 0 ? HumanBodyBones.LeftFoot : HumanBodyBones.RightFoot).position;
+                    float footX = rig.transform.InverseTransformPoint(foot).x;
+                    footLeft = Mathf.Min(footLeft, footX); footRight = Mathf.Max(footRight, footX);
                     var shoulder = rig.Bone(side == 0 ? HumanBodyBones.LeftUpperArm : HumanBodyBones.RightUpperArm).position;
                     var elbow = rig.Bone(side == 0 ? HumanBodyBones.LeftLowerArm : HumanBodyBones.RightLowerArm).position;
                     var hand = rig.Bone(side == 0 ? HumanBodyBones.LeftHand : HumanBodyBones.RightHand).position;
@@ -58,8 +60,9 @@ namespace Biathlon.PlayModeTests
             File.WriteAllLines(folder + "/" + action + ".csv", records);
             TestContext.WriteLine($"{action}: pelvis span {rightmost-leftmost:F3} m, outward knee {bow:F3} m, elbow {elbowPeak:F1} degrees");
             var defects = new List<string>();
-            if (rightmost-leftmost < .045f) defects.Add("The pelvis lost its weight transfer entirely");
-            if (rightmost-leftmost > .12f) defects.Add($"Exaggerated lateral pelvis sway: {rightmost-leftmost:F3} m");
+            // Owner requests a quiet body; the skate push must remain active.
+            if (footRight-footLeft < .25f) defects.Add("The legs lost their skating push");
+            if (rightmost-leftmost > .001f) defects.Add($"Periodic lateral pelvis sway: {rightmost-leftmost:F3} m");
             if (bow > .06f) defects.Add($"Outward-bowed knee: {bow:F3} m");
             float elbowLimit = action == Biathlete167Action.Uphill ? 145 : action == Biathlete167Action.Skate ? 155 : 165;
             if (elbowPeak > elbowLimit) defects.Add($"Overextended arm in {action}: {elbowPeak:F1} degrees");

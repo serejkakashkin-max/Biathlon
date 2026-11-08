@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8984985ba20bcf44aa87a114a65677f, type: 3}
+  m_Name: RaceVisual
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.Biathlete167RaceDefinition
+  schema_version: 1
+  id: m167_race_visual_v1
+  athlete: {fileID: 3338516703075252463, guid: 2831ea8ff00370d41be83d82ed1dc587, type: 3}
+  bibMaterial: {fileID: 2100000, guid: 16352cdb084a91e4cb47454481963d11, type: 2}
+  bodies:
+  - id: slim
+    width: 0.96
+    depth: 0.98
+  - id: natural
+    width: 1
+    depth: 1
+  - id: athletic
+    width: 1.04
+    depth: 1.02
+  skis:
+  - id: ski_neutral
+    material: {fileID: 2100000, guid: d193776a2e7323a4ea9314eed104ddc3, type: 2}
+  - id: ski_glide
+    material: {fileID: 2100000, guid: 3e302b4e2c8964a4b837f3b621c9d99c, type: 2}
+  - id: ski_soft_specialist
+    material: {fileID: 2100000, guid: fe4140258dd670b4ca8c43df5db1132f, type: 2}
+  - id: ski_cold_race
+    material: {fileID: 2100000, guid: 30eb824f772297f4c8327b8caeebe6bd, type: 2}
+  - id: ski_fresh_float
+    material: {fileID: 2100000, guid: 706a552668042bd438546cc6420119b9, type: 2}
+  - id: ski_wet_channel
+    material: {fileID: 2100000, guid: f4c9b30eb84754c4cb5daab8ff9b76aa, type: 2}
+  - id: ski_ice_edge
+    material: {fileID: 2100000, guid: 36daa97b07c1a0f4f89861f173d2d3e1, type: 2}
+  - id: ski_soft_control
+    material: {fileID: 2100000, guid: be911ee437bdc1a409fbfbea42642a18, type: 2}
+  narrowShoulderScale: 0.96
+  wideShoulderScale: 1.04
+  bodyHeightBand: {x: 0.65, y: 0.98, z: 1.38, w: 1.52}
+  bodySideBand: {x: 0.13, y: 0.26}
+  maximumWidthMorph: 0.12
+  maximumDepthMorph: 0.1

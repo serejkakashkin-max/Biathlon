@@ -47,8 +47,16 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
     body = ImageFont.truetype(regular, 20)
     tag = ImageFont.truetype(bold, 20)
     small = ImageFont.truetype(regular, 16)
-    width, height = 1512, 900
-    padding, panel, image_y = 24, 720, 108
+    panel = studio["width"]
+    assert panel in (720,1220) and woodland["width"] == panel
+    width, height = (2560,1440) if panel == 1220 else (1512,900)
+    padding, image_y = (40,150) if panel == 1220 else (24,108)
+    if panel == 1220:
+        brand = ImageFont.truetype(bold,28)
+        title_font = ImageFont.truetype(bold,48)
+        body = ImageFont.truetype(regular,27)
+        tag = ImageFont.truetype(bold,28)
+        small = ImageFont.truetype(regular,24)
     left, right = padding, width - padding - panel
     paper = (9, 17, 26)
     main = (231, 242, 245)
@@ -70,14 +78,16 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
             label, caption = CHAPTERS[name]
             template = Image.new("RGB", (width, height), paper)
             draw = ImageDraw.Draw(template)
-            draw.text((left, 9), "BIATHLON: PULSE   /   М16.7", font=brand, fill=accent)
-            draw.text((left, 35), label, font=title_font, fill=main)
-            draw.text((width-padding, 31), f"{index+1:02d}  /  {len(shots):02d}", font=body, fill=muted, anchor="rt")
-            for x, text, color in ((left, "В ИГРЕ  ·  G2", muted), (right, "НОВЫЙ СПОРТСМЕН  ·  М16.7", accent)):
-                draw.rounded_rectangle((x, 85, x+panel, 107), radius=4, fill=(22, 36, 47))
-                draw.text((x+9, 95), text, font=tag, fill=color, anchor="lm")
-            draw.text((left, 847), caption, font=body, fill=main)
-            draw.text((width-padding, 847), "UNITY  ·  ОДИНАКОВАЯ КАМЕРА", font=small, fill=muted, anchor="rt")
+            draw.text((left, 12 if panel==1220 else 9), "BIATHLON: PULSE   /   ЭВОЛЮЦИЯ СПОРТСМЕНА", font=brand, fill=accent)
+            draw.text((left, 48 if panel==1220 else 35), label, font=title_font, fill=main)
+            draw.text((width-padding, 55 if panel==1220 else 31), f"{index+1:02d}  /  {len(shots):02d}", font=body, fill=muted, anchor="rt")
+            tag_top=image_y-(34 if panel==1220 else 23)
+            for x, text, color in ((left, "ДО ОБНОВЛЕНИЯ  ·  G2", muted), (right, "ПОСЛЕ ОБНОВЛЕНИЯ  ·  М16.7", accent)):
+                draw.rounded_rectangle((x, tag_top, x+panel, image_y-1), radius=4, fill=(22, 36, 47))
+                draw.text((x+9, (tag_top+image_y-1)/2), text, font=tag, fill=color, anchor="lm")
+            footer=image_y+panel+18
+            draw.text((left, footer), caption, font=body, fill=main)
+            draw.text((width-padding, footer), "ОДИН МАСШТАБ  ·  ОДНА КАМЕРА", font=small, fill=muted, anchor="rt")
             summary.append({"id": name, "title_ru": label, "start_frame": written, "start_seconds": written/fps,
                             "frames": shot["frames"], "duration_seconds": shot["frames"]/fps})
             for frame in range(shot["frames"]):
@@ -89,8 +99,8 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
                         assert max(ImageStat.Stat(picture.resize((12, 12))).mean) > 8, f"Blank capture {path}"
                         composed.paste(picture, (x, image_y))
                 progress = ImageDraw.Draw(composed)
-                progress.rectangle((left, 883, width-padding, 886), fill=(36, 55, 67))
-                progress.rectangle((left, 883, left+(width-padding-left)*(written+1)/total, 886), fill=accent)
+                progress.rectangle((left, height-17, width-padding, height-14), fill=(36, 55, 67))
+                progress.rectangle((left, height-17, left+(width-padding-left)*(written+1)/total, height-14), fill=accent)
                 showcase_phase = .83 if name in ("standing", "prone", "skis_top") else .5
                 showcase = int(shot["frames"] * showcase_phase)
                 if frame == showcase:
@@ -109,8 +119,8 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
     draw.text((24, 17), "М16.7  /  ДЕТАЛИ СПОРТСМЕНА", font=title_font, fill=main)
     for row, names in enumerate((("face", "rifle"), ("skis_top" if "skis_top" in thumbnails else "skis", "prone"))):
         for column, name in enumerate(names):
-            preview = thumbnails[name].resize((720, 428), Image.Resampling.LANCZOS)
-            board.paste(preview, (24 + column*744, 62 + row*436))
+            preview = thumbnails[name].resize((720, round(height*720/width)), Image.Resampling.LANCZOS)
+            board.paste(preview, (24 + column*744, 62 + row*436+(428-preview.height)//2))
     board.save(destination / "details.jpg", quality=93)
     if "skis_top" in thumbnails:
         thumbnails["skis_top"].save(destination / "skis-top.jpg", quality=95)

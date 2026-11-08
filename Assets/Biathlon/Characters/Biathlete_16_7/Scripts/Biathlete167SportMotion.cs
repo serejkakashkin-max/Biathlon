@@ -218,7 +218,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(action<Biathlete167Action.Skate||action>Biathlete167Action.EnterProne||!float.IsFinite(normalizedPhase)||normalizedPhase<0||normalizedPhase>1)throw new ArgumentOutOfRangeException(nameof(normalizedPhase));
             Action=action;Phase=normalizedPhase;MaximumReachResidualMeters=MaximumWristBendDegrees=MaximumWristTwistDegrees=MaximumForearmPronationDegrees=MaximumPalmFitResidualMeters=0;RifleTransfer=EyewearLift=0;RestoreProps();
-            if(!configured){main.SourceDriver.Configure(ski);configured=true;}
+            ConfigureEvaluatedSource();
             if(action==Biathlete167Action.Skate||action==Biathlete167Action.Acceleration||action==Biathlete167Action.Uphill)
             {CarryVisible(true);Travel(action,normalizedPhase);return;}
             if(action==Biathlete167Action.RangeEntry){CarryVisible(true);Approach(normalizedPhase);return;}
@@ -241,6 +241,11 @@ namespace Biathlon.Unity.Presentation
             float cycle = sprint ? d.acceleration_duration_s * (d.sprint_start_cadence_hz * phase +
                 (d.sprint_end_cadence_hz - d.sprint_start_cadence_hz) * cadenceIntegral) : phase;
             main.Evaluate(cycle);
+            ApplyTravelPresentation(style, grade);
+        }
+
+        private void ApplyTravelPresentation(TravelStyle style, float grade)
+        {
             float stride = (float)main.SourceDriver.Cycle;
             shootingSkis.ApplyGlide(stride, ski.glide_fraction, grade, style.ski_recovery_m,
                 d.travel_ski_clearance_m, style.pelvis_follow, style.handoff_fraction, style.glide_extension_m,
@@ -253,6 +258,48 @@ namespace Biathlon.Unity.Presentation
             bones[4].rotation = gaze;
             FitTravelPole(0, normal, style);
             FitTravelPole(1, normal, style);
+        }
+
+        public void RenderEvaluatedRace(AthleteAnimationFrame frame)
+        {
+            if(frame.Athlete.ShootingActive)
+            {
+                RenderEvaluatedShooting(frame.Athlete.Stance,frame.ShootingProgress,frame.Athlete.Sight,(float)frame.Athlete.BreathingPhaseCycles);
+                return;
+            }
+            RenderEvaluatedTravel((float)frame.PresentationGrade);
+        }
+
+        public void ConfigureEvaluatedSource()
+        {
+            if(!configured){main.SourceDriver.Configure(ski);configured=true;}
+        }
+
+        private Quaternion evaluatedSightRotation=Quaternion.identity;
+        public void RenderEvaluatedShooting(Biathlon.Domain.ShootingStance stance,float progress,WeaponAimState sight,float breathPhase)
+        {
+            var ray=sight.Ray;
+            evaluatedSightRotation=Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ));
+            bool prone=stance==Biathlon.Domain.ShootingStance.Prone;
+            Action=prone?Biathlete167Action.Prone:Biathlete167Action.Standing;
+            main.RetargetEvaluatedSource(true);
+            RangePose(prone,progress,breathPhase,true);
+            ApplyEyewear(Smooth(Mathf.InverseLerp(0,d.setup_pose_blend_end,progress)));
+        }
+
+        public void RenderEvaluatedTravel(float grade)
+        {
+            CarryVisible(true);
+            main.RetargetEvaluatedSource();
+            var state=main.SourceDriver.MotionState;
+            if(state==SkiMotionState.Flat||state==SkiMotionState.FastSkate||state==SkiMotionState.MaxSprint||
+                state==SkiMotionState.Uphill||state==SkiMotionState.SteepUphill||state==SkiMotionState.Fatigued)
+            {
+                var style=state==SkiMotionState.MaxSprint?d.sprint_style:
+                    state==SkiMotionState.Uphill||state==SkiMotionState.SteepUphill?d.uphill_style:d.flat_style;
+                ApplyTravelPresentation(style,grade);
+            }
+            ApplyEyewear(rig.PreviewEyewearRaised?1:0);
         }
 
         private void FitTravelPole(int side, Vector3 normal, TravelStyle style)
@@ -311,13 +358,13 @@ namespace Biathlon.Unity.Presentation
             if(gesture>0)Grip(true,EyewearPoint(d.eyewear_touch_point),-root.forward,-root.up,d.standing_right_elbow_hint,gesture);
             StowPoles(release,true);
         }
-        private void RangePose(bool prone,float progress,float breathPhase)
+        private void RangePose(bool prone,float progress,float breathPhase,bool referenceEvaluated=false)
         {
             var curve=prone?d.prone_right_elbow_curve:d.standing_right_elbow_curve;rightElbowGuide=authoringRightElbowGuide;
             if(!rightElbowGuide.HasValue&&curve!=null&&curve.Length>=2){float at=progress*(curve.Length-1);int i=Mathf.Min((int)at,curve.Length-2);rightElbowGuide=Vector3.Lerp(curve[i],curve[i+1],at-i);}
             // Keep the shipping body choreography. Adapt the imported prop,
             // initial contact handover and anatomical equipment clearances.
-            main.EvaluateShooting(prone?Biathlon.Domain.ShootingStance.Prone:Biathlon.Domain.ShootingStance.Standing,progress);
+            if(!referenceEvaluated)main.EvaluateShooting(prone?Biathlon.Domain.ShootingStance.Prone:Biathlon.Domain.ShootingStance.Standing,progress);
             if(progress<d.setup_pose_blend_end)
             {
                 int stance=prone?1:0;float blend=Smooth(progress/d.setup_pose_blend_end);for(int i=0;i<bones.Length;i++)savedRotations[i]=bones[i].rotation;
@@ -343,7 +390,7 @@ namespace Biathlon.Unity.Presentation
             var buttPoint=d.rifle_butt_local;
             var carryButt=rig.Rifle.TransformPoint(buttPoint);var carryRotation=rig.Rifle.rotation;
             float transfer=Smooth(Mathf.InverseLerp(d.rifle_removal_start,d.rifle_removal_end,progress));RifleTransfer=transfer;
-            var authoredRotation=main.ShootingReadyRotation*Quaternion.AngleAxis(90,Vector3.forward);
+            var authoredRotation=main.ShootingReadyRotation*(referenceEvaluated?evaluatedSightRotation:Quaternion.identity)*Quaternion.AngleAxis(90,Vector3.forward);
             var rotation=Quaternion.Slerp(carryRotation,authoredRotation,Smooth(Mathf.InverseLerp(d.rifle_turn_start,d.rifle_turn_end,transfer)));
             var sourceButt=bones[8].position+root.TransformVector(prone?d.prone_shoulder_pocket:d.standing_shoulder_pocket);
             if (prone)

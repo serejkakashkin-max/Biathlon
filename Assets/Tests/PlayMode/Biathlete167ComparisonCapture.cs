@@ -22,9 +22,11 @@ namespace Biathlon.PlayModeTests
     {
         private const string Hero = "Assets/Biathlon/Characters/Biathlete_16_7";
         private const string Venue = "Biathlon/Venues/woodland_basin_v1/";
-        private const string Output = "artifacts/m16-7-skate-tracking/native";
+        private static bool HighQuality => File.Exists("artifacts/m16-7-race-integration/capture-hq.flag");
+        private static string Output => HighQuality ? "artifacts/m16-7-race-integration/youtube-native" : "artifacts/m16-7-race-integration/native";
         private const int OldLayer = 27, NewLayer = 28;
-        private const int Fps = 24;
+        private static int Fps => HighQuality ? 30 : 24;
+        private static int FeedSize => HighQuality ? 1220 : 720;
         private GameObject fixture;
         private Camera view;
         private Biathlete167Rig hero;
@@ -46,7 +48,7 @@ namespace Biathlon.PlayModeTests
 
         [Serializable] private sealed class Receipt
         {
-            public int schema_version = 1, fps = Fps, width = 720, height = 720;
+            public int schema_version = 1, fps = Fps, width = FeedSize, height = FeedSize;
             public string id, original_asset = AthleteRigFactory.HeroResourcePath, candidate_asset = Hero + "/Prefabs/Biathlete_16_7_Natural.prefab";
             public Shot[] shots;
         }
@@ -207,7 +209,7 @@ namespace Biathlon.PlayModeTests
             }
         }
 
-        [UnityTest, Timeout(420000)] public IEnumerator CaptureStudio()
+        [UnityTest, Timeout(900000)] public IEnumerator CaptureStudio()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(Hero + "/Preview/Biathlete_16_7_Preview.unity", new LoadSceneParameters(LoadSceneMode.Single));
             yield return null;
@@ -289,7 +291,7 @@ namespace Biathlon.PlayModeTests
             }
         }
 
-        [UnityTest, Timeout(540000)] public IEnumerator CaptureWoodland()
+        [UnityTest, Timeout(900000)] public IEnumerator CaptureWoodland()
         {
             // A fresh scene prevents studio lights and another camera from affecting the snow.
             var previous = SceneManager.GetActiveScene();

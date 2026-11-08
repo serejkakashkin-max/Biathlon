@@ -60,6 +60,10 @@ namespace Biathlon.Unity.Presentation
             rifle=Rig.GetComponent<AthleteRiflePresentation>();contact=Rig.GetComponent<AthleteGroundContact>();grip=Rig.GetComponent<AthleteGripPresentation>();
             Rig.GetComponent<AthleteBibPresentation>().SetNumber(1);
             Rig.GetComponent<AthleteAppearancePresentation>().ApplyNation("NOR");
+            var upgraded=Biathlete167RacePresentation.Attach(Rig);
+            upgraded.Rig.Lods.ForceLOD(0);
+            foreach(var skin in upgraded.Rig.GetComponentsInChildren<SkinnedMeshRenderer>())
+            {skin.updateWhenOffscreen=true;skin.forceMatrixRecalculationPerRender=true;skin.reflectionProbeUsage=ReflectionProbeUsage.Off;}
             foreach(var renderer in Rig.GetComponentsInChildren<SkinnedMeshRenderer>())
             {renderer.updateWhenOffscreen=true;renderer.forceMatrixRecalculationPerRender=true;renderer.reflectionProbeUsage=ReflectionProbeUsage.Off;}
             var cameraObject=new GameObject("Character studio camera",typeof(Camera));cameraObject.transform.SetParent(stage.transform,false);
@@ -110,6 +114,7 @@ namespace Biathlon.Unity.Presentation
             double time=animate?seconds:0;
             motion.Sample(Rig,input,time);rifle.Sample(Rig,0);
             contact.SampleMoving(Rig,0,motion.PoleCycle,motion.ContactState,0,time);motion.ApplySkiEdges(Rig);grip.Render(Rig);
+            Rig.GetComponent<Biathlete167RacePresentation>()?.RenderPreview();
         }
         private void LateUpdate(){if(Rig!=null){if(framedScale!=Rig.transform.localScale.x)UpdateView();SamplePose(Math.Max(0,Time.unscaledTimeAsDouble-started));}}
         private void OnDestroy()=>Release();

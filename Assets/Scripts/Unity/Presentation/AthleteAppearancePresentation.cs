@@ -46,6 +46,7 @@ namespace Biathlon.Unity.Presentation
                 }
             }
             profile=appearance;
+            GetComponent<Biathlete167RacePresentation>()?.RefreshAppearance();
         }
         public void ApplyIdentity(string stableId)
         {
@@ -57,6 +58,7 @@ namespace Biathlon.Unity.Presentation
             CosmeticVariant=(int)(hash%3);
             ApplyMorphs(faces);
             LoadPalette();ApplyVariant(current<0?0:current);
+            GetComponent<Biathlete167RacePresentation>()?.RefreshAppearance();
         }
         public void ApplyCosmeticSelection(string faceProfileId,int skinPaletteIndex,int buildIndex)
         {
@@ -67,6 +69,7 @@ namespace Biathlon.Unity.Presentation
             FaceVariant=selected;SkinVariant=skinPaletteIndex;CosmeticVariant=buildIndex;identity=null;
             profile=null;ResetDetails();
             ApplyMorphs(faces);LoadPalette();ApplyVariant(current<0?0:current);
+            GetComponent<Biathlete167RacePresentation>()?.RefreshAppearance();
         }
         private void ApplyMorphs(AthleteFaceCatalog faces)
         {
@@ -105,6 +108,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(string.IsNullOrWhiteSpace(nation))throw new ArgumentException("A saved nationality is required.",nameof(nation));
             LoadPalette();ApplyVariant(NationIndex(nation));Nation=nation;
+            GetComponent<Biathlete167RacePresentation>()?.RefreshAppearance();
         }
         public static Color NationGarmentColor(string nation,Vector3 bindPosition)
         {

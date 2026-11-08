@@ -54,6 +54,11 @@ namespace Biathlon.Unity.Presentation
         public int LoopCount=>loopIds?.Length??0;
         public Material GroomedMaterial=>material;
         public bool GroundJoined=>skirts!=null;
+        public Func<Vector3,float> CreateVisualGroundSampler(ProductionVenueEnvironment environment,float gridSpacing)
+        {
+            if(!GroundJoined||environment==null)throw new InvalidOperationException("Join the actual rendered snow before building its visual sampler.");
+            return new RenderedSnowSurface(generated.GetComponentsInChildren<MeshFilter>(),gridSpacing,environment.SampleGround).Height;
+        }
         public float MaximumEdgeGapMeters {get;private set;}
         public float SnowShoulderWidthMeters {get;private set;}
         public int TaperedSnowPanelCount {get;private set;}

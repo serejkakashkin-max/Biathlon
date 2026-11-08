@@ -21,6 +21,7 @@ namespace Biathlon.Unity.Presentation
             ApplySocket(rig.Socket(AthleteSocket.LeftSkiBinding), definition);
             ApplySocket(rig.Socket(AthleteSocket.RightSkiBinding), definition);
             SelectedEquipmentId = equipmentId;
+            rig.GetComponent<Biathlete167RacePresentation>()?.RefreshAppearance();
         }
         private static void ApplySocket(Transform socket, SkiAppearanceDefinition definition)
         {

@@ -47,6 +47,7 @@ namespace Biathlon.Unity.Presentation
             body.GetPropertyBlock(properties,materialIndex); properties.SetFloat(NumberProperty,number);
             body.SetPropertyBlock(properties,materialIndex); Number=number;
             var appearance=GetComponent<AthleteAppearancePresentation>();if(appearance!=null)appearance.Apply(number);
+            GetComponent<Biathlete167RacePresentation>()?.RefreshAppearance();
         }
         public void SetLeader(CareerLeaderBib role)
         {
@@ -59,6 +60,7 @@ namespace Biathlon.Unity.Presentation
             properties.SetColor(BaseColorProperty, a); properties.SetColor(SecondaryColorProperty, b);
             properties.SetFloat(SplitProperty, role == (CareerLeaderBib.Total | CareerLeaderBib.Discipline) ? 1 : 0);
             body.SetPropertyBlock(properties, materialIndex); LeaderRole = role;leaderApplied=true;
+            GetComponent<Biathlete167RacePresentation>()?.RefreshAppearance();
         }
     }
 }

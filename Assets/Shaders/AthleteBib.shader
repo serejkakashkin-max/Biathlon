@@ -8,6 +8,7 @@ Shader "Biathlon/AthleteBib"
   _InkColor("Printed ink",Color)=(.015,.045,.07,1)
   _Atlas("Original number atlas",2D)="white"{}
   _BibNumber("Registered entry ordinal",Float)=1
+  _HeroPages("Front/back UV pages",Float)=0
   _BumpMap("Audited fabric normal",2D)="bump"{}
   _RoughnessMap("Audited fabric roughness",2D)="white"{}
   _BumpScale("Normal strength",Float)=.3
@@ -25,7 +26,7 @@ Shader "Biathlon/AthleteBib"
   TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
   TEXTURE2D(_RoughnessMap);SAMPLER(sampler_RoughnessMap);
   CBUFFER_START(UnityPerMaterial)
-  half4 _BaseColor,_SecondaryColor,_InkColor;float _ColorSplit,_BibNumber,_BumpScale,_DetailTiling,_Smoothness;
+  half4 _BaseColor,_SecondaryColor,_InkColor;float _ColorSplit,_BibNumber,_BumpScale,_DetailTiling,_Smoothness,_HeroPages;
   CBUFFER_END
   struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;UNITY_VERTEX_INPUT_INSTANCE_ID};
   struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;half3 normalWS:TEXCOORD1;float2 uv:TEXCOORD2;half fog:TEXCOORD3;half4 tangentWS:TEXCOORD4;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
@@ -44,6 +45,7 @@ Shader "Biathlon/AthleteBib"
   {
    UNITY_SETUP_INSTANCE_ID(i);UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
    half white=1;float2 uv=i.uv;float number=clamp(round(_BibNumber),1,60);
+   if(_HeroPages>.5)uv.x=frac(uv.x*2);
    if(uv.y>.22&&uv.y<.73&&uv.x>.22&&uv.x<.78)
    {
     float2 local=(uv-float2(.22,.22))/float2(.56,.51);

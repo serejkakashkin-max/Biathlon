@@ -21,6 +21,8 @@ namespace Biathlon.Unity.Presentation
         private RifleSightSettings sightSettings;
         private Renderer[] playerRenderers;
         private bool[] playerWasEnabled;
+        private GameObject upgradedPlayerVisual;
+        private bool upgradedPlayerWasActive;
         private float targetHeight;
         private RifleSightPresentation rifleSight;
         private ShotImpactPresentation fallbackImpacts;
@@ -65,7 +67,14 @@ namespace Biathlon.Unity.Presentation
             bank.gameObject.SetActive(false);stage.transform.SetPositionAndRotation(Vector3.zero,Quaternion.identity);
             aimCamera.farClipPlane=sightSettings.far_clip_m;aimCamera.fieldOfView=sightSettings.field_of_view_deg;aimCamera.clearFlags=CameraClearFlags.Skybox;
             rifleSight=aimCamera.gameObject.AddComponent<RifleSightPresentation>();rifleSight.Initialize(sightSettings);
+            BindPlayerVisibility(playerRig);
+        }
+        public void BindPlayerVisibility(AthleteRigBinding playerRig)
+        {
+            if(stage==null||playerRig==null||playerRenderers!=null)throw new InvalidOperationException("Bind one player after range initialization.");
             playerRenderers=playerRig.GetComponentsInChildren<Renderer>(true);playerWasEnabled=new bool[playerRenderers.Length];
+            upgradedPlayerVisual=playerRig.GetComponent<Biathlete167RacePresentation>()?.Rig.gameObject;
+            upgradedPlayerWasActive=upgradedPlayerVisual!=null&&upgradedPlayerVisual.activeSelf;
         }
         public void Refresh()=>Render(0);
         public void Render(double alpha)
@@ -123,6 +132,9 @@ namespace Biathlon.Unity.Presentation
             if(value)capturedPlayerVisibility=true;
             if(playerRenderers!=null&&capturedPlayerVisibility)
                 for(int i=0;i<playerRenderers.Length;i++)if(playerRenderers[i]!=null)playerRenderers[i].enabled=playerWasEnabled[i]&&(!value||overview);
+            // The upgraded athlete is a sibling of the compatibility rig. Hide its
+            // whole root so animation cannot re-enable an instanced prop in the sight.
+            if(upgradedPlayerVisual!=null)upgradedPlayerVisual.SetActive(upgradedPlayerWasActive&&(!value||overview));
             Visible=value;
             if(stage!=null&&stage.activeSelf!=value)stage.SetActive(value);
             if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled&&!value;
@@ -156,7 +168,7 @@ namespace Biathlon.Unity.Presentation
                 GUI.DrawTexture(new Rect(Screen.width/2f-8,Screen.height/2f,16,1),Texture2D.whiteTexture);
                 GUI.DrawTexture(new Rect(Screen.width/2f,Screen.height/2f-8,1,16),Texture2D.whiteTexture);GUI.color=color;}
         }
-        private void Clear(){SetVisible(false);if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled;chaseCamera=null;if(stage!=null)Destroy(stage);bank=null;venue=null;environment=null;playerRenderers=null;rifleSight=null;capturedPlayerVisibility=false;overview=false;OverviewRequested=false;observedTick=-1;observedBout=-1;selectedIndex=-1;publishedAt=0;ObservedSight=default;Visible=false;}
+        private void Clear(){SetVisible(false);if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled;chaseCamera=null;if(stage!=null)Destroy(stage);bank=null;venue=null;environment=null;playerRenderers=null;upgradedPlayerVisual=null;rifleSight=null;capturedPlayerVisibility=false;overview=false;OverviewRequested=false;observedTick=-1;observedBout=-1;selectedIndex=-1;publishedAt=0;ObservedSight=default;Visible=false;}
         private void OnDestroy()=>Clear();
     }
 }

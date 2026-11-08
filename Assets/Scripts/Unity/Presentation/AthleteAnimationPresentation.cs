@@ -53,6 +53,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteDetailPresentation detail;
         private static AthleteImpactVisualSettings impactSettings;
         private AthleteImpactPresentation impact;
+        private Biathlete167RacePresentation upgradedVisual;
         public AthleteDetailPresentation Detail => detail;
         public AthleteRigBinding Rig => rig;
         public AthleteAnimationFrame LastFrame { get; private set; }
@@ -68,6 +69,7 @@ namespace Biathlon.Unity.Presentation
             contact = binding.GetComponent<AthleteGroundContact>();
             grip = binding.GetComponent<AthleteGripPresentation>();
             detail = new AthleteDetailPresentation(binding);
+            upgradedVisual = binding.GetComponent<Biathlete167RacePresentation>();
             impactSettings??=AthleteImpactVisualSettings.Load();impact=new AthleteImpactPresentation(impactSettings);
         }
 
@@ -95,6 +97,7 @@ namespace Biathlon.Unity.Presentation
             rig.ModelRoot.SetLocalPositionAndRotation(modelPosition, modelRotation);
             transform.SetLocalPositionAndRotation(position, rotation);
             transform.localScale = scale;
+            upgradedVisual?.Render(frame,detail.Distant);
         }
     }
 }

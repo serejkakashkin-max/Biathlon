@@ -146,6 +146,7 @@ namespace Biathlon.Unity.Presentation
             {
                 environment.Initialize(Venue,definition,presentationRead??ReadResource,Feed,ChaseCamera,range.AimCamera,apron:Course.Apron);
                 Course.JoinGround(environment,definition.terrain.grid_spacing_m,environment.TerrainGridOrigin);
+                Proxies.SetVisualGroundSurface(Course.CreateVisualGroundSampler(environment,definition.terrain.grid_spacing_m));
                 if(!string.IsNullOrEmpty(definition.terrain.snow_material_preset))
                 {
                     SnowMaterialDefinition.Load().ConfigureBlended(Course.GroomedMaterial,definition.terrain.snow_material_preset,definition.terrain.snow_surface_profile);

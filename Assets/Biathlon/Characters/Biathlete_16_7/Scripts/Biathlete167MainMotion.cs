@@ -7,7 +7,7 @@ using Object=UnityEngine.Object;
 namespace Biathlon.Unity.Presentation
 {
     /// <summary>Retargets the actual production G2 pose pipeline to the imported athlete.
-    /// The donor is invisible and receives synthetic preview inputs only. No race host exists.
+    /// A studio owns an invisible donor; the race borrows its already evaluated compatibility rig.
     /// Bone directions/angles come from the game's drivers; this class authors no skating cycle.</summary>
     public sealed class Biathlete167MainMotion:IDisposable
     {
@@ -39,6 +39,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Renderer[] hiddenRenderers;
         private readonly bool[] referenceRendererStates;
         private bool referenceVisible;
+        private readonly bool ownsSource;
         public AthleteRigBinding SourceRig{get;}
         public AthleteHybridLocomotionDriver SourceDriver{get;}
         public SkiMotionState State{get;set;}=SkiMotionState.Flat;
@@ -46,18 +47,23 @@ namespace Biathlon.Unity.Presentation
         public float CycleSeconds{get;private set;}
         public float Phase{get;private set;}
 
-        public Biathlete167MainMotion(Biathlete167Rig binding)
+        public Biathlete167MainMotion(Biathlete167Rig binding, AthleteRigBinding evaluatedSource = null)
         {
             target=binding??throw new ArgumentNullException(nameof(binding));target.Validate();target.SetPose(0);root=target.transform;
-            SourceRig=AthleteRigFactory.Create(root.parent);SourceRig.name="Main athlete motion reference";
-            SourceRig.transform.SetPositionAndRotation(root.position,root.rotation);
-            SourceRig.gameObject.hideFlags=HideFlags.DontSave;
+            ownsSource = evaluatedSource == null;
+            SourceRig=evaluatedSource ?? AthleteRigFactory.Create(root.parent);
+            if (ownsSource)
+            {
+                SourceRig.name="Main athlete motion reference";
+                SourceRig.transform.SetPositionAndRotation(root.position,root.rotation);
+                SourceRig.gameObject.hideFlags=HideFlags.DontSave;
+            }
             hiddenRenderers=SourceRig.GetComponentsInChildren<Renderer>(true);
             referenceRendererStates=new bool[hiddenRenderers.Length];
-            for(int i=0;i<hiddenRenderers.Length;i++){referenceRendererStates[i]=hiddenRenderers[i].enabled;hiddenRenderers[i].enabled=false;}
+            for(int i=0;i<hiddenRenderers.Length;i++){referenceRendererStates[i]=hiddenRenderers[i].enabled;if(ownsSource)hiddenRenderers[i].enabled=false;}
             // The factory's runtime components remain callable as ordinary C# objects;
             // no independent Update/LateUpdate is allowed to alter the reference pose.
-            foreach(var component in SourceRig.GetComponentsInChildren<MonoBehaviour>(true))component.enabled=false;
+            if(ownsSource)foreach(var component in SourceRig.GetComponentsInChildren<MonoBehaviour>(true))component.enabled=false;
             SourceDriver=SourceRig.GetComponent<AthleteHybridLocomotionDriver>();SourceDriver.UseOriginalMotion=false;
             rifle=SourceRig.GetComponent<AthleteRiflePresentation>();contact=SourceRig.GetComponent<AthleteGroundContact>();
             shooting=SourceRig.GetComponent<AthleteShootingPose>();
@@ -74,7 +80,7 @@ namespace Biathlon.Unity.Presentation
             settings=JsonUtility.FromJson<ContactSettings>(target.ContactDefinition.text);settings.Validate();
             leftPole=ReadPole(to[7],target.GripContact(false),target.TuckGripContact(false));rightPole=ReadPole(to[10],target.GripContact(true),target.TuckGripContact(true));
             leftFoot=ReadFoot(false,13);rightFoot=ReadFoot(true,16);
-            SampleReference(0);CycleSeconds=SourceDriver.CadenceHz>.0001f?1/SourceDriver.CadenceHz:1;target.SetPose(0);
+            if(ownsSource)SampleReference(0);CycleSeconds=SourceDriver.CadenceHz>.0001f?1/SourceDriver.CadenceHz:1;target.SetPose(0);
         }
 
         public void Evaluate(float phase)
@@ -85,6 +91,14 @@ namespace Biathlon.Unity.Presentation
             SourceRig.transform.SetPositionAndRotation(root.position,root.rotation);
             var input=PreviewInput??SkiMotionComparison.Input(State);SourceDriver.Sample(SourceRig,input,100,ReferenceExertion());
             CycleSeconds=SourceDriver.CadenceHz>.0001f?1/SourceDriver.CadenceHz:1;SampleReference(Phase*CycleSeconds);
+            RetargetEvaluatedSource();
+        }
+
+        /// <summary>Consume the existing race pose once, without sampling time or advancing any state.</summary>
+        public void RetargetEvaluatedSource(bool shooting = false)
+        {
+            target.SetPose(0,true);
+            target.SetTuckGrip(ContactAdaptationEnabled && SourceDriver.MotionState == SkiMotionState.Tuck);
             // Retarget in world directions. The imported bind axes differ from G2;
             // copying local Euler angles would twist the arms and reverse the knees.
             to[0].position=root.TransformPoint(hipBind+root.InverseTransformPoint(from[0].position)-sourceHipBind);
@@ -93,8 +107,11 @@ namespace Biathlon.Unity.Presentation
             MaximumWristBendDegrees=MaximumWristTwistDegrees=MaximumForearmRollDegrees=MaximumBindingResidualMeters=MaximumHeelRiseDegrees=PelvisClearanceLiftMeters=0;
             if(ContactAdaptationEnabled)
             {
-                if(State==SkiMotionState.Tuck){LiftTuckPelvis();ApplyTuckHand(leftPole,6,7);ApplyTuckHand(rightPole,9,10);}
-                else{ApplyPole(leftPole,equipment.LeftPole,6,7);ApplyPole(rightPole,equipment.RightPole,9,10);}
+                if(!shooting)
+                {
+                    if(SourceDriver.MotionState==SkiMotionState.Tuck){LiftTuckPelvis();ApplyTuckHand(leftPole,6,7);ApplyTuckHand(rightPole,9,10);}
+                    else{ApplyPole(leftPole,equipment.LeftPole,6,7);ApplyPole(rightPole,equipment.RightPole,9,10);}
+                }
                 ApplyFoot(leftFoot);ApplyFoot(rightFoot);
             }
         }
@@ -109,7 +126,7 @@ namespace Biathlon.Unity.Presentation
             contact.SampleMoving(SourceRig,input.Grade,SourceDriver.PoleCycle,SourceDriver.ContactState,0,time+10);
             contact.SampleMoving(SourceRig,input.Grade,SourceDriver.PoleCycle,SourceDriver.ContactState,0,time);
             SourceDriver.ApplySkiEdges(SourceRig);grip.Render(SourceRig);
-            for(int i=0;i<hiddenRenderers.Length;i++){referenceRendererStates[i]=hiddenRenderers[i].enabled;hiddenRenderers[i].enabled=referenceVisible&&referenceRendererStates[i];}
+            for(int i=0;i<hiddenRenderers.Length;i++){referenceRendererStates[i]=hiddenRenderers[i].enabled;hiddenRenderers[i].enabled=(!ownsSource||referenceVisible)&&referenceRendererStates[i];}
         }
 
         private ExertionInput ReferenceExertion()=>State==SkiMotionState.Fatigued?new ExertionInput(.7f,.2f,185):new ExertionInput(0,1,140);
@@ -319,7 +336,7 @@ namespace Biathlon.Unity.Presentation
         }
 
         public void Stop()=>target.SetPose(0);
-        public void Dispose(){if(SourceRig!=null){if(Application.isPlaying)Object.Destroy(SourceRig.gameObject);else Object.DestroyImmediate(SourceRig.gameObject);}}
+        public void Dispose(){if(ownsSource&&SourceRig!=null){if(Application.isPlaying)Object.Destroy(SourceRig.gameObject);else Object.DestroyImmediate(SourceRig.gameObject);}}
         private sealed class Prop{public Transform Transform,Hand,Contact,TuckContact;public Vector3 Axis,ForearmAxis,GripInHand,TuckGripInHand,ModelOriginFromGrip;public Quaternion ContactInHand,TuckContactInHand,ModelRotationFromGrip,HandInForearm;public float Side;}
         private sealed class FootContact{public int Index;public Transform Foot,Ski,Toe;public Vector3 ToeLocal,ForwardLocal,UpLocal;}
         [Serializable] private sealed class ContactSettings

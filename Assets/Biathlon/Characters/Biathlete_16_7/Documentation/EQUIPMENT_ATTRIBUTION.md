@@ -51,3 +51,10 @@ remain derivatives of Skiing Lady as credited above. Original glasses preserved.
 
 
 2026-11-06 refitted harness: shoulder padding, returning tapes, tangent four-corner junctions and cloth-following skin weights are project-authored. CGTrader owner reference and Anschütz Feedback product photography were used for visual study only; no mesh/texture/photo was copied into the distributable asset. Existing licensed anatomical/wood/mask sources unchanged. Current evidence: docs/quality/m16-7-harness-refit.
+
+2026-11-08: the owner authorized race integration, superseding the historical
+studio-only BUILD HOLD above (ADR-0098). The Natural athlete uses MakeHuman's
+CC0 anatomical base and project-authored garments, equipment and adaptations;
+the earlier Grab3D prototype is not the runtime body. The shared eight saved-ski
+prints recolor original PULSE artwork using the existing career catalog. Existing
+source licenses and notices remain applicable to the integrated review build.

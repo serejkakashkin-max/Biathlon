@@ -30,6 +30,8 @@ namespace Biathlon.Unity.Presentation
         public int SubmittedBatches { get; private set; }
         public int SubmittedInstances { get; private set; }
         public void Register(AthleteRigBinding rig)
+            => RegisterVisual(rig == null ? null : rig.transform);
+        public void RegisterVisual(Transform rig)
         {
             if (rig == null) throw new ArgumentNullException(nameof(rig));
             if (!SystemInfo.supportsInstancing) return;
