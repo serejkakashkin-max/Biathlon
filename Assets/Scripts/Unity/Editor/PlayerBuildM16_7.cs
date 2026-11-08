@@ -18,6 +18,10 @@ namespace Biathlon.Unity
             "m167_mat_review", "BIATHLON_PULSE_Before_After_Mat_1440p60.mp4",
             "На рубеже спортсмены собирают обе палки в одну руку, кладут их вместе и переставляют лыжи при выходе в стойку.\r\n");
 
+        public static void BuildM167ContinuityReview() => BuildM167Review("Builds/M16_7_Continuity_Review",
+            "m167_continuity_review", null,
+            "Исправлены рывки при поворотах A/D и при остановке у коврика. Проверьте короткие нажатия, смену направления и обе стойки стрельбы.\r\n");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote)
         {
             // These names own the existing career directory; branding belongs in the UI.
@@ -45,7 +49,7 @@ namespace Biathlon.Unity
                 "Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n"+
                 "Проверьте лыжный ход, разгон, подъём, стрельбу лёжа/стоя и внешность соперников.\r\n"+
                 reviewNote+
-                "Видео сравнения: Media/"+comparisonFile+" (WATCH_COMPARISON.cmd).\r\n"+
+                (string.IsNullOrEmpty(comparisonFile) ? "" : "Видео сравнения: Media/"+comparisonFile+" (WATCH_COMPARISON.cmd).\r\n")+
                 "М16.6 закрыт владельцем. М16.7 открыт до вашего тестирования.\r\n"+
                 "Лицензии ассетов: THIRD_PARTY_CREDITS.txt, M167_ASSET_CREDITS.md и OFL-файлы.\r\n");
             AssetDatabase.SaveAssets();

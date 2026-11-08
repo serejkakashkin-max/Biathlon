@@ -160,6 +160,7 @@ namespace Biathlon.Unity.Presentation
         public float CadenceHz {get;private set;}
         public float PoleCadenceHz=>CadenceHz*blended.poles_per_cycle*blended.pole_cadence_scale;
         public float StrokeScale { get; private set; } = 1;
+        public float PolingBlend => Mathf.Clamp01(blended.poles_per_cycle);
         public float LeftEdgeDegrees {get;private set;}
         public float RightEdgeDegrees {get;private set;}
         public bool PoleDriveActive=>Active&&blended.poles_per_cycle>.05f&&(float)PoleCycle>=settings.pole_drive_start&&(float)PoleCycle<=settings.pole_drive_end;

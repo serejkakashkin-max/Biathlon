@@ -252,8 +252,16 @@ namespace Biathlon.Unity.Presentation
             ApplyTravelPresentation(style, grade);
         }
 
-        private void ApplyTravelPresentation(TravelStyle style, float grade)
+        private void ApplyTravelPresentation(TravelStyle style, float grade, float weight = 1)
         {
+            if (weight <= 0) return;
+            var sourceHips = bones[0].position;
+            if (weight < 1)
+            {
+                for (int i = 0; i < bones.Length; i++) savedRotations[i] = bones[i].rotation;
+                for (int i = 0; i < poles.Length; i++) poleReleaseRotations[i] = poles[i].Transform.rotation;
+                shootingSkis.CaptureEntry();
+            }
             float stride = (float)main.SourceDriver.Cycle;
             shootingSkis.ApplyGlide(stride, ski.glide_fraction, grade, style.ski_recovery_m,
                 d.travel_ski_clearance_m, style.pelvis_follow, style.handoff_fraction, style.glide_extension_m,
@@ -266,6 +274,19 @@ namespace Biathlon.Unity.Presentation
             bones[4].rotation = gaze;
             FitTravelPole(0, normal, style);
             FitTravelPole(1, normal, style);
+            if (weight < 1)
+            {
+                bones[0].position = Vector3.Lerp(sourceHips, bones[0].position, weight);
+                for (int i = 0; i < bones.Length; i++)
+                    bones[i].rotation = Quaternion.Slerp(savedRotations[i], bones[i].rotation, weight);
+                shootingSkis.BlendEntry(1 - weight);
+                for (int i = 0; i < poles.Length; i++)
+                {
+                    var pole = poles[i];
+                    pole.Transform.rotation = Quaternion.Slerp(poleReleaseRotations[i], pole.Transform.rotation, weight);
+                    SeatPole(i, pole.Transform.TransformDirection(pole.Axis));
+                }
+            }
         }
 
         public void RenderEvaluatedRace(AthleteAnimationFrame frame)
@@ -275,7 +296,8 @@ namespace Biathlon.Unity.Presentation
                 if (!wasOnMat || frame.TimeSeconds < lastRaceTime)
                 {
                     hasApproach = !wasOnMat && lastRaceTime >= 0 && frame.TimeSeconds >= lastRaceTime && frame.TimeSeconds - lastRaceTime <= .25 &&
-                        (frame.Athlete.ShootingPhase == ShootingPhase.Setup || frame.Athlete.ShootingPhase == ShootingPhase.AwaitingLane);
+                        (frame.Athlete.ShootingPhase == ShootingPhase.Outside ||
+                         frame.Athlete.ShootingPhase == ShootingPhase.Setup || frame.Athlete.ShootingPhase == ShootingPhase.AwaitingLane);
                     if (hasApproach) CaptureApproach();
                 }
                 var ray = frame.Athlete.Sight.Ray;
@@ -360,13 +382,11 @@ namespace Biathlon.Unity.Presentation
             CarryVisible(true);
             main.RetargetEvaluatedSource();
             var state=main.SourceDriver.MotionState;
-            if(state==SkiMotionState.Flat||state==SkiMotionState.FastSkate||state==SkiMotionState.MaxSprint||
-                state==SkiMotionState.Uphill||state==SkiMotionState.SteepUphill||state==SkiMotionState.Fatigued)
-            {
-                var style=state==SkiMotionState.MaxSprint?d.sprint_style:
-                    state==SkiMotionState.Uphill||state==SkiMotionState.SteepUphill?d.uphill_style:d.flat_style;
-                ApplyTravelPresentation(style,grade);
-            }
+            var style=state==SkiMotionState.MaxSprint?d.sprint_style:
+                state==SkiMotionState.Uphill||state==SkiMotionState.SteepUphill?d.uphill_style:d.flat_style;
+            // The source already blends its motion profiles. Keep that same
+            // continuous weight through corners, coasting and the final stop.
+            ApplyTravelPresentation(style,grade,main.SourceDriver.PolingBlend);
             ApplyEyewear(rig.PreviewEyewearRaised?1:0);
         }
 
