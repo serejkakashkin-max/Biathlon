@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "id": "m167_integrated_athlete_qualification",
+  "date": "2026-11-08",
+  "milestone": "M16.7 OPEN / owner review",
+  "build": {
+    "schema_version": 1,
+    "id": "m167_integrated_athlete_review",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 636,
+    "bytes": 898399930,
+    "seconds": 17.5538642
+  },
+  "build_warning_scope": "636 third-party Unity AI Inference shader warnings (600 ConvGeneric variants, 36 Sentis pixel shader warnings); 0 errors",
+  "tests": {
+    "core_playmode_distinct_passed": 314,
+    "full_profile_run_passed": 313,
+    "latest_integration_run_passed": 12,
+    "latest_integration_note": "11 overlap the full profile run; 1 added near/far shadow regression",
+    "native_capture_playmode_passed": 3,
+    "final_editmode_passed": 62,
+    "additional_prior_editmode_run_passed": 44,
+    "additional_prior_editmode_note": "Includes the full mass-start matrix; predates the numerical validation clamp, not counted in the final 62",
+    "required_failed": 0,
+    "required_skipped": 0
+  },
+  "unity": {
+    "compilation_failed": false,
+    "compiling": false,
+    "updating": false,
+    "playing": false,
+    "console_error_exception_assert_count": 0
+  },
+  "careers": {
+    "original_files": 18,
+    "original_changed": 0,
+    "copied_careers_checked": 7,
+    "athletes_checked": 210,
+    "personal_profiles": 62,
+    "legacy_profiles": 148,
+    "save_version_unchanged": 4,
+    "persistent_data_identity_unchanged": true
+  },
+  "windows_player_smoke": {
+    "schema_version": 1,
+    "field_count": 30,
+    "upgraded_athletes": 30,
+    "save_version": 4,
+    "id": "m167_player_career_review",
+    "failure": "",
+    "nation": "RUS",
+    "ski": "ski_neutral",
+    "headwear": "headband",
+    "boots": "ice_white",
+    "gloves": "ivory",
+    "approach_control": "separate fresh production AI race after a paid manual startup review",
+    "tick": 884,
+    "first_range_tick": 2978,
+    "passed": true,
+    "career_unchanged": true,
+    "range_reached": true,
+    "sight_body_hidden": true,
+    "overview_body_restored": true
+  },
+  "presentation_cost": {
+    "schema_version": 1,
+    "id": "m167_pose_cost",
+    "format": "MassStart",
+    "field_count": 30,
+    "frames": 32,
+    "cpu_ms_per_frame": 1.740490625,
+    "managed_bytes": 0,
+    "scope": "warm presentation CPU only; no GPU/FPS claim"
+  },
+  "media": {
+    "schema_version": 1,
+    "id": "m167_youtube_master_qualification",
+    "master": "Builds/M16_7_New_Athlete_Review/Media/BIATHLON_PULSE_Before_After_1440p.mp4",
+    "width": 2560,
+    "height": 1440,
+    "fps": 30,
+    "frames": 1740,
+    "duration_seconds": 58,
+    "audio": false,
+    "bytes": 274231819,
+    "sha256": "f21296e5e33d923652d7fbb4bb9c85d8a40ee534a5b0273e962524807a8a2f21",
+    "full_decode": "passed; ffmpeg -xerror exit 0, frame=1740, progress=end",
+    "chapters": 14,
+    "review_copy": "comparison-review.mp4"
+  },
+  "race_balance": "No tuning, save schema, clock, accepted aim or trajectory change. A separate one-ULP endpoint clamp affects only coordinate validation sampling.",
+  "limitations": [
+    "Warm CPU pose timing is not a GPU/frame-rate benchmark.",
+    "Finger grips remain prepared shapes rather than independent per-finger animation.",
+    "Saved training accent is retained; tinting of the new training kit remains open.",
+    "Optional mask stays a studio asset choice; career worn/raised/absent sports eyewear is supported.",
+    "Owner acceptance of movement and appearance in actual gameplay remains pending."
+  ],
+  "implementation_commit": "6c022b777c2c30a100e3fd6ba07aa1cc47b031db",
+  "validation_fix_commit": "25976740"
+}

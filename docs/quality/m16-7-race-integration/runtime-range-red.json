@@ -1,0 +1,36 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 8,
+    "PassedTests": 4,
+    "FailedTests": 4,
+    "SkippedTests": 0,
+    "Duration": "00:00:04.2222947"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RaceIntegrationTests.LiveAimingHidesTheWholeNewVisualAndRestoresItOnExit",
+      "Status": "Failed",
+      "Duration": "00:00:00.1160000",
+      "Message": "  The upgraded body and instanced equipment must not obstruct the sight camera.\r\n  Expected: False\r\n  But was:  True\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RaceIntegrationTests.RaceAdapterUsesTheApprovedQuietBodyThroughTheLiveSourceDriver(0.0f,False)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0400000",
+      "Message": "  The race must use the accepted no-sway motion definition, just like the studio.\r\n  Expected: less than or equal to 0.00100000005f\r\n  But was:  0.0179999694f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RaceIntegrationTests.RaceAdapterUsesTheApprovedQuietBodyThroughTheLiveSourceDriver(0.08f,False)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0530000",
+      "Message": "  The race must use the accepted no-sway motion definition, just like the studio.\r\n  Expected: less than or equal to 0.00100000005f\r\n  But was:  0.0148218758f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RaceIntegrationTests.RaceAdapterUsesTheApprovedQuietBodyThroughTheLiveSourceDriver(0.0f,True)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0370000",
+      "Message": "  The race must use the accepted no-sway motion definition, just like the studio.\r\n  Expected: less than or equal to 0.00100000005f\r\n  But was:  0.0179998651f\r\n"
+    }
+  ]
+}

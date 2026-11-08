@@ -1,0 +1,18 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 1,
+    "PassedTests": 0,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:02.0174549"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.ManualSkiContactDriveTests.NearEndpointVelocityZeroCannotRoundOutsideTheCoordinateValidationInterval",
+      "Status": "Failed",
+      "Duration": "00:00:01.3080000",
+      "Message": "  Expected: No Exception to be thrown\r\n  But was:  <System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentOutOfRangeException: Finite value outside the supported range.\r\nParameter name: fraction\r\nActual value was 1.\r\n  at Biathlon.Domain.PhysiologyNumbers.RequireRange (System.Double value, System.Double min, System.Double max, System.String name) [0x00018] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Domain\\PhysiologyNumbers.cs:13 \r\n  at Biathlon.Simulation.SkiDrivenContactTrajectory.Validate (System.Double fraction) [0x00013] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Simulation\\ManualSkiContactDriveSystem.cs:200 \r\n  at Biathlon.Simulation.SkiDrivenContactTrajectory.Sample (System.Double fraction) [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Simulation\\ManualSkiContactDriveSystem.cs:168 \r\n  at Biathlon.Simulation.SkiDrivenContactTrajectory.CheckAxis (System.Double initial, System.Double final, System.Double from, System.Double to) [0x0001c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Simulation\\ManualSkiContactDriveSystem.cs:220 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <c5ae8a4eeb824526b5df2932bc2395e0>:0 \r\n   --- End of inner exception stack trace ---\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <c5ae8a4eeb824526b5df2932bc2395e0>:0 \r\n  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <c5ae8a4eeb824526b5df2932bc2395e0>:0 \r\n  at Biathlon.Tests.ManualSkiContactDriveTests+<>c__DisplayClass0_0.<NearEndpointVelocityZeroCannotRoundOutsideTheCoordinateValidationInterval>b__0 () [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\EditMode\\ManualSkiContactDriveTests.cs:17 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in <8b63e8ac0a4746599ed207982825ae6c>:0 >\r\n"
+    }
+  ]
+}
