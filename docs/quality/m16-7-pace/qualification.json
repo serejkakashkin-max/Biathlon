@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "m167_speed_matched_poling_and_frame_pacing",
+  "date": "2026-11-08",
+  "status": "owner_review",
+  "source_commit": "c66478c36a8ea4b370eac5a41382dfea7734a70a",
+  "unity_playmode": {
+    "Status": "Passed",
+    "TotalTests": 271,
+    "PassedTests": 271,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:01:53.2233198"
+  },
+  "native_comparison_captures_passed": 2,
+  "unity_console_error_exception_assert": 0,
+  "build": {
+    "schema_version": 1,
+    "id": "m167_pace_review",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 37,
+    "bytes": 902056790,
+    "seconds": 16.489921799999998
+  },
+  "career": {
+    "schema_version": 1,
+    "id": "m167_pace_career_integrity",
+    "original_files": 25,
+    "unchanged": 25,
+    "checked_after_player_smoke": true
+  },
+  "career_smoke": {
+    "schema_version": 1,
+    "field_count": 30,
+    "upgraded_athletes": 30,
+    "save_version": 4,
+    "id": "m167_player_career_review",
+    "failure": "",
+    "nation": "RUS",
+    "ski": "ski_neutral",
+    "headwear": "headband",
+    "boots": "ice_white",
+    "gloves": "ivory",
+    "approach_control": "separate fresh production AI race after a paid manual startup review",
+    "tick": 884,
+    "first_range_tick": 2978,
+    "passed": true,
+    "career_unchanged": true,
+    "range_reached": true,
+    "sight_body_hidden": true,
+    "overview_body_restored": true
+  },
+  "media": {
+    "schema_version": 1,
+    "id": "m167_1440p60_comparison_qualification",
+    "master": "BIATHLON_PULSE_Before_After_1440p60.mp4",
+    "width": 2560,
+    "height": 1440,
+    "fps": 60,
+    "seconds": 58,
+    "frames": 3480,
+    "native_pair_count": 3480,
+    "audio": {
+      "codec": "AAC",
+      "sample_rate": 48000,
+      "channels": 2,
+      "integrated_lufs": -25.4,
+      "peak_dbfs": -13.6,
+      "recorded_pole_plant_events": 24,
+      "sources": "Original project Foley and menu air"
+    },
+    "full_decode": "ffmpeg -xerror, both streams, exit 0",
+    "bytes": 383785828,
+    "sha256": "6406d5988af73050cb4fd48a2c6b139219d63c6559cfe6d4f26f60655b1aa043"
+  },
+  "fps_scope": "Woodland Basin, 30 athletes, Ultra 2560x1440 on RTX 5080, production cameras to explicit render target, fixed wall-clock tick admission",
+  "fps_mean": 92.23,
+  "fps_min_rolling_second": 61.55,
+  "frame_ms_p95": 17.476,
+  "frame_ms_max": 66.746
+}

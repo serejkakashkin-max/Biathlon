@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "id": "m167_pace_race_frame_summary",
+  "runs": {
+    "rendered-ultra": {
+      "method": "Woodland 30, ticks 0\u2013240 and 2000\u20133090, AI input, fixed wall-clock tick admission, active game cameras to explicit RT, tier=high, cap=100",
+      "gpu": "NVIDIA GeForce RTX 5080",
+      "cpu": "AMD Ryzen 9 9950X3D 16-Core Processor ",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "field": 30,
+      "final_tick": 3090,
+      "final_distance_m": 904.149061744,
+      "all": {
+        "frames": 6134,
+        "throughput_fps": 92.23,
+        "min_rolling_second_fps": 61.55,
+        "frames_over_16_67_ms": 400,
+        "wall_ms": {
+          "n": 6134,
+          "mean": 10.843,
+          "p95": 17.476,
+          "p99": 20.623,
+          "max": 66.746
+        },
+        "tick_frames_ms": {
+          "n": 1330,
+          "mean": 5.999,
+          "p95": 14.478,
+          "p99": 15.329,
+          "max": 60.58
+        },
+        "athlete_ms": {
+          "n": 6134,
+          "mean": 2.681,
+          "p95": 6.475,
+          "p99": 10.422,
+          "max": 15.406
+        },
+        "environment_ms": {
+          "n": 6134,
+          "mean": 1.571,
+          "p95": 1.735,
+          "p99": 1.806,
+          "max": 2.572
+        },
+        "gpu_ms": null,
+        "triangles": {
+          "n": 6134,
+          "mean": 16846374.538,
+          "p95": 29220435,
+          "p99": 30570751,
+          "max": 30822665
+        }
+      },
+      "skiing": {
+        "frames": 5062,
+        "throughput_fps": 92.96,
+        "min_rolling_second_fps": 75.91,
+        "frames_over_16_67_ms": 343,
+        "wall_ms": {
+          "n": 5062,
+          "mean": 10.758,
+          "p95": 17.567,
+          "p99": 20.639,
+          "max": 66.746
+        },
+        "tick_frames_ms": {
+          "n": 1089,
+          "mean": 6.63,
+          "p95": 14.687,
+          "p99": 15.45,
+          "max": 60.58
+        },
+        "athlete_ms": {
+          "n": 5062,
+          "mean": 2.267,
+          "p95": 3.234,
+          "p99": 4.669,
+          "max": 8.246
+        },
+        "environment_ms": {
+          "n": 5062,
+          "mean": 1.602,
+          "p95": 1.741,
+          "p99": 1.816,
+          "max": 2.572
+        },
+        "gpu_ms": null,
+        "triangles": {
+          "n": 5062,
+          "mean": 18790693.793,
+          "p95": 29631156,
+          "p99": 30682533,
+          "max": 30822665
+        }
+      },
+      "range": {
+        "frames": 1072,
+        "throughput_fps": 88.95,
+        "min_rolling_second_fps": 61.55,
+        "frames_over_16_67_ms": 57,
+        "wall_ms": {
+          "n": 1072,
+          "mean": 11.243,
+          "p95": 16.776,
+          "p99": 20.595,
+          "max": 25.758
+        },
+        "tick_frames_ms": {
+          "n": 241,
+          "mean": 3.15,
+          "p95": 8.97,
+          "p99": 9.974,
+          "max": 10.527
+        },
+        "athlete_ms": {
+          "n": 1072,
+          "mean": 4.634,
+          "p95": 10.68,
+          "p99": 12.724,
+          "max": 15.406
+        },
+        "environment_ms": {
+          "n": 1072,
+          "mean": 1.424,
+          "p95": 1.498,
+          "p99": 1.558,
+          "max": 1.629
+        },
+        "gpu_ms": null,
+        "triangles": {
+          "n": 1072,
+          "mean": 7665269.997,
+          "p95": 16292947,
+          "p99": 16374631,
+          "max": 16667500
+        }
+      }
+    }
+  }
+}

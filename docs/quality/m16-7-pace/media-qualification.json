@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "m167_1440p60_comparison_qualification",
+  "master": "BIATHLON_PULSE_Before_After_1440p60.mp4",
+  "width": 2560,
+  "height": 1440,
+  "fps": 60,
+  "seconds": 58,
+  "frames": 3480,
+  "native_pair_count": 3480,
+  "audio": {
+    "codec": "AAC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "integrated_lufs": -25.4,
+    "peak_dbfs": -13.6,
+    "recorded_pole_plant_events": 24,
+    "sources": "Original project Foley and menu air"
+  },
+  "full_decode": "ffmpeg -xerror, both streams, exit 0",
+  "bytes": 383785828,
+  "sha256": "6406d5988af73050cb4fd48a2c6b139219d63c6559cfe6d4f26f60655b1aa043"
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "id": "m167_shipping_vs_natural_comparison",
+  "fps": 60,
+  "resolution": [
+    2560,
+    1440
+  ],
+  "frames": 3480,
+  "duration_seconds": 58.0,
+  "capture_method": "paired native Unity renders",
+  "original_asset": "Biathlon/Athletes/G2Hero/HeroAthlete",
+  "candidate_asset": "Assets/Biathlon/Characters/Biathlete_16_7/Prefabs/Biathlete_16_7_Natural.prefab",
+  "chapters": [
+    {
+      "id": "orbit",
+      "title_ru": "Круговой обзор",
+      "start_frame": 0,
+      "start_seconds": 0.0,
+      "frames": 360,
+      "duration_seconds": 6.0,
+      "pole_plant_seconds": [
+        0.11666666716337204,
+        1.0166666507720947,
+        1.9166666269302368,
+        2.816666603088379,
+        3.7166666984558105,
+        4.616666793823242,
+        5.516666889190674
+      ]
+    },
+    {
+      "id": "face",
+      "title_ru": "Лицо и очки",
+      "start_frame": 360,
+      "start_seconds": 6.0,
+      "frames": 210,
+      "duration_seconds": 3.5,
+      "pole_plant_seconds": []
+    },
+    {
+      "id": "rifle",
+      "title_ru": "Винтовка и ремни",
+      "start_frame": 570,
+      "start_seconds": 9.5,
+      "frames": 210,
+      "duration_seconds": 3.5,
+      "pole_plant_seconds": []
+    },
+    {
+      "id": "skis",
+      "title_ru": "Лыжи и ботинки",
+      "start_frame": 780,
+      "start_seconds": 13.0,
+      "frames": 210,
+      "duration_seconds": 3.5,
+      "pole_plant_seconds": []
+    },
+    {
+      "id": "skis_top",
+      "title_ru": "Лыжи сверху",
+      "start_frame": 990,
+      "start_seconds": 16.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": []
+    },
+    {
+      "id": "skate",
+      "title_ru": "Коньковый ход V2",
+      "start_frame": 1230,
+      "start_seconds": 20.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.11666666716337204,
+        1.0166666507720947,
+        1.9166666269302368,
+        2.816666603088379,
+        3.7166666984558105
+      ]
+    },
+    {
+      "id": "skate_front",
+      "title_ru": "Коньковый ход V2 · спереди",
+      "start_frame": 1470,
+      "start_seconds": 24.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.11666666716337204,
+        1.0166666507720947,
+        1.9166666269302368,
+        2.816666603088379,
+        3.7166666984558105
+      ]
+    },
+    {
+      "id": "acceleration",
+      "title_ru": "Разгон",
+      "start_frame": 1710,
+      "start_seconds": 28.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.21666666865348816,
+        1.75,
+        2.8499999046325684,
+        3.7833333015441895
+      ]
+    },
+    {
+      "id": "acceleration_front",
+      "title_ru": "Разгон · спереди",
+      "start_frame": 1950,
+      "start_seconds": 32.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.21666666865348816,
+        1.75,
+        2.8499999046325684,
+        3.7833333015441895
+      ]
+    },
+    {
+      "id": "uphill",
+      "title_ru": "Подъём V1",
+      "start_frame": 2190,
+      "start_seconds": 36.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.18333333730697632,
+        1.6333333253860474,
+        3.0833332538604736
+      ]
+    },
+    {
+      "id": "uphill_front",
+      "title_ru": "Подъём V1 · спереди",
+      "start_frame": 2430,
+      "start_seconds": 40.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": [
+        0.18333333730697632,
+        1.6333333253860474,
+        3.0833332538604736
+      ]
+    },
+    {
+      "id": "entry",
+      "title_ru": "Заход на огневой рубеж",
+      "start_frame": 2670,
+      "start_seconds": 44.5,
+      "frames": 240,
+      "duration_seconds": 4.0,
+      "pole_plant_seconds": []
+    },
+    {
+      "id": "standing",
+      "title_ru": "Изготовка стоя",
+      "start_frame": 2910,
+      "start_seconds": 48.5,
+      "frames": 270,
+      "duration_seconds": 4.5,
+      "pole_plant_seconds": []
+    },
+    {
+      "id": "prone",
+      "title_ru": "Изготовка лёжа",
+      "start_frame": 3180,
+      "start_seconds": 53.0,
+      "frames": 300,
+      "duration_seconds": 5.0,
+      "pole_plant_seconds": []
+    }
+  ]
+}

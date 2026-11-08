@@ -1,0 +1,27 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 3,
+    "PassedTests": 0,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.6776512"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RaceIntegrationTests.SlowSkiingDoesNotUseRaceSpeedPoling(0.0f,False,1.05f)",
+      "Status": "Failed",
+      "Message": "  The final rendered hand must return at a controlled speed.\r\n  Expected: less than 2.20000005f\r\n  But was:  6.04369211f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RaceIntegrationTests.SlowSkiingDoesNotUseRaceSpeedPoling(0.0f,True,1.1f)",
+      "Status": "Failed",
+      "Message": "  Expected: in range (0,25,1,1)\r\n  But was:  1.88964152f\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167RaceIntegrationTests.SlowSkiingDoesNotUseRaceSpeedPoling(0.08f,True,0.6f)",
+      "Status": "Failed",
+      "Message": "  Expected: in range (0,25,0,6)\r\n  But was:  0.862662375f\r\n"
+    }
+  ]
+}
