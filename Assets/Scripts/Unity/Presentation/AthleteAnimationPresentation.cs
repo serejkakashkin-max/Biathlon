@@ -73,7 +73,7 @@ namespace Biathlon.Unity.Presentation
             impactSettings??=AthleteImpactVisualSettings.Load();impact=new AthleteImpactPresentation(impactSettings);
         }
 
-        public void Render(AthleteAnimationFrame frame, float cameraDistance = 0)
+        public void Render(AthleteAnimationFrame frame, float cameraDistance = 0, bool visibleShootingPose = true)
         {
             using var marker=PoseMarker.Auto();
             if (rig == null) throw new InvalidOperationException("Initialize athlete rig first.");
@@ -97,7 +97,7 @@ namespace Biathlon.Unity.Presentation
             rig.ModelRoot.SetLocalPositionAndRotation(modelPosition, modelRotation);
             transform.SetLocalPositionAndRotation(position, rotation);
             transform.localScale = scale;
-            upgradedVisual?.Render(frame,detail.Distant);
+            upgradedVisual?.Render(frame,detail.Distant,visibleShootingPose);
         }
     }
 }

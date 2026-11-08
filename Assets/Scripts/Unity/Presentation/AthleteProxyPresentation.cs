@@ -21,6 +21,8 @@ namespace Biathlon.Unity.Presentation
         private GroundContactSettings contactSettings;
         private Camera viewCamera;
         private AthleteChaseCamera chaseCamera;
+        private Camera rangeView;
+        private readonly Plane[] poseFrustum = new Plane[6];
         private SnowTrackPresentation snowTracks;
         private SnowSprayPresentation snowSpray;
         private BreathVaporPresentation breathVapor;
@@ -78,6 +80,7 @@ namespace Biathlon.Unity.Presentation
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
         public void SetViewCamera(Camera camera)
         {viewCamera=camera;chaseCamera=camera!=null?camera.GetComponent<AthleteChaseCamera>():null;}
+        public void SetRangeView(Camera camera) => rangeView = camera;
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
         public AthleteRigBinding GetRig(string athleteId)=>animation[athleteId].Rig;
@@ -116,7 +119,10 @@ namespace Biathlon.Unity.Presentation
             if(double.IsNaN(alpha)||double.IsInfinity(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
             if(!double.IsFinite(completedSeconds)||completedSeconds<0||completedSeconds>86400)throw new ArgumentOutOfRangeException(nameof(completedSeconds));
             if(feed==null)return;if(feed.Current==null){Clear();return;}if(feed.Current.TrackId!=visual.TrackId)throw new InvalidOperationException("Proxy geometry does not match snapshot.");
-            var current=feed.Current;keep.Clear();float lodScale=ProjectionAwareLod.Scale(viewCamera);
+            Camera activeView = rangeView != null && rangeView.isActiveAndEnabled && viewCamera != null && !viewCamera.enabled ? rangeView : viewCamera;
+            bool qualifyFrustum = activeView != null && activeView.isActiveAndEnabled;
+            if (qualifyFrustum) GeometryUtility.CalculateFrustumPlanes(activeView, poseFrustum);
+            var current=feed.Current;keep.Clear();float lodScale=ProjectionAwareLod.Scale(activeView);
             for(int i=0;i<current.Count;i++)
             {
                 var state=current.Get(i);keep.Add(state.AthleteId);
@@ -184,7 +190,7 @@ namespace Biathlon.Unity.Presentation
                 // Track the accepted waiting pivot without drawing the athlete/equipment
                 // or updating its pose/VFX before the personal countdown.
                 if(!visible)continue;
-                float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
+                float distance=activeView!=null?Vector3.Distance(activeView.transform.position,go.transform.position):0;
                 long poseTick=current.Tick;double poseAlpha=alpha;
                 if(finished&&current.Complete){double ticks=completedSeconds*current.TickFrequency;poseTick+=(long)Math.Floor(ticks);poseAlpha=ticks-Math.Floor(ticks);}
                 double lateralSpeed=0;
@@ -196,14 +202,17 @@ namespace Biathlon.Unity.Presentation
                         lateralSpeed=(state.LateralMeters-prior.LateralMeters)*current.TickFrequency/(current.Tick-previous.Tick);
                 }
                 var frame=new AthleteAnimationFrame(state,poseTick,current.TickFrequency,poseAlpha,finished?0:curvature,grade,lateralSpeed);
-                animation[state.AthleteId].Render(frame,distance*lodScale);
+                // Include the complete body, skis, rifle and a margin for the next chase-camera update.
+                bool visibleShootingPose = !state.ShootingActive || !qualifyFrustum ||
+                    GeometryUtility.TestPlanesAABB(poseFrustum, new Bounds(go.transform.position, Vector3.one * 4));
+                animation[state.AthleteId].Render(frame,distance*lodScale,visibleShootingPose);
                 snowTracks.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
                 snowSpray.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
                 breathVapor.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
             }
-            snowTracks.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,viewCamera!=null?viewCamera.transform.position:transform.position);
-            snowSpray.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,viewCamera);
-            breathVapor.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,viewCamera);
+            snowTracks.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,activeView!=null?activeView.transform.position:transform.position);
+            snowSpray.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,activeView);
+            breathVapor.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,activeView);
             removed.Clear();foreach(var id in proxies.Keys)if(!keep.Contains(id))removed.Add(id);foreach(var id in removed){Destroy(proxies[id]);proxies.Remove(id);animation.Remove(id);}
         }
         private void LateUpdate()

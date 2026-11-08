@@ -43,7 +43,12 @@ namespace Biathlon.Unity.Presentation
             string folder=Path.GetFullPath(index>=0&&index+1<args.Length?args[index+1]:Path.Combine(Application.dataPath,"../SkiProfile"));
             var errors=new List<string>();Application.LogCallback log=(message,stack,type)=>{if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)errors.Add(message);};Application.logMessageReceived+=log;
             bool shootingReview=Array.IndexOf(args,"-biathlonSkiProfileShooting")>=0;
-            var iter=Collect(folder,shootingReview?1000:360,shootingReview||Array.IndexOf(args,"-biathlonSkiProfileAuto")>=0);Exception failure=null;
+            bool realtime = Array.IndexOf(args, "-biathlonSkiProfileRealtime") >= 0;
+            int tierIndex = Array.IndexOf(args, "-biathlonSkiProfileTier");
+            string tier = tierIndex >= 0 && tierIndex + 1 < args.Length ? args[tierIndex + 1] : "balanced";
+            var iter = realtime ? CollectRealtime(folder, tier) :
+                Collect(folder,shootingReview?1000:360,shootingReview||Array.IndexOf(args,"-biathlonSkiProfileAuto")>=0);
+            Exception failure=null;
             while(true)
             {
                 bool more=false;object next=null;
@@ -56,6 +61,112 @@ namespace Biathlon.Unity.Presentation
             Application.Quit(errors.Count==0?0:1);
         }
         [Serializable] private sealed class Completion{public bool success;public string[] errors;}
+
+        private static IEnumerator CollectRealtime(string folder, string tier)
+        {
+            const string venueRoot = "Biathlon/Venues/woodland_basin_v1/";
+            string Read(string name) => ProductionVenueHost.ReadResource(venueRoot + name);
+            var venue = new VenueAuthoringPlan(VenueManifest.FromJson(Read("manifest")), ProductionVenueHost.ReadResource);
+            var root = new GameObject("Realtime 30-athlete profiling case");
+            foreach (var menu in FindObjectsByType<FrontEndMenu>(FindObjectsSortMode.None)) menu.gameObject.SetActive(false);
+            var host = root.AddComponent<ProductionVenueHost>();
+            host.AutoStart = false;
+            host.enabled = false;
+            host.UseManualHeading = true;
+            host.Initialize(venue, CompetitionProfile.FromJson(Read("mass_start_profile")), RaceRoutePlan.FromJson(Read("mass_start_route")),
+                RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")), count: 30, movingOvertakeVersion: 0);
+            host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(Read("environment")));
+            host.GetComponent<RenderQualityPresentation>().Apply(tier);
+            var range = root.GetComponent<RangePresentation>();
+            var field = host.Runner.Field;
+            int width = Screen.width, height = Screen.height;
+            // Explicit output keeps real camera rendering active in an unattended,
+            // occluded Windows process and fixes the pixel budget across reruns.
+            using var target = new BenchmarkRenderTarget(width, height);
+            var budget = FixedTickFrameBudgetDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/fixed_tick_frame_budget_v1"));
+            var clock = new FixedTickFrameClock(budget, field.TickFrequency);
+            var samples = new List<Sample>(12000);
+            var watch = new System.Diagnostics.Stopwatch();
+            using var counters = new BenchmarkFrameCounters();
+            using var athletes = ProfilerRecorder.StartNew(ProfilerCategory.Scripts, RuntimeFrameProfile.AthletesName, 1);
+            using var environment = ProfilerRecorder.StartNew(ProfilerCategory.Scripts, RuntimeFrameProfile.EnvironmentName, 1);
+            for (int frame = 0; frame < 120; frame++) { target.Render(host.ChaseCamera); yield return null; }
+            double previous = Time.realtimeSinceStartupAsDouble;
+            bool jumpedToCourse = false;
+            int renderedFrames = 0;
+            while (field.Tick.Value < 3090 && !field.IsComplete)
+            {
+                if (!jumpedToCourse && field.Tick.Value >= 240)
+                {
+                    target.SavePng(Path.Combine(folder, "start-pack.png"));
+                    jumpedToCourse = true;
+                    host.Proxies.enabled = false;
+                    host.Environment.AutomaticRendering = false;
+                    while (field.Tick.Value < 2000)
+                    {
+                        host.Runner.Step();
+                        if (field.Tick.Value % 100 == 0) yield return null;
+                    }
+                    host.Feed.Publish(RacePresentationSnapshot.Capture(field));
+                    host.Feed.SetInterpolationAlpha(1);
+                    host.Proxies.enabled = true;
+                    host.Environment.AutomaticRendering = true;
+                    for (int frame = 0; frame < 90; frame++) { target.Render(host.ChaseCamera); yield return null; }
+                    clock = new FixedTickFrameClock(budget, field.TickFrequency);
+                    previous = Time.realtimeSinceStartupAsDouble;
+                }
+                if (samples.Count == 20000) throw new InvalidOperationException("Realtime sample cap exceeded.");
+                double now = Time.realtimeSinceStartupAsDouble;
+                double elapsed = now - previous;
+                previous = now;
+                int steps = clock.BeginFrame(elapsed);
+                watch.Restart();
+                for (int step = 0; step < steps; step++)
+                {
+                    host.Runner.Step();
+                    clock.ConsumeTick();
+                    host.Feed.Publish(RacePresentationSnapshot.Capture(field));
+                    if (watch.Elapsed.TotalMilliseconds >= budget.WorkBudgetMilliseconds) break;
+                }
+                watch.Stop();
+                host.Feed.SetInterpolationAlpha(Math.Min(1, clock.BacklogSeconds * field.TickFrequency));
+                if (steps > 0) range.Refresh();
+                var player = field.GetAthlete(host.PlayerIndex);
+                int index = samples.Count;
+                var rendering = counters.Read(index, field.Tick.Value / (double)field.TickFrequency, elapsed * 1000);
+                if (rendering.triangles > 0) renderedFrames++;
+                samples.Add(new Sample
+                {
+                    frame = index,
+                    mode = jumpedToCourse ? 1 : 0,
+                    tick = field.Tick.Value,
+                    wall_ms = elapsed * 1000,
+                    step_ms = watch.Elapsed.TotalMilliseconds,
+                    player_speed = player.Motion.SpeedMetersPerSecond,
+                    shooting = player.ActiveShooting != null,
+                    shooting_phase = (int)(player.ActiveShooting?.Phase ?? ShootingPhase.Outside),
+                    shots = player.ActiveShooting?.ShotsFired ?? 0,
+                    athletes_ms = athletes.Valid ? athletes.LastValue / 1e6 : -1,
+                    environment_ms = environment.Valid ? environment.LastValue / 1e6 : -1,
+                    rendering = rendering,
+                });
+                target.Render(range.Visible ? range.AimCamera : host.ChaseCamera);
+                counters.Request();
+                yield return null;
+            }
+            if (renderedFrames < samples.Count * .95)
+                throw new InvalidOperationException($"The benchmark must draw production geometry, observed on {renderedFrames} of {samples.Count} frames.");
+            target.SavePng(Path.Combine(folder, "last-frame.png"));
+            File.WriteAllText(Path.Combine(folder, "profile.json"), JsonUtility.ToJson(new Report
+            {
+                id = "production_ski_realtime_profile_v1", unity = Application.unityVersion, cpu = SystemInfo.processorType,
+                gpu = SystemInfo.graphicsDeviceName, mode = $"Woodland 30, ticks 0–240 and 2000–3090, AI input, fixed wall-clock tick admission, active game cameras to explicit RT, tier={tier}, cap={Application.targetFrameRate}",
+                frames = samples.Count, width = width, height = height, automatic = true, samples = samples.ToArray(),
+                errors = Array.Empty<string>(), final_tick = field.Tick.Value,
+                final_player_distance = field.GetAthlete(host.PlayerIndex).RouteNanometers / (double)SkiState.NanometersPerMeter,
+            }, true));
+            Destroy(root);
+        }
         public static IEnumerator Collect(string folder,int frames,bool automatic=false)
         {
             if(frames<60||frames>3600)throw new ArgumentOutOfRangeException(nameof(frames));

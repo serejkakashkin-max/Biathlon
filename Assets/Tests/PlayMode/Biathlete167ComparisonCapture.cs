@@ -22,10 +22,12 @@ namespace Biathlon.PlayModeTests
     {
         private const string Hero = "Assets/Biathlon/Characters/Biathlete_16_7";
         private const string Venue = "Biathlon/Venues/woodland_basin_v1/";
-        private static bool HighQuality => File.Exists("artifacts/m16-7-race-integration/capture-hq.flag");
-        private static string Output => HighQuality ? "artifacts/m16-7-race-integration/youtube-native" : "artifacts/m16-7-race-integration/native";
+        private static bool SmoothMaster => File.Exists("artifacts/m16-7-pace/capture-60.flag");
+        private static bool HighQuality => SmoothMaster || File.Exists("artifacts/m16-7-race-integration/capture-hq.flag");
+        private static string Output => SmoothMaster ? "artifacts/m16-7-pace/native-60" :
+            HighQuality ? "artifacts/m16-7-race-integration/youtube-native" : "artifacts/m16-7-race-integration/native";
         private const int OldLayer = 27, NewLayer = 28;
-        private static int Fps => HighQuality ? 30 : 24;
+        private static int Fps => SmoothMaster ? 60 : HighQuality ? 30 : 24;
         private static int FeedSize => HighQuality ? 1220 : 720;
         private GameObject fixture;
         private Camera view;
@@ -43,6 +45,7 @@ namespace Biathlon.PlayModeTests
         {
             public string id;
             public int frames;
+            public List<float> pole_plant_seconds = new List<float>();
             public Shot(string id, float seconds) { this.id = id; frames = Mathf.RoundToInt(Fps * seconds); }
         }
 
@@ -137,10 +140,16 @@ namespace Biathlon.PlayModeTests
             {
                 string folder = Path.Combine(Output, shot.id);
                 Directory.CreateDirectory(folder);
+                bool planted = false;
                 for (int frame = 0; frame < shot.frames; frame++)
                 {
                     float time = frame / (float)Fps;
                     pose(shot, time, frame / (float)(shot.frames - 1));
+                    var action = motion.Performance.Action;
+                    bool travel = action == Biathlete167Action.Skate || action == Biathlete167Action.Uphill || action == Biathlete167Action.Acceleration;
+                    bool plant = travel && motion.MainReference.SourceDriver.PoleDriveActive;
+                    if (frame > 0 && plant && !planted) shot.pole_plant_seconds.Add(time);
+                    planted = plant;
                     foreach (int layer in new[] { OldLayer, NewLayer })
                     {
                         view.cullingMask = ~((1 << (layer == OldLayer ? NewLayer : OldLayer)) | (1 << 30));

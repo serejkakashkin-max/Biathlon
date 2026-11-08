@@ -8,12 +8,21 @@ namespace Biathlon.Unity.Presentation
     internal sealed class Biathlete167BodyClearance
     {
         private readonly Transform root;private readonly Volume[] volumes;
+        private readonly float upperarmRadius, forearmRadius, wristRadius;
+        private const int SegmentSamples = 9;
         private sealed class Volume
         {
             public Transform Bone;public Vector3 Centre,Radii,WorldCentre,WorldRadii;public Quaternion Frame;public Matrix4x4 ToUnit,FromUnit;public float MinRadius,MaxRadius;
+            public readonly Vector3[] UpperExpansion = new Vector3[SegmentSamples], LowerExpansion = new Vector3[SegmentSamples];
+            public readonly float[] UpperDepth = new float[SegmentSamples], LowerDepth = new float[SegmentSamples];
+            public float UpperBroadPhase, LowerBroadPhase;
         }
-        public Biathlete167BodyClearance(Biathlete167Rig rig,SkinnedMeshRenderer skin,float scale,float padding)
+        public Biathlete167BodyClearance(Biathlete167Rig rig,SkinnedMeshRenderer skin,float scale,float padding,
+            float upperarmRadius, float forearmRadius, float wristRadius)
         {
+            this.upperarmRadius = upperarmRadius;
+            this.forearmRadius = forearmRadius;
+            this.wristRadius = wristRadius;
             root=rig.transform;var mesh=skin.sharedMesh;var vertices=mesh.vertices;var weights=mesh.boneWeights;var sourceBones=skin.bones;
             var points=new HashSet<int>();var materials=skin.sharedMaterials;
             for(int sub=0;sub<materials.Length;sub++)if(materials[sub].name is "Anatomical_Skin_CC0_2K" or "PULSE_Natural_Tailored_Textile" or "PULSE_Bib_Printed_Textile")foreach(int index in mesh.GetTriangles(sub))points.Add(index);
@@ -38,7 +47,21 @@ namespace Biathlon.Unity.Presentation
             {
                 var scale=Vector3.Scale(volume.Radii,root.lossyScale);volume.WorldRadii=scale;volume.WorldCentre=volume.Bone.TransformPoint(volume.Centre);volume.FromUnit=Matrix4x4.TRS(volume.WorldCentre,volume.Bone.rotation*volume.Frame,scale);volume.ToUnit=volume.FromUnit.inverse;
                 volume.MinRadius=Mathf.Min(scale.x,Mathf.Min(scale.y,scale.z));volume.MaxRadius=Mathf.Max(scale.x,Mathf.Max(scale.y,scale.z));
+                volume.UpperBroadPhase = PrepareSegment(volume, upperarmRadius, forearmRadius, volume.UpperExpansion, volume.UpperDepth);
+                volume.LowerBroadPhase = PrepareSegment(volume, forearmRadius, wristRadius, volume.LowerExpansion, volume.LowerDepth);
             }
+        }
+        private static float PrepareSegment(Volume volume, float start, float end, Vector3[] expansion, float[] depth)
+        {
+            var radii = volume.WorldRadii;
+            for (int i = 0; i < SegmentSamples; i++)
+            {
+                float radius = Mathf.Lerp(start, end, i / 8f);
+                expansion[i] = new Vector3(radii.x / (radii.x + radius), radii.y / (radii.y + radius), radii.z / (radii.z + radius));
+                depth[i] = volume.MinRadius + radius;
+            }
+            float broadPhase = volume.MaxRadius + Mathf.Max(start, end);
+            return broadPhase * broadPhase;
         }
         public Vector3 Outside(Vector3 point,float side,float radius)
         {
@@ -56,18 +79,26 @@ namespace Biathlon.Unity.Presentation
             }
             return point;
         }
-        public float Penalty(Vector3 from,Vector3 to,float startRadius,float endRadius,bool connectedShoulder)
+        public float Penalty(Vector3 from, Vector3 to, bool connectedShoulder)
         {
-            float sum=0;var delta=to-from;float length=delta.sqrMagnitude;
-            foreach(var volume in volumes)
+            float sum = 0;
+            var delta = to - from;
+            float inverseLength = delta.sqrMagnitude > 1e-9f ? 1 / delta.sqrMagnitude : 0;
+            foreach (var volume in volumes)
             {
-                float t=length>1e-9f?Mathf.Clamp01(Vector3.Dot(volume.WorldCentre-from,delta)/length):0;
-                if((from+delta*t-volume.WorldCentre).sqrMagnitude>Mathf.Pow(volume.MaxRadius+Mathf.Max(startRadius,endRadius),2))continue;
-                for(int i=connectedShoulder?3:0;i<=8;i++)
+                var centreOffset = from - volume.WorldCentre;
+                float t = Mathf.Clamp01(-Vector3.Dot(centreOffset, delta) * inverseLength);
+                if ((centreOffset + delta * t).sqrMagnitude > (connectedShoulder ? volume.UpperBroadPhase : volume.LowerBroadPhase)) continue;
+                var expansion = connectedShoulder ? volume.UpperExpansion : volume.LowerExpansion;
+                var depth = connectedShoulder ? volume.UpperDepth : volume.LowerDepth;
+                var start = volume.ToUnit.MultiplyPoint3x4(from);
+                var step = volume.ToUnit.MultiplyVector(delta) * .125f;
+                for (int i = connectedShoulder ? 3 : 0; i < SegmentSamples; i++)
                 {
-                    float phase=i/8f,limbRadius=Mathf.Lerp(startRadius,endRadius,phase);var r=volume.WorldRadii;var p=volume.ToUnit.MultiplyPoint3x4(Vector3.Lerp(from,to,phase));
-                    var expanded=new Vector3(p.x*r.x/(r.x+limbRadius),p.y*r.y/(r.y+limbRadius),p.z*r.z/(r.z+limbRadius));
-                    float penetration=Mathf.Max(0,1-expanded.magnitude)*(volume.MinRadius+limbRadius);sum+=penetration*penetration;
+                    float distanceSquared = Vector3.Scale(start + step * i, expansion[i]).sqrMagnitude;
+                    if (distanceSquared >= 1) continue;
+                    float penetration = (1 - Mathf.Sqrt(distanceSquared)) * depth[i];
+                    sum += penetration * penetration;
                 }
             }
             return sum;

@@ -27,6 +27,8 @@ namespace Biathlon.Unity.Presentation
         private Renderer[] renderers;
         private UnityEngine.Rendering.ShadowCastingMode[] shadows;
         private bool distantShadows;
+        private double lastShootingPose = -1;
+        private ShootingPhase lastShootingPhase;
         public float GroundOffsetMeters {get;private set;}
         public void SetGroundSurface(Func<Vector3,float> height)=>groundSurface=height;
         public Biathlete167Rig Rig { get; private set; }
@@ -141,14 +143,35 @@ namespace Biathlon.Unity.Presentation
             sport?.RefreshPreviewEyewear(Rig.PreviewEyewearRaised?1:0);
         }
 
-        public void Render(AthleteAnimationFrame frame,bool distant=false)
+        public void Render(AthleteAnimationFrame frame, bool distant = false, bool visibleShootingPose = true)
         {
+            if (!Rig.gameObject.activeSelf)
+            {
+                lastShootingPose = -1;
+                return;
+            }
             if(distant!=distantShadows)
             {
                 distantShadows=distant;
                 for(int i=0;i<renderers.Length;i++)renderers[i].shadowCastingMode=distant?UnityEngine.Rendering.ShadowCastingMode.Off:shadows[i];
             }
             Rig.transform.SetPositionAndRotation(source.transform.position,source.transform.rotation);
+            if (frame.Athlete.ShootingActive)
+            {
+                // Pose off-camera shadow casters at a reduced rate. The next visible
+                // frame always solves against the current accepted shooting state.
+                const double offCameraInterval = .2;
+                double time = frame.TimeSeconds;
+                if (!visibleShootingPose && lastShootingPose >= 0 && time >= lastShootingPose &&
+                    time - lastShootingPose < offCameraInterval && lastShootingPhase == frame.Athlete.ShootingPhase)
+                {
+                    Rig.transform.position += Vector3.up * GroundOffsetMeters;
+                    return;
+                }
+                lastShootingPose = time;
+                lastShootingPhase = frame.Athlete.ShootingPhase;
+            }
+            else lastShootingPose = -1;
             sport.RenderEvaluatedRace(frame);ApplyGround((float)frame.PresentationGrade);RenderCount++;
         }
         public void RenderPreview()

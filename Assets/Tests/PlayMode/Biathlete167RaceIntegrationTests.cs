@@ -94,10 +94,20 @@ namespace Biathlon.PlayModeTests
                     runner.Step();var snapshot=RacePresentationSnapshot.Capture(runner.Field);feed.Publish(snapshot);range.Refresh();
                     if(!range.Visible)continue;
                     reached=true;
-                    visual.RenderShootingPreview(snapshot.Get(0).Stance,1,snapshot.Get(0).Sight);
+                    var state = snapshot.Get(0);
+                    var frame = new AthleteAnimationFrame(state, snapshot.Tick, snapshot.TickFrequency, 1);
+                    int poses = visual.RenderCount;
+                    visual.Render(frame);
                     Assert.That(visual.Rig.gameObject.activeSelf,Is.False,"The upgraded body and instanced equipment must not obstruct the sight camera.");
+                    Assert.That(visual.RenderCount, Is.EqualTo(poses), "A hidden sight body must not solve its shooting pose.");
                     feed.ResetRace();range.Refresh();
                     Assert.That(visual.Rig.gameObject.activeSelf,Is.True,"Return the new athlete to chase/broadcast view.");
+                    visual.Render(frame, visibleShootingPose: false);
+                    var next = new AthleteAnimationFrame(state, snapshot.Tick + 1, snapshot.TickFrequency, 1);
+                    visual.Render(next, visibleShootingPose: false);
+                    Assert.That(visual.RenderCount, Is.EqualTo(poses + 1), "Two adjacent off-camera frames reuse the fitted pose.");
+                    visual.Render(next, visibleShootingPose: true);
+                    Assert.That(visual.RenderCount, Is.EqualTo(poses + 2), "The first visible frame uses the latest accepted state.");
                     break;
                 }
                 Assert.That(reached,Is.True,"A real aiming phase must be reached.");
@@ -128,6 +138,34 @@ namespace Biathlon.PlayModeTests
                 Assert.That(max-min,Is.LessThanOrEqualTo(.001f),"The race must use the accepted no-sway motion definition, just like the studio.");
             }
             finally{Object.DestroyImmediate(root);}
+        }
+
+        [TestCase(0f, false, 1.05f)]
+        [TestCase(0f, true, 1.10f)]
+        [TestCase(.08f, true, .60f)]
+        public void SlowSkiingDoesNotUseRaceSpeedPoling(float grade, bool sprint, float maximumPushesPerSecond)
+        {
+            var root = new GameObject("Speed-matched live poling witness");
+            try
+            {
+                var source = AthleteRigFactory.Create(root.transform);
+                var visual = Biathlete167RacePresentation.Attach(source);
+                var driver = source.GetComponent<AthleteHybridLocomotionDriver>();
+                float peakHandSpeed = 0;
+                Vector3 previous = default;
+                for (int frame = 0; frame <= 360; frame++)
+                {
+                    driver.Sample(source, new LocomotionInput(1.8f, grade, sprint ? 1.3f : .9f, sprint: sprint), frame / 60d);
+                    visual.RenderPreview();
+                    Vector3 hand = visual.Rig.GripContact(true).position;
+                    if (frame > 60) peakHandSpeed = Mathf.Max(peakHandSpeed, Vector3.Distance(previous, hand) * 60);
+                    previous = hand;
+                }
+                Assert.That(driver.PoleCadenceHz, Is.InRange(.25f, maximumPushesPerSecond));
+                Assert.That(peakHandSpeed, Is.LessThan(2.2f), "The final rendered hand must return at a controlled speed.");
+                if (grade > 0) Assert.That(driver.PoleCadenceHz / driver.CadenceHz, Is.EqualTo(1).Within(.01f));
+            }
+            finally { Object.DestroyImmediate(root); }
         }
 
         [TestCase(ShootingStance.Prone)]

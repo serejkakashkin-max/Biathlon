@@ -172,7 +172,8 @@ namespace Biathlon.Unity.Presentation
             }
             skins=Array.ConvertAll(rig.Lods.GetLODs(),lod=>Array.Find(lod.renderers,r=>r is SkinnedMeshRenderer)as SkinnedMeshRenderer);
             eyeAnchor=new Biathlete167EyeAnchor(rig,skins[0]);
-            bodyClearance=new Biathlete167BodyClearance(rig,skins[0],d.body_volume_scale,d.body_volume_padding_m);
+            bodyClearance=new Biathlete167BodyClearance(rig,skins[0],d.body_volume_scale,d.body_volume_padding_m,
+                d.upperarm_radius_m, d.forearm_radius_m, d.wrist_radius_m);
             outfit=rig.GetComponent<Biathlete167Outfit>();materialNation=outfit!=null?outfit.Nation:null;
             visibleMaterials=new Material[skins.Length][];hiddenMaterials=new Material[skins.Length][];hiddenHarness=new Material[2];
             string[] names={"PULSE_Rifle_Carry_Webbing","PULSE_Rifle_Harness_Suspension"};
@@ -306,7 +307,8 @@ namespace Biathlon.Unity.Presentation
         {
             int hand = side == 0 ? 7 : 10;
             var pole = poles[side];
-            float followThrough = .5f + .5f * Mathf.Cos(((float)main.SourceDriver.PoleCycle - ski.pole_drive_end) * Mathf.PI * 2);
+            float strokeScale = main.SourceDriver.StrokeScale;
+            float followThrough = (.5f + .5f * Mathf.Cos(((float)main.SourceDriver.PoleCycle - ski.pole_drive_end) * Mathf.PI * 2)) * strokeScale;
             bones[hand - 2].rotation = Quaternion.AngleAxis(style.follow_through_degrees * followThrough, root.right) * bones[hand - 2].rotation;
             var upperDirection = bones[hand - 1].position - bones[hand - 2].position;
             var lowerDirection = bones[hand].position - bones[hand - 1].position;
@@ -320,7 +322,7 @@ namespace Biathlon.Unity.Presentation
             var rotation = bones[hand].rotation;
             var hint = bones[hand - 1].position - (bones[hand - 2].position + bones[hand].position) * .5f;
             var shoulder = bones[hand - 2].position;
-            var wrist = bones[hand].position + normal * (d.travel_plant_lift_m * plant);
+            var wrist = bones[hand].position + normal * (d.travel_plant_lift_m * plant * strokeScale);
             float upper = Vector3.Distance(shoulder, bones[hand - 1].position);
             float lower = Vector3.Distance(bones[hand - 1].position, bones[hand].position);
             float minimumReach = Mathf.Sqrt(upper * upper + lower * lower + 2 * upper * lower * Mathf.Cos(ski.arm_max_flex_deg * Mathf.Deg2Rad));
@@ -460,7 +462,7 @@ namespace Biathlon.Unity.Presentation
                 // Damping is needed only for the wrapped right-hand removal;
                 // the support hand converges directly without extra iterations.
                 if(bend>d.maximum_range_wrist_bend_degrees)rotation=Quaternion.Slerp(Quaternion.identity,Quaternion.FromToRotation(desired,actual),(right&&weapon?.5f:1f)*constraintWeight*(bend-d.maximum_range_wrist_bend_degrees)/bend)*rotation;
-                if(pass>0&&Quaternion.Angle(previous,rotation)<.01f)break;
+                if(Quaternion.Angle(previous,rotation)<.01f)break;
             }
             // The reaching forearm has moved since PrepareFreeArms. Blend
             // from its current neutral frame, never the stale world-space
@@ -584,7 +586,10 @@ namespace Biathlon.Unity.Presentation
                 {
                     float angle=(i==0?0:(i+1)/2*(i%2==1?1:-1))*Mathf.PI*2/d.arm_clearance_angles;
                     var candidate=centre+(bend*Mathf.Cos(angle)+other*Mathf.Sin(angle))*radius;
-                    float score=ArmPenalty(origin,candidate,end,avoidStock,avoidBody)+MatCost(candidate)+(guided?(candidate-guidePoint).sqrMagnitude:angle*angle)*guideBias;
+                    float score = MatCost(candidate) + (guided ? (candidate - guidePoint).sqrMagnitude : angle * angle) * guideBias;
+                    // Collision penalties are nonnegative. An already worse guide cannot win.
+                    if (score >= best) continue;
+                    score += ArmPenalty(origin,candidate,end,avoidStock,avoidBody);
                     if(score<best){best=score;selectedAngle=angle;}
                 }
                 float step=Mathf.PI*2/d.arm_clearance_angles,lo=selectedAngle-step,hi=selectedAngle+step;
@@ -602,13 +607,22 @@ namespace Biathlon.Unity.Presentation
         private float ArmPenalty(Vector3 shoulder,Vector3 elbow,Vector3 wrist,bool stock,bool body)
         {
             float result=stock?StockPenalty(shoulder,elbow,d.upperarm_radius_m,d.forearm_radius_m,true)+StockPenalty(elbow,wrist,d.forearm_radius_m,d.wrist_radius_m):0;
-            if(body)result+=bodyClearance.Penalty(shoulder,elbow,d.upperarm_radius_m,d.forearm_radius_m,true)+bodyClearance.Penalty(elbow,wrist,d.forearm_radius_m,d.wrist_radius_m,false);
+            if(body)result+=bodyClearance.Penalty(shoulder,elbow,true)+bodyClearance.Penalty(elbow,wrist,false);
             return result;
         }
         private float StockPenalty(Vector3 from,Vector3 to,float firstRadius,float lastRadius,bool shoulderConnection=false)
         {
             from=rifleInverse.MultiplyPoint3x4(from);to=rifleInverse.MultiplyPoint3x4(to);float sum=0;
-            for(int i=shoulderConnection?3:0;i<=8;i++){float t=i/8f;var point=Vector3.Lerp(from,to,t);float gap=Mathf.Min(Vector3.Distance(point,stockBounds.ClosestPoint(point)),Vector3.Distance(point,barrelBounds.ClosestPoint(point)));float penetration=Mathf.Max(0,Mathf.Lerp(firstRadius,lastRadius,t)-gap);sum+=penetration*penetration;}
+            for (int i = shoulderConnection ? 3 : 0; i <= 8; i++)
+            {
+                float phase = i / 8f;
+                var point = Vector3.Lerp(from, to, phase);
+                float radius = Mathf.Lerp(firstRadius, lastRadius, phase);
+                float gapSquared = Mathf.Min(stockBounds.SqrDistance(point), barrelBounds.SqrDistance(point));
+                if (gapSquared >= radius * radius) continue;
+                float penetration = radius - Mathf.Sqrt(gapSquared);
+                sum += penetration * penetration;
+            }
             return sum;
         }
         private void StowPoles(float weight,bool releaseSnapshot=false)

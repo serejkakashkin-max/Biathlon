@@ -68,6 +68,17 @@ namespace Biathlon.Unity.Presentation
         }
     }
 
+    [Serializable] public sealed class SpeedMatchedPoling
+    {
+        public bool enabled;
+        public float reference_cycle_hz, full_stroke_speed_mps, slow_stroke_fraction, maximum_pushes_hz;
+
+        public bool IsValid => reference_cycle_hz > .4f && reference_cycle_hz < 1 &&
+            full_stroke_speed_mps > 2 && full_stroke_speed_mps < 6 &&
+            slow_stroke_fraction > 0 && slow_stroke_fraction < 1 &&
+            maximum_pushes_hz > 1 && maximum_pushes_hz < 2.5f;
+    }
+
     [Serializable] public sealed class SkiMotionSettings
     {
         public int schema_version; public string id,provenance;
@@ -80,6 +91,7 @@ namespace Biathlon.Unity.Presentation
         public float arm_min_flex_deg, arm_max_flex_deg, arm_reference_swing_m;
         public float hand_plant_forward_m, hand_release_forward_m, hand_plant_drop_m, hand_release_drop_m;
         public float poling_hand_outset_m, elbow_plane_splay_deg;
+        public SpeedMatchedPoling speed_matched_poling;
         public SkiMotionProfile[] profiles; public SkiMotionCurve[] curves;
         private static SkiMotionSettings cached;
         public static SkiMotionSettings Load()=>cached??(cached=FromJson(Resources.Load<TextAsset>("Biathlon/ski_motion_v2").text));
@@ -88,6 +100,8 @@ namespace Biathlon.Unity.Presentation
             var d=JsonUtility.FromJson<SkiMotionSettings>(json);
             if(d==null||d.schema_version!=5||string.IsNullOrWhiteSpace(d.id)||d.profiles==null||d.profiles.Length!=12||d.curves==null||d.curves.Length!=5)
                 throw new ArgumentException("Invalid hybrid ski motion definition.");
+            if (d.speed_matched_poling?.enabled == true && !d.speed_matched_poling.IsValid)
+                throw new ArgumentException("Invalid speed-matched poling definition.");
             if(!(d.transition_s>0&&d.phase_response_s>0&&d.speed_reference_mps>0&&d.min_cadence_hz>0&&d.max_cadence_hz>=d.min_cadence_hz&&d.max_cadence_hz<=3&&
                 d.glide_fraction>.5f&&d.glide_fraction<.9f&&d.ankle_height_m>0&&d.max_hip_transfer_m>0&&d.max_hip_transfer_m<=.025f&&
                 d.poling_hand_outset_m>=.04f&&d.poling_hand_outset_m<=.1f&&d.elbow_plane_splay_deg>=8&&d.elbow_plane_splay_deg<=30&&
@@ -145,6 +159,7 @@ namespace Biathlon.Unity.Presentation
         public double PoleCycle {get;private set;}
         public float CadenceHz {get;private set;}
         public float PoleCadenceHz=>CadenceHz*blended.poles_per_cycle*blended.pole_cadence_scale;
+        public float StrokeScale { get; private set; } = 1;
         public float LeftEdgeDegrees {get;private set;}
         public float RightEdgeDegrees {get;private set;}
         public bool PoleDriveActive=>Active&&blended.poles_per_cycle>.05f&&(float)PoleCycle>=settings.pole_drive_start&&(float)PoleCycle<=settings.pole_drive_end;
@@ -180,25 +195,36 @@ namespace Biathlon.Unity.Presentation
             var e=observed??new ExertionInput(0,1,0);var selected=settings.Select(input,e);
             double dt=previousTime<0?0:Math.Max(0,time-previousTime);
             bool reset=previousTime<0||time<previousTime||dt>1;
-            float targetCadence=Mathf.Clamp(pose.cadence_hz*Mathf.Sqrt(Mathf.Max(0,input.Speed)/settings.speed_reference_mps),settings.min_cadence_hz,settings.max_cadence_hz);
+            var pacing = settings.speed_matched_poling?.enabled == true ? settings.speed_matched_poling : null;
+            float targetCadence = pacing == null
+                ? pose.cadence_hz * Mathf.Sqrt(Mathf.Max(0, input.Speed) / settings.speed_reference_mps)
+                : Mathf.LerpUnclamped(settings.min_cadence_hz, pacing.reference_cycle_hz, Mathf.Max(0, input.Speed) / settings.speed_reference_mps);
+            targetCadence = Mathf.Clamp(targetCadence, settings.min_cadence_hz, settings.max_cadence_hz);
+            float targetStroke = pacing == null ? 1 : Mathf.Lerp(pacing.slow_stroke_fraction, 1,
+                Mathf.SmoothStep(0, 1, Mathf.InverseLerp(settings.slow_speed_mps, pacing.full_stroke_speed_mps, input.Speed)));
             if(reset)
             {
                 MotionState=selected;transitionAt=time-settings.transition_s;
                 SkiMotionProfile.Blend(settings.profiles[(int)selected],settings.profiles[(int)selected],1,blended);
                 SkiMotionProfile.Blend(blended,blended,1,start);
-                CadenceHz=BoundCadence();Cycle=(time*CadenceHz+athletePhase)%1;PoleCycle=(time*PoleCadenceHz+athletePhase)%1;dt=0;
+                CadenceHz=BoundCadence();Cycle=(time*CadenceHz+athletePhase)%1;
+                PoleCycle=pacing==null?(time*PoleCadenceHz+athletePhase)%1:(Cycle*blended.poles_per_cycle)%1;
+                StrokeScale=targetStroke;dt=0;
             }
             else if(selected!=MotionState){SkiMotionProfile.Blend(blended,blended,1,start);MotionState=selected;transitionAt=time;}
             float blend=SkiMotionCurve.Ease((float)((time-transitionAt)/settings.transition_s));
             SkiMotionProfile.Blend(start,settings.profiles[(int)MotionState],blend,blended);
-            CadenceHz=Mathf.Lerp(CadenceHz,BoundCadence(),1-Mathf.Exp(-(float)dt/settings.phase_response_s));
+            float response = 1-Mathf.Exp(-(float)dt/settings.phase_response_s);
+            CadenceHz=Mathf.Lerp(CadenceHz,BoundCadence(),response);
+            StrokeScale=Mathf.Lerp(StrokeScale,targetStroke,response);
             // Preserve leg cadence; the shared arm/contact/compression phase uses
             // a separate visual rate so sprint cannot turn into rapid hammering.
             Cycle=(Cycle+dt*CadenceHz)%1;PoleCycle=(PoleCycle+dt*PoleCadenceHz)%1;previousTime=time;
             ContactState=blended.ready_weight>.95f?SkiLocomotion.Idle:
                 blended.poles_per_cycle<.05f&&MotionState==SkiMotionState.NoPole?SkiLocomotion.TechnicalDescent:fallback.State;
             Pose(rig);
-            float BoundCadence()=>Mathf.Min(targetCadence*blended.cadence_scale,settings.max_pole_cadence_hz/Mathf.Max(1,blended.poles_per_cycle));
+            float BoundCadence()=>Mathf.Min(targetCadence*blended.cadence_scale,
+                (pacing?.maximum_pushes_hz ?? settings.max_pole_cadence_hz)/Mathf.Max(1,blended.poles_per_cycle));
         }
         private void Pose(AthleteRigBinding rig)
         {
@@ -206,7 +232,7 @@ namespace Biathlon.Unity.Presentation
             float ready=blended.ready_weight*(1-fallback.FinishWeight);
             float activity=Mathf.Clamp01(pose.arm_swing_m/.2f);
             float transfer=settings.curves[0].At(phase)*blended.hip_transfer_m*activity;
-            float compression=settings.curves[2].At(pole)*blended.arm_scale*activity;
+            float compression=settings.curves[2].At(pole)*blended.arm_scale*activity*StrokeScale;
             rig.Offset(AthleteBone.Hips,new Vector3(transfer,-pose.hip_drop_m-settings.hip_compression_m*compression,-pose.hip_back_m)+AthleteCornerPose.PelvisOffset(fallback.CornerLeanDegrees));
             float lean=pose.torso_lean_deg+blended.compression_deg*compression,hinge=lean*pose.hip_hinge_fraction;
             float twist=settings.curves[0].At(phase)*blended.torso_twist_deg*activity;
@@ -248,9 +274,12 @@ namespace Biathlon.Unity.Presentation
                 // Author hands relative to the shoulder, so torso compression cannot
                 // lift elbows above it. Plant at chest height, extend behind on release.
                 float forward=Mathf.Lerp(settings.hand_release_forward_m,settings.hand_plant_forward_m,(settings.curves[1].AtContinuous(pole)+1)*.5f);
-                float drop=Mathf.Lerp(settings.hand_release_drop_m,settings.hand_plant_drop_m,(settings.curves[3].AtContinuous(pole)+1)*.5f);
-                var stroke=new Vector3(rest.x+side*settings.poling_hand_outset_m,shoulder.y-drop+side*blended.hand_stagger_m,shoulder.z+forward-side*blended.hand_stagger_m);
-                float strength=Mathf.Clamp01(pose.arm_swing_m*blended.arm_scale/settings.arm_reference_swing_m);
+                float plantHeight = (settings.curves[3].AtContinuous(pole) + 1) * .5f;
+                float drop=Mathf.Lerp(settings.hand_release_drop_m,settings.hand_plant_drop_m,plantHeight);
+                float stagger = blended.hand_stagger_m * (settings.speed_matched_poling?.enabled == true ? plantHeight : 1);
+                var stroke=new Vector3(rest.x+side*settings.poling_hand_outset_m,shoulder.y-drop+side*stagger,
+                    shoulder.z+forward-side*blended.hand_stagger_m);
+                float strength=Mathf.Clamp01(pose.arm_swing_m*blended.arm_scale/settings.arm_reference_swing_m)*StrokeScale;
                 Vector3 target=Vector3.Lerp(rest,stroke,strength);
                 target=Vector3.Lerp(target,new Vector3(chestX+side*settings.ready_hand_width_m,settings.ready_hand_height_m,settings.ready_hand_forward_m),ready);
                 FitArm(rig,upper,lower,hand,rig.ModelRoot.TransformPoint(target));
@@ -260,7 +289,7 @@ namespace Biathlon.Unity.Presentation
         public void FitArm(AthleteRigBinding rig,Transform upper,Transform lower,Transform hand,Vector3 target)
         {
             float side=upper==rig.Bone(AthleteBone.RightUpperArm)?1:-1;
-            float weight=Mathf.Clamp01(pose.arm_swing_m*blended.arm_scale/settings.arm_reference_swing_m);
+            float weight=Mathf.Clamp01(pose.arm_swing_m*blended.arm_scale/settings.arm_reference_swing_m)*StrokeScale;
             AthleteLocomotionDriver.SolveHingedArm(upper,lower,hand,target,rig.ModelRoot.rotation,settings.arm_min_flex_deg,settings.arm_max_flex_deg,
                 side*settings.elbow_plane_splay_deg*weight);
         }

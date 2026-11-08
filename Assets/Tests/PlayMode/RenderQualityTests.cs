@@ -14,8 +14,8 @@ namespace Biathlon.PlayModeTests
             var json = Resources.Load<TextAsset>("Biathlon/render_quality_v1").text;
             var d = RenderQualityDefinition.FromJson(json);
             Assert.That(d.Get(d.default_tier).id, Is.EqualTo("balanced"));
-            Assert.That(d.target_frame_rate,Is.EqualTo(60));
-            Assert.Throws<ArgumentException>(()=>RenderQualityDefinition.FromJson(json.Replace("\"target_frame_rate\": 60","\"target_frame_rate\": 0")));
+            Assert.That(d.target_frame_rate,Is.EqualTo(100));
+            Assert.Throws<ArgumentException>(()=>RenderQualityDefinition.FromJson(json.Replace("\"target_frame_rate\": 100","\"target_frame_rate\": 0")));
             Assert.Throws<ArgumentException>(() => RenderQualityDefinition.FromJson(json.Replace("0.8", "0")));
             Assert.Throws<ArgumentException>(() => RenderQualityDefinition.FromJson(json.Replace("\"high\"", "\"low\"")));
             Assert.Throws<ArgumentException>(() => d.Get("unknown"));
@@ -46,7 +46,7 @@ namespace Biathlon.PlayModeTests
                 var data = first.AddComponent<UniversalAdditionalCameraData>(); data.volumeLayerMask = 123;
                 data.antialiasing = AntialiasingMode.FastApproximateAntialiasing; data.renderPostProcessing = true;
                 var a = first.AddComponent<RenderQualityPresentation>(); a.Initialize(camera);
-                Assert.That(Application.targetFrameRate,Is.EqualTo(60));
+                Assert.That(Application.targetFrameRate,Is.EqualTo(RenderQualityDefinition.Load().target_frame_rate));
                 var originalAsset = Resources.Load<UniversalRenderPipelineAsset>("Biathlon/Rendering/low");
                 a.Apply("low"); Assert.That(a.Pipeline, Is.Not.SameAs(originalAsset));
                 Assert.That(data.volumeLayerMask.value, Is.Zero); Assert.That(data.renderPostProcessing, Is.False);

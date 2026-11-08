@@ -89,7 +89,8 @@ def compose(source: Path, destination: Path, font_dir: Path) -> None:
             draw.text((left, footer), caption, font=body, fill=main)
             draw.text((width-padding, footer), "ОДИН МАСШТАБ  ·  ОДНА КАМЕРА", font=small, fill=muted, anchor="rt")
             summary.append({"id": name, "title_ru": label, "start_frame": written, "start_seconds": written/fps,
-                            "frames": shot["frames"], "duration_seconds": shot["frames"]/fps})
+                            "frames": shot["frames"], "duration_seconds": shot["frames"]/fps,
+                            "pole_plant_seconds": shot.get("pole_plant_seconds", [])})
             for frame in range(shot["frames"]):
                 composed = template.copy()
                 for x, side in ((left, "game"), (right, "hero")):
