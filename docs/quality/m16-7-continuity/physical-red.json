@@ -1,0 +1,34 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 4,
+    "PassedTests": 3,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:25.0840112"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167TransitionTests.PhysicalRangeApproachKeepsBothAthletesContinuous",
+      "Status": "Failed",
+      "Duration": "00:00:24.5820000",
+      "Message": "  Hand jumps 0,298 m at native tick 3202 near the mat.\r\n  Expected: less than 0.0900000036f\r\n  But was:  0.298371762f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167TransitionTests.PhysicalRangeApproachKeepsBothAthletesContinuous () [0x00348] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167TransitionTests.cs:74\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous(-0.06f,False)",
+      "Status": "Passed",
+      "Duration": "00:00:00.1040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous(0.06f,False)",
+      "Status": "Passed",
+      "Duration": "00:00:00.1080000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous(0.0f,True)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0790000"
+    }
+  ]
+}

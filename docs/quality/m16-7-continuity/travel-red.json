@@ -1,0 +1,33 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 3,
+    "PassedTests": 0,
+    "FailedTests": 3,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.6886130"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous(-0.06f,False)",
+      "Status": "Failed",
+      "Duration": "00:00:00.4330000",
+      "Message": "  Rendered LeftHand jumps 0,166 m at frame 180 when travel changes.\r\n  Expected: less than 0.0649999976f\r\n  But was:  0.165558755f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous (System.Single curvature, System.Boolean approachingMat) [0x00290] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167TransitionTests.cs:56\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous(0.06f,False)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0720000",
+      "Message": "  Rendered RightHand jumps 0,166 m at frame 180 when travel changes.\r\n  Expected: less than 0.0649999976f\r\n  But was:  0.165558413f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous (System.Single curvature, System.Boolean approachingMat) [0x00290] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167TransitionTests.cs:56\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous(0.0f,True)",
+      "Status": "Failed",
+      "Duration": "00:00:00.0410000",
+      "Message": "  Rendered LeftHand jumps 0,163 m at frame 180 when travel changes.\r\n  Expected: less than 0.0649999976f\r\n  But was:  0.162581265f\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.Biathlete167TransitionTests.TravelChangesKeepTheRenderedBodyContinuous (System.Single curvature, System.Boolean approachingMat) [0x00290] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\Biathlete167TransitionTests.cs:56\r\n"
+    }
+  ]
+}
