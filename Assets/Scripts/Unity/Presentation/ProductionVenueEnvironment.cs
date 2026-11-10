@@ -41,6 +41,7 @@ namespace Biathlon.Unity.Presentation
         public int FlagClearanceExcludedTrees {get;private set;}
         /// <summary>Explicit capture hosts may submit one controlled frame themselves.</summary>
         public bool AutomaticRendering {get;set;}=true;
+        public bool DrawForestForReview {get;set;}=true;
         public ProductionForestDressing Dressing=>dressing;
         private LightingVisualPreset lighting;
         private LightingVisualPreset reviewLighting;
@@ -397,7 +398,7 @@ namespace Biathlon.Unity.Presentation
             var observed=RaceWeatherObservation?.Invoke();weather.RaceObservation=observed;var observedWind=observed.HasValue?new Vector2((float)observed.Value.Wind.EastMetersPerSecond,(float)observed.Value.Wind.NorthMetersPerSecond):recipe.lighting.visual_wind;
             RangeFlags?.Render(time,observedWind);
             RefreshBanks();VisibleTrees=0;SubmittedForestTriangles=0;
-            foreach(var forest in forests){forest.Render(camera,tier,time,observedWind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
+            if(DrawForestForReview)foreach(var forest in forests){forest.Render(camera,tier,time,observedWind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
             foreach(var crowd in crowds)crowd.Render(camera,tier,time);
             dressing?.Render(camera,tier);
             weather.SetViewCamera(camera);

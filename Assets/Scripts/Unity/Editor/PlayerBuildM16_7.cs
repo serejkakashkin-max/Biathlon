@@ -42,7 +42,24 @@ namespace Biathlon.Unity
             "Ускорены подготовка экипировки и обновление поз спортсменов. Невидимые детали вне зоны теней пропускаются при отрисовке.\r\n",
             "M16.8");
 
-        private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7")
+        public static void BuildM168HitchProbe()
+        {
+            bool timing=PlayerSettings.enableFrameTimingStats;
+            try
+            {
+                PlayerSettings.enableFrameTimingStats=true;
+                BuildM167Review("Builds/M16_8_Hitch_Probe","m168_hitch_probe",null,"Диагностическая сборка полного карьерного заезда.\r\n","M16.8");
+            }
+            finally{PlayerSettings.enableFrameTimingStats=timing;AssetDatabase.SaveAssets();}
+        }
+
+        public static void BuildM168HitchReview() => BuildM167Review("Builds/M16_8_Hitch_Review",
+            "m168_hitch_review", null,
+            "Устранён лишний пересчёт всего поля при независимом торможении и контакте с краем трассы. Старые повторы используют правила своей записи.\r\n",
+            "M16.8", "Коэффициенты движения, баланс, геометрия попаданий и формат сохранений прежние. Новые гонки используют уточнённый расчёт контакта со снегом.\r\n");
+
+        private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
+            string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {
             // These names own the existing career directory; branding belongs in the UI.
             if(PlayerSettings.companyName!="DefaultCompany"||PlayerSettings.productName!="Biathlon")
@@ -66,7 +83,7 @@ namespace Biathlon.Unity
                 "START_TEST.cmd — игра на весь экран. Можно продолжить существующую карьеру.\r\n"+
                 "Новый спортсмен внедрён в гонки и редактор внешности. Сохранены индивидуальные лица, цвета сборных, головные уборы, очки, перчатки, ботинки и выбранные лыжи.\r\n"+
                 "Периодическое боковое раскачивание убрано. Наклон в поворотах и реакция на столкновения сохранены.\r\n"+
-                "Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n"+
+                simulationNote+
                 "Проверьте лыжный ход, разгон, подъём, стрельбу лёжа/стоя и внешность соперников.\r\n"+
                 reviewNote+
                 (string.IsNullOrEmpty(comparisonFile) ? "" : "Видео сравнения: Media/"+comparisonFile+" (WATCH_COMPARISON.cmd).\r\n")+

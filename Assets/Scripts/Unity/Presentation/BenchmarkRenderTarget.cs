@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.LowLevel;
 using UnityEngine.Rendering;
@@ -9,7 +10,9 @@ namespace Biathlon.Unity.Presentation
     /// <summary>Offscreen camera request after Unity updates skinning; no swapchain/HUD workload.</summary>
     public sealed class BenchmarkRenderTarget : IDisposable
     {
+        private static readonly ProfilerMarker RenderRequest=new ProfilerMarker("Biathlon.Benchmark.RenderRequest");
         private RenderTexture target;
+        public RenderTexture Texture=>target;
         private Camera queuedCamera;
         public int Width => target!=null?target.width:throw new ObjectDisposedException(nameof(BenchmarkRenderTarget));
         public int Height => target!=null?target.height:throw new ObjectDisposedException(nameof(BenchmarkRenderTarget));
@@ -29,6 +32,7 @@ namespace Biathlon.Unity.Presentation
         private void Execute()
         {
             if(queuedCamera==null||target==null)return;
+            using var marker=RenderRequest.Auto();
             var camera=queuedCamera;queuedCamera=null;
             var previous=RenderTexture.active;var previousTarget=camera.targetTexture;
             try

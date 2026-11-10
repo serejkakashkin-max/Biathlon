@@ -22,6 +22,9 @@ namespace Biathlon.Unity.Presentation
         public bool AutoStart=true,UseGamepad;
         public Biathlon.Presentation.PlayerSettings InputPreferences {get;set;}
         public bool UseManualHeading=true;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public bool DiagnosticAiDrive {get;set;}
+#endif
         public ManualScopedFieldStepper ManualStepper {get;private set;}
         public int FieldCount=30;
         public PackAiRaceRunner Runner {get;private set;}
@@ -176,7 +179,7 @@ namespace Biathlon.Unity.Presentation
             InitializeRunner(race.Venue,race.Runner,race.PlayerIndex,race.ManualRead,race.CourseReactionPolicy,race.AiSnowSearchVersion==1,race.MovingOvertakeVersion);
         }
         private void InitializeRunner(VenueAuthoringPlan venue,PackAiRaceRunner runner,int playerIndex,Func<string,string> manualRead=null,
-            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool completeSnowSearch=true,int movingOvertakeVersion=2)
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.IndependentCourseV27,bool completeSnowSearch=true,int movingOvertakeVersion=2)
         {
             var profile=runner.Field.Profile;
             playerAssistance=PlayerCourseAssistanceDefinition.FromJson(ReadCore("player_course_assistance_v1.json"));
@@ -293,6 +296,9 @@ namespace Biathlon.Unity.Presentation
         }
         private void StepDeviceTick()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if(DiagnosticAiDrive){using var profile=RuntimeFrameProfile.Tick.Auto();Runner.Step();return;}
+#endif
             var tick=Runner.Field.Tick.Next();
             if(Runner.Field.GetAthlete(PlayerIndex).HasFinished)StepFinishedPlayerTick();
             else if(ManualStepper!=null){Step(ski.PeekManual(tick),shot.Build(tick));ski.AcceptManual(tick);}

@@ -34,6 +34,9 @@ namespace Biathlon.AI
         private readonly AiClimbRestartController[] climbRestart;
         private readonly double lowSpeedReference;
         public string ContextJson {get;}
+        public bool MeasureWork {get;set;}
+        public long LastPlanningTimeTicks {get;private set;}
+        public long LastPhysicsTimeTicks {get;private set;}
         public int SnowSearchVersion=>snowPlanner.SearchVersion;
         public int MovingOvertakeVersion=>policy.PrivateMatBendMargin?2:policy.MovingOvertakeMinimumAdvantage>0?1:0;
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
@@ -97,6 +100,7 @@ namespace Biathlon.AI
         {using(var stream=new MemoryStream()){new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,values);return Encoding.UTF8.GetString(stream.ToArray());}}
         public void Step(SprintAthleteInput[] inputs,double[] desiredLateral,int playerIndex=-1,int playerSteering=0,double playerBrake=0)
         {
+            long workStart=MeasureWork?System.Diagnostics.Stopwatch.GetTimestamp():0;
             if(inputs==null||desiredLateral==null||inputs.Length!=steering.Length||desiredLateral.Length!=steering.Length||
                 playerIndex<-1||playerIndex>=steering.Length||playerSteering<-ManualSkiCommand.SteeringUnits||playerSteering>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentException("Exact roster and signed player intent required.");
@@ -304,7 +308,11 @@ namespace Biathlon.AI
                         surface.WithTravelGeometry(observed.GradeAlong(actor.Pose),0),athlete.CorneringSkill,athlete.DownhillSkill,athlete.PhysiologyState.MuscularFatigue));
 
             }
-            if(!stepper.TryStep(inputs,steering,brakes))
+            long physicsStart=MeasureWork?System.Diagnostics.Stopwatch.GetTimestamp():0;
+            if(MeasureWork)LastPlanningTimeTicks=physicsStart-workStart;
+            bool accepted=stepper.TryStep(inputs,steering,brakes);
+            if(MeasureWork)LastPhysicsTimeTicks=System.Diagnostics.Stopwatch.GetTimestamp()-physicsStart;
+            if(!accepted)
                 throw new InvalidOperationException("Manual field step rejected: "+stepper.LastStep.Status+" / "+
                     stepper.LastStep.WorldAttempt.Status+" / "+stepper.LastStep.WorldAttempt.Athlete+"; candidate clock not paid. "+FailureDetails());
             bool Blocked(int self,double lateral,double horizon)
