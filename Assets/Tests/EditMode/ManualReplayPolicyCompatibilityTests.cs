@@ -137,18 +137,20 @@ namespace Biathlon.Tests
                 Assert.That(world.CurvedCourseContinuations,Is.Zero);
             }
         }
-        [Test] public void NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw()
+        [TestCase(ManualCourseReactionPolicy.PassiveCurvedV26,ManualCourseReactionPolicy.LegacyV25)]
+        [TestCase(ManualCourseReactionPolicy.IndependentCourseV27,ManualCourseReactionPolicy.PassiveCurvedV26)]
+        public void JournalReplaysExactlyAndRequiresItsRecordedForceLaw(ManualCourseReactionPolicy policy,ManualCourseReactionPolicy incompatible)
         {
-            var source=Initial(ManualCourseReactionPolicy.PassiveCurvedV26);byte[] bytes;
+            var source=Initial(policy);byte[] bytes;
             using(var stream=new MemoryStream())using(var writer=new ManualRaceJournalWriter(stream,source.stepper,SkiTechniqueDefinition.FromJson(Read("ski_technique_provisional_v1.json"))))
             {source.stepper.CommandObserver=writer;for(int i=0;i<1200;i++)source.runner.Step();writer.Complete();Assert.That(writer.Failure,Is.Null);bytes=stream.ToArray();}
             for(int repeat=0;repeat<2;repeat++)
             {
-                var target=Initial(ManualCourseReactionPolicy.PassiveCurvedV26).stepper;
+                var target=Initial(policy).stepper;
                 using(var stream=new MemoryStream(bytes))using(var reader=new ManualRaceJournalReader(stream,target,1200))while(reader.HasNext)reader.Step();
                 Assert.That(StateHash(target),Is.EqualTo(StateHash(source.stepper)),"Recorded commands must reproduce actual pose, progress, velocity and paid resources without AI.");
             }
-            var legacy=Initial(ManualCourseReactionPolicy.LegacyV25).stepper;
+            var legacy=Initial(incompatible).stepper;
             Assert.Throws<InvalidDataException>(()=>{using(var stream=new MemoryStream(bytes))using(var reader=new ManualRaceJournalReader(stream,legacy,1200)){} });
             Assert.That(legacy.World.Tick.Value,Is.Zero);
         }
@@ -176,9 +178,11 @@ namespace Biathlon.Tests
             var info=Info();string legacy=info.ToJson();Assert.That(legacy,Does.Not.Contain("course_reaction_version"));
             Assert.That(RaceReplayInfo.FromJson(legacy).ToJson(),Is.EqualTo(legacy));Assert.That(RaceReplayInfo.FromJson(legacy).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.LegacyV25));
             info.CourseReactionVersion=26;Assert.That(info.ToJson(),Does.Contain("\"course_reaction_version\":26"));Assert.That(RaceReplayInfo.FromJson(info.ToJson()).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.PassiveCurvedV26));
+            info.CourseReactionVersion=27;Assert.That(RaceReplayInfo.FromJson(info.ToJson()).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.IndependentCourseV27));
             info.CourseReactionVersion=24;Assert.Throws<SerializationException>(()=>info.ToJson());
             var d=new CareerDefinitions(Read,"woodland_development_calendar_v1.json");var save=CareerMassStartSeedingTests.Create(d);var provider=new CareerRaceProvider(Read,d,Venue);
-            Assert.That(provider.Prepare(save,d.Calendar.Get(2),123).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.PassiveCurvedV26));
+            Assert.That(provider.Prepare(save,d.Calendar.Get(2),123).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.IndependentCourseV27));
+            Assert.That(provider.Prepare(save,d.Calendar.Get(2),123,courseReactionPolicy:ManualCourseReactionPolicy.PassiveCurvedV26).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.PassiveCurvedV26));
             Assert.That(provider.Prepare(save,d.Calendar.Get(2),123,courseReactionPolicy:ManualCourseReactionPolicy.LegacyV25).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.LegacyV25));
             Assert.Throws<ArgumentOutOfRangeException>(()=>provider.Prepare(save,d.Calendar.Get(2),123,courseReactionPolicy:(ManualCourseReactionPolicy)24));
         }

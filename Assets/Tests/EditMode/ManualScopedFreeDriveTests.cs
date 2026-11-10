@@ -7,6 +7,92 @@ namespace Biathlon.Tests
 {
     public sealed class ManualScopedFreeDriveTests
     {
+        [TestCase(ManualCourseReactionPolicy.IndependentCourseV27)]
+        [TestCase(ManualCourseReactionPolicy.PassiveCurvedV26)]
+        public void ForeignCourseSupportUsesTheRecordedStopCalendar(ManualCourseReactionPolicy policy)
+        {
+            var production=ManualProductionFieldTests.Initial("mass_start",1).stepper;
+            var body=production.BodyDefinition;var physics=production.PhysicsDefinition;
+            var tolerance=ManualNumericalToleranceDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_gameplay_tolerance_v1.json"));
+            var edgeCatalog=production.World.GetCatalog(0);
+            var catalogs=new[]{edgeCatalog,edgeCatalog};
+            var poses=new ManualSkiHeadingState[2];var cursors=new ManualRacePathCursor[2];var velocities=new SkiPlanarVelocity[2];var motion=new SkiState[2];
+            var stopped=production.World.GetActor(0);
+            double h=stopped.Pose.HeadingRadians;
+            cursors[0]=production.World.GetCursor(0);
+            poses[0]=new ManualSkiHeadingState(stopped.Pose.X,stopped.Pose.Z,h,.002);
+            velocities[0]=new SkiPlanarVelocity(1e-10*Math.Sin(h)+.001*Math.Cos(h),1e-10*Math.Cos(h)-.001*Math.Sin(h));
+            motion[0]=new SkiState(0,.001);
+
+            // The admitted rounded-bend witness from OwnerCourseClockRejectionTests.
+            int occurrence=-1;const long local=85_706_000_000;
+            for(int i=0;i<edgeCatalog.BaseFlowCount;i++)
+            {
+                var row=edgeCatalog.Get(i);
+                if(row.LoopId=="main"&&row.LocalStartNanometers<=local&&row.LocalEndNanometers>=local){occurrence=i;break;}
+            }
+            Assert.That(occurrence,Is.GreaterThanOrEqualTo(0));
+            long arc=local-edgeCatalog.Get(occurrence).LocalStartNanometers;
+            Assert.That(edgeCatalog.TrySample(occurrence,arc,out var center),Is.True);
+            poses[1]=new ManualSkiHeadingState(215.131683788,-23.674832777,2.685201267,.579);
+            velocities[1]=new SkiPlanarVelocity(9.614*center.ForwardX+center.ForwardZ,9.614*center.ForwardZ-center.ForwardX);
+            Assert.That(edgeCatalog.TryProject(poses[1],occurrence,arc,3,out var observed),Is.True);
+            cursors[1]=new ManualRacePathProgression(edgeCatalog).Reconstitute(new AthleteId("edge_skier"),occurrence,
+                observed.PhysicalArcNanometers,observed.PhysicalArcNanometers,observed.MappedRouteNanometers);
+            double speed=Math.Sqrt(velocities[1].X*velocities[1].X+velocities[1].Z*velocities[1].Z);
+            double grade=observed.GeometricGrade*(velocities[1].X*observed.ForwardX+velocities[1].Z*observed.ForwardZ)/speed;
+            motion[1]=new SkiState(0,speed*Math.Sqrt(1+grade*grade));
+            var world=new ManualScopedWorldRoster(catalogs,body,
+                SkiContactDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_gameplay_v1.json")),
+                SkiContactSweepDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_sweep_v1.json")),
+                cursors,poses,velocities,motion,20,responseDefinition:SkiContactGroupDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_group_gameplay_v1.json")),
+                actorMasses:new[]{physics.MassKilograms,physics.MassKilograms},
+                numericalTolerance:tolerance,
+                courseContact:ManualCourseContactDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_course_contact_gameplay_v2.json")),
+                courseReactionPolicy:policy);
+            var system=new ManualSkiControlledDriveSystem(physics,body,ManualScopedFieldStepperTests.Steering(),production.CorneringDefinition,20);
+            var respond=typeof(ManualScopedWorldRoster).GetMethod("TryRespondToCourseEdge",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+            var drives=new SkiDrivenContactTrajectory[2];var candidates=new SkiWorldMotionCandidate[2];var windows=new ManualScopedWorldWindow[2];var grades=new double[2];
+            var tick=world.BeginTick();bool exercised=false;int pieces=0;
+            while(world.GetRemainingSeconds(tick)>0)
+            {
+                double remaining=world.GetRemainingSeconds(tick);
+                Assert.That(world.TryResolveOwnedCurrentContacts(tick),Is.True);
+                for(int i=0;i<2;i++)
+                {
+                    var a=world.GetWorkingActor(tick,i);var c=world.GetWorkingCursor(tick,i);var row=catalogs[i].Get(c.OccurrenceIndex);
+                    drives[i]=system.Preview(new ManualSkiContactBody(a.Athlete,a.Pose,a.Velocity,physics.MassKilograms),
+                        new SkiContactMotion(a.Velocity,a.Pose.YawRateRadiansPerSecond),a.Observation,catalogs[i].SampleSurface(a.Observation),
+                        new ManualSkiMotionInput(i==0?300:1000,i==0?0:350,70,70),remaining).Drive;
+                    windows[i]=new ManualScopedWorldWindow(a.Athlete,c.OccurrenceIndex,c.ObservedArcNanometers,
+                        physics.MaximumSpeedMetersPerSecond*remaining*a.Observation.StationMetersPerPlanarMeter,row.LengthNanometers);
+                    grades[i]=a.Observation.GradeAlong(a.Pose);
+                }
+                Assert.That(world.TryPreviewContactDrivenMotion(tick,drives,candidates),Is.True);
+                if(world.CourseEdgeResponses>0&&world.LastOwnedContacts.Count==0)
+                {
+                    exercised=true;
+                    Assert.That(drives[0].Snow.HasExactNeutralConstraint,Is.False);
+                    Assert.That(drives[0].ConstantAccelerationSeconds,Is.LessThan(.0001));
+                    if(policy==ManualCourseReactionPolicy.PassiveCurvedV26)
+                    {
+                        Assert.That(candidates[0].Trajectory.DurationSeconds,Is.EqualTo(.0001));
+                        world.AbortTick(tick);
+                        return;
+                    }
+                    Assert.That(candidates[0].Trajectory.DurationSeconds,Is.GreaterThan(.01),"An unrelated almost-stopped skier must not force the supported skier through short slices.");
+                    double seconds=candidates[0].Trajectory.DurationSeconds;
+                    Assert.That(candidates[0].Trajectory.VelocityAt(1),Is.EqualTo(drives[0].MotionAt(seconds/remaining).Velocity));
+                }
+                if(!world.TryAppendToOwnedFirstEvent(tick,candidates,windows,Array.Empty<SkiActorCourseEdge>(),0,grades,out _))
+                {Assert.That((bool)respond.Invoke(world,new object[]{tick}),Is.True,world.LastAttempt.Status.ToString());continue;}
+                Assert.That(++pieces,Is.LessThan(16));
+            }
+            Assert.That(exercised,Is.True,"The fixture must reach an actual course-edge response.");
+            Assert.That(policy,Is.EqualTo(ManualCourseReactionPolicy.IndependentCourseV27));
+            Assert.That(world.TryFinalizeTick(tick,out var proof),Is.True);world.Commit(proof);Assert.That(world.Tick.Value,Is.EqualTo(1));
+        }
+
         private sealed class Fixture
         {
             internal readonly ManualScopedWorldRosterTests.Fixture Source;

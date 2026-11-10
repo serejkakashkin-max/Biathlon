@@ -4,8 +4,8 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
-    /// <summary>Recorded force-law version. New races use v26; v25 is retained only for exact legacy replay.</summary>
-    public enum ManualCourseReactionPolicy { LegacyV25=25, PassiveCurvedV26=26 }
+    /// <summary>Recorded force-law version. V25 and V26 retain the original replay calendars.</summary>
+    public enum ManualCourseReactionPolicy { LegacyV25=25, PassiveCurvedV26=26, IndependentCourseV27=27 }
     public readonly struct ManualScopedWorldWindow
     {
         public AthleteId Athlete {get;}
@@ -221,7 +221,7 @@ namespace Biathlon.Simulation
             ManualNumericalToleranceDefinition numericalTolerance=null,ManualMatCaptureDefinition matCapture=null,ManualCourseContactDefinition courseContact=null,
             ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26)
         {
-            if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26)
+            if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26&&courseReactionPolicy!=ManualCourseReactionPolicy.IndependentCourseV27)
                 throw new ArgumentOutOfRangeException(nameof(courseReactionPolicy));
             CourseReactionPolicy=courseReactionPolicy;
             if(catalogs==null||body==null||contact==null||work==null||initialCursors==null||poses==null||
@@ -277,7 +277,8 @@ namespace Biathlon.Simulation
             maximumPieces=work.MaximumIntervalChecks;WorkContextJson=work.ToJson();pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
             BodyContextJson=body.ToJson();context[0]=courseReactionPolicy==ManualCourseReactionPolicy.LegacyV25?
-                "manual_scoped_full_clear_world_roster_v25_physical_mat_plant_bounds":"manual_scoped_full_clear_world_roster_v26_passive_curved_snow_support";context[1]=BodyContextJson;
+                "manual_scoped_full_clear_world_roster_v25_physical_mat_plant_bounds":courseReactionPolicy==ManualCourseReactionPolicy.PassiveCurvedV26?
+                "manual_scoped_full_clear_world_roster_v26_passive_curved_snow_support":"manual_scoped_full_clear_world_roster_v27_independent_course_support";context[1]=BodyContextJson;
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
             context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,ownedContactGeometry.ContextJson,

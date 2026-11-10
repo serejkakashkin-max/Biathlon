@@ -64,6 +64,17 @@ namespace Biathlon.Simulation
         public ManualScopedWorldRoster World=>world;
         public PackSprintFieldSession Field=>field;
         public IManualRaceCommandObserver CommandObserver {get;set;}
+        public bool MeasureWork {get;set;}
+        public long PreparationTimeTicks {get;private set;}
+        public long DrivesTimeTicks {get;private set;}
+        public long ContactsTimeTicks {get;private set;}
+        public long SweepTimeTicks {get;private set;}
+        public long CommitTimeTicks {get;private set;}
+        public int ForceRefreshes {get;private set;}
+        public int ForceRefinements {get;private set;}
+        public int PeakContacts {get;private set;}
+        public double MinimumPaidSeconds {get;private set;}
+        public double MinimumForceSeconds {get;private set;}
 
         /// <summary>Bind an unchanged initial field, including every outer grid
         /// row. No paid legacy setup tick, inward shift or body shrink is used.
@@ -155,6 +166,8 @@ namespace Biathlon.Simulation
         public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs,
             ReadOnlySpan<double> brakeFractions)
         {
+            long workStart=MeasureWork?System.Diagnostics.Stopwatch.GetTimestamp():0;
+            if(MeasureWork){PreparationTimeTicks=DrivesTimeTicks=ContactsTimeTicks=SweepTimeTicks=CommitTimeTicks=0;ForceRefreshes=ForceRefinements=PeakContacts=0;MinimumPaidSeconds=MinimumForceSeconds=double.MaxValue;}
             if(inputs.Length!=field.Count||steeringInputs.Length!=field.Count||
                 brakeFractions.Length!=0&&brakeFractions.Length!=field.Count||field.Tick.Value!=world.Tick.Value)
                 throw new ArgumentException("Complete signed roster and exact clock required.");
@@ -187,12 +200,15 @@ namespace Biathlon.Simulation
             var raceWind=field.WeatherTimeline?.Sample(pending[0].Tick.Value/(double)field.TickFrequency).Wind;
             for(int i=0;i<field.Count;i++)world.SetRangeTransit(i,inputs[i].RangeTransit);
             var tick=world.BeginTick();bool published=false;ManualScopedWorldPreview proof=default;
+            if(MeasureWork)PreparationTimeTicks=System.Diagnostics.Stopwatch.GetTimestamp()-workStart;
             try
             {
                 if(!world.TryResolveOwnedCurrentContacts(tick))return Report(ManualFieldStepStatus.WorldRejected,tick);
                 while(world.GetRemainingSeconds(tick)>0)
                 {
+                    long stageStart=MeasureWork?System.Diagnostics.Stopwatch.GetTimestamp():0;
                     if(!world.TryResolveOwnedCurrentContacts(tick))return Report(ManualFieldStepStatus.WorldRejected,tick);
+                    if(MeasureWork){ContactsTimeTicks+=System.Diagnostics.Stopwatch.GetTimestamp()-stageStart;stageStart=System.Diagnostics.Stopwatch.GetTimestamp();}
                     if(world.GetWorkingMotionPieceCount(tick)>=maximumIntervals)
                         return Report(ManualFieldStepStatus.MotionPieceLimit,tick);
                     double seconds=world.GetRemainingSeconds(tick);int heldCount=0;
@@ -292,9 +308,15 @@ namespace Biathlon.Simulation
                         windows[i]=new ManualScopedWorldWindow(actor.Athlete,cursor.OccurrenceIndex,cursor.ObservedArcNanometers,
                             span,row.LengthNanometers);
                     }
+                    if(MeasureWork){DrivesTimeTicks+=System.Diagnostics.Stopwatch.GetTimestamp()-stageStart;stageStart=System.Diagnostics.Stopwatch.GetTimestamp();}
                     if(!world.TryPreviewContactDrivenMotion(tick,drives,candidates))return Report(ManualFieldStepStatus.WorldRejected,tick);
-                    if(!world.TryAppendToOwnedFirstEvent(tick,candidates,windows,Array.Empty<SkiActorCourseEdge>(),0,grades,
-                            out var next,held.AsSpan(0,heldCount)))
+                    if(MeasureWork){ForceRefinements+=world.LastContactForces.IntervalRefinements;PeakContacts=Math.Max(PeakContacts,world.LastOwnedContacts.Count);MinimumForceSeconds=Math.Min(MinimumForceSeconds,world.LastContactForces.DurationSeconds);}
+                    if(MeasureWork){ContactsTimeTicks+=System.Diagnostics.Stopwatch.GetTimestamp()-stageStart;stageStart=System.Diagnostics.Stopwatch.GetTimestamp();}
+                    bool appended=world.TryAppendContactDrivenFirstEvent(tick,drives,candidates,windows,grades,
+                            out var next,held.AsSpan(0,heldCount));
+                    if(MeasureWork)SweepTimeTicks+=System.Diagnostics.Stopwatch.GetTimestamp()-stageStart;
+                    if(MeasureWork&&appended){if(next.ContactSchedule.Status==SkiContactScheduleStatus.ForceRefresh)ForceRefreshes++;if(next.PaidSeconds>0)MinimumPaidSeconds=Math.Min(MinimumPaidSeconds,next.PaidSeconds);}
+                    if(!appended)
                     {
                         if(world.TryRespondToCourseEdge(tick))continue;
                         return Report(ManualFieldStepStatus.WorldRejected,tick);
@@ -320,11 +342,13 @@ namespace Biathlon.Simulation
                     // A zero-time firing notification is consumed on the next
                     // pass by an actual stationary-body hold, never a paid wait.
                 }
+                long commitStart=MeasureWork?System.Diagnostics.Stopwatch.GetTimestamp():0;
                 if(!world.TryFinalizeTick(tick,out proof))return Report(ManualFieldStepStatus.WorldRejected,tick);
                 // Publish the wake used by the last owned force interval.
                 // Physiology and delivered propulsion receive no refund/bonus.
                 int pieces=world.GetProposedMotionPieceCount(proof);
                 commit.CommitPackField(field,inputs,pending,proof,drafts);
+                if(MeasureWork)CommitTimeTicks=System.Diagnostics.Stopwatch.GetTimestamp()-commitStart;
                 published=true;
                 LastRejectedWorkingActor=default;
                 LastStep=new ManualFieldStepResult(ManualFieldStepStatus.Complete,field.Tick,default,world.LastAttempt,

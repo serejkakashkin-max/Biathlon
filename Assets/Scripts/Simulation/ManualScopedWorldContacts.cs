@@ -27,6 +27,7 @@ namespace Biathlon.Simulation
         public SkiContactForceReaction GetLastContactForceReaction(int index)
         {
             if(contactForces==null||!LastContactForces.IsValid)throw new InvalidOperationException("No current contact force preview.");
+            if(index<0||index>=LastContactForces.SupportPoints)throw new ArgumentOutOfRangeException(nameof(index));
             return contactForces.GetReaction(index);
         }
         /// <summary>Couple current raw drive forces through actual owned bodies.
@@ -36,8 +37,12 @@ namespace Biathlon.Simulation
         /// pays no time; the normal scheduler, course and phase proofs still
         /// must admit it. Failure never writes a partial caller candidate array.</summary>
         public bool TryPreviewContactDrivenMotion(ManualScopedWorldTick tick,SkiDrivenContactTrajectory[] drives,SkiWorldMotionCandidate[] output)
+            =>TryPreviewContactDrivenMotion(tick,drives,output,allowIndependentCourse:true);
+
+        private bool TryPreviewContactDrivenMotion(ManualScopedWorldTick tick,SkiDrivenContactTrajectory[] drives,
+            SkiWorldMotionCandidate[] output,bool allowIndependentCourse)
         {
-            ValidateTick(tick);ready=false;LastContactForces=default;
+            ValidateTick(tick);ready=false;LastContactForces=default;independentCoursePreview=false;
             if(pendingContact)return Reject(ManualScopedWorldStatus.PendingContact);
             if(contactForces==null)throw new InvalidOperationException("Contact force policy and exact masses must be bound.");
             if(drives==null||output==null||drives.Length!=Count||output.Length!=Count)
@@ -56,6 +61,9 @@ namespace Biathlon.Simulation
                     frame.MotionAt(1).Velocity.X==0&&frame.MotionAt(1).Velocity.Z==0;
             }
             if(!CollectOwnedContacts())return false;
+            if(allowIndependentCourse&&LastOwnedContacts.Count==0&&CourseEdgeResponses>0&&
+                CourseReactionPolicy==ManualCourseReactionPolicy.IndependentCourseV27&&TryPreviewIndependentCourseMotion(drives,output))
+                return true;
             if(LastOwnedContacts.Count==0&&CourseEdgeResponses==0)Array.Clear(ownedFreeValid,0,Count);
             if(LastOwnedContacts.Count==0&&hasBreakpoint&&CourseEdgeResponses==0)
             {
@@ -135,6 +143,61 @@ namespace Biathlon.Simulation
                 return free.Snow.HasExactNeutralConstraint&&free.FirstDrive.InitialState.SpeedMetersPerSecond>0&&
                     free.FirstDrive.Acceleration<0&&end.Velocity.X==0&&end.Velocity.Z==0;
             }
+        }
+        private bool independentCoursePreview;
+
+        private bool TryPreviewIndependentCourseMotion(SkiDrivenContactTrajectory[] drives,SkiWorldMotionCandidate[] output)
+        {
+            // A snow-edge reaction belongs to its supported skier. An unrelated
+            // free stop must neither restart that reaction hundreds of times nor
+            // replace the separated skier's exact nonlinear free law. All future
+            // body arrivals, course edges and route events still use the common
+            // continuous scheduler before any time can be paid.
+            double duration=drives[0].DurationSeconds,seconds=duration,freeSeconds=duration;
+            for(int i=0;i<Count;i++)
+            {
+                if(courseSupports[i])seconds=Math.Min(seconds,drives[i].ConstantAccelerationSeconds);
+                else freeSeconds=Math.Min(freeSeconds,drives[i].ConstantAccelerationSeconds);
+            }
+            seconds=Math.Min(duration,Math.Max(seconds,contactForces.MinimumPieceSeconds));
+            if(Math.Max(freeSeconds,contactForces.MinimumPieceSeconds)>=seconds)return false;
+            for(int i=0;i<Count;i++)
+            {
+                ManualSkiWorldTrajectory trajectory;
+                if(!courseSupports[i])trajectory=new ManualSkiWorldTrajectory(drives[i]).Slice(0,seconds);
+                else
+                {
+                    var initial=drives[i].InitialMotion;var end=drives[i].MotionAt(seconds/duration);
+                    var acceleration=new SkiContactAcceleration((end.Velocity.X-initial.Velocity.X)/seconds,
+                        (end.Velocity.Z-initial.Velocity.Z)/seconds,(end.YawRate-initial.YawRate)/seconds);
+                    var free=new SkiForceCoupledTrajectory(responseBodies[i].Pose,initial,acceleration,seconds);
+                    trajectory=new ManualSkiWorldTrajectory(ApplyCourseReaction(i,free));
+                }
+                coupledCandidates[i]=new SkiWorldMotionCandidate(workingActors[i].Athlete,trajectory);
+            }
+            for(int i=0;i<Count;i++)output[i]=coupledCandidates[i];
+            independentCoursePreview=true;
+            LastContactForces=new SkiContactForcePreview(SkiContactForceStatus.Resolved,seconds,0);
+            LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
+        }
+
+        internal bool TryAppendContactDrivenFirstEvent(ManualScopedWorldTick tick,SkiDrivenContactTrajectory[] drives,
+            SkiWorldMotionCandidate[] candidates,ManualScopedWorldWindow[] windows,double[] grades,
+            out ManualScopedWorldEventPreview result,ReadOnlySpan<int> held)
+        {
+            if(TryAppendToOwnedFirstEvent(tick,candidates,windows,Array.Empty<SkiActorCourseEdge>(),0,grades,out result,held))
+                return true;
+            if(!independentCoursePreview||LastAttempt.Status!=ManualScopedWorldStatus.Course)return false;
+            for(int i=0;i<Count;i++)
+            {
+                // A longer supported piece can fail the original course proof.
+                // Retry from the same unpaid source on the historical cadence
+                // before registering another impulse at this same position.
+                if(!courseSupports[i]||!workingActors[i].Athlete.Equals(LastAttempt.Athlete))continue;
+                return TryPreviewContactDrivenMotion(tick,drives,candidates,allowIndependentCourse:false)&&
+                    TryAppendToOwnedFirstEvent(tick,candidates,windows,Array.Empty<SkiActorCourseEdge>(),0,grades,out result,held);
+            }
+            return false;
         }
         public SkiReachedContactPair GetLastOwnedContactPair(int index)
         {
