@@ -8,6 +8,19 @@ namespace Biathlon.PlayModeTests
 {
     public sealed class AthleteEquipmentBatchesTests
     {
+        [Test] public void EmptyBindingCacheAfterEditorReloadIsRebuilt()
+        {
+            var root=new GameObject("Reloaded binding cache witness");
+            try
+            {
+                var source=AthleteRigFactory.Create(root.transform);var rig=Biathlete167RacePresentation.Attach(source).Rig;
+                typeof(Biathlete167Rig).GetField("humanBones",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)
+                    .SetValue(rig,System.Array.Empty<Transform>());
+                Assert.That(rig.Bone(HumanBodyBones.RightHand),Is.SameAs(rig.Animator.GetBoneTransform(HumanBodyBones.RightHand)));
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
+
         [Test] public void CachedHumanoidBindingsMatchTheNativeAvatarAcrossPoses()
         {
             var root=new GameObject("Humanoid binding cache witness");

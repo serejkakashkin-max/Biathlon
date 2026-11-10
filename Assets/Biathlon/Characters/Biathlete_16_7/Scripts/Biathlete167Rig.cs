@@ -77,7 +77,7 @@ namespace Biathlon.Unity.Presentation
         public void ConfigureContacts(Transform leftGrip,Transform rightGrip,Transform leftToe,Transform rightToe,TextAsset definition)
         {leftGripContact=leftGrip;rightGripContact=rightGrip;leftToeHinge=leftToe;rightToeHinge=rightToe;contactDefinition=definition;}
         private Transform[] transforms;
-        private Transform[] humanBones;
+        [NonSerialized] private Transform[] humanBones;
         private Vector3[] bindPositions;
         private Quaternion[] bindRotations;
         private Quaternion rifleCarryRotation;
@@ -91,7 +91,7 @@ namespace Biathlon.Unity.Presentation
         {
             int index=(int)bone;
             if(index<0||index>=(int)HumanBodyBones.LastBone)return animator.GetBoneTransform(bone);
-            if(humanBones==null)
+            if(humanBones==null||humanBones.Length!=(int)HumanBodyBones.LastBone)
             {
                 humanBones=new Transform[(int)HumanBodyBones.LastBone];
                 for(int i=0;i<humanBones.Length;i++)humanBones[i]=animator.GetBoneTransform((HumanBodyBones)i);
