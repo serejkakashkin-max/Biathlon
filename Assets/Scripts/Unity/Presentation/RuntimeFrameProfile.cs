@@ -5,6 +5,8 @@ namespace Biathlon.Unity.Presentation
     public static class RuntimeFrameProfile
     {
         public const string TickName="Biathlon.Race.Tick";
+        public const string ReplayName="Biathlon.Race.Replay";
+        public static readonly ProfilerMarker Replay=new ProfilerMarker(ProfilerCategory.Scripts,ReplayName);
         public static readonly ProfilerMarker Tick=new ProfilerMarker(ProfilerCategory.Scripts,TickName);
         public const string SnapshotName="Biathlon.Race.Snapshot";
         public static readonly ProfilerMarker Snapshot=new ProfilerMarker(ProfilerCategory.Scripts,SnapshotName);

@@ -11,7 +11,7 @@ namespace Biathlon.Unity.Presentation
     internal sealed class CareerReplayCapture:IManualRaceCommandObserver,IDisposable
     {
         private readonly RaceReplayLibrary library;
-        private readonly Stream stream;
+        private readonly ReplayWriteQueue stream;
         private readonly ManualRaceJournalWriter writer;
         private readonly ManualScopedFieldStepper stepper;
         private readonly RaceReplayInfo info;
@@ -23,13 +23,22 @@ namespace Biathlon.Unity.Presentation
             this.library=library;this.stepper=stepper;this.info=info;this.highlights=highlights;
             info.CourseReactionVersion=(int)stepper.World.CourseReactionPolicy;
             observationTicks=Math.Max(1,(int)Math.Round(settings.tv_refresh_seconds*stepper.Field.TickFrequency));
-            stream=library.CreatePending(info.Id);
-            try{writer=new ManualRaceJournalWriter(stream,stepper,SkiTechniqueDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/ski_technique_provisional_v1")));}
-            catch{stream.Dispose();library.DiscardPending(info.Id);throw;}
+            var destination=library.CreatePending(info.Id);
+            try
+            {
+                stream=new ReplayWriteQueue(destination);
+                writer=new ManualRaceJournalWriter(stream,stepper,SkiTechniqueDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/ski_technique_provisional_v1")));
+            }
+            catch
+            {
+                if(stream!=null)stream.Dispose();else destination.Dispose();
+                library.DiscardPending(info.Id);throw;
+            }
             stepper.CommandObserver=this;
         }
         public void RecordAccepted(SimulationTick tick,ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steering,ReadOnlySpan<double> brakes)
         {
+            using var profile=RuntimeFrameProfile.Replay.Auto();
             writer.RecordAccepted(tick,inputs,steering,brakes);
             if(info.Format==(int)CompetitionFormat.Sprint||tick.Value%observationTicks!=0)return;
             int leader=-1;long distance=-1;
@@ -38,11 +47,17 @@ namespace Biathlon.Unity.Presentation
         }
         internal void Publish(CareerRaceRecord result)
         {
-            if(published)return;stepper.CommandObserver=null;writer.Complete();writer.Dispose();stream.Dispose();
+            if(published)return;stepper.CommandObserver=null;writer.Complete();writer.Dispose();stream.Complete();
             info.TickCount=writer.TickCount;info.ResultSha256=result.AuthoritySha256;
             if(result.Count>1)for(int i=1;i<result.Count;i++)highlights.ObserveRegisteredFinish(result.Get(i).AthleteId,(result.Get(i).RankTimeMilliseconds-result.Get(0).RankTimeMilliseconds)/1000.0);
             info.Events=highlights.Events();info.Highlights=highlights.Highlights();library.Publish(info);published=true;
         }
-        public void Dispose(){if(stepper.CommandObserver==this)stepper.CommandObserver=null;writer.Dispose();stream.Dispose();if(!published)library.DiscardPending(info.Id);}
+        public void Dispose()
+        {
+            if(stepper.CommandObserver==this)stepper.CommandObserver=null;
+            try{writer.Dispose();}
+            catch(IOException){/* A failed optional recording is discarded. */}
+            finally{stream.Dispose();if(!published)library.DiscardPending(info.Id);}
+        }
     }
 }
