@@ -18,6 +18,7 @@ namespace Biathlon.Unity.Presentation
             public long step_alloc_bytes;public double player_speed,player_x,player_z,start_approach_meters;
             public bool shooting;public int shots,shooting_phase;
             public double tick_ms,snapshot_ms,athletes_ms,environment_ms,hud_ms;
+            public double equipment_ms; public int equipment_instances,equipment_culled;
             public long tick_calls,snapshot_calls,athlete_calls,environment_calls,hud_calls;
             public BenchmarkFrameSample rendering;
         }
@@ -90,6 +91,8 @@ namespace Biathlon.Unity.Presentation
             using var counters = new BenchmarkFrameCounters();
             using var athletes = ProfilerRecorder.StartNew(ProfilerCategory.Scripts, RuntimeFrameProfile.AthletesName, 1);
             using var environment = ProfilerRecorder.StartNew(ProfilerCategory.Scripts, RuntimeFrameProfile.EnvironmentName, 1);
+            using var equipment = ProfilerRecorder.StartNew(ProfilerCategory.Scripts, RuntimeFrameProfile.EquipmentName, 1);
+            var equipmentBatches = root.GetComponent<AthleteEquipmentBatches>();
             for (int frame = 0; frame < 120; frame++) { target.Render(host.ChaseCamera); yield return null; }
             double previous = Time.realtimeSinceStartupAsDouble;
             bool jumpedToCourse = false;
@@ -148,6 +151,9 @@ namespace Biathlon.Unity.Presentation
                     shots = player.ActiveShooting?.ShotsFired ?? 0,
                     athletes_ms = athletes.Valid ? athletes.LastValue / 1e6 : -1,
                     environment_ms = environment.Valid ? environment.LastValue / 1e6 : -1,
+                    equipment_ms = equipment.Valid ? equipment.LastValue / 1e6 : -1,
+                    equipment_instances = equipmentBatches.SubmittedInstances,
+                    equipment_culled = equipmentBatches.CulledSources,
                     rendering = rendering,
                 });
                 target.Render(range.Visible ? range.AimCamera : host.ChaseCamera);

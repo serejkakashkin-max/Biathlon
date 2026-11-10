@@ -37,6 +37,11 @@ namespace Biathlon.Unity
             "Табло отсечки теперь внизу экрана. Обновлены вид обледеневшего снега и отрисовка Woodland Basin. История отсечек доступна по TAB.\r\n",
             "M16.8");
 
+        public static void BuildM168PerformanceReview() => BuildM167Review("Builds/M16_8_Performance_Review",
+            "m168_performance_review", null,
+            "Ускорены подготовка экипировки и обновление поз спортсменов. Невидимые детали вне зоны теней пропускаются при отрисовке.\r\n",
+            "M16.8");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7")
         {
             // These names own the existing career directory; branding belongs in the UI.
