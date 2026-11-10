@@ -18,6 +18,7 @@ namespace Biathlon.Tests
             {double next=Math.Abs(snow.Preview(body,motion,command,grip,.05).Snow.Motion.YawRate-target);if(next<error){expected=command;error=next;}}
             Assert.That(planner.Plan(body,motion,target,grip),Is.EqualTo(expected));
             Assert.That(planner.LastPreviewCount,Is.LessThan(150),"Identical bounded target/acceleration requests must share one physical snow evaluation per signed plateau.");
+            Assert.That(planner.LastScoredCommands,Is.LessThan(150),"Repeated commands beyond a saturated signed endpoint can be skipped completely.");
         }
         private static readonly OccupancyDefinition Body=OccupancyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("occupancy_provisional_v1.json"));
         private static ManualAiSnowSteeringPlanner Planner()=>new ManualAiSnowSteeringPlanner(Body,ManualScopedFieldStepperTests.Steering(),20);

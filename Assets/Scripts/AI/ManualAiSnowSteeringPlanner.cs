@@ -14,6 +14,7 @@ namespace Biathlon.AI
         private readonly ManualSkiSteeringDefinition steering;
         public int SearchVersion=>completeSearch?1:0;
         public int LastPreviewCount {get;private set;}
+        public int LastScoredCommands {get;private set;}
         public string ContextJson {get;}
         public ManualAiSnowSteeringPlanner(OccupancyDefinition body,ManualSkiSteeringDefinition steering,int frequency,bool completeSearch=true)
         {
@@ -26,7 +27,7 @@ namespace Biathlon.AI
         public int Plan(ManualSkiContactBody body,SkiContactMotion motion,double targetYawRate,double lateralAcceleration,double response=1)
         {
             PhysiologyNumbers.RequireRange(targetYawRate,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(targetYawRate));
-            LastPreviewCount=0;
+            LastPreviewCount=LastScoredCommands=0;
             double speed=Math.Sqrt(motion.Velocity.X*motion.Velocity.X+motion.Velocity.Z*motion.Velocity.Z);
             ManualSkiSteeringRequest negativeRequest=default,positiveRequest=default;
             double negativeYaw=0,positiveYaw=0;bool negativeValid=false,positiveValid=false;
@@ -34,11 +35,18 @@ namespace Biathlon.AI
             int best=0;double error=Math.Abs(neutral-targetYawRate);
             if(completeSearch)
             {
-                // Shared slip/spin response can have several extrema even on
-                // one signed half. Enumerate the existing finite actuator domain
-                // in increasing deflection; the first exact pair is minimal.
+                // The requested deflection is monotone before the grip clamp,
+                // even though the achieved snow response can have several extrema.
+                // Once each sign reaches its endpoint request, later magnitudes
+                // repeat the same force and cannot win the minimum-deflection tie.
+                var endpoint=ManualSkiSteeringSystem.GetRequest(steering,ManualSkiCommand.SteeringUnits,speed,lateralAcceleration,response);
+                bool negativeDone=false,positiveDone=false;
                 for(int magnitude=1;magnitude<=ManualSkiCommand.SteeringUnits;magnitude++)
-                {Score(-magnitude,At(-magnitude));Score(magnitude,At(magnitude));if(error==0)return best;}
+                {
+                    if(!negativeDone){Score(-magnitude,At(-magnitude));negativeDone=negativeRequest.TargetYawRate==-endpoint.TargetYawRate;}
+                    if(!positiveDone){Score(magnitude,At(magnitude));positiveDone=positiveRequest.TargetYawRate==endpoint.TargetYawRate;}
+                    if(error==0||negativeDone&&positiveDone)return best;
+                }
                 return best;
             }
             Search(-ManualSkiCommand.SteeringUnits,-1);
@@ -59,6 +67,7 @@ namespace Biathlon.AI
             }
             void Score(int command,double yaw)
             {
+                LastScoredCommands++;
                 double e=Math.Abs(yaw-targetYawRate);
                 if(e<error||e==error&&Math.Abs(command)<Math.Abs(best)){best=command;error=e;}
             }
