@@ -77,6 +77,7 @@ namespace Biathlon.Unity.Presentation
         public void ConfigureContacts(Transform leftGrip,Transform rightGrip,Transform leftToe,Transform rightToe,TextAsset definition)
         {leftGripContact=leftGrip;rightGripContact=rightGrip;leftToeHinge=leftToe;rightToeHinge=rightToe;contactDefinition=definition;}
         private Transform[] transforms;
+        private Transform[] humanBones;
         private Vector3[] bindPositions;
         private Quaternion[] bindRotations;
         private Quaternion rifleCarryRotation;
@@ -86,9 +87,19 @@ namespace Biathlon.Unity.Presentation
         public LODGroup Lods=>lodGroup;
         public int PoseIndex {get;private set;}
         public Transform Socket(Biathlete167Socket socket)=>sockets[(int)socket];
-        public Transform Bone(HumanBodyBones bone)=>animator.GetBoneTransform(bone);
+        public Transform Bone(HumanBodyBones bone)
+        {
+            int index=(int)bone;
+            if(index<0||index>=(int)HumanBodyBones.LastBone)return animator.GetBoneTransform(bone);
+            if(humanBones==null)
+            {
+                humanBones=new Transform[(int)HumanBodyBones.LastBone];
+                for(int i=0;i<humanBones.Length;i++)humanBones[i]=animator.GetBoneTransform((HumanBodyBones)i);
+            }
+            return humanBones[index];
+        }
         public void Configure(Animator human,Transform[] attachments,Transform weapon,Renderer[] poles,LODGroup levels,bool natural=false)
-        {animator=human;sockets=attachments;rifle=weapon;poleRenderers=poles;lodGroup=levels;naturalAnatomy=natural;Validate();Remember();}
+        {animator=human;humanBones=null;sockets=attachments;rifle=weapon;poleRenderers=poles;lodGroup=levels;naturalAnatomy=natural;Validate();Remember();}
         public void Validate()
         {
             if(animator==null||animator.avatar==null||!animator.avatar.isValid||!animator.avatar.isHuman)
@@ -112,7 +123,7 @@ namespace Biathlon.Unity.Presentation
             if(!preserveGrip)SetTuckGrip(false);
             if(transforms==null)Remember();animator.enabled=false;
             rifle.SetParent(Socket(Biathlete167Socket.RifleBack),false);
-            for(int i=0;i<transforms.Length;i++){transforms[i].localPosition=bindPositions[i];transforms[i].localRotation=bindRotations[i];}
+            for(int i=0;i<transforms.Length;i++)transforms[i].SetLocalPositionAndRotation(bindPositions[i],bindRotations[i]);
             rifle.localPosition=rifleCarryPosition;rifle.localRotation=rifleCarryRotation;
             foreach(var r in poleRenderers)r.enabled=pose!=3;
             var leftFoot=Bone(HumanBodyBones.LeftFoot);var rightFoot=Bone(HumanBodyBones.RightFoot);

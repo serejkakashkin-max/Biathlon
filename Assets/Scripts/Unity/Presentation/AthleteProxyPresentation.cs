@@ -79,8 +79,8 @@ namespace Biathlon.Unity.Presentation
         }
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
         public void SetViewCamera(Camera camera)
-        {viewCamera=camera;chaseCamera=camera!=null?camera.GetComponent<AthleteChaseCamera>():null;}
-        public void SetRangeView(Camera camera) => rangeView = camera;
+        {viewCamera=camera;chaseCamera=camera!=null?camera.GetComponent<AthleteChaseCamera>():null;if(equipmentBatches!=null)equipmentBatches.ViewCamera=camera;}
+        public void SetRangeView(Camera camera) {rangeView=camera;if(equipmentBatches!=null)equipmentBatches.RangeCamera=camera;}
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
         public AthleteRigBinding GetRig(string athleteId)=>animation[athleteId].Rig;
@@ -112,6 +112,7 @@ namespace Biathlon.Unity.Presentation
             snowSpray=GetComponent<SnowSprayPresentation>();if(snowSpray==null)snowSpray=gameObject.AddComponent<SnowSprayPresentation>();snowSpray.Initialize();
             breathVapor=GetComponent<BreathVaporPresentation>();if(breathVapor==null)breathVapor=gameObject.AddComponent<BreathVaporPresentation>();breathVapor.Initialize();
             equipmentBatches=GetComponent<AthleteEquipmentBatches>();if(equipmentBatches==null)equipmentBatches=gameObject.AddComponent<AthleteEquipmentBatches>();
+            equipmentBatches.ViewCamera=viewCamera;equipmentBatches.RangeCamera=rangeView;
         }
         public void Render(double alpha,double completedSeconds=0)
         {

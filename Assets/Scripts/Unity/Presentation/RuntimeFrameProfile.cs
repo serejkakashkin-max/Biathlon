@@ -14,5 +14,7 @@ namespace Biathlon.Unity.Presentation
         public static readonly ProfilerMarker Environment=new ProfilerMarker(ProfilerCategory.Scripts,EnvironmentName);
         public const string HudName="Biathlon.View.Hud";
         public static readonly ProfilerMarker Hud=new ProfilerMarker(ProfilerCategory.Scripts,HudName);
+        public const string EquipmentName="Biathlon.View.Equipment";
+        public static readonly ProfilerMarker Equipment=new ProfilerMarker(ProfilerCategory.Scripts,EquipmentName);
     }
 }

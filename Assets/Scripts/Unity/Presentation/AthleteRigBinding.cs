@@ -87,7 +87,7 @@ namespace Biathlon.Unity.Presentation
         {
             if (bindPositions == null) RememberBindPose();
             for (int i = 0; i < bones.Length; i++)
-            { bones[i].localPosition = bindPositions[i]; bones[i].localRotation = bindRotations[i]; }
+            { bones[i].SetLocalPositionAndRotation(bindPositions[i], bindRotations[i]); }
         }
 
         public void Rotate(AthleteBone bone, Quaternion delta)

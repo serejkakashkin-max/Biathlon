@@ -13,6 +13,8 @@ namespace Biathlon.Unity.Presentation
         private sealed class Source
         {
             public MeshRenderer Renderer; public Mesh Mesh; public Material[] Materials; public bool WasForcedOff;
+            public Batch[] ActiveBatches;
+            public ShadowCastingMode Mode; public int Layer; public uint RenderingLayers; public bool Receive;
         }
         private sealed class Batch
         {
@@ -23,12 +25,16 @@ namespace Biathlon.Unity.Presentation
         }
         private readonly List<Source> sources = new List<Source>();
         private readonly List<Batch> batches = new List<Batch>();
+        private readonly Plane[] viewPlanes = new Plane[6];
         private readonly Dictionary<Material, Material> materials = new Dictionary<Material, Material>();
         private readonly Dictionary<(Mesh, Material, int, int, uint, ShadowCastingMode, bool), Batch> lookup =
             new Dictionary<(Mesh, Material, int, int, uint, ShadowCastingMode, bool), Batch>();
+        public Camera ViewCamera {get;set;}
+        public Camera RangeCamera {get;set;}
         public int SourceCount => sources.Count;
         public int SubmittedBatches { get; private set; }
         public int SubmittedInstances { get; private set; }
+        public int CulledSources { get; private set; }
         public void Register(AthleteRigBinding rig)
             => RegisterVisual(rig == null ? null : rig.transform);
         public void RegisterVisual(Transform rig)
@@ -52,6 +58,7 @@ namespace Biathlon.Unity.Presentation
                     // Allocate both existing LOD shadow variants during registration, never during animation.
                     GetBatch(source, i, ShadowCastingMode.On); GetBatch(source, i, ShadowCastingMode.Off);
                 }
+                source.ActiveBatches = new Batch[original.Length]; RefreshBatches(source);
                 sources.Add(source); renderer.forceRenderingOff = isActiveAndEnabled;
             }
         }
@@ -67,24 +74,54 @@ namespace Biathlon.Unity.Presentation
             }
             return batch;
         }
+        private void RefreshBatches(Source source)
+        {
+            var renderer = source.Renderer;
+            source.Mode = renderer.shadowCastingMode; source.Layer = renderer.gameObject.layer;
+            source.RenderingLayers = renderer.renderingLayerMask; source.Receive = renderer.receiveShadows;
+            for (int i = 0; i < source.ActiveBatches.Length; i++) source.ActiveBatches[i] = GetBatch(source, i, source.Mode);
+        }
         public void Render()
         {
+            using var marker = RuntimeFrameProfile.Equipment.Auto();
             foreach (var batch in batches) batch.Count = 0;
-            SubmittedBatches = SubmittedInstances = 0;
+            SubmittedBatches = SubmittedInstances = CulledSources = 0;
+            var camera = RangeCamera != null && RangeCamera.isActiveAndEnabled && ViewCamera != null && !ViewCamera.enabled ? RangeCamera : ViewCamera;
+            bool cull = camera != null;
+            if (cull) GeometryUtility.CalculateFrustumPlanes(camera, viewPlanes);
+            var sun = RenderSettings.sun;
+            var ray = sun != null ? sun.transform.forward : Vector3.zero;
+            float shadowDistance = UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline is UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset pipeline
+                ? pipeline.shadowDistance : QualitySettings.shadowDistance;
             foreach (var source in sources)
             {
                 var renderer = source.Renderer;
                 if (renderer == null || !renderer.enabled || !renderer.gameObject.activeInHierarchy) continue;
-                var matrix = renderer.localToWorldMatrix; var bounds = renderer.bounds;
+                var bounds = renderer.bounds;
+                if (cull && !GeometryUtility.TestPlanesAABB(viewPlanes, bounds) &&
+                    (renderer.shadowCastingMode == ShadowCastingMode.Off || !CastsNearView(bounds, camera.transform.position, ray, shadowDistance)))
+                { CulledSources++; continue; }
+                if (source.Mode != renderer.shadowCastingMode || source.Layer != renderer.gameObject.layer ||
+                    source.RenderingLayers != renderer.renderingLayerMask || source.Receive != renderer.receiveShadows) RefreshBatches(source);
+                var matrix = renderer.localToWorldMatrix;
                 for (int submesh = 0; submesh < source.Materials.Length; submesh++)
                 {
-                    var batch = GetBatch(source, submesh, renderer.shadowCastingMode);
+                    var batch = source.ActiveBatches[submesh];
                     if (batch.Count == batch.Matrices.Length) Submit(batch);
                     if (batch.Count == 0) batch.Bounds = bounds; else batch.Bounds.Encapsulate(bounds);
                     batch.Matrices[batch.Count++] = matrix; SubmittedInstances++;
                 }
             }
             foreach (var batch in batches) if (batch.Count > 0) Submit(batch);
+        }
+        private static bool CastsNearView(Bounds caster, Vector3 eye, Vector3 ray, float distance)
+        {
+            // Keep offscreen casters throughout the shadow volume, including their projected shadow.
+            if (ray.y >= -.001f) return true;
+            var influence = caster;
+            float drop = caster.size.y + caster.extents.y + Mathf.Abs(eye.y - caster.min.y);
+            influence.Encapsulate(new Bounds(caster.center + ray * (drop / -ray.y), caster.size));
+            return influence.SqrDistance(eye) <= distance * distance;
         }
         private void Submit(Batch batch)
         {
