@@ -50,7 +50,8 @@ namespace Biathlon.Unity.Presentation
                 int frequency=CareerRaceDefinition.FromJson(ReadCore("career_race_v1.json")).TickFrequency;
                 highlights=new RaceHighlightDetector(profile.BoutCount,frequency,replayPolicy.close_finish_seconds,replayPolicy.highlight_cooldown_seconds,week.Event.Format==CompetitionFormat.Sprint);
                 prepared=new CareerRaceProvider(ReadCore,menu.Session.Definitions,ProductionVenueHost.ReadResource)
-                    .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,highlights);
+                    .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,highlights,
+                        broadcastCheckpointVersion:CareerRaceProvider.CurrentBroadcastCheckpointVersion);
             }
             catch(Exception e){failure=e;}
             if(failure==null)
@@ -77,6 +78,7 @@ namespace Biathlon.Unity.Presentation
                             StartContinuationVersion=prepared.Runner.Field.StartContinuationVersion,WeatherTimelineVersion=prepared.Timeline==null?0:CareerRaceProvider.CurrentWeatherTimelineVersion,WeatherTimelineJson=prepared.Timeline?.ToJson(),EquipmentVersion=CareerRaceProvider.CurrentEquipmentVersion,EquipmentSnapshotJson=prepared.Equipment.ToJson()};
                         info.AiSnowSearchVersion=prepared.Runner.AiSnowSearchVersion;
                         info.MovingOvertakeVersion=prepared.Runner.MovingOvertakeVersion;
+                        info.BroadcastCheckpointVersion=CareerRaceProvider.CurrentBroadcastCheckpointVersion;
                         replayCapture=new CareerReplayCapture(menu.ReplayLibrary,Host.ManualStepper,info,highlights,replayPolicy);
                     }
                     catch(Exception e)when(e is IOException||e is UnauthorizedAccessException){Debug.LogWarning("Replay capture unavailable: "+e.Message);}

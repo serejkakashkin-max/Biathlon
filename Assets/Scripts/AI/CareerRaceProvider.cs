@@ -29,6 +29,12 @@ namespace Biathlon.AI
         public const int CurrentStartOrderVersion=2;
         public const int CurrentEquipmentVersion=1;
         public const int CurrentWeatherTimelineVersion=2;
+        public const int CurrentBroadcastCheckpointVersion=1;
+        public static string BroadcastCheckpoints(string venueId,int version,Func<string,string> readResource)
+        {
+            if(version<0||version>CurrentBroadcastCheckpointVersion)throw new ArgumentOutOfRangeException(nameof(version));
+            return version!=0&&venueId==Woodland?readResource(WoodlandRoot+"broadcast_checkpoints_v1"):null;
+        }
         // Fixed stream identity (ASCII SPRINTDR), not a gameplay tuning value.
         private const ulong SprintStartDrawStream=0x535052494E544452UL;
         public long LastTicks { get; private set; } public ulong LastEventHash { get; private set; } public int LastShots { get; private set; }
@@ -42,7 +48,7 @@ namespace Biathlon.AI
         {var b=new StringBuilder("{\"schema_version\":1,\"id\":\"").Append(athlete.Id).Append('"');for(int i=from;i<to;i++)b.Append(",\"").Append(statNames[i]).Append("\":").Append(Math.Round(athlete.Stat((CareerStat)i)/(decimal)CareerUnits.StatScale,0,MidpointRounding.ToEven).ToString(CultureInfo.InvariantCulture));return b.Append('}').ToString();}
         public CareerRaceRecord Run(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
         {
-            var prepared=Prepare(snapshot,e,seed);var runner=prepared.Runner;
+            var prepared=Prepare(snapshot,e,seed,broadcastCheckpointVersion:CurrentBroadcastCheckpointVersion);var runner=prepared.Runner;
             if(prepared.Venue!=null)
             {
                 var movement=ManualProductionFieldComposition.Create(runner.Field,prepared.Venue,prepared.ManualRead,prepared.CourseReactionPolicy);
@@ -75,7 +81,7 @@ namespace Biathlon.AI
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
             ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false,
-            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=3,bool legacyAiSnowSearch=false,int movingOvertakeVersion=2)
+            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=3,bool legacyAiSnowSearch=false,int movingOvertakeVersion=2,int broadcastCheckpointVersion=0)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             ManualAiSteeringDefinition.ResourceForVersion(movingOvertakeVersion);
@@ -123,7 +129,8 @@ namespace Biathlon.AI
             var weather=legacyNeutralWeather?null:recordedWeather??Forecast(snapshot,e);
             if(e.VenueId==Woodland)
             {
-                venue=new VenueAuthoringPlan(VenueManifest.FromJson(venueResource(WoodlandRoot+"manifest")),venueResource);
+                venue=new VenueAuthoringPlan(VenueManifest.FromJson(venueResource(WoodlandRoot+"manifest")),venueResource,
+                    BroadcastCheckpoints(e.VenueId,broadcastCheckpointVersion,venueResource));
                 string format=e.Format==CompetitionFormat.Sprint?"sprint":e.Format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
                 runner=ProductionVenueRaceFactory.Create(venue,
                     CompetitionProfile.FromJson(venueResource(WoodlandRoot+format+"_profile")),

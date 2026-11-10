@@ -121,7 +121,7 @@ namespace Biathlon.AI
                 neighbors[count++] = new AiRouteNeighbor(other, self.RouteNanometers);
             }
             // Stable roster order is preserved; no ranking by distance is presented as Sprint classification.
-            int checkpoint = self.Checkpoints.Count - 1, observed = 0; int? place = null; double? gap = null;
+            int checkpoint = self.Checkpoints.LatestTacticalOrdinal, observed = 0; int? place = null; double? gap = null;
             if (checkpoint >= 0)
             {
                 var own = ClockTime(self.Checkpoints.Get(checkpoint)); int ahead = 0;

@@ -60,7 +60,8 @@ namespace Biathlon.Unity.Presentation
             =>new CareerRaceProvider(ReadCore,definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(Info.CareerSnapshotJson),raceEvent,Info.Seed,
                 recordedWeather:Info.RaceWeatherJson==null?null:RaceWeatherPreset.FromJson(Info.RaceWeatherJson),legacyNeutralWeather:Info.RaceWeatherJson==null,
                 legacyMassStartOrder:Info.StartOrderVersion==0,courseReactionPolicy:Info.CourseReactionPolicy,
-                legacySprintStartOrder:Info.StartOrderVersion<2,recordedEquipmentJson:Info.EquipmentSnapshotJson,legacyEquipment:Info.EquipmentVersion==0,recordedTimelineJson:Info.WeatherTimelineJson,legacyFixedWeather:Info.WeatherTimelineVersion==0,legacyStartContinuation:Info.StartContinuationVersion==0,legacyWeatherHeading:Info.WeatherTimelineVersion<2,startContinuationVersion:Info.StartContinuationVersion,legacyAiSnowSearch:Info.AiSnowSearchVersion==0,movingOvertakeVersion:Info.MovingOvertakeVersion);
+                legacySprintStartOrder:Info.StartOrderVersion<2,recordedEquipmentJson:Info.EquipmentSnapshotJson,legacyEquipment:Info.EquipmentVersion==0,recordedTimelineJson:Info.WeatherTimelineJson,legacyFixedWeather:Info.WeatherTimelineVersion==0,legacyStartContinuation:Info.StartContinuationVersion==0,legacyWeatherHeading:Info.WeatherTimelineVersion<2,startContinuationVersion:Info.StartContinuationVersion,legacyAiSnowSearch:Info.AiSnowSearchVersion==0,movingOvertakeVersion:Info.MovingOvertakeVersion,
+                broadcastCheckpointVersion:Info.BroadcastCheckpointVersion);
         private IEnumerator Create(long moment)
         {
             yield return null;Exception failure=null;

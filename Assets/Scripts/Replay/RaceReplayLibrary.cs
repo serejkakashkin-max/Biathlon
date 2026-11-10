@@ -36,6 +36,7 @@ namespace Biathlon.Replay
         [DataMember(Name="start_continuation_version",EmitDefaultValue=false)]public int StartContinuationVersion;
         [DataMember(Name="ai_snow_search_version",EmitDefaultValue=false)]public int AiSnowSearchVersion;
         [DataMember(Name="moving_overtake_version",EmitDefaultValue=false)]public int MovingOvertakeVersion;
+        [DataMember(Name="broadcast_checkpoint_version",EmitDefaultValue=false)]public int BroadcastCheckpointVersion;
         // Missing in M15.5 journals: retain their exact v25 force law and canonical JSON.
         [DataMember(Name="course_reaction_version",EmitDefaultValue=false)]public int CourseReactionVersion;
         public ManualCourseReactionPolicy CourseReactionPolicy=>CourseReactionVersion==0?
@@ -58,6 +59,7 @@ namespace Biathlon.Replay
             if(SchemaVersion!=1||CommandVersion!=1||Compression!="gzip"||!DateTimeOffset.TryParse(RecordedUtc,out _)||string.IsNullOrWhiteSpace(CareerSnapshotJson)||
                 string.IsNullOrWhiteSpace(EventId)||string.IsNullOrWhiteSpace(VenueId)||string.IsNullOrWhiteSpace(PlayerId)||string.IsNullOrWhiteSpace(PlayerName)||
                 Format<0||Format>2||StartOrderVersion<0||StartOrderVersion>2||StartContinuationVersion<0||StartContinuationVersion>3||AiSnowSearchVersion<0||AiSnowSearchVersion>1||MovingOvertakeVersion<0||MovingOvertakeVersion>2||
+                BroadcastCheckpointVersion<0||BroadcastCheckpointVersion>1||
                 CourseReactionVersion!=0&&CourseReactionVersion!=25&&CourseReactionVersion!=26||
                 TickFrequency<1||TickFrequency>120||TickCount<1||TickCount>1000000||Events==null||Highlights==null)
                 throw new SerializationException("Unsupported or incomplete replay metadata.");

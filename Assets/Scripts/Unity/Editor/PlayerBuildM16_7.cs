@@ -22,7 +22,12 @@ namespace Biathlon.Unity
             "m167_continuity_review", null,
             "Исправлены рывки при поворотах A/D и при остановке у коврика. Проверьте короткие нажатия, смену направления и обе стойки стрельбы.\r\n");
 
-        private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote)
+        public static void BuildM168LiveTimingReview() => BuildM167Review("Builds/M16_8_Live_Timing_Review",
+            "m168_live_timing_review", null,
+            "На трассе Woodland Basin появились две новые отсечки. Табло показывает время лидера на ближайшей отсечке и ваше место после её пересечения. История доступна по TAB.\r\n",
+            "M16.8");
+
+        private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7")
         {
             // These names own the existing career directory; branding belongs in the UI.
             if(PlayerSettings.companyName!="DefaultCompany"||PlayerSettings.productName!="Biathlon")
@@ -36,13 +41,13 @@ namespace Biathlon.Unity
             File.Copy(credits,Path.Combine(folder,"M167_ASSET_CREDITS.md"),true);
             File.Copy("Assets/Biathlon/Characters/Biathlete_16_7/Documentation/LICENSE_AND_PROVENANCE.md",Path.Combine(folder,"M167_PROVENANCE.md"),true);
             File.WriteAllText(Path.Combine(folder,"START_TEST.cmd"),
-                "@echo off\r\ncd /d \"%~dp0\"\r\nstart \"BIATHLON PULSE M16.7\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
+                "@echo off\r\ncd /d \"%~dp0\"\r\nstart \"BIATHLON PULSE "+stage+"\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
             // The inherited launcher compares an older motion fallback, not these two assets.
             File.Delete(Path.Combine(folder,"COMPARE_MOTION.cmd"));
             File.WriteAllText(Path.Combine(folder,"milestone.json"),
-                "{\"schema_version\":1,\"id\":\""+id+"\",\"stage\":\"M16.7\",\"status\":\"owner_review\",\"unity\":\""+Application.unityVersion+"\"}");
+                "{\"schema_version\":1,\"id\":\""+id+"\",\"stage\":\""+stage+"\",\"status\":\"owner_review\",\"unity\":\""+Application.unityVersion+"\"}");
             File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),
-                "BIATHLON: PULSE / Биатлон: Пульс гонки — М16.7\r\n\r\n"+
+                "BIATHLON: PULSE / Биатлон: Пульс гонки — "+stage+"\r\n\r\n"+
                 "START_TEST.cmd — игра на весь экран. Можно продолжить существующую карьеру.\r\n"+
                 "Новый спортсмен внедрён в гонки и редактор внешности. Сохранены индивидуальные лица, цвета сборных, головные уборы, очки, перчатки, ботинки и выбранные лыжи.\r\n"+
                 "Периодическое боковое раскачивание убрано. Наклон в поворотах и реакция на столкновения сохранены.\r\n"+
@@ -50,7 +55,7 @@ namespace Biathlon.Unity
                 "Проверьте лыжный ход, разгон, подъём, стрельбу лёжа/стоя и внешность соперников.\r\n"+
                 reviewNote+
                 (string.IsNullOrEmpty(comparisonFile) ? "" : "Видео сравнения: Media/"+comparisonFile+" (WATCH_COMPARISON.cmd).\r\n")+
-                "М16.6 закрыт владельцем. М16.7 открыт до вашего тестирования.\r\n"+
+                (stage=="M16.8"?"М16.7 закрыт владельцем. М16.8 открыт для проверки.\r\n":"М16.6 закрыт владельцем. М16.7 открыт до вашего тестирования.\r\n")+
                 "Лицензии ассетов: THIRD_PARTY_CREDITS.txt, M167_ASSET_CREDITS.md и OFL-файлы.\r\n");
             AssetDatabase.SaveAssets();
         }

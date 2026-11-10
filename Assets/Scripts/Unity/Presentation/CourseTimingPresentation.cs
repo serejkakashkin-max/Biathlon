@@ -55,7 +55,7 @@ namespace Biathlon.Unity.Presentation
         public bool UsesExistingStadiumPortal(int index)=>stations[index].UsesExistingPortal;
         public string DistanceLabel(int index)=>stations[index].Label.text;
 
-        public void Initialize(VenueAuthoringPlan venue)
+        public void Initialize(VenueAuthoringPlan venue,RaceRoute route=null)
         {
             if(venue==null)throw new ArgumentNullException(nameof(venue));
             if(stations!=null)throw new InvalidOperationException("Initialize timing portals once.");
@@ -64,10 +64,18 @@ namespace Biathlon.Unity.Presentation
             if(template==null)throw new InvalidOperationException("Timing portal material is unavailable.");
             materials=new[]{new Material(template),new Material(template),new Material(template)};
             materials[0].SetColor("_BaseColor",settings.frame_color);materials[1].SetColor("_BaseColor",settings.foot_color);materials[2].SetColor("_BaseColor",settings.stripe_color);
-            stations=new Station[venue.Track.CheckpointCount];
-            for(int i=0;i<stations.Length;i++)
+            var routeCheckpoints=new HashSet<string>(StringComparer.Ordinal);
+            if(route!=null)
             {
-                var marker=venue.Track.GetCheckpoint(i);var point=venue.Visual.Get(marker.Anchor.LoopId).Sample(marker.Anchor.Distance.Meters);
+                var layout=new CheckpointLayout(boundTrack,route);
+                for(int i=0;i<layout.Count;i++)routeCheckpoints.Add(layout.Get(i).CheckpointId);
+            }
+            var created=new List<Station>();
+            for(int i=0;i<venue.Track.CheckpointCount;i++)
+            {
+                var marker=venue.Track.GetCheckpoint(i);
+                if(route!=null&&marker.BroadcastOnly&&!routeCheckpoints.Contains(marker.Id))continue;
+                var point=venue.Visual.Get(marker.Anchor.LoopId).Sample(marker.Anchor.Distance.Meters);
                 var root=new GameObject("Timing portal "+marker.Id);root.transform.SetParent(transform,false);
                 root.transform.SetPositionAndRotation(new Vector3((float)point.X,(float)point.Y,(float)point.Z),
                     Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up));
@@ -83,7 +91,7 @@ namespace Biathlon.Unity.Presentation
                     if(Math.Abs(point.X-gate.X)>.001||Math.Abs(point.Y-gate.Y)>.001||Math.Abs(point.Z-gate.Z)>.001)
                         throw new ArgumentException("The loop-end checkpoint must coincide with the retained stadium timing portal.");
                 }
-                stations[i]=station;Build(station);
+                created.Add(station);Build(station);
                 root.AddComponent<MeshFilter>().sharedMesh=station.Mesh;root.AddComponent<MeshRenderer>().sharedMaterials=materials;
                 var label=new GameObject("Intermediate distance",typeof(TextMesh));label.transform.SetParent(root.transform,false);
                 label.transform.localPosition=new Vector3(0,settings.height_m,-settings.header_depth_m*.5f-.012f);
@@ -93,6 +101,7 @@ namespace Biathlon.Unity.Presentation
                 var renderer=label.GetComponent<MeshRenderer>();renderer.sharedMaterial=text.font.material;renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=false;
                 label.AddComponent<VenueSignText>();
             }
+            stations=created.ToArray();
         }
         public void Bind(CompetitionProfile profile,Biathlon.Simulation.RaceRoute route,RacePresentationFeed source,int playerIndex,Biathlon.Presentation.RaceDistanceView distance)
         {

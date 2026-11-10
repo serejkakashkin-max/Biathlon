@@ -8,6 +8,38 @@ namespace Biathlon.Tests
 {
     public class CheckpointTimingTests
     {
+        [Test]
+        public void AdditionalWoodlandLinesFollowEveryLapWithoutChangingTacticalReference()
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            var manifest=VenueManifest.FromJson(Read(root+"manifest"));
+            var original=new VenueAuthoringPlan(manifest,Read);
+            var updated=new VenueAuthoringPlan(manifest,Read,Read(root+"broadcast_checkpoints_v1"));
+            Assert.That(original.Track.CheckpointCount,Is.EqualTo(3));
+            Assert.That(updated.Track.CheckpointCount,Is.EqualTo(7));
+            for(int i=0;i<updated.Formats.Count;i++)
+            {
+                var binding=updated.Formats.Get(i);
+                var route=new RaceRoute(updated.Track,binding.Route,binding.Profile.ToRouteRequirements(),updated.Junctions,updated.Connections);
+                var layout=new CheckpointLayout(updated.Track,route);
+                var tracker=new CheckpointTracker(layout,new AthleteId("timing"),20,default,new RaceEventLog(64));
+                long previous=0;
+                int additional=0;
+                for(int ordinal=0;ordinal<layout.Count;ordinal++)
+                {
+                    var occurrence=layout.Get(ordinal);
+                    Assert.That(occurrence.RouteNanometers,Is.GreaterThan(previous));
+                    int tactical=tracker.LatestTacticalOrdinal;
+                    Assert.That(tracker.Observe(new SimulationTick(ordinal+1),previous,occurrence.RouteNanometers),Is.EqualTo(1));
+                    if(occurrence.BroadcastOnly)additional++;
+                    Assert.That(tracker.LatestTacticalOrdinal,Is.EqualTo(occurrence.BroadcastOnly?tactical:ordinal));
+                    Assert.That(tracker.Get(ordinal).GlobalTime.Seconds,Is.EqualTo((ordinal+1)/20d));
+                    previous=occurrence.RouteNanometers;
+                }
+                Assert.That(additional,Is.EqualTo(2*route.LapCount),binding.Id);
+            }
+        }
         [Test] public void ProductionStadiumSplitUsesRetainedGantryAfterPenaltyWithoutATimeZeroSplit()
         {
             string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");

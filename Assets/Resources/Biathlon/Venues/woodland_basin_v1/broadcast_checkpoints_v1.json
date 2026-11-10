@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_broadcast_checkpoints_v1",
+  "track_id": "woodland_basin_track_v1",
+  "checkpoints": [
+    { "id": "forest_straight_split", "anchor": { "loop_id": "main", "distance_m": 270 }, "broadcast_only": true },
+    { "id": "ridge_straight_split", "anchor": { "loop_id": "main", "distance_m": 520 }, "broadcast_only": true },
+    { "id": "pursuit_climb_split", "anchor": { "loop_id": "pursuit_shortcut", "distance_m": 135 }, "broadcast_only": true },
+    { "id": "pursuit_ridge_split", "anchor": { "loop_id": "pursuit_shortcut", "distance_m": 250 }, "broadcast_only": true }
+  ]
+}

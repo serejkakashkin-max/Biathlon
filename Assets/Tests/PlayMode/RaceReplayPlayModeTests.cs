@@ -35,17 +35,21 @@ namespace Biathlon.PlayModeTests
             if(root!=null)Object.DestroyImmediate(root);
             if(Directory.Exists(folder)){foreach(var f in Directory.GetFiles(folder))File.Delete(f);Directory.Delete(folder,false);}
         }
-        [UnityTest]public IEnumerator ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer()
+        [UnityTest]public IEnumerator ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer()=>CheckReplay(0);
+        [UnityTest]public IEnumerator ReplayKeepsTheRecordedBroadcastCheckpointVersion()=>CheckReplay(1);
+        private IEnumerator CheckReplay(int checkpointVersion)
         {
             folder=Path.Combine(Path.GetTempPath(),"biathlon-viewer-"+Guid.NewGuid().ToString("N"));var library=new RaceReplayLibrary(folder);
             root=new GameObject("Replay navigation test");menu=root.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store(),library);
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("viewer_test","Алекс","NOR",11);
             for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();var week=menu.Session.PreparedWeek;
-            var prepared=new CareerRaceProvider(Read,menu.Session.Definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed);
+            var prepared=new CareerRaceProvider(Read,menu.Session.Definitions,ProductionVenueHost.ReadResource)
+                .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,broadcastCheckpointVersion:checkpointVersion);
             var source=ManualProductionFieldComposition.Create(prepared.Runner.Field,prepared.Venue,prepared.ManualRead,prepared.CourseReactionPolicy);
             prepared.Runner.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(Read("manual_ai_steering_v2.json")),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")),completeSnowSearch:prepared.AiSnowSearchVersion==1);
             var info=new RaceReplayInfo{Id="navigation_fixture",RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,RaceWeatherJson=prepared.Weather.ToJson(),StartContinuationVersion=prepared.Runner.Field.StartContinuationVersion,WeatherTimelineVersion=prepared.Timeline==null?0:CareerRaceProvider.CurrentWeatherTimelineVersion,WeatherTimelineJson=prepared.Timeline?.ToJson(),EquipmentVersion=CareerRaceProvider.CurrentEquipmentVersion,EquipmentSnapshotJson=prepared.Equipment.ToJson(),StartOrderVersion=CareerRaceProvider.CurrentStartOrderVersion,CourseReactionVersion=(int)prepared.CourseReactionPolicy,EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName="Алекс",TickFrequency=prepared.Runner.Field.TickFrequency,TickCount=1000,ResultSha256=new string('a',64),Events=Array.Empty<RecordedRaceEvent>(),Highlights=new[]{new RaceHighlight(200,menu.Session.Career.PlayerId,RaceHighlightKind.Overtake)}};
             info.AiSnowSearchVersion=prepared.Runner.AiSnowSearchVersion;
+            info.BroadcastCheckpointVersion=checkpointVersion;
             object pose=null;
             using(var file=library.CreatePending(info.Id))using(var writer=new ManualRaceJournalWriter(file,source,SkiTechniqueDefinition.FromJson(Read("ski_technique_provisional_v1.json"))))
             {
@@ -55,6 +59,7 @@ namespace Biathlon.PlayModeTests
             string before=menu.Session.Career.ToJson();menu.Replays.LoadEnvironment=true;menu.Replays.Launch(menu,info);
             for(int i=0;i<20&&menu.Replays.Loading;i++)yield return null;
             var replay=menu.Replays;Assert.That(replay.Active,Is.True,menu.LastMessage);Assert.That(replay.LastFailure,Is.Null);
+            Assert.That(replay.Host.Runner.Field.Track.CheckpointCount,Is.EqualTo(checkpointVersion==0?3:7));
             for(int i=0;i<replay.Host.Runner.Field.Count;i++)
             {
                 string id=replay.Host.Runner.Field.GetAthlete(i).AthleteId.Value;CareerAthlete athlete=null;

@@ -120,6 +120,7 @@ namespace Biathlon.Domain
         private TrackCheckpointDefinition() { }
         [DataMember(Name = "id", IsRequired = true)] public string Id { get; private set; }
         [DataMember(Name = "anchor", IsRequired = true)] public TrackAnchor Anchor { get; private set; }
+        [DataMember(Name = "broadcast_only", EmitDefaultValue = false)] public bool BroadcastOnly { get; private set; }
         internal void Validate(TrackDefinition track)
         {
             TrackValidation.Id(Id);
@@ -166,6 +167,14 @@ namespace Biathlon.Domain
     [DataContract]
     public sealed class TrackDefinition
     {
+        [DataContract]
+        private sealed class CheckpointSupplement
+        {
+            [DataMember(Name = "schema_version", IsRequired = true)] public int SchemaVersion { get; private set; }
+            [DataMember(Name = "id", IsRequired = true)] public string Id { get; private set; }
+            [DataMember(Name = "track_id", IsRequired = true)] public string TrackId { get; private set; }
+            [DataMember(Name = "checkpoints", IsRequired = true)] public TrackCheckpointDefinition[] Checkpoints { get; private set; }
+        }
         private TrackDefinition() { }
         [DataMember(Name = "schema_version", IsRequired = true)] public int SchemaVersion { get; private set; }
         [DataMember(Name = "id", IsRequired = true)] public string Id { get; private set; }
@@ -179,6 +188,39 @@ namespace Biathlon.Domain
         public int CheckpointCount => Checkpoints.Length;
         public TrackLoopDefinition GetLoop(int index) => Loops[index];
         public TrackCheckpointDefinition GetCheckpoint(int index) => Checkpoints[index];
+        public TrackDefinition WithBroadcastCheckpoints(string json)
+        {
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+            var supplement = (CheckpointSupplement)new DataContractJsonSerializer(typeof(CheckpointSupplement)).ReadObject(stream);
+            if (supplement == null || supplement.SchemaVersion != 1 || supplement.TrackId != Id ||
+                supplement.Checkpoints == null || supplement.Checkpoints.Length == 0)
+                throw new SerializationException("Broadcast checkpoints must bind the authored track.");
+            TrackValidation.Id(supplement.Id);
+            var ids = new HashSet<string>(StringComparer.Ordinal);
+            var anchors = new HashSet<(string, long)>();
+            foreach (var checkpoint in Checkpoints)
+            {
+                ids.Add(checkpoint.Id);
+                anchors.Add((checkpoint.Anchor.LoopId, checkpoint.Anchor.Distance.Millimeters));
+            }
+            foreach (var checkpoint in supplement.Checkpoints)
+            {
+                if (checkpoint == null || !checkpoint.BroadcastOnly)
+                    throw new SerializationException("Supplementary checkpoints must be marked for broadcast.");
+                checkpoint.Validate(this);
+                var anchor = checkpoint.Anchor;
+                var loop = GetLoop(anchor.LoopId);
+                if (loop.Kind != TrackLoopKind.Race || anchor.Distance.Millimeters == 0 ||
+                    anchor.Distance.Millimeters >= loop.Length.Millimeters || !ids.Add(checkpoint.Id) ||
+                    !anchors.Add((anchor.LoopId, anchor.Distance.Millimeters)))
+                    throw new SerializationException("Supplementary timing lines must be distinct interior race anchors.");
+            }
+            var copy = (TrackDefinition)MemberwiseClone();
+            copy.Checkpoints = new TrackCheckpointDefinition[Checkpoints.Length + supplement.Checkpoints.Length];
+            Checkpoints.CopyTo(copy.Checkpoints, 0);
+            supplement.Checkpoints.CopyTo(copy.Checkpoints, Checkpoints.Length);
+            return copy;
+        }
         public TrackLoopDefinition GetLoop(string id)
         {
             if (id == null || !loopIndex.TryGetValue(id, out var loop)) throw new ArgumentException("Unknown track loop ID.", nameof(id));

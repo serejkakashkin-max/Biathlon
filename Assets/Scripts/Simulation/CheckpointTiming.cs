@@ -10,9 +10,10 @@ namespace Biathlon.Simulation
         public string LapId { get; }
         public int SectionIndex { get; }
         public long RouteNanometers { get; }
-        internal CheckpointOccurrence(string id, RouteSection section, int index, TrackDistance local)
-        { CheckpointId = id; LapId = section.LapId; SectionIndex = index;
-          RouteNanometers = checked(section.RouteDistanceOf(local).Millimeters * SkiState.NanometersPerMillimeter); }
+        public bool BroadcastOnly { get; }
+        internal CheckpointOccurrence(TrackCheckpointDefinition marker, RouteSection section, int index)
+        { CheckpointId = marker.Id; LapId = section.LapId; SectionIndex = index; BroadcastOnly = marker.BroadcastOnly;
+          RouteNanometers = checked(section.RouteDistanceOf(marker.Anchor.Distance).Millimeters * SkiState.NanometersPerMillimeter); }
     }
     public sealed class CheckpointLayout
     {
@@ -39,7 +40,7 @@ namespace Biathlon.Simulation
                         // avoiding duplicate splits while preserving physical loop-end markers.
                         bool nextOwns=marker.Anchor.Distance.Millimeters==part.LoopEnd.Millimeters&&section+1<route.SectionCount&&
                             route.GetSection(section+1).LoopId==part.LoopId&&route.GetSection(section+1).LoopStart.Millimeters==marker.Anchor.Distance.Millimeters;
-                        if(!nextOwns)list.Add(new CheckpointOccurrence(marker.Id, part, section, marker.Anchor.Distance));
+                        if(!nextOwns)list.Add(new CheckpointOccurrence(marker, part, section));
                     }
                 }
             }
@@ -77,6 +78,15 @@ namespace Biathlon.Simulation
         public SimulationTick Tick { get; private set; }
         public long RouteNanometers { get; private set; }
         public int Count { get; private set; }
+        public int LatestTacticalOrdinal
+        {
+            get
+            {
+                int ordinal = Count - 1;
+                while (ordinal >= 0 && layout.Get(ordinal).BroadcastOnly) ordinal--;
+                return ordinal;
+            }
+        }
         public CheckpointSplit Get(int ordinal)
         { if (ordinal < 0 || ordinal >= Count) throw new ArgumentOutOfRangeException(nameof(ordinal)); return splits[ordinal]; }
         public CheckpointTracker(CheckpointLayout layout, AthleteId athlete, int frequency, SimulationTick start, IRaceEventSink events)
@@ -186,9 +196,14 @@ namespace Biathlon.Simulation
         }
         public CheckpointSplit Leader(int ordinal)
         {
-            ValidateOrdinal(ordinal); var best=leaders[ordinal];
-            if (!best.IsValid) throw new InvalidOperationException("No checkpoint leader yet.");
+            if (!TryGetLeader(ordinal, out var best)) throw new InvalidOperationException("No checkpoint leader yet.");
             return best;
+        }
+        public bool TryGetLeader(int ordinal, out CheckpointSplit split)
+        {
+            ValidateOrdinal(ordinal);
+            split = leaders[ordinal];
+            return split.IsValid;
         }
         public double GapSeconds(AthleteId athlete, int ordinal)
         {

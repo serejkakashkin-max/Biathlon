@@ -9,10 +9,11 @@ namespace Biathlon.Tests
 {
     public sealed class ManualReusableRangeTests
     {
-        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) Initial(string format,int count)
+        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) Initial(string format,int count,bool additionalSplits=false)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
-            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ManualScopedFieldStepperTests.Read(root+"manifest")),ManualScopedFieldStepperTests.Read);
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ManualScopedFieldStepperTests.Read(root+"manifest")),
+                ManualScopedFieldStepperTests.Read,additionalSplits?ManualScopedFieldStepperTests.Read(root+"broadcast_checkpoints_v1"):null);
             var profile=CompetitionProfile.FromJson(ManualScopedFieldStepperTests.Read(root+format+"_profile"));
             PursuitQualificationSnapshot qualification=null;
             if(format=="pursuit")
@@ -53,6 +54,30 @@ namespace Biathlon.Tests
                 ManualScopedFieldStepperTests.Work(),ManualMatBrakingDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_mat_braking_v1")));
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_ai_steering_v2")),ManualScopedFieldStepperTests.Steering());
             return(runner,stepper,events);
+        }
+
+        [TestCase("sprint"), TestCase("pursuit"), TestCase("mass_start")]
+        public void BroadcastLinesDoNotAlterDeterministicMovement(string format)
+        {
+            var legacy=Initial(format,2);
+            var extended=Initial(format,2,true);
+            int difference=0;
+            for(int tick=0;tick<8000;tick++)
+            {
+                legacy.runner.Step();
+                extended.runner.Step();
+                for(int athlete=0;athlete<2;athlete++)
+                {
+                    Assert.That(extended.stepper.World.GetActor(athlete).Pose,Is.EqualTo(legacy.stepper.World.GetActor(athlete).Pose));
+                    var old=legacy.runner.Field.GetAthlete(athlete);
+                    var current=extended.runner.Field.GetAthlete(athlete);
+                    Assert.That(current.RouteNanometers,Is.EqualTo(old.RouteNanometers));
+                    Assert.That(current.Lifecycle.Phase,Is.EqualTo(old.Lifecycle.Phase));
+                    if(athlete==0)difference=current.Checkpoints.Count-old.Checkpoints.Count;
+                }
+                if(difference==2 && legacy.runner.Field.GetAthlete(0).Checkpoints.Count>=1)break;
+            }
+            Assert.That(difference,Is.EqualTo(2));
         }
 
         [TestCase("sprint",1)][TestCase("sprint",3)][TestCase("pursuit",3)]

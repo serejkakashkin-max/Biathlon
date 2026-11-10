@@ -1,17 +1,96 @@
 using System;
+using System.Collections;
+using System.IO;
 using System.Linq;
 using Biathlon.Domain;
+using Biathlon.Presentation;
+using Biathlon.Simulation;
 using Biathlon.Unity.Presentation;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
+using UnityEngine.UIElements;
 using Object=UnityEngine.Object;
 
 namespace Biathlon.PlayModeTests
 {
     public sealed class CourseTimingPresentationTests
     {
-        private static VenueAuthoringPlan Production()=>new VenueAuthoringPlan(
-            VenueManifest.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/manifest")),ProductionVenueHost.ReadResource);
+        private static VenueAuthoringPlan Production(bool extended=false)=>new VenueAuthoringPlan(
+            VenueManifest.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/manifest")),ProductionVenueHost.ReadResource,
+            extended?ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/broadcast_checkpoints_v1"):null);
+
+        [UnityTest]
+        public IEnumerator WoodlandLiveSplitAndPortalUseTheSameRealSprintCrossing()
+        {
+            var plan=Production(true);
+            var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
+                .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
+            var root=new GameObject("Live timing on Woodland Basin");
+            bool capture=File.Exists("artifacts/m16-8/capture.flag");
+            try
+            {
+                var host=root.AddComponent<ProductionVenueHost>();
+                host.AutoStart=false;host.enabled=false;host.InputPreferences=new PlayerSettings();
+                host.Initialize(plan,binding.Profile,binding.Route,
+                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:2,playerIndex:1);
+                host.Proxies.enabled=false;
+                if(capture)
+                    host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(
+                        ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/environment")));
+                var field=host.Runner.Field;
+                var layout=new CheckpointLayout(field.Track,field.Route);
+                var portals=host.GetComponent<CourseTimingPresentation>();
+                int gate=Enumerable.Range(0,portals.TimingLines).Single(i=>portals.CheckpointId(i)=="forest_straight_split");
+                var line=layout.Get(0);
+                Assert.That(line.CheckpointId,Is.EqualTo(portals.CheckpointId(gate)));
+                var hud=host.GameplayHud;
+                hud.SetPreferences("ru",0);
+                for(int i=0;i<8000&&field.GetAthlete(1).RouteNanometers<line.RouteNanometers-16000000000L;i++)host.Runner.Step();
+                Publish();
+                var view=LiveSplit.Capture(field,layout,1,host.Feed.Current.Get(1),60,6);
+                Assert.That(view.Visible&&!view.Crossed&&view.LeaderSeconds.HasValue,Is.True);
+                var reference=hud.Root.Q<Label>("live_split_reference");
+                Assert.That(reference.text,Does.Contain(GameplayHudModel.FormatClock(field.Timing.Leader(0).ElapsedTime.Seconds)));
+                Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain(portals.DistanceLabel(gate).Replace('.',',').Replace("KM","КМ")));
+                if(capture)yield return Capture("approach",false);
+                for(int i=0;i<2000&&field.GetAthlete(1).Checkpoints.Count==0;i++)host.Runner.Step();
+                Publish();
+                var frozen=hud.Root.Q<Label>("live_split_time").text;
+                Assert.That(frozen,Is.EqualTo(GameplayHudModel.FormatClock(field.GetAthlete(1).Checkpoints.Get(0).ElapsedTime.Seconds)));
+                Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain("МЕСТО"));
+                if(capture)yield return Capture("crossed",true);
+                for(int i=0;i<field.TickFrequency;i++)host.Runner.Step();
+                Publish();
+                Assert.That(hud.Root.Q<Label>("live_split_time").text,Is.EqualTo(frozen));
+                yield return null;
+
+                void Publish()
+                {
+                    host.Feed.Publish(RacePresentationSnapshot.Capture(field));
+                    host.Proxies.Render(1);hud.Refresh();
+                }
+                IEnumerator Capture(string name,bool crossed)
+                {
+                    var camera=host.ChaseCamera;
+                    var follow=camera.GetComponent<AthleteChaseCamera>();
+                    if(follow!=null)follow.enabled=false;
+                    var frame=portals.GateTransform(gate);
+                    camera.transform.position=frame.TransformPoint(new Vector3(crossed?3.2f:0,2.2f,crossed?8:-23));
+                    camera.transform.LookAt(frame.TransformPoint(new Vector3(0,2,0)));
+                    camera.enabled=true;
+                    for(int i=0;i<3;i++)
+                    {
+                        host.Environment.Render(camera,"high",(float)(field.Tick.Value/(double)field.TickFrequency));
+                        yield return new WaitForEndOfFrame();
+                    }
+                    var image=ScreenCapture.CaptureScreenshotAsTexture();
+                    File.WriteAllBytes("artifacts/m16-8/"+name+".png",image.EncodeToPNG());
+                    Object.Destroy(image);
+                }
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
 
         [Test] public void LegacyMeshPlacementsKeepUniformWidthAndExplicitFinishWidthSurvivesRoundTrip()
         {
@@ -24,16 +103,21 @@ namespace Biathlon.PlayModeTests
             Assert.Throws<ArgumentException>(()=>ProductionEnvironmentDefinition.FromJson(fixture.Recipe.ToJson()));
         }
 
-        [Test] public void ThreeUsefulStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear()
+        [TestCase(false), TestCase(true)]
+        public void TimingStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear(bool extended)
         {
-            var plan=Production();var root=new GameObject("Timing portal placement check");
+            var plan=Production(extended);var root=new GameObject("Timing portal placement check");
             root.transform.SetPositionAndRotation(new Vector3(30,17,-22),Quaternion.Euler(0,18,0));
             try
             {
-                var view=root.AddComponent<CourseTimingPresentation>();view.Initialize(plan);
-                Assert.That(view.TimingLines,Is.EqualTo(3));
+                var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get).Single(x=>x.Id=="mass_start");
+                var route=new RaceRoute(plan.Track,binding.Route,binding.Profile.ToRouteRequirements(),plan.Junctions,plan.Connections);
+                var view=root.AddComponent<CourseTimingPresentation>();view.Initialize(plan,route);
+                Assert.That(view.TimingLines,Is.EqualTo(extended?5:3));
                 Assert.That(Enumerable.Range(0,view.TimingLines).Count(i=>view.UsesExistingStadiumPortal(i)),Is.EqualTo(1));
-                CollectionAssert.AreEqual(new[]{"climb_top","range_entry_split","range_exit_split"},Enumerable.Range(0,view.TimingLines).Select(view.CheckpointId).ToArray());
+                var expected=new[]{"climb_top","range_entry_split","range_exit_split"};
+                if(extended)expected=expected.Concat(new[]{"forest_straight_split","ridge_straight_split"}).ToArray();
+                CollectionAssert.AreEqual(expected,Enumerable.Range(0,view.TimingLines).Select(view.CheckpointId).ToArray());
                 Assert.That(plan.Track.GetCheckpoint(2).Anchor.Distance.Meters,Is.GreaterThan(plan.Track.Penalty.Rejoin.Distance.Meters),"IBU §9.2.7 timing follows the penalty loop.");
                 Assert.That(root.GetComponentsInChildren<Collider>(true),Is.Empty,"Timing art never adds a physical stopper, even in its creation frame.");
                 for(int index=0;index<view.TimingLines;index++)

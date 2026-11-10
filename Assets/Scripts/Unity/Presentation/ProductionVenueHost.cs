@@ -109,7 +109,9 @@ namespace Biathlon.Unity.Presentation
             var review=ReadOptionalReview(ReviewDefinitionResource);
             var entry=review?.ForScene(gameObject.scene.path);
             if(entry!=null&&entry.field_count!=FieldCount)throw new ArgumentException("Review entry must match the scene roster.");
-            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ReadResource(VenueResource)),ReadResource);
+            var manifest=VenueManifest.FromJson(ReadResource(VenueResource));
+            var venue=new VenueAuthoringPlan(manifest,ReadResource,
+                CareerRaceProvider.BroadcastCheckpoints(manifest.Id,review==null?CareerRaceProvider.CurrentBroadcastCheckpointVersion:0,ReadResource));
             if(review!=null&&review.venue_id!=venue.Manifest.Id)throw new ArgumentException("Review venue mismatch.");
             var profile=CompetitionProfile.FromJson(ReadResource(ProfileResource));
             if(entry!=null&&(entry.format_id=="sprint"?CompetitionFormat.Sprint:CompetitionFormat.MassStart)!=profile.Format)throw new ArgumentException("Review format mismatch.");
@@ -203,7 +205,7 @@ namespace Biathlon.Unity.Presentation
             gameObject.AddComponent<FinishCorridorPresentation>().Initialize(venue,field.Route);
             gameObject.AddComponent<StadiumPortalPresentation>().Initialize(venue);
             gameObject.AddComponent<PenaltyFencePresentation>().Initialize(venue.Track,venue.Visual);
-            var courseTiming=gameObject.AddComponent<CourseTimingPresentation>();courseTiming.Initialize(venue);courseTiming.Bind(profile,field.Route,Feed,PlayerIndex,DistanceView);
+            var courseTiming=gameObject.AddComponent<CourseTimingPresentation>();courseTiming.Initialize(venue,field.Route);courseTiming.Bind(profile,field.Route,Feed,PlayerIndex,DistanceView);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;

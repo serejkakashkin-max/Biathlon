@@ -61,6 +61,63 @@ namespace Biathlon.PlayModeTests
                 Assert.That(row.tooltip,Does.Contain(GameplayHudModel.FormatClock(table.Get(i).Seconds)));
             }
         }
+        [Test]
+        public void LiveSplitUsesOnlyRecordedSameLineTimesAndHandsOffToHistory()
+        {
+            var field=host.Runner.Field;
+            var hud=host.GameplayHud;
+            hud.SetPreferences("en",2);
+            var layout=new CheckpointLayout(field.Track,field.Route);
+            var card=hud.Root.Q("checkpoint_notice");
+            Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.None));
+
+            bool firstApproach=false, laterApproach=false, crossed=false, running=false;
+            double? previousClock=null;
+            for(int step=0;step<12000&&!laterApproach;step++)
+            {
+                host.Runner.Step();
+                var snapshot=RacePresentationSnapshot.Capture(field);
+                host.Feed.Publish(snapshot);
+                var first=snapshot.Get(host.PlayerIndex);
+                var own=LiveSplit.Capture(field,layout,host.PlayerIndex,first,60,6);
+                if(own.Visible&&own.Ordinal==0&&!own.Crossed)
+                {
+                    hud.Refresh();
+                    Assert.That(own.LeaderSeconds,Is.Null);
+                    Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.Flex));
+                    Assert.That(hud.Root.Q<Label>("live_split_reference").text,Does.Contain("No time to beat"));
+                    if(previousClock.HasValue&&own.Seconds>previousClock.Value)running=true;
+                    previousClock=own.Seconds;
+                    firstApproach=true;
+                }
+                if(!crossed&&own.Visible&&own.Ordinal==0&&own.Crossed)
+                {
+                    hud.Refresh();
+                    var actual=field.GetAthlete(host.PlayerIndex).Checkpoints.Get(0);
+                    Assert.That(own.Seconds,Is.EqualTo(actual.ElapsedTime.Seconds));
+                    Assert.That(own.Rank,Is.EqualTo(1));
+                    Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain("RANK 1 / 1"));
+                    Assert.That(hud.Root.Q<Label>("live_split_time").text,Is.EqualTo(GameplayHudModel.FormatClock(own.Seconds)));
+                    hud.SetCheckpointTableVisible(true);
+                    Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.None));
+                    AssertSelectedRows();
+                    hud.SetCheckpointTableVisible(false);
+                    crossed=true;
+                }
+                int other=1-host.PlayerIndex;
+                var later=snapshot.Get(other);
+                var estimate=LiveSplit.Capture(field,layout,other,later,60,6);
+                if(estimate.Visible&&!estimate.Crossed&&estimate.Ordinal==0&&estimate.LeaderSeconds.HasValue)
+                {
+                    Assert.That(estimate.LeaderSeconds,Is.EqualTo(field.Timing.Leader(0).ElapsedTime.Seconds));
+                    Assert.That(estimate.Seconds,Is.EqualTo(later.ElapsedSeconds));
+                    Assert.That(estimate.DifferenceSeconds,Is.EqualTo(later.ElapsedSeconds-estimate.LeaderSeconds.Value));
+                    Assert.That(estimate.Rank,Is.Zero);
+                    laterApproach=true;
+                }
+            }
+            Assert.That(firstApproach&&running&&crossed&&laterApproach,Is.True);
+        }
         [Test]public void MinutePlusGapRowsReuseClockNotationForBothLocales()
         {
             var tick=host.Runner.Field.Tick;var row=new TimingAthleteRow(1.3f);

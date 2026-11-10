@@ -261,7 +261,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(!plan.UsesPhysicalPaths||data.venue_id!=plan.Manifest.Id||data.track_resource!=plan.Manifest.TrackResource||data.visual_resource!=plan.Manifest.VisualResource||
                 VenueManifest.FromJson(Read(read,data.manifest_resource)).ToJson()!=plan.Manifest.ToJson()||
-                TrackDefinition.FromJson(Read(read,data.track_resource)).ToJson()!=plan.Track.ToJson()||
+                TrackDefinition.FromJson(Read(read,data.track_resource)).ToJson()!=plan.AuthoredTrack.ToJson()||
                 TrackVisualDefinition.FromJson(Read(read,data.visual_resource),plan.Track).ToJson()!=plan.Visual.ToJson())throw new ArgumentException("Environment must bind the exact physical venue source.");
             if(data.forest.definition_resource!="Biathlon/vegetation_v1"||data.range.geometry_resource!="Biathlon/target_geometry_v1"||data.range.stadium_art_resource!="Biathlon/stadium_art_v1"||data.lighting.weather_resource!="Biathlon/weather_visual_v1")
                 throw new ArgumentException("Environment references unsupported core presentation definitions.");

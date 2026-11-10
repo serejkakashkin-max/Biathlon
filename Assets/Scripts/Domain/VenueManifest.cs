@@ -141,6 +141,7 @@ namespace Biathlon.Domain
     public sealed class VenueAuthoringPlan
     {
         public VenueManifest Manifest {get;} public TrackDefinition Track {get;} public TrackVisualDefinition Visual {get;}
+        public TrackDefinition AuthoredTrack {get;}
         public PhysicalRangeLaneDefinition Lanes {get;} public PhysicalJunctionDefinition Junctions {get;} public PhysicalConnectionDefinition Connections {get;}
         public PhysicalRangePathDefinition Paths {get;} public OccupancyDefinition Occupancy {get;}
         public StartApproachDefinition StartApproach {get;}
@@ -157,11 +158,13 @@ namespace Biathlon.Domain
         private readonly VenueSemanticZone[] zones;
         public int ZoneCount=>zones.Length; public VenueSemanticZone Zone(int i)=>zones[i];
         public TrackVisualPoint At(TrackAnchor anchor)=>Visual.Get(anchor.LoopId).Sample(anchor.Distance.Meters);
-        public VenueAuthoringPlan(VenueManifest manifest,Func<string,string> readResource)
+        public VenueAuthoringPlan(VenueManifest manifest,Func<string,string> readResource,string broadcastCheckpointsJson=null)
         {
             Manifest=manifest??throw new ArgumentNullException(nameof(manifest));if(readResource==null)throw new ArgumentNullException(nameof(readResource));
             if(manifest.AiSkiPolicyResource!=null)AiSkiPolicy=AiSkiPolicyDefinition.FromJson(readResource(manifest.AiSkiPolicyResource));
-            Track=TrackDefinition.FromJson(readResource(manifest.TrackResource));Visual=TrackVisualDefinition.FromJson(readResource(manifest.VisualResource),Track);
+            AuthoredTrack=TrackDefinition.FromJson(readResource(manifest.TrackResource));
+            Track=broadcastCheckpointsJson==null?AuthoredTrack:AuthoredTrack.WithBroadcastCheckpoints(broadcastCheckpointsJson);
+            Visual=TrackVisualDefinition.FromJson(readResource(manifest.VisualResource),Track);
             Junctions=PhysicalJunctionDefinition.FromJson(readResource(manifest.JunctionsResource),Track);Connections=PhysicalConnectionDefinition.FromJson(readResource(manifest.ConnectionsResource),Junctions);
             if(manifest.SchemaVersion==1)Lanes=PhysicalRangeLaneDefinition.FromJson(readResource(manifest.LanesResource),Track);
             else
