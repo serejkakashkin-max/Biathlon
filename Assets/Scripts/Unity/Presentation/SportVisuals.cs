@@ -50,14 +50,22 @@ namespace Biathlon.Unity.Presentation
         private readonly Label rank,athlete,time,gap;private readonly NationFlagGraphic flag;
         private readonly LeaderBibGraphic leader;
         public string AthleteId {get;private set;}
-        public TimingAthleteRow(float scale)
+        public TimingAthleteRow(float scale,bool broadcast=false)
         {
             style.flexDirection=FlexDirection.Row;style.alignItems=Align.Center;style.height=31*scale;style.marginBottom=2;
             style.paddingLeft=6;style.paddingRight=8;style.borderBottomWidth=1;style.borderBottomColor=new Color(1,1,1,.07f);
-            rank=Cell(30*scale,true);flag=new NationFlagGraphic("");Add(flag);athlete=Cell(0,true);athlete.style.flexGrow=1;athlete.style.flexBasis=0;
+            rank=Cell(30*scale,true);rank.name="timing_rank";flag=new NationFlagGraphic("");Add(flag);athlete=Cell(0,true);athlete.name="timing_athlete";athlete.style.flexGrow=1;athlete.style.flexBasis=0;
             leader=new LeaderBibGraphic(CareerLeaderBib.None,"");leader.style.width=18*scale;leader.style.height=22*scale;leader.style.marginLeft=4*scale;leader.style.marginRight=5*scale;Add(leader);
             time=Cell(66*scale,false);gap=Cell(62*scale,true);time.name="timing_elapsed";gap.name="timing_gap";
             time.style.unityTextAlign=gap.style.unityTextAlign=TextAnchor.MiddleRight;time.style.color=new Color(.69f,.79f,.84f);
+            if(broadcast)
+            {
+                leader.style.display=DisplayStyle.None;
+                flag.style.width=25*scale;flag.style.height=16*scale;
+                FrostlineStyle.Text(rank,true);FrostlineStyle.Text(time,true);FrostlineStyle.Text(gap,true);
+                rank.style.fontSize=time.style.fontSize=gap.style.fontSize=15*scale;
+                gap.style.width=70*scale;athlete.style.fontSize=14*scale;
+            }
             Label Cell(float width,bool bold)
             {
                 var label=new Label{enableRichText=false};label.style.fontSize=13*scale;label.style.color=new Color(.93f,.97f,.98f);

@@ -11,6 +11,7 @@ namespace Biathlon.Presentation
         public bool Crossed { get; }
         public int Ordinal { get; }
         public double RouteMeters { get; }
+        public double RemainingMeters { get; }
         public double Seconds { get; }
         public double? LeaderSeconds { get; }
         public string LeaderId { get; }
@@ -19,12 +20,13 @@ namespace Biathlon.Presentation
         public int Arrivals { get; }
 
         private LiveSplit(CheckpointLayout layout, int ordinal, CheckpointTimingBoard board,
-            bool elapsedClock, double seconds, bool crossed, int rank, int arrivals)
+            bool elapsedClock, double seconds, bool crossed, int rank, int arrivals, double remainingMeters)
         {
             Visible = true;
             Crossed = crossed;
             Ordinal = ordinal;
             RouteMeters = layout.Get(ordinal).RouteNanometers / (double)SkiState.NanometersPerMeter;
+            RemainingMeters = remainingMeters;
             Seconds = seconds;
             bool hasLeader = board.TryGetLeader(ordinal, out var leader);
             LeaderId = hasLeader ? leader.Athlete.Value : null;
@@ -48,7 +50,7 @@ namespace Biathlon.Presentation
                 double age = globalSeconds - split.GlobalTime.Seconds;
                 if (age >= 0 && age < holdSeconds)
                     return new LiveSplit(layout, previous, field.Timing, elapsedClock, Time(split, elapsedClock),
-                        true, athlete.Hud.Rank, athlete.Hud.ComparedAthletes);
+                        true, athlete.Hud.Rank, athlete.Hud.ComparedAthletes, 0);
             }
 
             int next = previous + 1;
@@ -56,8 +58,11 @@ namespace Biathlon.Presentation
             double remaining = layout.Get(next).RouteNanometers / (double)SkiState.NanometersPerMeter - athlete.RouteMeters;
             if (remaining <= 0 || remaining > approachMeters) return default;
 
+            int arrivals = 0;
+            for (int i = 0; i < field.Count; i++)
+                if (field.GetAthlete(i).Checkpoints.Count > next) arrivals++;
             return new LiveSplit(layout, next, field.Timing, elapsedClock,
-                elapsedClock ? athlete.ElapsedSeconds : globalSeconds, false, 0, 0);
+                elapsedClock ? athlete.ElapsedSeconds : globalSeconds, false, 0, arrivals, remaining);
         }
 
         private static double Time(CheckpointSplit split, bool elapsedClock) =>

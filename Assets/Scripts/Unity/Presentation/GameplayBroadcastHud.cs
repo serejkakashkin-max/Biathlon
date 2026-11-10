@@ -22,7 +22,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Dictionary<string,string> broadcastNames=new Dictionary<string,string>(StringComparer.Ordinal);
         private readonly Dictionary<string,string> broadcastNations=new Dictionary<string,string>(StringComparer.Ordinal);
         public void SetBroadcastRoster(CareerSave save)
-        {broadcastNames.Clear();broadcastNations.Clear();for(int i=0;i<save.AthleteCount;i++){var a=save.Athlete(i);broadcastNames.Add(a.Id,a.Name);broadcastNations.Add(a.Id,a.Nation);}rendered=null;Refresh();}
+        {broadcastNames.Clear();broadcastNations.Clear();for(int i=0;i<save.AthleteCount;i++){var a=save.Athlete(i);broadcastNames.Add(a.Id,a.Name);broadcastNations.Add(a.Id,a.Nation);}liveSplitStandings=null;rendered=null;Refresh();}
         public void SetBroadcastVisible(bool value)
         {BroadcastVisible=value;if(broadcastPanel!=null)broadcastPanel.style.display=value?DisplayStyle.Flex:DisplayStyle.None;rendered=null;Refresh();}
         private void BuildBroadcast()

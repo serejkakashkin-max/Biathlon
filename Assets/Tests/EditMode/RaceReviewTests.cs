@@ -22,6 +22,28 @@ namespace Biathlon.Tests
             var other=new CheckpointTracker(layout,new AthleteId("other"),20,default,new RaceEventLog(20));other.Observe(new SimulationTick(1),0,1600000000000);
             Assert.Throws<ArgumentException>(()=>new CheckpointStandings(new[]{early,other.Get(2)},CheckpointClock.Elapsed));
         }
+        [TestCase("incoming", "a,b,c")]
+        [TestCase("a", "b,c,d")]
+        [TestCase("b", "a,c,d")]
+        [TestCase("d", "a,c,e")]
+        [TestCase("f", "a,d,e")]
+        public void BroadcastKeepsLeaderAndNearbyRivalsWithoutDuplicatingFeaturedAthlete(string featured, string expected)
+        {
+            var layout = CheckpointTimingTests.Layout();
+            var arrivals = new CheckpointSplit[6];
+            for (int i = 0; i < arrivals.Length; i++)
+            {
+                var tracker = new CheckpointTracker(layout, new AthleteId(((char)('a' + i)).ToString()), 20, default, new RaceEventLog(20));
+                tracker.Observe(new SimulationTick(1), 0, 1600000000000L - i * 100000000000L);
+                arrivals[arrivals.Length - 1 - i] = tracker.Get(1);
+            }
+            var table = new CheckpointStandings(arrivals, CheckpointClock.Elapsed);
+            var rivals = new CheckpointStanding[3];
+            Assert.That(table.CopyBroadcastRivals(featured, rivals), Is.EqualTo(3));
+            Assert.That(Array.ConvertAll(rivals, row => row.AthleteId), Is.EqualTo(expected.Split(',')));
+            Assert.That(table.CopyBroadcastRivals(featured, Span<CheckpointStanding>.Empty), Is.Zero);
+            Assert.That(new CheckpointStandings(new[]{arrivals[5]}, CheckpointClock.Elapsed).CopyBroadcastRivals("a", rivals), Is.Zero);
+        }
         [Test] public void CalmAndHighPulseGuidanceFollowsActualBreathingFormula()
         {
             var p=PhysiologyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("physiology_gameplay_v2.json"));

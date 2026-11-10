@@ -27,6 +27,11 @@ namespace Biathlon.Unity
             "На трассе Woodland Basin появились две новые отсечки. Табло показывает время лидера на ближайшей отсечке и ваше место после её пересечения. История доступна по TAB.\r\n",
             "M16.8");
 
+        public static void BuildM168SplitBroadcastReview() => BuildM167Review("Builds/M16_8_Split_Broadcast_Review",
+            "m168_split_broadcast_review", null,
+            "Эфирное табло отсечки показывает ваш флаг, имя, текущее время и до трёх соперников с результатами. После пересечения линии показано промежуточное место. История доступна по TAB.\r\n",
+            "M16.8");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7")
         {
             // These names own the existing career directory; branding belongs in the UI.

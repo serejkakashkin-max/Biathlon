@@ -23,6 +23,32 @@ namespace Biathlon.Presentation
         public string CheckpointId {get;}
         public string LapId {get;}
         public CheckpointStanding Get(int index)=>rows[index];
+
+        // Keep the leader on screen and show the places nearest the featured athlete.
+        // Before their arrival, the same slots show the best confirmed splits.
+        public int CopyBroadcastRivals(string athleteId, Span<CheckpointStanding> destination)
+        {
+            if (rows.Length == 0 || destination.IsEmpty) return 0;
+
+            int ownIndex = -1;
+            for (int i = 0; i < rows.Length; i++)
+            {
+                if (rows[i].AthleteId != athleteId) continue;
+                ownIndex = i;
+                break;
+            }
+
+            int written = 0, start = 0;
+            if (ownIndex > 0)
+            {
+                destination[written++] = rows[0];
+                int remaining = destination.Length - written;
+                start = Math.Max(1, Math.Min(ownIndex - remaining / 2, rows.Length - remaining - 1));
+            }
+            for (int i = start; i < rows.Length && written < destination.Length; i++)
+                if (i != ownIndex) destination[written++] = rows[i];
+            return written;
+        }
         public CheckpointStandings(ReadOnlySpan<CheckpointSplit> arrivals,CheckpointClock clock)
         {
             if(clock!=CheckpointClock.Elapsed&&clock!=CheckpointClock.Global)throw new ArgumentOutOfRangeException(nameof(clock));

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
+using Biathlon.Career;
 using Biathlon.Domain;
 using Biathlon.Presentation;
 using Biathlon.Simulation;
@@ -27,13 +28,15 @@ namespace Biathlon.PlayModeTests
             var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
                 .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
             var root=new GameObject("Live timing on Woodland Basin");
-            bool capture=File.Exists("artifacts/m16-8/capture.flag");
+            const string capturePath="artifacts/m16-8-broadcast/";
+            bool capture=File.Exists(capturePath+"capture.flag");
             try
             {
                 var host=root.AddComponent<ProductionVenueHost>();
                 host.AutoStart=false;host.enabled=false;host.InputPreferences=new PlayerSettings();
+                const int featured = 4;
                 host.Initialize(plan,binding.Profile,binding.Route,
-                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:2,playerIndex:1);
+                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:5,playerIndex:featured);
                 host.Proxies.enabled=false;
                 if(capture)
                     host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(
@@ -46,24 +49,48 @@ namespace Biathlon.PlayModeTests
                 Assert.That(line.CheckpointId,Is.EqualTo(portals.CheckpointId(gate)));
                 var hud=host.GameplayHud;
                 hud.SetPreferences("ru",0);
-                for(int i=0;i<8000&&field.GetAthlete(1).RouteNanometers<line.RouteNanometers-16000000000L;i++)host.Runner.Step();
+                var roster=CareerFactory.Create(
+                    CareerRosterDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/career_roster_v2")),
+                    CareerCalendar.FromJson(ProductionVenueHost.ReadResource("Biathlon/woodland_career_calendar_v1")),
+                    plan.Manifest.Id,"Александр Волков","RUS","appearance_default",new SeededRandomSource(16));
+                hud.SetBroadcastRoster(roster);
+                for(int i=0;i<8000&&field.GetAthlete(featured).RouteNanometers<line.RouteNanometers-16000000000L;i++)host.Runner.Step();
                 Publish();
-                var view=LiveSplit.Capture(field,layout,1,host.Feed.Current.Get(1),60,6);
+                var view=LiveSplit.Capture(field,layout,featured,host.Feed.Current.Get(featured),60,6);
                 Assert.That(view.Visible&&!view.Crossed&&view.LeaderSeconds.HasValue,Is.True);
-                var reference=hud.Root.Q<Label>("live_split_reference");
-                Assert.That(reference.text,Does.Contain(GameplayHudModel.FormatClock(field.Timing.Leader(0).ElapsedTime.Seconds)));
+                var leader=hud.Root.Q<TimingAthleteRow>("live_split_rival_0");
+                Assert.That(leader.AthleteId,Is.EqualTo(field.Timing.Leader(0).Athlete.Value));
+                Assert.That(leader.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(field.Timing.Leader(0).ElapsedTime.Seconds)));
+                Assert.That(hud.Root.Q<Label>("live_split_player_name").text,Is.EqualTo(roster.Athlete(featured).Name));
+                Assert.That(hud.Root.Q<NationFlagGraphic>("live_split_player_flag").Nation,Is.EqualTo(roster.Athlete(featured).Nation));
+                AssertRivals();
                 Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain(portals.DistanceLabel(gate).Replace('.',',').Replace("KM","КМ")));
                 if(capture)yield return Capture("approach",false);
-                for(int i=0;i<2000&&field.GetAthlete(1).Checkpoints.Count==0;i++)host.Runner.Step();
+                for(int i=0;i<2000&&field.GetAthlete(featured).Checkpoints.Count==0;i++)host.Runner.Step();
                 Publish();
                 var frozen=hud.Root.Q<Label>("live_split_time").text;
-                Assert.That(frozen,Is.EqualTo(GameplayHudModel.FormatClock(field.GetAthlete(1).Checkpoints.Get(0).ElapsedTime.Seconds)));
-                Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain("МЕСТО"));
+                Assert.That(frozen,Is.EqualTo(GameplayHudModel.FormatClock(field.GetAthlete(featured).Checkpoints.Get(0).ElapsedTime.Seconds)));
+                Assert.That(hud.Root.Q<Label>("live_split_stage").text,Does.Contain("МЕСТО"));
+                AssertRivals();
                 if(capture)yield return Capture("crossed",true);
                 for(int i=0;i<field.TickFrequency;i++)host.Runner.Step();
                 Publish();
                 Assert.That(hud.Root.Q<Label>("live_split_time").text,Is.EqualTo(frozen));
                 yield return null;
+
+                void AssertRivals()
+                {
+                    var rows = Enumerable.Range(0,3).Select(i=>hud.Root.Q<TimingAthleteRow>("live_split_rival_"+i)).ToArray();
+                    Assert.That(rows.Select(row=>row.AthleteId).Distinct().Count(),Is.EqualTo(3));
+                    foreach(var row in rows)
+                    {
+                        Assert.That(row.style.display.value,Is.EqualTo(DisplayStyle.Flex));
+                        Assert.That(row.AthleteId,Is.Not.EqualTo(roster.Athlete(featured).Id));
+                        var rival=Enumerable.Range(0,roster.AthleteCount).Select(roster.Athlete).Single(a=>a.Id==row.AthleteId);
+                        Assert.That(row.Q<Label>("timing_athlete").text,Is.EqualTo(rival.Name));
+                        Assert.That(row.Q<NationFlagGraphic>().Nation,Is.EqualTo(rival.Nation));
+                    }
+                }
 
                 void Publish()
                 {
@@ -85,7 +112,7 @@ namespace Biathlon.PlayModeTests
                         yield return new WaitForEndOfFrame();
                     }
                     var image=ScreenCapture.CaptureScreenshotAsTexture();
-                    File.WriteAllBytes("artifacts/m16-8/"+name+".png",image.EncodeToPNG());
+                    File.WriteAllBytes(capturePath+name+".png",image.EncodeToPNG());
                     Object.Destroy(image);
                 }
             }

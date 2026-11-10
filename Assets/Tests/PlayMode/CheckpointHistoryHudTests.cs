@@ -96,7 +96,9 @@ namespace Biathlon.PlayModeTests
                     var actual=field.GetAthlete(host.PlayerIndex).Checkpoints.Get(0);
                     Assert.That(own.Seconds,Is.EqualTo(actual.ElapsedTime.Seconds));
                     Assert.That(own.Rank,Is.EqualTo(1));
-                    Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain("RANK 1 / 1"));
+                    Assert.That(hud.Root.Q<Label>("live_split_stage").text,Is.EqualTo("RANK 1 / 1"));
+                    Assert.That(hud.Root.Q<Label>("live_split_difference").text,Is.EqualTo("LEADER"));
+                    Assert.That(hud.Root.Q<TimingAthleteRow>("live_split_rival_0").style.display.value,Is.EqualTo(DisplayStyle.None));
                     Assert.That(hud.Root.Q<Label>("live_split_time").text,Is.EqualTo(GameplayHudModel.FormatClock(own.Seconds)));
                     hud.SetCheckpointTableVisible(true);
                     Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.None));

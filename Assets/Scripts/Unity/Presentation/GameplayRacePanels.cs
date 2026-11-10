@@ -14,9 +14,8 @@ namespace Biathlon.Unity.Presentation
         public int SelectedCheckpointOrdinal=>checkpointHistory.Selected;
         public bool FollowingLatestCheckpoint=>checkpointHistory.FollowsLatest;
         private CheckpointLayout checkpointHistoryLayout;
-        private VisualElement checkpointPanel,readinessPanel,readinessPointer,checkpointNotice;
+        private VisualElement checkpointPanel,readinessPanel,readinessPointer;
         private Label checkpointHeading,checkpointStatus,checkpointPrevious,checkpointNext,checkpointMode,readinessTitle,readinessHint;
-        private Label liveSplitHeading,liveSplitTime,liveSplitDifference,liveSplitReference;
         private readonly TimingAthleteRow[] checkpointCells=new TimingAthleteRow[30];
         private RaceReviewSettings reviewSettings;private PhysiologyDefinition readinessPhysiology;private BreathingDefinition readinessBreathing;
         private static readonly string[] ReadinessRu={"СПОКОЙНЫЙ ПУЛЬС","ПОВЫШЕННЫЙ ПУЛЬС","ВЫСОКИЙ ПУЛЬС"},
@@ -52,16 +51,7 @@ namespace Biathlon.Unity.Presentation
                 for(int r=0;r<15;r++){int i=c*15+r;checkpointCells[i]=new TimingAthleteRow(Scale){name="checkpoint_row_"+i};checkpointCells[i].style.height=29*Scale;checkpointCells[i].style.marginBottom=1;FrostlineStyle.Text(checkpointCells[i]);column.Add(checkpointCells[i]);}
             }
             checkpointPanel.style.display=CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
-            checkpointNotice=Card("checkpoint_notice",true,true,380);
-            checkpointNotice.style.left=Length.Percent(35);checkpointNotice.style.width=Length.Percent(30);
-            checkpointNotice.style.display=DisplayStyle.None;
-            liveSplitHeading=Text(checkpointNotice,"live_split_heading","",settings.caption_size,true);liveSplitHeading.style.color=accent;
-            var splitLine=Row(checkpointNotice);
-            liveSplitTime=Text(splitLine,"live_split_time","",settings.number_size,true);
-            liveSplitDifference=Text(splitLine,"live_split_difference","",settings.body_size,true);
-            liveSplitReference=Text(checkpointNotice,"live_split_reference","",settings.caption_size);
-            liveSplitReference.style.color=muted;liveSplitReference.style.whiteSpace=WhiteSpace.NoWrap;
-            liveSplitReference.style.overflow=Overflow.Hidden;liveSplitReference.style.textOverflow=TextOverflow.Ellipsis;
+            BuildLiveSplit();
             readinessPanel=Card("shooting_readiness",false,false,settings.right_width);readinessPanel.style.bottom=settings.edge+168*Scale;
             readinessTitle=Text(readinessPanel,"readiness_title","",settings.caption_size,true);
             var band=new VisualElement();band.style.height=8;band.style.flexDirection=FlexDirection.Row;band.style.marginTop=4;band.style.marginBottom=12;readinessPanel.Add(band);
@@ -134,31 +124,5 @@ namespace Biathlon.Unity.Presentation
             }
         }
 
-        private void RefreshLiveSplit(AthletePresentationState athlete)
-        {
-            var split=host==null||CheckpointTableVisible||helpVisible?default:
-                LiveSplit.Capture(host.Runner.Field,checkpointHistoryLayout,selectedIndex,athlete,
-                    reviewSettings.checkpoint_approach_m,reviewSettings.checkpoint_notice_seconds);
-            checkpointNotice.style.display=split.Visible?DisplayStyle.Flex:DisplayStyle.None;
-            if(!split.Visible)return;
-
-            var culture=System.Globalization.CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US");
-            string distance=host.DistanceView.Kilometers(split.RouteMeters,culture);
-            liveSplitHeading.text=L("ОТСЕЧКА ","SPLIT ")+distance+L(" КМ"," KM")+(split.Crossed
-                ?L(" · МЕСТО "," · RANK ")+split.Rank+" / "+split.Arrivals
-                :L(" · ПОДЪЕЗД"," · APPROACH"));
-            liveSplitTime.text=GameplayHudModel.FormatClock(split.Seconds);
-            double? difference=split.DifferenceSeconds;
-            string gap=difference.HasValue?GameplayHudModel.FormatGap(Math.Abs(difference.Value),culture):"";
-            liveSplitDifference.text=difference<0?"−"+gap.Substring(1):gap;
-            liveSplitDifference.style.color=difference>0?(HighContrast?Color.white:FrostlineStyle.Danger):accent;
-            if(split.LeaderSeconds.HasValue)
-            {
-                string name=broadcastNames.TryGetValue(split.LeaderId,out var leader)?leader:split.LeaderId==athleteId?L("ВЫ","YOU"):null;
-                liveSplitReference.text=L("ЛИДЕР ","LEADER ")+GameplayHudModel.FormatClock(split.LeaderSeconds.Value)+
-                    (string.IsNullOrEmpty(name)?"":" · "+name);
-            }
-            else liveSplitReference.text=L("Ещё нет времени лидера","No time to beat yet");
-        }
     }
 }
