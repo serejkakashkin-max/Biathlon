@@ -3,6 +3,28 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
+    /// <summary>One immutable physical query shared by candidate steering intents.
+    /// Preparing it grants no motion or course admission.</summary>
+    public readonly struct PreparedSteeredSnow
+    {
+        internal readonly ManualSkiSteeredSnowSystem Owner;
+        internal readonly SkiContactMotion Motion;
+        internal readonly double Mass,Seconds,Grip,Response,Speed,Rx,Rz,Fx,Fz,Forward,Denominator,Limit;
+        internal PreparedSteeredSnow(ManualSkiSteeredSnowSystem owner,ManualSkiContactBody body,SkiContactMotion motion,
+            double seconds,double grip,double response,double speed,double minimumForwardSpeed)
+        {
+            Owner=owner;Motion=motion;Mass=body.MassKilograms;Seconds=seconds;Grip=grip;Response=response;Speed=speed;
+            Rx=Math.Cos(body.Pose.HeadingRadians);Rz=-Math.Sin(body.Pose.HeadingRadians);Fx=-Rz;Fz=Rx;
+            Forward=motion.Velocity.X*Fx+motion.Velocity.Z*Fz;
+            Denominator=(Forward<0?-1:1)*Math.Max(Math.Abs(Forward),minimumForwardSpeed);Limit=grip*seconds*.5;
+        }
+        public double PreviewYawRate(int steeringInput)
+        {
+            if(Owner==null)throw new InvalidOperationException("Prepare a snow query first.");
+            Owner.PreviewPrepared(this,steeringInput,true,out double yaw);return yaw;
+        }
+    }
+
     public readonly struct ManualSkiSteeredSnowPreview
     {
         public bool IsValid=>Request.IsValid&&Snow.IsValid;
@@ -36,15 +58,23 @@ namespace Biathlon.Simulation
         }
         public ManualSkiSteeredSnowPreview Preview(ManualSkiContactBody body,SkiContactMotion motion,
             int steeringInput,double lateralAccelerationLimit,double seconds,double postureResponse=1)
+            =>PreviewPrepared(Prepare(body,motion,lateralAccelerationLimit,seconds,postureResponse),steeringInput,false,out _);
+
+        public PreparedSteeredSnow Prepare(ManualSkiContactBody body,SkiContactMotion motion,
+            double lateralAccelerationLimit,double seconds,double postureResponse=1)
         {
             if(!body.IsValid)throw new ArgumentException("Initialized physical body required.",nameof(body));
             PhysiologyNumbers.RequireRange(seconds,double.Epsilon,duration,nameof(seconds));
             double speed=Math.Sqrt(motion.Velocity.X*motion.Velocity.X+motion.Velocity.Z*motion.Velocity.Z);
-            var request=steering.GetRequest(steeringInput,speed,lateralAccelerationLimit,postureResponse);
-            double h=body.Pose.HeadingRadians,rx=Math.Cos(h),rz=-Math.Sin(h),fx=-rz,fz=rx;
-            double forward=motion.Velocity.X*fx+motion.Velocity.Z*fz;
-            double denominator=(forward<0?-1:1)*Math.Max(Math.Abs(forward),minimumForwardSpeed);
-            double angle=Math.Atan(2*arm*request.TargetYawRate/denominator),c=Math.Cos(angle),s=Math.Sin(angle);
+            steering.GetRequest(0,speed,lateralAccelerationLimit,postureResponse);
+            return new PreparedSteeredSnow(this,body,motion,seconds,lateralAccelerationLimit,postureResponse,speed,minimumForwardSpeed);
+        }
+        internal ManualSkiSteeredSnowPreview PreviewPrepared(in PreparedSteeredSnow query,int steeringInput,bool yawOnly,out double yaw)
+        {
+            var motion=query.Motion;
+            var request=steering.GetRequest(steeringInput,query.Speed,query.Grip,query.Response);
+            double rx=query.Rx,rz=query.Rz,fx=query.Fx,fz=query.Fz,forward=query.Forward,seconds=query.Seconds;
+            double angle=Math.Atan(2*arm*request.TargetYawRate/query.Denominator),c=Math.Cos(angle),s=Math.Sin(angle);
             double nx=rx*c-fx*s,nz=rz*c-fz*s,frontLever=arm*c,rearLever=-arm;
             double frontSpeed=motion.Velocity.X*nx+motion.Velocity.Z*nz+motion.YawRate*frontLever;
             double rearSpeed=motion.Velocity.X*rx+motion.Velocity.Z*rz+motion.YawRate*rearLever;
@@ -53,7 +83,7 @@ namespace Biathlon.Simulation
             // Algebraically identical positive determinant, avoiding cancellation
             // for short supports, large inertia or almost parallel constraints.
             double det=s*s+ratio*(1+3*c*c);
-            double limit=lateralAccelerationLimit*seconds*.5;
+            double limit=query.Limit;
             double bestFront=0,bestRear=0,bestEnergy=0;bool freeChosen=false;
             if(limit>0)
             {
@@ -77,15 +107,17 @@ namespace Biathlon.Simulation
             double yawChange=(frontLever*bestFront+rearLever*bestRear)/inertiaPerMass;
             double scale=yawChange==0?1:Math.Min(1,request.AngularAccelerationLimit*seconds/Math.Abs(yawChange));
             bestFront*=scale;bestRear*=scale;
-            double dx=nx*bestFront+rx*bestRear,dz=nz*bestFront+rz*bestRear;
             double dw=(frontLever*bestFront+rearLever*bestRear)/inertiaPerMass;
+            yaw=angle==0&&freeChosen&&scale==1?0:motion.YawRate+dw;
+            if(yawOnly)return default;
+            double dx=nx*bestFront+rx*bestRear,dz=nz*bestFront+rz*bestRear;
             double energy=frontSpeed*bestFront+rearSpeed*bestRear+
                 .5*qff*bestFront*bestFront+.5*qrr*bestRear*bestRear+qfr*bestFront*bestRear;
             var finalMotion=new SkiContactMotion(new SkiPlanarVelocity(motion.Velocity.X+dx,motion.Velocity.Z+dz),motion.YawRate+dw);
             if(angle==0&&freeChosen&&scale==1)
                 finalMotion=new SkiContactMotion(new SkiPlanarVelocity(fx*forward,fz*forward),0);
-            var result=new SkiSnowContactPreview(finalMotion,lateralAccelerationLimit,
-                bestFront*body.MassKilograms,bestRear*body.MassKilograms,-Math.Min(0,energy)*body.MassKilograms,angle==0&&freeChosen&&scale==1);
+            var result=new SkiSnowContactPreview(finalMotion,query.Grip,
+                bestFront*query.Mass,bestRear*query.Mass,-Math.Min(0,energy)*query.Mass,angle==0&&freeChosen&&scale==1);
             return new ManualSkiSteeredSnowPreview(request,result,angle,scale);
 
             double Clamp(double value)=>Math.Max(-limit,Math.Min(limit,value));

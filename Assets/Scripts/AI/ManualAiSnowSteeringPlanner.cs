@@ -28,6 +28,7 @@ namespace Biathlon.AI
         {
             PhysiologyNumbers.RequireRange(targetYawRate,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(targetYawRate));
             LastPreviewCount=LastScoredCommands=0;
+            var query=snow.Prepare(body,motion,lateralAcceleration,seconds,response);
             double speed=Math.Sqrt(motion.Velocity.X*motion.Velocity.X+motion.Velocity.Z*motion.Velocity.Z);
             ManualSkiSteeringRequest negativeRequest=default,positiveRequest=default;
             double negativeYaw=0,positiveYaw=0;bool negativeValid=false,positiveValid=false;
@@ -82,11 +83,11 @@ namespace Biathlon.AI
                     var previous=command<0?negativeRequest:positiveRequest;
                     if((command<0?negativeValid:positiveValid)&&request.TargetYawRate==previous.TargetYawRate&&request.AngularAccelerationLimit==previous.AngularAccelerationLimit)
                         return command<0?negativeYaw:positiveYaw;
-                    LastPreviewCount++;double yaw=snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;
+                    LastPreviewCount++;double yaw=query.PreviewYawRate(command);
                     if(command<0){negativeRequest=request;negativeYaw=yaw;negativeValid=true;}else{positiveRequest=request;positiveYaw=yaw;positiveValid=true;}
                     return yaw;
                 }
-                LastPreviewCount++;return snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;
+                LastPreviewCount++;return query.PreviewYawRate(command);
             }
         }
         public int CorrectUnreachedYaw(ManualSkiContactBody body,SkiContactMotion motion,int nominalCommand,

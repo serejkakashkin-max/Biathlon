@@ -8,6 +8,44 @@ namespace Biathlon.Tests
 {
     public sealed class ManualAiSnowSteeringPlannerTests
     {
+        [Test] public void SharedSnowArithmeticRetainsTheRecordedBitPatterns()
+        {
+            var snow=new ManualSkiSteeredSnowSystem(Body,ManualScopedFieldStepperTests.Steering(),20);
+            ulong hash=14695981039346656037UL;
+            foreach(double heading in new[]{-2.3,.1,1.7})foreach(double slip in new[]{-1.3,.2})
+            foreach(double speed in new[]{0.0,8})foreach(double spin in new[]{-.4,.35})foreach(double grip in new[]{0.0,1.2,7})
+            {
+                var body=new ManualSkiContactBody(new AthleteId("snow_bit_witness"),new ManualSkiHeadingState(4,-7,heading,spin),new SkiPlanarVelocity(slip,speed),75);
+                var motion=new SkiContactMotion(body.Velocity,spin);
+                for(int command=-1000;command<=1000;command+=11)
+                {
+                    var r=snow.Preview(body,motion,command,grip,.05,.8);
+                    Add(r.Snow.Motion.Velocity.X);Add(r.Snow.Motion.Velocity.Z);Add(r.Snow.Motion.YawRate);
+                    Add(r.Snow.FrontImpulseNewtonSeconds);Add(r.Snow.RearImpulseNewtonSeconds);Add(r.Snow.DissipatedEnergyJoules);
+                    Add(r.FrontDeflectionRadians);Add(r.AngularResponseScale);
+                }
+            }
+            ulong expected=Type.GetType("Mono.Runtime")!=null?7271185970318083666UL:6234080294694022026UL;
+            Assert.That(hash,Is.EqualTo(expected),"Frozen before the prepared-response optimization; runtime-specific IEEE fingerprint.");
+            void Add(double value){unchecked{hash^=(ulong)BitConverter.DoubleToInt64Bits(value);hash*=1099511628211UL;}}
+        }
+
+
+        [Test] public void PreparedYawMatchesEveryFullSnowResponseWithoutAllocation()
+        {
+            var snow=new ManualSkiSteeredSnowSystem(Body,ManualScopedFieldStepperTests.Steering(),20);
+            foreach(double forward in new[]{-8.0,0,8})foreach(double grip in new[]{0.0,.5,7})foreach(double response in new[]{0.0,.8,1})
+            {
+                var body=new ManualSkiContactBody(new AthleteId("prepared_snow"),new ManualSkiHeadingState(3,5,.7,.35),new SkiPlanarVelocity(.2,forward),75);
+                var motion=new SkiContactMotion(body.Velocity,.35);var query=snow.Prepare(body,motion,grip,.05,response);
+                for(int command=-1000;command<=1000;command++)
+                    Assert.That(BitConverter.DoubleToInt64Bits(query.PreviewYawRate(command)),Is.EqualTo(BitConverter.DoubleToInt64Bits(snow.Preview(body,motion,command,grip,.05,response).Snow.Motion.YawRate)));
+                double sum=0;long before=GC.GetAllocatedBytesForCurrentThread();
+                for(int command=-1000;command<=1000;command++)sum+=query.PreviewYawRate(command);
+                Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);GC.KeepAlive(sum);
+            }
+            Assert.Throws<InvalidOperationException>(()=>default(PreparedSteeredSnow).PreviewYawRate(0));
+        }
         [Test] public void CompleteSearchReusesSaturatedSnowResponseAndRetainsExactGlobalChoice()
         {
             var definition=ManualScopedFieldStepperTests.Steering();var planner=new ManualAiSnowSteeringPlanner(Body,definition,20,true);
