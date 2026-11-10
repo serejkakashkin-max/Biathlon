@@ -9,16 +9,14 @@ namespace Biathlon.Unity.Presentation
 {
     public sealed partial class GameplayHud
     {
-        private VisualElement checkpointNotice, liveSplitTrackFill, liveSplitFeatured;
-        private Label liveSplitHeading, liveSplitStage, liveSplitAthlete, liveSplitNation, liveSplitTime,
-            liveSplitDifference, liveSplitReference;
-        private NationFlagGraphic liveSplitFlag;
-        private TimingAthleteRow liveSplitCard;
-        private readonly CheckpointStanding[] liveSplitRivals = new CheckpointStanding[3];
+        private VisualElement checkpointNotice, liveSplitTrackFill, liveSplitClock;
+        private Label liveSplitHeading, liveSplitStage, liveSplitTime, liveSplitDifference, liveSplitReference;
+        private readonly TimingAthleteRow[] liveSplitCards = new TimingAthleteRow[CheckpointStandings.BroadcastSlots];
         private CheckpointStandings liveSplitStandings;
-        private int liveSplitOrdinal, liveSplitRivalCount, liveSplitShownSlot;
+        private int liveSplitOrdinal, liveSplitShownStart;
         private bool liveSplitCrossed;
         private long liveSplitTick, liveSplitRotationStart;
+        private double liveSplitRotationDistance;
 
         private void BuildLiveSplit()
         {
@@ -34,78 +32,57 @@ namespace Biathlon.Unity.Presentation
 
             checkpointNotice = new VisualElement { name = "checkpoint_notice", pickingMode = PickingMode.Ignore };
             FrostlineStyle.SurfaceCard(checkpointNotice, true);
-            checkpointNotice.style.width = 760 * Scale;
+            checkpointNotice.style.width = 930 * Scale;
             checkpointNotice.style.maxWidth = Length.Percent(100);
-            checkpointNotice.style.flexDirection = FlexDirection.Row;
-            checkpointNotice.style.height = 61 * Scale;
+            checkpointNotice.style.flexDirection = FlexDirection.Column;
+            checkpointNotice.style.height = 84 * Scale;
             checkpointNotice.style.overflow = Overflow.Hidden;
             if (HighContrast) checkpointNotice.style.backgroundColor = Color.black;
             checkpointNotice.style.display = DisplayStyle.None;
             mount.Add(checkpointNotice);
 
-            var header = new VisualElement();
-            header.style.width = 162 * Scale;
+            var header = Row(checkpointNotice);
+            header.style.height = 27 * Scale;
             header.style.flexShrink = 0;
-            header.style.paddingLeft = 12 * Scale;
-            header.style.paddingRight = 7 * Scale;
-            header.style.justifyContent = Justify.Center;
-            checkpointNotice.Add(header);
+            header.style.paddingLeft = header.style.paddingRight = 12 * Scale;
+            header.style.backgroundColor = HighContrast ? Color.black : FrostlineStyle.Surface;
             liveSplitHeading = SplitLabel(header, "live_split_heading", "", settings.body_size, true);
             liveSplitStage = SplitLabel(header, "live_split_stage", "", settings.caption_size, true);
+            liveSplitStage.style.marginLeft = 12 * Scale;
+            liveSplitStage.style.flexGrow = 1;
             liveSplitStage.style.color = accent;
 
-            var featured = liveSplitFeatured = Row(checkpointNotice);
-            featured.name = "live_split_player";
-            featured.style.backgroundColor = HighContrast ? Color.black : FrostlineStyle.Surface;
-            featured.style.borderLeftWidth = 3;
-            featured.style.borderLeftColor = accent;
-            featured.style.paddingLeft = 9 * Scale;
-            featured.style.paddingRight = 12 * Scale;
-            featured.style.flexGrow = 1.25f;
-            featured.style.flexBasis = 0;
-            featured.style.minWidth = 0;
-            liveSplitFlag = new NationFlagGraphic("") { name = "live_split_player_flag" };
-            liveSplitFlag.style.width = 30 * Scale;
-            liveSplitFlag.style.height = 20 * Scale;
-            featured.Add(liveSplitFlag);
-            var identity = new VisualElement();
-            identity.style.flexGrow = 1;
-            identity.style.flexBasis = 0;
-            identity.style.minWidth = 0;
-            identity.style.marginRight = 8 * Scale;
-            featured.Add(identity);
-            liveSplitAthlete = SplitLabel(identity, "live_split_player_name", "", settings.body_size);
-            liveSplitAthlete.style.unityFontStyleAndWeight = FontStyle.Bold;
-            liveSplitNation = SplitLabel(identity, "live_split_player_nation", "", settings.caption_size, true);
-            liveSplitNation.style.color = accent;
+            liveSplitClock = Row(header);
+            liveSplitClock.name = "live_split_clock";
+            liveSplitClock.style.flexShrink = 0;
+            liveSplitTime = SplitLabel(liveSplitClock, "live_split_time", "", settings.body_size, true);
+            liveSplitDifference = SplitLabel(liveSplitClock, "live_split_difference", "", settings.body_size, true);
+            liveSplitDifference.style.marginLeft = 8 * Scale;
 
-            var clockColumn = new VisualElement();
-            clockColumn.style.alignItems = Align.FlexEnd;
-            clockColumn.style.flexShrink = 0;
-            featured.Add(clockColumn);
-            liveSplitTime = SplitLabel(clockColumn, "live_split_time", "", settings.number_size, true);
-            liveSplitDifference = SplitLabel(clockColumn, "live_split_difference", "", settings.body_size, true);
-
-            var miniWindow = new VisualElement { name = "live_split_window" };
+            var miniWindow = Row(checkpointNotice);
+            miniWindow.name = "live_split_window";
             miniWindow.style.flexGrow = 1;
-            miniWindow.style.flexBasis = 0;
-            miniWindow.style.minWidth = 0;
-            miniWindow.style.justifyContent = Justify.Center;
-            checkpointNotice.Add(miniWindow);
+            miniWindow.style.alignItems = Align.Stretch;
             liveSplitReference = SplitLabel(miniWindow, "live_split_reference",
                 L("Ещё нет времени лидера", "No time to beat yet"), settings.caption_size);
+            liveSplitReference.style.flexGrow = 1;
             liveSplitReference.style.color = muted;
             liveSplitReference.style.unityTextAlign = TextAnchor.MiddleCenter;
-            liveSplitReference.style.whiteSpace = WhiteSpace.Normal;
-            liveSplitReference.style.paddingLeft = liveSplitReference.style.paddingRight = 12 * Scale;
-            liveSplitCard = new TimingAthleteRow(Scale, broadcast: true) { name = "live_split_card" };
-            liveSplitCard.style.height = StyleKeyword.Auto;
-            liveSplitCard.style.flexGrow = 1;
-            liveSplitCard.style.minWidth = 0;
-            liveSplitCard.style.marginBottom = 0;
-            liveSplitCard.style.display = DisplayStyle.None;
-            liveSplitCard.style.paddingLeft = liveSplitCard.style.paddingRight = 12 * Scale;
-            miniWindow.Add(liveSplitCard);
+
+            for (int i = 0; i < liveSplitCards.Length; i++)
+            {
+                var card = liveSplitCards[i] = new TimingAthleteRow(Scale, broadcast: true) { name = "live_split_card_" + i };
+                card.style.height = StyleKeyword.Auto;
+                card.style.flexGrow = 1;
+                card.style.flexBasis = 0;
+                card.style.minWidth = 0;
+                card.style.marginBottom = 0;
+                card.style.display = DisplayStyle.None;
+                card.style.paddingLeft = card.style.paddingRight = 10 * Scale;
+                card.style.borderRightWidth = i + 1 < liveSplitCards.Length ? 1 : 0;
+                card.style.borderRightColor = new Color(accent.r, accent.g, accent.b, .2f);
+                miniWindow.Add(card);
+            }
 
             var track = new VisualElement();
             track.style.position = Position.Absolute;
@@ -151,10 +128,8 @@ namespace Biathlon.Unity.Presentation
                 liveSplitOrdinal = split.Ordinal;
                 liveSplitCrossed = split.Crossed;
                 liveSplitStandings = null;
-                liveSplitRivalCount = 0;
-                liveSplitRotationStart = tick;
-                liveSplitFeatured.style.display = split.Crossed ? DisplayStyle.None : DisplayStyle.Flex;
-                checkpointNotice.style.width = (split.Crossed ? 500 : 760) * Scale;
+                liveSplitShownStart = -1;
+                liveSplitClock.style.display = split.Crossed ? DisplayStyle.None : DisplayStyle.Flex;
                 var culture = CultureInfo.GetCultureInfo(Locale == "ru" ? "ru-RU" : "en-US");
                 liveSplitHeading.text = L("ОТСЕЧКА ", "SPLIT ") + host.DistanceView.Kilometers(split.RouteMeters, culture) + L(" КМ", " KM");
             }
@@ -170,12 +145,10 @@ namespace Biathlon.Unity.Presentation
                     var result = liveSplitStandings.Get(i);
                     if (result.AthleteId != athleteId) continue;
                     liveSplitStage.text = L("МЕСТО ", "RANK ") + result.Rank + " / " + liveSplitStandings.Count;
-                    BindLiveSplitCard(result, true);
+                    BindLiveSplitPage(liveSplitStandings.BroadcastResultStart(i), result.AthleteId);
                     break;
                 }
                 liveSplitTrackFill.style.width = Length.Percent(100);
-                liveSplitCard.style.display = DisplayStyle.Flex;
-                liveSplitReference.style.display = DisplayStyle.None;
                 return;
             }
 
@@ -190,43 +163,42 @@ namespace Biathlon.Unity.Presentation
             liveSplitDifference.style.color = difference > 0 && !HighContrast ? FrostlineStyle.Danger : accent;
             if (liveSplitStandings == null || liveSplitStandings.Count != split.Arrivals)
             {
+                if (liveSplitStandings == null || liveSplitStandings.Count == 0)
+                {
+                    liveSplitRotationStart = tick;
+                    liveSplitRotationDistance = split.RemainingMeters;
+                }
                 liveSplitStandings = CheckpointStandings.Capture(field, split.Ordinal);
-                if (liveSplitRivalCount == 0) liveSplitRotationStart = tick;
-                liveSplitRivalCount = liveSplitStandings.CopyBroadcastRivals(athleteId, liveSplitRivals);
-                liveSplitShownSlot = -1;
-                BindLiveSplitIdentity();
-                liveSplitCard.style.display = liveSplitRivalCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
-                liveSplitReference.style.display = liveSplitRivalCount == 0 ? DisplayStyle.Flex : DisplayStyle.None;
+                liveSplitShownStart = -1;
             }
 
-            if (liveSplitRivalCount == 0) return;
-            int cardTicks = Math.Max(1, Mathf.RoundToInt(reviewSettings.checkpoint_card_seconds * field.TickFrequency));
-            int slot = (int)((tick - liveSplitRotationStart) / cardTicks % liveSplitRivalCount);
-            if (slot == liveSplitShownSlot) return;
-            liveSplitShownSlot = slot;
-            BindLiveSplitCard(liveSplitRivals[slot], false);
+            int pageTicks = Math.Max(1, Mathf.RoundToInt(reviewSettings.checkpoint_page_seconds * field.TickFrequency));
+            double progress = liveSplitRotationDistance > 0 ? 1 - split.RemainingMeters / liveSplitRotationDistance : 0;
+            int pageStart = liveSplitStandings.BroadcastPageStart((tick - liveSplitRotationStart) / pageTicks, progress);
+            if (pageStart != liveSplitShownStart) BindLiveSplitPage(pageStart);
         }
 
-        private string LiveSplitPlayerName() => broadcastNames.TryGetValue(athleteId, out var name) ? name :
-            displayName;
-
-        private void BindLiveSplitIdentity()
+        private void BindLiveSplitPage(int start, string featuredId = null)
         {
-            string name = LiveSplitPlayerName();
-            liveSplitAthlete.text = liveSplitAthlete.tooltip = string.IsNullOrEmpty(name) ? L("Вы", "You") : name;
-            string playerNation = broadcastNations.TryGetValue(athleteId, out var nation) ? nation : "";
-            liveSplitFlag.SetNation(playerNation);
-            liveSplitNation.text = L("ВЫ", "YOU") + (playerNation.Length == 0 ? "" : "  ·  " + playerNation);
-        }
+            liveSplitShownStart = start;
+            liveSplitReference.style.display = liveSplitStandings.Count == 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            for (int i = 0; i < liveSplitCards.Length; i++)
+            {
+                var card = liveSplitCards[i];
+                int index = start + i;
+                bool visible = index < liveSplitStandings.Count;
+                card.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+                if (!visible) continue;
 
-        private void BindLiveSplitCard(CheckpointStanding standing, bool player)
-        {
-            string name = player ? LiveSplitPlayerName() :
-                broadcastNames.TryGetValue(standing.AthleteId, out var stored) ? stored : L("Спортсмен", "Athlete") + " " + standing.Rank;
-            if (player) name = L("ВЫ", "YOU") + (string.IsNullOrEmpty(name) ? "" : " · " + name);
-            string nation = broadcastNations.TryGetValue(standing.AthleteId, out var code) ? code : "";
-            liveSplitCard.BindCheckpoint(standing.AthleteId, standing.Rank, name, nation, standing.Seconds,
-                standing.GapSeconds, Locale, player);
+                var standing = liveSplitStandings.Get(index);
+                bool player = standing.AthleteId == featuredId;
+                string name = broadcastNames.TryGetValue(standing.AthleteId, out var stored) ? stored :
+                    player ? displayName : L("Спортсмен", "Athlete") + " " + standing.Rank;
+                if (player) name = L("ВЫ", "YOU") + (string.IsNullOrEmpty(name) ? "" : " · " + name);
+                string nation = broadcastNations.TryGetValue(standing.AthleteId, out var code) ? code : "";
+                card.BindCheckpoint(standing.AthleteId, standing.Rank, name, nation, standing.Seconds,
+                    standing.GapSeconds, Locale, player);
+            }
         }
     }
 }

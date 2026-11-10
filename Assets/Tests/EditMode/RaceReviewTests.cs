@@ -22,31 +22,43 @@ namespace Biathlon.Tests
             var other=new CheckpointTracker(layout,new AthleteId("other"),20,default,new RaceEventLog(20));other.Observe(new SimulationTick(1),0,1600000000000);
             Assert.Throws<ArgumentException>(()=>new CheckpointStandings(new[]{early,other.Get(2)},CheckpointClock.Elapsed));
         }
-        [TestCase("incoming", "a,b,c", "a,b")]
-        [TestCase("a", "b,c,d", "b,c")]
-        [TestCase("b", "a,c,d", "a,c")]
-        [TestCase("d", "a,c,e", "a,c")]
-        [TestCase("f", "a,d,e", "a,e")]
-        public void BroadcastKeepsLeaderAndNearbyRivalsWithoutDuplicatingFeaturedAthlete(string featured, string expected, string stripExpected)
+        [Test]
+        public void BroadcastPagesCoverNineteenResultsAndKeepThreeVisibleUntilPlayerFinishesTwentieth()
         {
             var layout = CheckpointTimingTests.Layout();
-            var arrivals = new CheckpointSplit[6];
+            long line = layout.Get(1).RouteNanometers;
+            var arrivals = new CheckpointSplit[20];
             for (int i = 0; i < arrivals.Length; i++)
             {
-                var tracker = new CheckpointTracker(layout, new AthleteId(((char)('a' + i)).ToString()), 20, default, new RaceEventLog(20));
-                tracker.Observe(new SimulationTick(1), 0, 1600000000000L - i * 100000000000L);
-                arrivals[arrivals.Length - 1 - i] = tracker.Get(1);
+                var tracker = new CheckpointTracker(layout, new AthleteId($"bib_{i + 1:00}"), 20, default, new RaceEventLog(20));
+                tracker.Observe(new SimulationTick(1), 0, line * (40 - i));
+                arrivals[i] = tracker.Get(1);
             }
-            var table = new CheckpointStandings(arrivals, CheckpointClock.Elapsed);
-            var rivals = new CheckpointStanding[3];
-            Assert.That(table.CopyBroadcastRivals(featured, rivals), Is.EqualTo(3));
-            Assert.That(Array.ConvertAll(rivals, row => row.AthleteId), Is.EqualTo(expected.Split(',')));
-            var strip = new CheckpointStanding[2];
-            Assert.That(table.CopyBroadcastRivals(featured, strip), Is.EqualTo(2));
-            Assert.That(Array.ConvertAll(strip, row => row.AthleteId), Is.EqualTo(stripExpected.Split(',')));
-            Assert.That(table.CopyBroadcastRivals(featured, Span<CheckpointStanding>.Empty), Is.Zero);
-            Assert.That(new CheckpointStandings(new[]{arrivals[5]}, CheckpointClock.Elapsed).CopyBroadcastRivals("a", rivals), Is.Zero);
+
+            var approach = new CheckpointStandings(arrivals.AsSpan(0, 19), CheckpointClock.Global);
+            int[] expectedStarts = { 0, 3, 6, 9, 12, 15, 16 };
+            var displayedRanks = new System.Collections.Generic.HashSet<int>();
+            for (int page = 0; page < expectedStarts.Length; page++)
+            {
+                int start = approach.BroadcastPageStart(page, 0);
+                Assert.That(start, Is.EqualTo(expectedStarts[page]));
+                for (int i = 0; i < CheckpointStandings.BroadcastSlots; i++)
+                    displayedRanks.Add(approach.Get(start + i).Rank);
+            }
+
+            Assert.That(displayedRanks.Count, Is.EqualTo(19));
+            Assert.That(approach.BroadcastPageStart(7, 0), Is.Zero);
+            Assert.That(approach.BroadcastPageStart(0, .9), Is.EqualTo(16));
+
+            var crossed = new CheckpointStandings(arrivals, CheckpointClock.Global, arrivals[19].GlobalTime);
+            int lastGroup = crossed.BroadcastResultStart(19);
+            Assert.That(new[] { crossed.Get(lastGroup).Rank, crossed.Get(lastGroup + 1).Rank, crossed.Get(lastGroup + 2).Rank },
+                Is.EqualTo(new[] { 18, 19, 20 }));
+            Assert.That(crossed.Get(lastGroup + 2).AthleteId, Is.EqualTo("bib_20"));
+            Assert.That(crossed.BroadcastResultStart(0), Is.Zero);
+            Assert.That(crossed.BroadcastResultStart(9), Is.EqualTo(8));
         }
+
         [Test]
         public void CrossingCardKeepsRankWhenAFasterSprintAthleteArrivesLaterInTheSameTick()
         {

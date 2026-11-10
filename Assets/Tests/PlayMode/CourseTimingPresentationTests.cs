@@ -23,21 +23,21 @@ namespace Biathlon.PlayModeTests
             extended?ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/broadcast_checkpoints_v1"):null);
 
         [UnityTest]
-        public IEnumerator WoodlandMiniWindowRotatesThreeRivalsAndFreezesOnThePlayersCrossing()
+        public IEnumerator WoodlandMiniWindowPagesThroughAllArrivalsAndFreezesThreeAtThePlayersCrossing()
         {
             var plan=Production(true);
             var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
                 .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
             var root=new GameObject("Live timing on Woodland Basin");
-            const string capturePath="artifacts/m16-8-split-ticker/";
+            const string capturePath="artifacts/m16-8-split-scroll/";
             bool capture=File.Exists(capturePath+"capture.flag");
             try
             {
                 var host=root.AddComponent<ProductionVenueHost>();
                 host.AutoStart=false;host.enabled=false;host.InputPreferences=new PlayerSettings();
-                const int featured = 4;
+                const int featured = 7;
                 host.Initialize(plan,binding.Profile,binding.Route,
-                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:5,playerIndex:featured);
+                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:8,playerIndex:featured);
                 host.Proxies.enabled=false;
                 var field=host.Runner.Field;
                 var layout=new CheckpointLayout(field.Track,field.Route);
@@ -56,31 +56,42 @@ namespace Biathlon.PlayModeTests
                 Publish();
                 var view=LiveSplit.Capture(field,layout,featured,host.Feed.Current.Get(featured),60,6);
                 Assert.That(view.Visible&&!view.Crossed&&view.LeaderSeconds.HasValue,Is.True);
-                var card=hud.Root.Q<TimingAthleteRow>("live_split_card");
+                var strip=hud.Root.Q("checkpoint_notice");
+                var cards=strip.Query<TimingAthleteRow>().ToList();
+                Assert.That(cards,Has.Count.EqualTo(3));
                 var standings=CheckpointStandings.Capture(field,0);
-                Assert.That(standings.Count,Is.EqualTo(4),"Four arrivals let the test distinguish the rotating three from the entire field.");
-                var top=Enumerable.Range(0,3).Select(standings.Get).ToArray();
-                var shown=new List<string>();
-                ObserveRival();
-                Assert.That(hud.Root.Q<Label>("live_split_player_name").text,Is.EqualTo(roster.Athlete(featured).Name));
-                Assert.That(hud.Root.Q<NationFlagGraphic>("live_split_player_flag").Nation,Is.EqualTo(roster.Athlete(featured).Nation));
+                Assert.That(standings.Count,Is.EqualTo(7));
+                var shownStarts=new List<int>();
+                var shownRanks=new HashSet<int>();
+                ObservePage();
                 Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain(portals.DistanceLabel(gate).Replace('.',',').Replace("KM","КМ")));
                 yield return null;
-                var strip=hud.Root.Q("checkpoint_notice");
                 Assert.That(strip.worldBound.width,Is.GreaterThan(strip.worldBound.height*8));
                 Assert.That(strip.worldBound.center.y,Is.GreaterThan(hud.Root.worldBound.height*.75f));
-                Assert.That(strip.Query<TimingAthleteRow>().ToList(),Has.Count.EqualTo(1));
-                if(capture)yield return Capture("approach");
+                foreach(var row in cards)
+                    Assert.That(row.worldBound.width,Is.GreaterThan(100));
+
+                bool capturedLaterPage=false;
                 for(int i=0;i<2000&&field.GetAthlete(featured).Checkpoints.Count==0;i++)
                 {
                     host.Runner.Step();
                     if(i%5!=0||field.GetAthlete(featured).Checkpoints.Count!=0)continue;
-                    Publish();ObserveRival();
+                    Publish();
+                    ObservePage();
+                    if(capture&&!capturedLaterPage&&shownStarts.Last()==4)
+                    {
+                        capturedLaterPage=true;
+                        yield return Capture("approach");
+                    }
                 }
-                Assert.That(shown.Take(4),Is.EqualTo(new[]{top[0].AthleteId,top[1].AthleteId,top[2].AthleteId,top[0].AthleteId}));
+
+                Assert.That(shownStarts.Take(3),Is.EqualTo(new[]{1,4,5}),"Show full pages in order and fill the short final page.");
+                Assert.That(shownRanks.OrderBy(rank=>rank),Is.EqualTo(Enumerable.Range(1,7)));
                 var own=field.GetAthlete(featured).Checkpoints.Get(0);
                 var atCrossing=CheckpointStandings.Capture(field,0,own.GlobalTime);
-                var ownResult=Enumerable.Range(0,atCrossing.Count).Select(atCrossing.Get).Single(r=>r.AthleteId==own.Athlete.Value);
+                int ownIndex=Enumerable.Range(0,atCrossing.Count).Single(i=>atCrossing.Get(i).AthleteId==own.Athlete.Value);
+                var ownResult=atCrossing.Get(ownIndex);
+                int resultStart=Math.Clamp(ownIndex-1,0,atCrossing.Count-3);
                 Publish();
                 AssertResult();
                 yield return null;
@@ -93,25 +104,37 @@ namespace Biathlon.PlayModeTests
                 void AssertResult()
                 {
                     Assert.That(strip.style.display.value,Is.EqualTo(DisplayStyle.Flex));
-                    Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.Flex));
-                    Assert.That(card.AthleteId,Is.EqualTo(own.Athlete.Value));
-                    Assert.That(card.Q<Label>("timing_athlete").text,Is.EqualTo("ВЫ · "+roster.Athlete(featured).Name));
-                    Assert.That(card.Q<NationFlagGraphic>().Nation,Is.EqualTo(roster.Athlete(featured).Nation));
-                    Assert.That(card.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(own.ElapsedTime.Seconds)));
-                    Assert.That(card.Q<Label>("timing_rank").text,Is.EqualTo(ownResult.Rank.ToString("00")));
+                    for(int i=0;i<cards.Count;i++)
+                    {
+                        var result=atCrossing.Get(resultStart+i);
+                        AssertCard(cards[i],result,result.AthleteId==own.Athlete.Value);
+                    }
                     Assert.That(hud.Root.Q<Label>("live_split_stage").text,Is.EqualTo($"МЕСТО {ownResult.Rank} / {atCrossing.Count}"));
-                    Assert.That(hud.Root.Q("live_split_player").style.display.value,Is.EqualTo(DisplayStyle.None));
+                    Assert.That(hud.Root.Q("live_split_clock").style.display.value,Is.EqualTo(DisplayStyle.None));
                 }
 
-                void ObserveRival()
+                void ObservePage()
+                {
+                    int start=Enumerable.Range(0,standings.Count).Single(i=>standings.Get(i).AthleteId==cards[0].AthleteId);
+                    for(int i=0;i<cards.Count;i++)
+                    {
+                        var result=standings.Get(start+i);
+                        AssertCard(cards[i],result,false);
+                        shownRanks.Add(result.Rank);
+                    }
+                    int rank=standings.Get(start).Rank;
+                    if(shownStarts.Count==0||shownStarts.Last()!=rank)shownStarts.Add(rank);
+                }
+
+                void AssertCard(TimingAthleteRow card,CheckpointStanding result,bool player)
                 {
                     Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.Flex));
-                    var timing=top.Single(r=>r.AthleteId==card.AthleteId);
-                    var rival=Enumerable.Range(0,roster.AthleteCount).Select(roster.Athlete).Single(a=>a.Id==timing.AthleteId);
-                    Assert.That(card.Q<Label>("timing_athlete").text,Is.EqualTo(rival.Name));
-                    Assert.That(card.Q<NationFlagGraphic>().Nation,Is.EqualTo(rival.Nation));
-                    Assert.That(card.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(timing.Seconds)));
-                    if(shown.Count==0||shown[shown.Count-1]!=card.AthleteId)shown.Add(card.AthleteId);
+                    Assert.That(card.AthleteId,Is.EqualTo(result.AthleteId));
+                    var racer=Enumerable.Range(0,roster.AthleteCount).Select(roster.Athlete).Single(a=>a.Id==result.AthleteId);
+                    Assert.That(card.Q<Label>("timing_athlete").text,Is.EqualTo(player?"ВЫ · "+racer.Name:racer.Name));
+                    Assert.That(card.Q<NationFlagGraphic>().Nation,Is.EqualTo(racer.Nation));
+                    Assert.That(card.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(result.Seconds)));
+                    Assert.That(card.Q<Label>("timing_rank").text,Is.EqualTo(result.Rank.ToString("00")));
                 }
 
                 void Publish()

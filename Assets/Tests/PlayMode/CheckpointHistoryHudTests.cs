@@ -97,13 +97,15 @@ namespace Biathlon.PlayModeTests
                     Assert.That(own.Seconds,Is.EqualTo(actual.ElapsedTime.Seconds));
                     Assert.That(own.Rank,Is.EqualTo(1));
                     Assert.That(hud.Root.Q<Label>("live_split_stage").text,Is.EqualTo("RANK 1 / 1"));
-                    var result=hud.Root.Q<TimingAthleteRow>("live_split_card");
+                    var result=hud.Root.Q<TimingAthleteRow>("live_split_card_0");
                     Assert.That(result.style.display.value,Is.EqualTo(DisplayStyle.Flex));
+                    Assert.That(hud.Root.Q("live_split_card_1").style.display.value,Is.EqualTo(DisplayStyle.None));
+                    Assert.That(hud.Root.Q("live_split_card_2").style.display.value,Is.EqualTo(DisplayStyle.None));
                     Assert.That(result.AthleteId,Is.EqualTo(first.AthleteId));
                     Assert.That(result.Q<Label>("timing_gap").text,Is.EqualTo("LEADER"));
                     Assert.That(result.Q<Label>("timing_rank").text,Is.EqualTo("01"));
                     Assert.That(result.Q<Label>("timing_athlete").text,Is.EqualTo("YOU"));
-                    Assert.That(hud.Root.Q("live_split_player").style.display.value,Is.EqualTo(DisplayStyle.None));
+                    Assert.That(hud.Root.Q("live_split_clock").style.display.value,Is.EqualTo(DisplayStyle.None));
                     Assert.That(hud.Root.Q("live_split_reference").style.display.value,Is.EqualTo(DisplayStyle.None));
                     Assert.That(result.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(own.Seconds)));
                     hud.SetCheckpointTableVisible(true);

@@ -24,40 +24,25 @@ namespace Biathlon.Presentation
         public string LapId {get;}
         public CheckpointStanding Get(int index)=>rows[index];
 
-        // Keep the leader on screen and show the places nearest the featured athlete.
-        // Before their arrival, the same slots show the best confirmed splits.
-        public int CopyBroadcastRivals(string athleteId, Span<CheckpointStanding> destination)
+        public const int BroadcastSlots = 3;
+
+        public int BroadcastPageStart(long elapsedPages, double approachProgress)
         {
-            if (rows.Length == 0 || destination.IsEmpty) return 0;
+            if (Count <= BroadcastSlots) return 0;
 
-            int ownIndex = -1;
-            for (int i = 0; i < rows.Length; i++)
-            {
-                if (rows[i].AthleteId != athleteId) continue;
-                ownIndex = i;
-                break;
-            }
-
-            int written = 0, start = 0;
-            if (ownIndex > 0)
-            {
-                destination[written++] = rows[0];
-                int remaining = destination.Length - written;
-                if (remaining == 1)
-                {
-                    int before = ownIndex - 1, after = ownIndex + 1;
-                    if (before > 0 && (after == rows.Length || rows[ownIndex].Seconds - rows[before].Seconds <= rows[after].Seconds - rows[ownIndex].Seconds))
-                        destination[written++] = rows[before];
-                    else if (after < rows.Length)
-                        destination[written++] = rows[after];
-                    return written;
-                }
-                start = Math.Max(1, Math.Min(ownIndex - remaining / 2, rows.Length - remaining - 1));
-            }
-            for (int i = start; i < rows.Length && written < destination.Length; i++)
-                if (i != ownIndex) destination[written++] = rows[i];
-            return written;
+            int pages = (Count - 1) / BroadcastSlots + 1;
+            int distancePage = Math.Min(pages - 1, (int)(Math.Clamp(approachProgress, 0, 1) * pages));
+            int page = (int)(Math.Max(elapsedPages, distancePage) % pages);
+            // Backfill the last page from the previous one if fewer than three places remain.
+            return Math.Min(page * BroadcastSlots, Count - BroadcastSlots);
         }
+
+        public int BroadcastResultStart(int playerIndex)
+        {
+            if (playerIndex < 0 || playerIndex >= Count) throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            return Math.Clamp(playerIndex - 1, 0, Math.Max(0, Count - BroadcastSlots));
+        }
+
         public CheckpointStandings(ReadOnlySpan<CheckpointSplit> arrivals,CheckpointClock clock,FinishTime? through=null)
         {
             if(clock!=CheckpointClock.Elapsed&&clock!=CheckpointClock.Global)throw new ArgumentOutOfRangeException(nameof(clock));

@@ -68,6 +68,11 @@ namespace Biathlon.Unity
             "До отсечки мини-окно по очереди показывает три лучших результата. После пересечения оно фиксирует ваш результат и место на момент пересечения.\r\n",
             "M16.8");
 
+        public static void BuildM168SplitScrollReview() => BuildM167Review("Builds/M16_8_Split_Scroll_Review",
+            "m168_split_scroll_review", null,
+            "До отсечки нижняя полоса листает весь протокол по три спортсмена. При пересечении она фиксирует тройку с вашим выделенным результатом.\r\n",
+            "M16.8");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {
