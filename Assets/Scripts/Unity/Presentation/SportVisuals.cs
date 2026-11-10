@@ -62,9 +62,17 @@ namespace Biathlon.Unity.Presentation
             {
                 leader.style.display=DisplayStyle.None;
                 flag.style.width=25*scale;flag.style.height=16*scale;
+                flag.style.marginRight=6*scale;
                 FrostlineStyle.Text(rank,true);FrostlineStyle.Text(time,true);FrostlineStyle.Text(gap,true);
                 rank.style.fontSize=time.style.fontSize=gap.style.fontSize=15*scale;
-                gap.style.width=70*scale;athlete.style.fontSize=14*scale;
+                athlete.style.fontSize=14*scale;
+                rank.style.width=22*scale;time.style.width=0;time.style.flexGrow=1;gap.style.width=StyleKeyword.Auto;
+                var identity=new VisualElement();identity.style.flexDirection=FlexDirection.Row;identity.style.alignItems=Align.Center;
+                var result=new VisualElement();result.style.flexDirection=FlexDirection.Row;result.style.alignItems=Align.Center;
+                identity.Add(rank);identity.Add(flag);identity.Add(athlete);result.Add(time);result.Add(gap);
+                gap.style.marginLeft=7*scale;
+                style.flexDirection=FlexDirection.Column;style.alignItems=Align.Stretch;style.justifyContent=Justify.Center;
+                Add(identity);Add(result);
             }
             Label Cell(float width,bool bold)
             {

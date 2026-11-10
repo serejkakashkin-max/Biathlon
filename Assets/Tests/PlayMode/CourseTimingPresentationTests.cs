@@ -28,7 +28,7 @@ namespace Biathlon.PlayModeTests
             var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
                 .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
             var root=new GameObject("Live timing on Woodland Basin");
-            const string capturePath="artifacts/m16-8-broadcast/";
+            const string capturePath="artifacts/m16-8-lower-third/";
             bool capture=File.Exists(capturePath+"capture.flag");
             try
             {
@@ -65,6 +65,11 @@ namespace Biathlon.PlayModeTests
                 Assert.That(hud.Root.Q<NationFlagGraphic>("live_split_player_flag").Nation,Is.EqualTo(roster.Athlete(featured).Nation));
                 AssertRivals();
                 Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain(portals.DistanceLabel(gate).Replace('.',',').Replace("KM","КМ")));
+                yield return null;
+                var strip=hud.Root.Q("checkpoint_notice");
+                Assert.That(strip.worldBound.width,Is.GreaterThan(strip.worldBound.height*8));
+                Assert.That(strip.worldBound.center.y,Is.GreaterThan(hud.Root.worldBound.height*.75f));
+                Assert.That(strip.Q("live_split_rival_0").worldBound.xMin,Is.LessThan(strip.Q("live_split_rival_1").worldBound.xMin));
                 if(capture)yield return Capture("approach",false);
                 for(int i=0;i<2000&&field.GetAthlete(featured).Checkpoints.Count==0;i++)host.Runner.Step();
                 Publish();
@@ -80,8 +85,8 @@ namespace Biathlon.PlayModeTests
 
                 void AssertRivals()
                 {
-                    var rows = Enumerable.Range(0,3).Select(i=>hud.Root.Q<TimingAthleteRow>("live_split_rival_"+i)).ToArray();
-                    Assert.That(rows.Select(row=>row.AthleteId).Distinct().Count(),Is.EqualTo(3));
+                    var rows = Enumerable.Range(0,2).Select(i=>hud.Root.Q<TimingAthleteRow>("live_split_rival_"+i)).ToArray();
+                    Assert.That(rows.Select(row=>row.AthleteId).Distinct().Count(),Is.EqualTo(2));
                     foreach(var row in rows)
                     {
                         Assert.That(row.style.display.value,Is.EqualTo(DisplayStyle.Flex));

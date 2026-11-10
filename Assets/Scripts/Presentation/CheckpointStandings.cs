@@ -43,6 +43,15 @@ namespace Biathlon.Presentation
             {
                 destination[written++] = rows[0];
                 int remaining = destination.Length - written;
+                if (remaining == 1)
+                {
+                    int before = ownIndex - 1, after = ownIndex + 1;
+                    if (before > 0 && (after == rows.Length || rows[ownIndex].Seconds - rows[before].Seconds <= rows[after].Seconds - rows[ownIndex].Seconds))
+                        destination[written++] = rows[before];
+                    else if (after < rows.Length)
+                        destination[written++] = rows[after];
+                    return written;
+                }
                 start = Math.Max(1, Math.Min(ownIndex - remaining / 2, rows.Length - remaining - 1));
             }
             for (int i = start; i < rows.Length && written < destination.Length; i++)

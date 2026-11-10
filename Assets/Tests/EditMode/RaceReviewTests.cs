@@ -22,12 +22,12 @@ namespace Biathlon.Tests
             var other=new CheckpointTracker(layout,new AthleteId("other"),20,default,new RaceEventLog(20));other.Observe(new SimulationTick(1),0,1600000000000);
             Assert.Throws<ArgumentException>(()=>new CheckpointStandings(new[]{early,other.Get(2)},CheckpointClock.Elapsed));
         }
-        [TestCase("incoming", "a,b,c")]
-        [TestCase("a", "b,c,d")]
-        [TestCase("b", "a,c,d")]
-        [TestCase("d", "a,c,e")]
-        [TestCase("f", "a,d,e")]
-        public void BroadcastKeepsLeaderAndNearbyRivalsWithoutDuplicatingFeaturedAthlete(string featured, string expected)
+        [TestCase("incoming", "a,b,c", "a,b")]
+        [TestCase("a", "b,c,d", "b,c")]
+        [TestCase("b", "a,c,d", "a,c")]
+        [TestCase("d", "a,c,e", "a,c")]
+        [TestCase("f", "a,d,e", "a,e")]
+        public void BroadcastKeepsLeaderAndNearbyRivalsWithoutDuplicatingFeaturedAthlete(string featured, string expected, string stripExpected)
         {
             var layout = CheckpointTimingTests.Layout();
             var arrivals = new CheckpointSplit[6];
@@ -41,6 +41,9 @@ namespace Biathlon.Tests
             var rivals = new CheckpointStanding[3];
             Assert.That(table.CopyBroadcastRivals(featured, rivals), Is.EqualTo(3));
             Assert.That(Array.ConvertAll(rivals, row => row.AthleteId), Is.EqualTo(expected.Split(',')));
+            var strip = new CheckpointStanding[2];
+            Assert.That(table.CopyBroadcastRivals(featured, strip), Is.EqualTo(2));
+            Assert.That(Array.ConvertAll(strip, row => row.AthleteId), Is.EqualTo(stripExpected.Split(',')));
             Assert.That(table.CopyBroadcastRivals(featured, Span<CheckpointStanding>.Empty), Is.Zero);
             Assert.That(new CheckpointStandings(new[]{arrivals[5]}, CheckpointClock.Elapsed).CopyBroadcastRivals("a", rivals), Is.Zero);
         }

@@ -32,6 +32,11 @@ namespace Biathlon.Unity
             "Эфирное табло отсечки показывает ваш флаг, имя, текущее время и до трёх соперников с результатами. После пересечения линии показано промежуточное место. История доступна по TAB.\r\n",
             "M16.8");
 
+        public static void BuildM168RaceReadabilityReview() => BuildM167Review("Builds/M16_8_Race_Readability_Review",
+            "m168_race_readability_review", null,
+            "Табло отсечки теперь внизу экрана. Обновлены вид обледеневшего снега и отрисовка Woodland Basin. История отсечек доступна по TAB.\r\n",
+            "M16.8");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7")
         {
             // These names own the existing career directory; branding belongs in the UI.
