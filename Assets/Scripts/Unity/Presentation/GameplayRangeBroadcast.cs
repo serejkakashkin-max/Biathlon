@@ -31,6 +31,55 @@ namespace Biathlon.Unity.Presentation
             }
         }
     }
+
+    /// <summary>Range status marks are drawn with the panel, without a fallback font.</summary>
+    public sealed class RangeStatusIcon : VisualElement
+    {
+        public bool Complete { get; private set; }
+        private Color tint;
+
+        public RangeStatusIcon(float size, Color tint)
+        {
+            this.tint = tint;
+            pickingMode = PickingMode.Ignore;
+            style.width = size;
+            style.height = size;
+            style.flexShrink = 0;
+            generateVisualContent += Draw;
+        }
+
+        public void SetState(bool complete, Color color)
+        {
+            if (Complete == complete && tint == color) return;
+            Complete = complete;
+            tint = color;
+            MarkDirtyRepaint();
+        }
+
+        private void Draw(MeshGenerationContext context)
+        {
+            float size = Mathf.Min(contentRect.width, contentRect.height);
+            if (size <= 0) return;
+            var center = contentRect.center;
+            var painter = context.painter2D;
+            painter.BeginPath();
+            if (!Complete)
+            {
+                painter.fillColor = tint;
+                painter.Arc(center, size * .16f, 0, 360);
+                painter.ClosePath();
+                painter.Fill();
+                return;
+            }
+            painter.strokeColor = tint;
+            painter.lineWidth = size * .085f;
+            painter.MoveTo(center + size * new Vector2(-.25f, .01f));
+            painter.LineTo(center + size * new Vector2(-.07f, .18f));
+            painter.LineTo(center + size * new Vector2(.25f, -.18f));
+            painter.Stroke();
+        }
+    }
+
     public sealed partial class GameplayHud
     {
         public bool RangeBroadcastVisible {get;private set;}
@@ -41,7 +90,8 @@ namespace Biathlon.Unity.Presentation
         private VisualElement rangeBoard;
         private Label rangeBoardTitle,rangeBoardEmpty,rangeBoardMore,rangeBoardVisit;
         private VisualElement[] rangeBoardCards;
-        private Label[] rangeBoardNames,rangeBoardLanes,rangeBoardBibs,rangeBoardScores,rangeBoardStates;
+        private Label[] rangeBoardNames,rangeBoardLanes,rangeBoardBibs,rangeBoardScores;
+        private RangeStatusIcon[] rangeBoardStates;
         private NationFlagGraphic[] rangeBoardFlags;
         private RangeTargetStrip[] rangeBoardTargets;
         private RangeBroadcastRow[] paintedRangeRows;
@@ -83,14 +133,16 @@ namespace Biathlon.Unity.Presentation
             rangeBoard.style.borderLeftWidth=0;rangeBoard.style.borderTopWidth=2;rangeBoard.style.borderTopColor=accent;
             var heading=Row(rangeBoard);heading.style.height=23*Scale;
             rangeBoardTitle=Text(heading,"range_broadcast_title",L("СТРЕЛЬБИЩЕ","LIVE SHOOTING"),18,true);rangeBoardTitle.style.color=accent;rangeBoardTitle.style.marginBottom=0;
-            var live=Text(heading,"range_broadcast_live","● LIVE",10,true);live.style.color=accent;live.style.marginBottom=0;live.style.flexShrink=0;
+            var liveBadge=Row(heading);
+            liveBadge.Add(new RangeStatusIcon(11*Scale,accent));
+            var live=Text(liveBadge,"range_broadcast_live","LIVE",10,true);live.style.color=accent;live.style.marginBottom=0;live.style.flexShrink=0;
             rangeBoardVisit=Text(rangeBoard,"range_broadcast_visit",bouts>0?rangeVisitLabels[0]:"",11);rangeBoardVisit.style.color=muted;rangeBoardVisit.style.marginBottom=6;
             var columns=Row(rangeBoard);columns.style.height=18*Scale;columns.style.marginBottom=3;
             var captions=Text(columns,"range_broadcast_columns",L("№     КОВР.     СПОРТСМЕН","BIB   MAT        ATHLETE"),9);captions.style.color=muted;captions.style.marginBottom=0;
             var captionShots=Text(columns,"range_broadcast_shots_label",L("ВЫСТРЕЛЫ        ИТОГ","SHOTS           SCORE"),9);captionShots.style.color=muted;captionShots.style.marginBottom=0;
             rangeBoardEmpty=Text(rangeBoard,"range_broadcast_empty",L("Ожидаем прибытия спортсменов","Awaiting athletes"),settings.caption_size);rangeBoardEmpty.style.color=muted;
             int count=rangeBroadcastPolicy.MaximumRows;
-            rangeBoardCards=new VisualElement[count];rangeBoardNames=new Label[count];rangeBoardLanes=new Label[count];rangeBoardBibs=new Label[count];rangeBoardScores=new Label[count];rangeBoardStates=new Label[count];
+            rangeBoardCards=new VisualElement[count];rangeBoardNames=new Label[count];rangeBoardLanes=new Label[count];rangeBoardBibs=new Label[count];rangeBoardScores=new Label[count];rangeBoardStates=new RangeStatusIcon[count];
             rangeBoardFlags=new NationFlagGraphic[count];rangeBoardTargets=new RangeTargetStrip[count];paintedRangeRows=new RangeBroadcastRow[count];
             for(int i=0;i<count;i++)
             {
@@ -107,7 +159,8 @@ namespace Biathlon.Unity.Presentation
                 name.style.whiteSpace=WhiteSpace.NoWrap;name.style.overflow=Overflow.Hidden;name.style.textOverflow=TextOverflow.Ellipsis;name.style.marginBottom=0;rangeBoardNames[i]=name;
                 var targets=new RangeTargetStrip{name="range_rival_targets_"+i};targets.tooltip=L("По порядку выстрелов: круг — попадание, крест — промах. Черта — порядок неизвестен после перемотки.","Shot order: filled circle = hit, cross = miss. Dash = order unavailable after seek.");targets.style.width=100*Scale;targets.style.height=24*Scale;targets.style.flexShrink=0;card.Add(targets);rangeBoardTargets[i]=targets;
                 rangeBoardScores[i]=Fixed("range_rival_score_"+i,29,foreground);
-                rangeBoardStates[i]=Fixed("range_rival_state_"+i,15,muted);
+                var status=new RangeStatusIcon(15*Scale,accent){name="range_rival_state_"+i};
+                rangeBoardStates[i]=status;card.Add(status);
                 card.style.display=DisplayStyle.None;
             }
             rangeBoardMore=Text(rangeBoard,"range_broadcast_more",L("СТРЕЛЯЮТ 0","SHOOTING 0"),11);rangeBoardMore.style.color=muted;rangeBoardMore.style.marginTop=5;rangeBoardMore.style.marginBottom=0;
@@ -148,7 +201,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<rangeBoardCards.Length;i++)
             {
                 rangeBoardCards[i].style.height=rowHeight;rangeBoardNames[i].style.fontSize=13*Scale*legibility;
-                rangeBoardBibs[i].style.fontSize=rangeBoardLanes[i].style.fontSize=rangeBoardScores[i].style.fontSize=rangeBoardStates[i].style.fontSize=12*Scale*legibility;
+                rangeBoardBibs[i].style.fontSize=rangeBoardLanes[i].style.fontSize=rangeBoardScores[i].style.fontSize=12*Scale*legibility;
             }
         }
         private void RefreshRangeBroadcast(RacePresentationSnapshot snapshot,int player)
@@ -187,7 +240,7 @@ namespace Biathlon.Unity.Presentation
                 if(identity||r.Lane!=old.Lane)rangeBoardLanes[row].text=rangeNumbers[Mathf.Clamp(r.Lane,0,60)];
                 if(identity||r.Shots!=old.Shots||r.ClosedMask!=old.ClosedMask)rangeBoardScores[row].text=ShotScores[RangeBroadcastRow.Hits(r.ClosedMask)];
                 if(identity||r.Active!=old.Active)
-                {rangeBoardStates[row].text=r.Active?"•":"✓";rangeBoardStates[row].style.color=r.Active?accent:foreground;}
+                    rangeBoardStates[row].SetState(!r.Active,r.Active?accent:foreground);
                 paintedRangeRows[row]=r;
             }
             AnimateRangeBroadcast(snapshot.Tick);

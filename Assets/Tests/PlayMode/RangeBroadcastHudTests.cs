@@ -69,6 +69,7 @@ namespace Biathlon.PlayModeTests
                         if(!r.Flashing(s.Tick,s.TickFrequency,1))continue;
                         flashed=true;var strip=hud.Root.Q<RangeTargetStrip>("range_rival_targets_"+i);
                         Assert.That(strip.Misses,Is.GreaterThan(0));Assert.That(hud.Root.Q("range_rival_"+i).style.backgroundColor.value.r,Is.GreaterThan(.3));
+                        Assert.That(hud.Root.Q<RangeStatusIcon>("range_rival_state_"+i).Complete,Is.EqualTo(!r.Active));
                         var flag=hud.Root.Q("range_rival_"+i).Q<NationFlagGraphic>();Assert.That(flag.Nation,Is.Not.Empty);
                         foreach(var resolution in new[]{new Vector2Int(1920,1080),new Vector2Int(1600,900),new Vector2Int(1280,720)})
                         foreach(string locale in new[]{"ru","en"})yield return Capture(hud,resolution.x,resolution.y,locale,0,"live-"+resolution.x+"-"+locale);

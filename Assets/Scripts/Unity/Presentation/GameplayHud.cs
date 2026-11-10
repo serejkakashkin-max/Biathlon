@@ -52,7 +52,8 @@ namespace Biathlon.Unity.Presentation
         private BoundDeviceControls shortcutControls;
         private bool gamepadShortcuts;
         public bool HelpVisible=>helpVisible;
-        private readonly Label[] targets=new Label[5];
+        private readonly VisualElement[] targets=new VisualElement[5];
+        private readonly RangeStatusIcon[] targetStatus=new RangeStatusIcon[5];
         private double nextRefresh;
         private Color foreground,muted,accent;
         private bool reducedMotion;
@@ -118,13 +119,20 @@ namespace Biathlon.Unity.Presentation
             var row=new VisualElement();row.style.flexDirection=FlexDirection.Row;row.style.marginTop=4;row.style.marginBottom=8;shootingPanel.Add(row);
             for(int i=0;i<targets.Length;i++)
             {
-                var target=Text(row,"target_"+i,"",settings.caption_size,true);targets[i]=target;
+                var target=new VisualElement{name="target_"+i};targets[i]=target;row.Add(target);
                 target.AddToClassList("fl-target");
                 target.style.width=settings.target_size;target.style.height=settings.target_size;target.style.marginRight=10;
-                target.style.unityTextAlign=TextAnchor.MiddleCenter;
+                target.style.marginBottom=settings.spacing;
+                target.style.alignItems=Align.Center;target.style.justifyContent=Justify.Center;
                 target.style.borderTopLeftRadius=target.style.borderTopRightRadius=target.style.borderBottomLeftRadius=target.style.borderBottomRightRadius=settings.target_size/2;
                 target.style.borderLeftWidth=target.style.borderRightWidth=target.style.borderTopWidth=target.style.borderBottomWidth=2;
                 target.style.borderLeftColor=target.style.borderRightColor=target.style.borderTopColor=target.style.borderBottomColor=foreground;
+                if(HighContrast)
+                {
+                    targetStatus[i]=new RangeStatusIcon(settings.target_size*.8f,foreground);
+                    target.Add(targetStatus[i]);
+                }
+                else targetStatus[i]=null;
             }
             weapon=Text(shootingPanel,"weapon","",settings.body_size,true);
             weapon.style.color=accent;
@@ -229,8 +237,9 @@ namespace Biathlon.Unity.Presentation
             breath.style.color=a.BreathBlocked||a.BreathHolding&&a.BreathSwayMultiplier>1?FrontEndTheme.Color(settings.warning):muted;
             for(int i=0;i<targets.Length;i++)
             {
-                bool closed=(Model.ClosedMask&(1<<i))!=0;targets[i].text=HighContrast?(closed?"✓":"•"):"";
-                targets[i].style.backgroundColor=closed?foreground:FrostlineStyle.Deep;targets[i].style.color=closed?FrostlineStyle.Deep:foreground;
+                bool closed=(Model.ClosedMask&(1<<i))!=0;
+                targets[i].style.backgroundColor=closed?foreground:FrostlineStyle.Deep;
+                targetStatus[i]?.SetState(closed,closed?FrostlineStyle.Deep:foreground);
             }
         }
         private void LateUpdate()

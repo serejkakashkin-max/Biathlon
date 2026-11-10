@@ -26,6 +26,9 @@ namespace Biathlon.PlayModeTests
                 var board=hud.Root.Q("range_broadcast");
                 Assert.That(board.worldBound.height,Is.GreaterThan(50),"The first live window must reveal an already measured board instead of doing its first text/layout work on the skiing frame.");
                 Assert.That(board.resolvedStyle.visibility,Is.EqualTo(Visibility.Hidden));
+                Assert.That(board.Q<Label>("range_broadcast_live").text,Is.EqualTo("LIVE"));
+                Assert.That(board.Q<RangeStatusIcon>("range_rival_state_0"),Is.Not.Null,
+                    "A result mark must not request an absent glyph from the OS fallback font.");
             }
             finally{Object.DestroyImmediate(root);if(BiathlonAudio.Instance!=null)Object.DestroyImmediate(BiathlonAudio.Instance.gameObject);}
         }
