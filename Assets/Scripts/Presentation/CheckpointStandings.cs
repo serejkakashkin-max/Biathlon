@@ -58,7 +58,7 @@ namespace Biathlon.Presentation
                 if (i != ownIndex) destination[written++] = rows[i];
             return written;
         }
-        public CheckpointStandings(ReadOnlySpan<CheckpointSplit> arrivals,CheckpointClock clock)
+        public CheckpointStandings(ReadOnlySpan<CheckpointSplit> arrivals,CheckpointClock clock,FinishTime? through=null)
         {
             if(clock!=CheckpointClock.Elapsed&&clock!=CheckpointClock.Global)throw new ArgumentOutOfRangeException(nameof(clock));
             var splits=new List<CheckpointSplit>();Ordinal=-1;
@@ -67,6 +67,8 @@ namespace Biathlon.Presentation
                 if(!split.IsValid)continue;
                 if(Ordinal<0){Ordinal=split.Ordinal;CheckpointId=split.CheckpointId;LapId=split.LapId;}
                 if(split.Ordinal!=Ordinal||split.CheckpointId!=CheckpointId||split.LapId!=LapId)throw new ArgumentException("Compare arrivals at the same timing line.");
+                // A later arrival can be inside the same tick as the player.
+                if(through.HasValue&&split.GlobalTime.CompareTo(through.Value)>0)continue;
                 splits.Add(split);
             }
             FinishTime Time(CheckpointSplit s)=>clock==CheckpointClock.Elapsed?s.ElapsedTime:s.GlobalTime;
@@ -76,12 +78,12 @@ namespace Biathlon.Presentation
             {if(i>0&&Time(splits[i]).CompareTo(Time(splits[i-1]))!=0)rank=i+1;double seconds=Time(splits[i]).Seconds;
                 rows[i]=new CheckpointStanding(splits[i].Athlete.Value,rank,seconds,seconds-Time(splits[0]).Seconds);}
         }
-        public static CheckpointStandings Capture(PackSprintFieldSession field,int ordinal)
+        public static CheckpointStandings Capture(PackSprintFieldSession field,int ordinal,FinishTime? through=null)
         {
             if(field==null)throw new ArgumentNullException(nameof(field));
             var arrivals=new CheckpointSplit[field.Count];
             for(int i=0;i<field.Count;i++)if(ordinal>=0&&field.GetAthlete(i).Checkpoints.Count>ordinal)arrivals[i]=field.GetAthlete(i).Checkpoints.Get(ordinal);
-            return new CheckpointStandings(arrivals,field.Profile.Format==CompetitionFormat.Sprint?CheckpointClock.Elapsed:CheckpointClock.Global);
+            return new CheckpointStandings(arrivals,field.Profile.Format==CompetitionFormat.Sprint?CheckpointClock.Elapsed:CheckpointClock.Global,through);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Biathlon.Career;
@@ -22,13 +23,13 @@ namespace Biathlon.PlayModeTests
             extended?ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/broadcast_checkpoints_v1"):null);
 
         [UnityTest]
-        public IEnumerator WoodlandLiveSplitAndPortalUseTheSameRealSprintCrossing()
+        public IEnumerator WoodlandMiniWindowRotatesThreeRivalsAndFreezesOnThePlayersCrossing()
         {
             var plan=Production(true);
             var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
                 .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
             var root=new GameObject("Live timing on Woodland Basin");
-            const string capturePath="artifacts/m16-8-lower-third/";
+            const string capturePath="artifacts/m16-8-split-ticker/";
             bool capture=File.Exists(capturePath+"capture.flag");
             try
             {
@@ -38,9 +39,6 @@ namespace Biathlon.PlayModeTests
                 host.Initialize(plan,binding.Profile,binding.Route,
                     RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:5,playerIndex:featured);
                 host.Proxies.enabled=false;
-                if(capture)
-                    host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(
-                        ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/environment")));
                 var field=host.Runner.Field;
                 var layout=new CheckpointLayout(field.Track,field.Route);
                 var portals=host.GetComponent<CourseTimingPresentation>();
@@ -54,60 +52,66 @@ namespace Biathlon.PlayModeTests
                     CareerCalendar.FromJson(ProductionVenueHost.ReadResource("Biathlon/woodland_career_calendar_v1")),
                     plan.Manifest.Id,"Александр Волков","RUS","appearance_default",new SeededRandomSource(16));
                 hud.SetBroadcastRoster(roster);
-                for(int i=0;i<8000&&field.GetAthlete(featured).RouteNanometers<line.RouteNanometers-16000000000L;i++)host.Runner.Step();
+                for(int i=0;i<8000&&field.GetAthlete(featured).RouteNanometers<line.RouteNanometers-59000000000L;i++)host.Runner.Step();
                 Publish();
                 var view=LiveSplit.Capture(field,layout,featured,host.Feed.Current.Get(featured),60,6);
                 Assert.That(view.Visible&&!view.Crossed&&view.LeaderSeconds.HasValue,Is.True);
-                var leader=hud.Root.Q<TimingAthleteRow>("live_split_rival_0");
-                Assert.That(leader.AthleteId,Is.EqualTo(field.Timing.Leader(0).Athlete.Value));
-                Assert.That(leader.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(field.Timing.Leader(0).ElapsedTime.Seconds)));
+                var card=hud.Root.Q<TimingAthleteRow>("live_split_card");
+                var standings=CheckpointStandings.Capture(field,0);
+                Assert.That(standings.Count,Is.EqualTo(4),"Four arrivals let the test distinguish the rotating three from the entire field.");
+                var top=Enumerable.Range(0,3).Select(standings.Get).ToArray();
+                var shown=new List<string>();
+                ObserveRival();
                 Assert.That(hud.Root.Q<Label>("live_split_player_name").text,Is.EqualTo(roster.Athlete(featured).Name));
                 Assert.That(hud.Root.Q<NationFlagGraphic>("live_split_player_flag").Nation,Is.EqualTo(roster.Athlete(featured).Nation));
-                AssertRivals();
                 Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain(portals.DistanceLabel(gate).Replace('.',',').Replace("KM","КМ")));
                 yield return null;
                 var strip=hud.Root.Q("checkpoint_notice");
                 Assert.That(strip.worldBound.width,Is.GreaterThan(strip.worldBound.height*8));
                 Assert.That(strip.worldBound.center.y,Is.GreaterThan(hud.Root.worldBound.height*.75f));
-                Assert.That(strip.Q("live_split_rival_0").worldBound.xMin,Is.LessThan(strip.Q("live_split_rival_1").worldBound.xMin));
-                if(capture)yield return Capture("approach",false);
-                for(int i=0;i<2000&&field.GetAthlete(featured).Checkpoints.Count==0;i++)host.Runner.Step();
+                Assert.That(strip.Query<TimingAthleteRow>().ToList(),Has.Count.EqualTo(1));
+                if(capture)yield return Capture("approach");
+                for(int i=0;i<2000&&field.GetAthlete(featured).Checkpoints.Count==0;i++)
+                {
+                    host.Runner.Step();
+                    if(i%5!=0||field.GetAthlete(featured).Checkpoints.Count!=0)continue;
+                    Publish();ObserveRival();
+                }
+                Assert.That(shown.Take(4),Is.EqualTo(new[]{top[0].AthleteId,top[1].AthleteId,top[2].AthleteId,top[0].AthleteId}));
+                var own=field.GetAthlete(featured).Checkpoints.Get(0);
+                var atCrossing=CheckpointStandings.Capture(field,0,own.GlobalTime);
+                var ownResult=Enumerable.Range(0,atCrossing.Count).Select(atCrossing.Get).Single(r=>r.AthleteId==own.Athlete.Value);
                 Publish();
-                var frozen=hud.Root.Q<Label>("live_split_time").text;
-                Assert.That(frozen,Is.EqualTo(GameplayHudModel.FormatClock(field.GetAthlete(featured).Checkpoints.Get(0).ElapsedTime.Seconds)));
-                Assert.That(hud.Root.Q<Label>("live_split_stage").text,Does.Contain("МЕСТО"));
                 AssertResult();
                 yield return null;
-                Assert.That(leader.worldBound.xMax,Is.LessThanOrEqualTo(hud.Root.Q("live_split_player").worldBound.xMin+.01f));
-                if(capture)yield return Capture("crossed",true);
-                for(int i=0;i<field.TickFrequency;i++)host.Runner.Step();
+                if(capture)yield return Capture("crossed");
+                for(int i=0;i<3*field.TickFrequency;i++)host.Runner.Step();
                 Publish();
-                Assert.That(hud.Root.Q<Label>("live_split_time").text,Is.EqualTo(frozen));
                 AssertResult();
                 yield return null;
 
                 void AssertResult()
                 {
-                    Assert.That(leader.style.display.value,Is.EqualTo(DisplayStyle.Flex));
-                    Assert.That(leader.AthleteId,Is.EqualTo(field.Timing.Leader(0).Athlete.Value));
-                    Assert.That(hud.Root.Q("live_split_rival_1").style.display.value,Is.EqualTo(DisplayStyle.None));
-                    Assert.That(hud.Root.Q<Label>("live_split_player_name").text,Is.EqualTo(roster.Athlete(featured).Name));
-                    Assert.That(hud.Root.Q<Label>("live_split_player_nation").text,Does.Contain("ВЫ"));
-                    Assert.That(hud.Root.Q<NationFlagGraphic>("live_split_player_flag").Nation,Is.EqualTo(roster.Athlete(featured).Nation));
+                    Assert.That(strip.style.display.value,Is.EqualTo(DisplayStyle.Flex));
+                    Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.Flex));
+                    Assert.That(card.AthleteId,Is.EqualTo(own.Athlete.Value));
+                    Assert.That(card.Q<Label>("timing_athlete").text,Is.EqualTo("ВЫ · "+roster.Athlete(featured).Name));
+                    Assert.That(card.Q<NationFlagGraphic>().Nation,Is.EqualTo(roster.Athlete(featured).Nation));
+                    Assert.That(card.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(own.ElapsedTime.Seconds)));
+                    Assert.That(card.Q<Label>("timing_rank").text,Is.EqualTo(ownResult.Rank.ToString("00")));
+                    Assert.That(hud.Root.Q<Label>("live_split_stage").text,Is.EqualTo($"МЕСТО {ownResult.Rank} / {atCrossing.Count}"));
+                    Assert.That(hud.Root.Q("live_split_player").style.display.value,Is.EqualTo(DisplayStyle.None));
                 }
 
-                void AssertRivals()
+                void ObserveRival()
                 {
-                    var rows = Enumerable.Range(0,2).Select(i=>hud.Root.Q<TimingAthleteRow>("live_split_rival_"+i)).ToArray();
-                    Assert.That(rows.Select(row=>row.AthleteId).Distinct().Count(),Is.EqualTo(2));
-                    foreach(var row in rows)
-                    {
-                        Assert.That(row.style.display.value,Is.EqualTo(DisplayStyle.Flex));
-                        Assert.That(row.AthleteId,Is.Not.EqualTo(roster.Athlete(featured).Id));
-                        var rival=Enumerable.Range(0,roster.AthleteCount).Select(roster.Athlete).Single(a=>a.Id==row.AthleteId);
-                        Assert.That(row.Q<Label>("timing_athlete").text,Is.EqualTo(rival.Name));
-                        Assert.That(row.Q<NationFlagGraphic>().Nation,Is.EqualTo(rival.Nation));
-                    }
+                    Assert.That(card.style.display.value,Is.EqualTo(DisplayStyle.Flex));
+                    var timing=top.Single(r=>r.AthleteId==card.AthleteId);
+                    var rival=Enumerable.Range(0,roster.AthleteCount).Select(roster.Athlete).Single(a=>a.Id==timing.AthleteId);
+                    Assert.That(card.Q<Label>("timing_athlete").text,Is.EqualTo(rival.Name));
+                    Assert.That(card.Q<NationFlagGraphic>().Nation,Is.EqualTo(rival.Nation));
+                    Assert.That(card.Q<Label>("timing_elapsed").text,Is.EqualTo(GameplayHudModel.FormatClock(timing.Seconds)));
+                    if(shown.Count==0||shown[shown.Count-1]!=card.AthleteId)shown.Add(card.AthleteId);
                 }
 
                 void Publish()
@@ -115,23 +119,33 @@ namespace Biathlon.PlayModeTests
                     host.Feed.Publish(RacePresentationSnapshot.Capture(field));
                     host.Proxies.Render(1);hud.Refresh();
                 }
-                IEnumerator Capture(string name,bool crossed)
+                IEnumerator Capture(string name)
                 {
-                    var camera=host.ChaseCamera;
-                    var follow=camera.GetComponent<AthleteChaseCamera>();
-                    if(follow!=null)follow.enabled=false;
-                    var frame=portals.GateTransform(gate);
-                    camera.transform.position=frame.TransformPoint(new Vector3(crossed?3.2f:0,2.2f,crossed?8:-23));
-                    camera.transform.LookAt(frame.TransformPoint(new Vector3(0,2,0)));
-                    camera.enabled=true;
-                    for(int i=0;i<3;i++)
+                    var panel=Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None)
+                        .Single(document=>document.rootVisualElement==hud.Root).panelSettings;
+                    var prior=RenderTexture.active;
+                    var target=new RenderTexture(1600,900,24);
+                    Texture2D image=null;
+                    try
                     {
-                        host.Environment.Render(camera,"high",(float)(field.Tick.Value/(double)field.TickFrequency));
-                        yield return new WaitForEndOfFrame();
+                        target.Create();
+                        LiveShootingPlayerReview.ConfigureCapturePanel(panel,target);
+                        yield return null;yield return null;yield return null;
+                        RenderTexture.active=target;
+                        image=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
+                        image.ReadPixels(new Rect(0,0,target.width,target.height),0,0);
+                        image.Apply();
+                        File.WriteAllBytes(capturePath+name+".png",image.EncodeToPNG());
                     }
-                    var image=ScreenCapture.CaptureScreenshotAsTexture();
-                    File.WriteAllBytes(capturePath+name+".png",image.EncodeToPNG());
-                    Object.Destroy(image);
+                    finally
+                    {
+                        panel.targetTexture=null;
+                        panel.clearColor=false;
+                        RenderTexture.active=prior;
+                        if(image!=null)Object.Destroy(image);
+                        target.Release();
+                        Object.Destroy(target);
+                    }
                 }
             }
             finally{Object.DestroyImmediate(root);}

@@ -47,6 +47,35 @@ namespace Biathlon.Tests
             Assert.That(table.CopyBroadcastRivals(featured, Span<CheckpointStanding>.Empty), Is.Zero);
             Assert.That(new CheckpointStandings(new[]{arrivals[5]}, CheckpointClock.Elapsed).CopyBroadcastRivals("a", rivals), Is.Zero);
         }
+        [Test]
+        public void CrossingCardKeepsRankWhenAFasterSprintAthleteArrivesLaterInTheSameTick()
+        {
+            var layout = CheckpointTimingTests.Layout();
+            long line = layout.Get(1).RouteNanometers;
+            CheckpointSplit Arrive(string id, long start, long travel)
+            {
+                var tracker = new CheckpointTracker(layout, new AthleteId(id), 20, new SimulationTick(start), new RaceEventLog(20));
+                for (long tick = start + 1; tick < 101; tick++)
+                    tracker.Observe(new SimulationTick(tick), 0, 0);
+                tracker.Observe(new SimulationTick(101), 0, travel);
+                return tracker.Get(1);
+            }
+
+            var player = Arrive("player", 10, line * 2);
+            var earlier = Arrive("earlier", 15, line * 4);
+            var later = Arrive("later", 20, line * 4 / 3);
+            Assert.That(later.GlobalTime.WholeTicks, Is.EqualTo(player.GlobalTime.WholeTicks));
+            Assert.That(later.GlobalTime.CompareTo(player.GlobalTime), Is.GreaterThan(0));
+            var splits = new[] { later, earlier, player };
+            var live = new CheckpointStandings(splits, CheckpointClock.Elapsed);
+            var atCrossing = new CheckpointStandings(splits, CheckpointClock.Elapsed, player.GlobalTime);
+            Assert.That(live.Get(0).AthleteId, Is.EqualTo("later"));
+            Assert.That(live.Get(2).AthleteId, Is.EqualTo("player"));
+            Assert.That(atCrossing.Count, Is.EqualTo(2));
+            Assert.That(atCrossing.Get(1).AthleteId, Is.EqualTo("player"));
+            Assert.That(atCrossing.Get(1).Rank, Is.EqualTo(2));
+            Assert.That(atCrossing.Get(1).Seconds, Is.EqualTo(player.ElapsedTime.Seconds));
+        }
         [Test] public void CalmAndHighPulseGuidanceFollowsActualBreathingFormula()
         {
             var p=PhysiologyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("physiology_gameplay_v2.json"));
