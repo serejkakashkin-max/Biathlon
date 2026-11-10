@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using Biathlon.AI;
 using Biathlon.Career;
 using Biathlon.Domain;
@@ -26,6 +27,49 @@ namespace Biathlon.PlayModeTests
             if(root!=null)Object.DestroyImmediate(root);
             if(folder!=null&&Directory.Exists(folder)){foreach(var f in Directory.GetFiles(folder))File.Delete(f);Directory.Delete(folder,false);}
         }
+        [UnityTest] public IEnumerator WoodlandMassStartRendersIcySnowWithoutReplacingGrooming()
+        {
+            const string resource="Biathlon/Venues/woodland_basin_v1/";
+            const string evidence="artifacts/m16-8-lower-third/";
+            var plan=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(resource+"manifest")),
+                ProductionVenueHost.ReadResource,ProductionVenueHost.ReadResource(resource+"broadcast_checkpoints_v1"));
+            var weather=Catalog().Get(2);
+            Assert.That(weather.SnowProfile,Is.EqualTo("icy_fast"));
+            root=new GameObject("Actual icy mass start material review");
+            var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.InputPreferences=new PlayerSettings();
+            var format=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get).Single(f=>f.Profile.Format==CompetitionFormat.MassStart);
+            host.Initialize(plan,format.Profile,format.Route,RaceSnowConditions.FromJson(Read("race_snow_neutral_v1")),count:30);
+            host.InitializeEnvironment(CareerWeatherPresentation.Bind(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(resource+"environment")),weather));
+            var material=host.Course.GroomedMaterial;
+            Assert.That(material.GetVector("_LayerRoughness").x,Is.GreaterThan(.35f));
+            Assert.That(Vector4.Distance(material.GetColor("_PackedColor"),material.GetColor("_IceColor")),Is.GreaterThan(.12f));
+            if(!File.Exists(evidence+"capture.flag"))yield break;
+
+            host.Environment.AutomaticRendering=false;
+            var camera=host.ChaseCamera;camera.GetComponent<AthleteChaseCamera>().enabled=false;camera.enabled=false;
+            var gates=host.GetComponent<CourseTimingPresentation>();
+            var frame=gates.GateTransform(Enumerable.Range(0,gates.TimingLines).Single(i=>gates.CheckpointId(i)=="forest_straight_split"));
+            camera.transform.position=frame.TransformPoint(new Vector3(-1.2f,2.1f,-18));camera.transform.LookAt(frame.TransformPoint(new Vector3(0,1.4f,14)));
+            var surfaces=new[]{material,host.Environment.GetComponentsInChildren<MeshRenderer>()
+                .First(r=>r.TryGetComponent<MeshFilter>(out var filter)&&filter.sharedMesh==host.Environment.TileMesh(0)).sharedMaterial}.Distinct().ToArray();
+            using var target=new BenchmarkRenderTarget(1600,900);
+            yield return Capture("ice-after.png");
+            foreach(var surface in surfaces)
+            {
+                var layers=surface.GetVector("_LayerRoughness");var normals=surface.GetVector("_LayerNormals");
+                layers.x=layers.y;normals.x=normals.y;
+                surface.SetColor("_PackedColor",surface.GetColor("_IceColor"));
+                surface.SetVector("_LayerRoughness",layers);surface.SetVector("_LayerNormals",normals);
+            }
+            yield return Capture("ice-before.png");
+
+            IEnumerator Capture(string file)
+            {
+                for(int frameIndex=0;frameIndex<4;frameIndex++)
+                {host.Environment.Render(camera,"high",0);target.Render(camera);yield return new WaitForEndOfFrame();}
+                target.SavePng(evidence+file);
+            }
+        }
         [TestCase(0),TestCase(1),TestCase(2),TestCase(3),TestCase(4),TestCase(5),TestCase(6),TestCase(9)]
         public void WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(int index)
         {
@@ -49,7 +93,13 @@ namespace Biathlon.PlayModeTests
                     var m=r.sharedMaterial;Assert.That(m.GetFloat("_Roughness"),Is.EqualTo(preset.roughness));
                     Assert.That(m.GetFloat("_TerrainBlend"),Is.EqualTo(1));
                     if(weather.SnowProfile=="fresh_soft")Assert.That(Vector4.Distance(m.GetColor("_PackedColor"),m.GetColor("_BaseColor")),Is.LessThan(.00001f));
-                    if(weather.SnowProfile=="icy_fast")Assert.That(Vector4.Distance(m.GetColor("_PackedColor"),m.GetColor("_IceColor")),Is.LessThan(.00001f));
+                    if(weather.SnowProfile=="icy_fast")
+                    {
+                        Assert.That(Vector4.Distance(m.GetColor("_PackedColor"),m.GetColor("_IceColor")),Is.GreaterThan(.12f),"The groomed snow cannot take the full ice-layer color.");
+                        var roughness=m.GetVector("_LayerRoughness");var normals=m.GetVector("_LayerNormals");
+                        Assert.That(roughness.x,Is.GreaterThan(roughness.y+.14f),"The piste retains a matte snow response between ice patches.");
+                        Assert.That(normals.x,Is.GreaterThan(normals.y),"Glazing must retain the groomed snow texture.");
+                    }
                     terrainChecked=true;
                 }
             Assert.That(terrainChecked,Is.True);e.Shutdown();Assert.That(aim.clearFlags,Is.EqualTo(oldAimClear));

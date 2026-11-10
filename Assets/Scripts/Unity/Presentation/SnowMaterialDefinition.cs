@@ -13,7 +13,7 @@ namespace Biathlon.Unity.Presentation
     {
         public int schema_version;
         public string id;
-        public float macro_scale_m, grain_scale_m;
+        public float macro_scale_m, grain_scale_m, ice_glaze_strength;
         public SnowMaterialPreset[] presets;
         public static SnowMaterialDefinition Load() => FromJson(Resources.Load<TextAsset>("Biathlon/snow_material_v1").text);
         public static SnowMaterialDefinition FromJson(string json)
@@ -22,6 +22,7 @@ namespace Biathlon.Unity.Presentation
             if (d == null || d.schema_version != 1 || string.IsNullOrWhiteSpace(d.id) ||
                 !float.IsFinite(d.macro_scale_m) || d.macro_scale_m < .1f || d.macro_scale_m > 20 ||
                 !float.IsFinite(d.grain_scale_m) || d.grain_scale_m < .005f || d.grain_scale_m > .2f ||
+                !float.IsFinite(d.ice_glaze_strength) || d.ice_glaze_strength < 0 || d.ice_glaze_strength > .5f ||
                 d.presets == null || d.presets.Length != 2) throw new ArgumentException("Invalid snow definition.");
             for (int i = 0; i < d.presets.Length; i++)
             {
@@ -61,14 +62,16 @@ namespace Biathlon.Unity.Presentation
                 material.SetColor("_PackedColor",packed*tint);material.SetColor("_IceColor",ice*tint);material.SetColor("_EdgeColor",edge*tint);
                 material.SetVector("_LayerRoughness",roughness*(chosen.roughness/cold.roughness));
             }
-            // Reuse the authored loose/ice layers on the groomed surface. No new
-            // meshes, textures or per-frame shader work are required.
+            // Frost tints groomed snow without replacing its grain or masking local ice patches.
             if(surfaceProfile=="fresh_soft"||surfaceProfile=="icy_fast")
             {
                 Vector4 layers=material.GetVector("_LayerRoughness"),normals=material.GetVector("_LayerNormals");
                 bool fresh=surfaceProfile=="fresh_soft";
-                material.SetColor("_PackedColor",material.GetColor(fresh?"_BaseColor":"_IceColor"));
-                layers.x=fresh?material.GetFloat("_Roughness"):layers.y;normals.x=fresh?material.GetFloat("_NormalStrength"):normals.y;
+                var packedColor=material.GetColor("_PackedColor");
+                material.SetColor("_PackedColor",fresh?material.GetColor("_BaseColor"):
+                    Color.Lerp(packedColor,material.GetColor("_IceColor"),ice_glaze_strength));
+                layers.x=fresh?material.GetFloat("_Roughness"):Mathf.Lerp(layers.x,layers.y,ice_glaze_strength);
+                normals.x=fresh?material.GetFloat("_NormalStrength"):Mathf.Lerp(normals.x,normals.y,ice_glaze_strength);
                 material.SetVector("_LayerRoughness",layers);material.SetVector("_LayerNormals",normals);
             }
             material.SetFloat("_TerrainBlend",blend);
