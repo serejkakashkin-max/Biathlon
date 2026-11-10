@@ -52,7 +52,9 @@ namespace Biathlon.Unity.Presentation
             }
             checkpointPanel.style.display=CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
             BuildLiveSplit();
-            readinessPanel=Card("shooting_readiness",false,false,settings.right_width);readinessPanel.style.bottom=settings.edge+168*Scale;
+            readinessPanel=RightStatusCard("shooting_readiness");
+            readinessPanel.PlaceBehind(conditionPanel);
+            readinessPanel.style.marginBottom=8*Scale;
             readinessTitle=Text(readinessPanel,"readiness_title","",settings.caption_size,true);
             var band=new VisualElement();band.style.height=8;band.style.flexDirection=FlexDirection.Row;band.style.marginTop=4;band.style.marginBottom=12;readinessPanel.Add(band);
             float[] widths={reviewSettings.calm_hr_load,reviewSettings.high_hr_load-reviewSettings.calm_hr_load,1-reviewSettings.high_hr_load};

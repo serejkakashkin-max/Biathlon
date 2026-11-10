@@ -167,15 +167,17 @@ namespace Biathlon.Unity.Presentation
             // Keep this absolute overlay measured while unseen. Display.None
             // deferred first text/layout work until the player reached the range.
             rangeBoard.style.visibility=Visibility.Hidden;
-            rangeBoard.RegisterCallback<GeometryChangedEvent>(_=>
-            {
-                if(!isActiveAndEnabled||Root==null||panel==null)return;
-                int capacity=RangeBroadcastCapacity;LayoutRangeBroadcast();
-                // A resize can change the readable rail count without another
-                // accepted tick. Recompose only for that actual capacity change.
-                if(capacity!=RangeBroadcastCapacity&&feed?.Current!=null&&selectedIndex>=0)
-                    RefreshRangeBroadcast(feed.Current,selectedIndex);
-            });
+            rangeBoard.RegisterCallback<GeometryChangedEvent>(OnRangeBroadcastGeometry);
+            rightStatusStack.RegisterCallback<GeometryChangedEvent>(OnRangeBroadcastGeometry);
+        }
+        private void OnRangeBroadcastGeometry(GeometryChangedEvent change)
+        {
+            if(!isActiveAndEnabled||Root==null||panel==null)return;
+            int capacity=RangeBroadcastCapacity;
+            LayoutRangeBroadcast();
+            // The screen or the bottom stack can resize between accepted ticks.
+            if(capacity!=RangeBroadcastCapacity&&feed?.Current!=null&&selectedIndex>=0)
+                RefreshRangeBroadcast(feed.Current,selectedIndex);
         }
         private void LayoutRangeBroadcast()
         {
@@ -186,7 +188,7 @@ namespace Biathlon.Unity.Presentation
             float pixels=panel.targetTexture!=null?panel.targetTexture.height:Screen.height;
             float factor=Mathf.Min(1,pixels/1080f);
             float top=settings.edge,bottom=height-170*Scale-settings.edge;
-            if(conditionPanel!=null&&conditionPanel.worldBound.height>0)bottom=conditionPanel.worldBound.yMin-Root.worldBound.yMin-12;
+            if(rightStatusStack.worldBound.height>0)bottom=rightStatusStack.worldBound.yMin-Root.worldBound.yMin-12;
             float rowHeight=Mathf.Max(rangeBroadcastPolicy.RowHeight*Scale,rangeBroadcastPolicy.RowHeight*Scale/Mathf.Max(.5f,factor));
             RangeBroadcastCapacity=Mathf.Clamp(Mathf.FloorToInt((bottom-top-103*Scale)/(rowHeight+1)),1,rangeBroadcastPolicy.MaximumRows);
             if(Mathf.Abs(rangeLayoutWidth-width)<.1f&&Mathf.Abs(rangeLayoutHeight-rowHeight)<.1f)return;
@@ -210,9 +212,6 @@ namespace Biathlon.Unity.Presentation
             LayoutRangeBroadcast();
             int window=RangeBroadcast==null?-1:RangeBroadcast.Window(snapshot.Get(player).RouteMeters,snapshot.Get(player).OnCourse,snapshot.Get(player).Phase);
             bool visible=window>=0&&!CheckpointTableVisible;
-            // During live range coverage, place the existing readiness card beside
-            // the bottom pulse card. The board then has its own uninterrupted rail.
-            if(readinessPanel!=null){readinessPanel.style.right=visible?settings.edge+rangeBroadcastPolicy.PanelWidth*Scale+12:settings.edge;readinessPanel.style.bottom=visible?settings.edge:settings.edge+168*Scale;}
             if(visible!=RangeBroadcastVisible){RangeBroadcastVisible=visible;rangeBoard.style.visibility=visible?Visibility.Visible:Visibility.Hidden;}
             if(!visible){RangeBroadcastRows=0;return;}
             if(window!=paintedRangeWindow)

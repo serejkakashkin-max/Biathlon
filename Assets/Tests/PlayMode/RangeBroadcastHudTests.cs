@@ -47,7 +47,7 @@ namespace Biathlon.PlayModeTests
             var prepared=new CareerRaceProvider(Read,menu.Session.Definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(week.RaceSnapshotJson),mass,week.RaceSeed);
             race=new GameObject("Range board production field");var host=race.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.InitializeCareer(prepared);
             var hud=host.GameplayHud;hud.SetBroadcastRoster(menu.Session.Career);host.Proxies.ConfigureCareerAppearance(menu.Session.Career,menu.Session.Definitions.Calendar,menu.Session.Definitions.Scoring,mass);
-            menu.gameObject.SetActive(false);bool opened=false,flashed=false,completed=false,closed=false;int ticks=0,aimingFrames=0;
+            menu.gameObject.SetActive(false);bool opened=false,flashed=false,completed=false,closed=false,sharedApproach=false;int ticks=0,aimingFrames=0;
             while(ticks++<16000&&!closed)
             {
                 // Exercise a real miss through normal player aim/trigger/bolt
@@ -61,6 +61,16 @@ namespace Biathlon.PlayModeTests
                 var s=RacePresentationSnapshot.Capture(host.Runner.Field);host.Feed.Publish(s);hud.Refresh();
                 var player=s.Get(host.PlayerIndex);var row=hud.RangeBroadcast.Get(host.PlayerIndex);
                 if(!opened&&hud.RangeBroadcastVisible){opened=true;Assert.That(player.RouteMeters,Is.GreaterThanOrEqualTo(505.553));}
+                if(!sharedApproach&&hud.RangeBroadcastVisible&&!player.ShootingActive&&
+                    hud.Root.Q("checkpoint_notice").style.display.value==DisplayStyle.Flex&&
+                    hud.Root.Q("shooting_readiness").style.display.value==DisplayStyle.Flex)
+                {
+                    sharedApproach=true;
+                    yield return Capture(hud,1920,1080,"ru",0,"simultaneous-1080-ru",true);
+                    yield return Capture(hud,2560,1152,"ru",0,"simultaneous-wide-ru",true);
+                    yield return Capture(hud,1024,768,"en",2,"simultaneous-4x3-large-en",true);
+                    hud.SetPreferences("ru",0);
+                }
                 if(hud.RangeBroadcastVisible&&hud.RangeBroadcastRows>0&&!flashed)
                 {
                     for(int i=0;i<hud.RangeBroadcastRows;i++)
@@ -87,11 +97,12 @@ namespace Biathlon.PlayModeTests
                 if(ticks%100==0)yield return null;
             }
             Assert.That(opened&&flashed&&completed&&closed,Is.True,$"opened={opened},flash={flashed},completed={completed},closed={closed},tick={ticks}");
+            Assert.That(sharedApproach,Is.True,"The test must show split and breathing guidance together before the mat.");
             long before=host.Runner.Field.Tick.Value;for(int i=0;i<100;i++)hud.Refresh();Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(before));
             string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m16-2"));Directory.CreateDirectory(folder);
             File.WriteAllText(Path.Combine(folder,"actual-field.json"),"{\"schema_version\":1,\"id\":\"range_broadcast_mass30\",\"athletes\":"+host.Runner.Field.Count+",\"tick\":"+before+",\"automatic_window\":true,\"miss_flash\":true,\"completed_series_preserved\":true,\"authority_read_only\":true}");
         }
-        private static IEnumerator Capture(GameplayHud hud,int width,int height,string locale,int size,string name)
+        private static IEnumerator Capture(GameplayHud hud,int width,int height,string locale,int size,string name,bool sharedApproach=false)
         {
             var panel=(PanelSettings)typeof(GameplayHud).GetField("panel",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
             var target=new RenderTexture(width,height,24);target.Create();LiveShootingPlayerReview.ConfigureCapturePanel(panel,target);Texture2D pixels=null;var prior=RenderTexture.active;
@@ -100,15 +111,26 @@ namespace Biathlon.PlayModeTests
                 hud.SetPreferences(locale,size);yield return null;yield return null;yield return null;
                 var board=hud.Root.Q("range_broadcast");var bounds=board.worldBound;var screen=hud.Root.worldBound;
                 Assert.That(bounds.xMin,Is.GreaterThan(screen.center.x+30));Assert.That(bounds.xMax,Is.LessThanOrEqualTo(screen.xMax));
-                Assert.That(bounds.yMax,Is.LessThan(hud.Root.Q("condition_panel").worldBound.yMin-6));
+                Assert.That(bounds.yMax,Is.LessThan(hud.Root.Q("right_status_stack").worldBound.yMin-6));
+                if(sharedApproach)
+                {
+                    var split=hud.Root.Q("checkpoint_notice");var readiness=hud.Root.Q("shooting_readiness");var pulse=hud.Root.Q("condition_panel");
+                    Assert.That(split.resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
+                    Assert.That(readiness.resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
+                    Assert.That(split.worldBound.xMax,Is.LessThan(readiness.worldBound.xMin-4));
+                    Assert.That(readiness.worldBound.yMax,Is.LessThan(pulse.worldBound.yMin-4));
+                    Assert.That(readiness.worldBound.xMax,Is.EqualTo(pulse.worldBound.xMax).Within(.1f));
+                    Assert.That(split.worldBound.xMin,Is.GreaterThan(hud.Root.Q("motion_panel").worldBound.xMax+4));
+                }
                 Assert.That(hud.Root.Q("help_hint"),Is.Null);Assert.That(bounds.yMin,Is.GreaterThanOrEqualTo(screen.yMin));
                 board.Query<VisualElement>().ForEach(v=>Assert.That(v.pickingMode,Is.EqualTo(PickingMode.Ignore)));
                 foreach(var strip in board.Query<RangeTargetStrip>().ToList())Assert.That(strip.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
-                if(width==1920&&size==0)Assert.That(hud.RangeBroadcastCapacity,Is.EqualTo(20),"1080p target composition has20readable rails.");
+                if(width==1920&&size==0&&hud.Root.Q("shooting_readiness").resolvedStyle.display==DisplayStyle.None)
+                    Assert.That(hud.RangeBroadcastCapacity,Is.EqualTo(20),"1080p uses all 20 rails when the readiness card is absent.");
                 if(width==1280&&size==0)Assert.That(hud.RangeBroadcastCapacity,Is.LessThan(20));
                 Assert.That(hud.RangeBroadcastRows,Is.LessThanOrEqualTo(hud.RangeBroadcastCapacity),"A resized board must recompose its retained rows even without a new accepted tick.");
-                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m16-2"));Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());
+                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,sharedApproach?"../artifacts/m16-8-split-hud":"../docs/quality/m16-2"));Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());
             }
             finally{panel.targetTexture=null;RenderTexture.active=prior;if(pixels!=null)Object.DestroyImmediate(pixels);target.Release();Object.DestroyImmediate(target);}
         }

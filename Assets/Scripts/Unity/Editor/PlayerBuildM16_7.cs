@@ -58,6 +58,11 @@ namespace Biathlon.Unity
             "Устранён лишний пересчёт всего поля при независимом торможении и контакте с краем трассы. Старые повторы используют правила своей записи.\r\n",
             "M16.8", "Коэффициенты движения, баланс, геометрия попаданий и формат сохранений прежние. Новые гонки используют уточнённый расчёт контакта со снегом.\r\n");
 
+        public static void BuildM168SplitHudReview() => BuildM167Review("Builds/M16_8_Split_HUD_Review",
+            "m168_split_hud_review", null,
+            "После отсечки нижняя полоса показывает лидера и ваш результат. Подсказка дыхания находится над пульсом справа.\r\n",
+            "M16.8");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {

@@ -76,12 +76,25 @@ namespace Biathlon.PlayModeTests
                 var frozen=hud.Root.Q<Label>("live_split_time").text;
                 Assert.That(frozen,Is.EqualTo(GameplayHudModel.FormatClock(field.GetAthlete(featured).Checkpoints.Get(0).ElapsedTime.Seconds)));
                 Assert.That(hud.Root.Q<Label>("live_split_stage").text,Does.Contain("МЕСТО"));
-                AssertRivals();
+                AssertResult();
+                yield return null;
+                Assert.That(leader.worldBound.xMax,Is.LessThanOrEqualTo(hud.Root.Q("live_split_player").worldBound.xMin+.01f));
                 if(capture)yield return Capture("crossed",true);
                 for(int i=0;i<field.TickFrequency;i++)host.Runner.Step();
                 Publish();
                 Assert.That(hud.Root.Q<Label>("live_split_time").text,Is.EqualTo(frozen));
+                AssertResult();
                 yield return null;
+
+                void AssertResult()
+                {
+                    Assert.That(leader.style.display.value,Is.EqualTo(DisplayStyle.Flex));
+                    Assert.That(leader.AthleteId,Is.EqualTo(field.Timing.Leader(0).Athlete.Value));
+                    Assert.That(hud.Root.Q("live_split_rival_1").style.display.value,Is.EqualTo(DisplayStyle.None));
+                    Assert.That(hud.Root.Q<Label>("live_split_player_name").text,Is.EqualTo(roster.Athlete(featured).Name));
+                    Assert.That(hud.Root.Q<Label>("live_split_player_nation").text,Does.Contain("ВЫ"));
+                    Assert.That(hud.Root.Q<NationFlagGraphic>("live_split_player_flag").Nation,Is.EqualTo(roster.Athlete(featured).Nation));
+                }
 
                 void AssertRivals()
                 {

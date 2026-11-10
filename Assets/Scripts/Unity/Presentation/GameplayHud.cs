@@ -46,7 +46,7 @@ namespace Biathlon.Unity.Presentation
         private ProductionVenueHost host;
         private SkiDebugHud debug;
         private Label clock,lap,timing,phase,history,speed,heart,reserve,fatigue,range,weapon,breath,wind,shots,help;
-        private VisualElement reserveFill,fatigueFill,breathFill,shootingPanel,motionPanel,timingPanel,conditionPanel,helpPanel;
+        private VisualElement reserveFill,fatigueFill,breathFill,shootingPanel,motionPanel,timingPanel,conditionPanel,rightStatusStack,helpPanel;
         private bool helpVisible;
         private string skiControlHelp,shootingControlHelp;
         private BoundDeviceControls shortcutControls;
@@ -95,7 +95,13 @@ namespace Biathlon.Unity.Presentation
             timing=Text(timingPanel,"timing","",settings.caption_size);timing.style.color=muted;
             phase=Text(timingPanel,"phase","",settings.caption_size);phase.style.color=FrontEndTheme.Color(settings.warning);
 
-            conditionPanel=Card("condition_panel",false,false,settings.right_width);
+            rightStatusStack=new VisualElement{name="right_status_stack"};
+            rightStatusStack.style.position=Position.Absolute;
+            rightStatusStack.style.right=rightStatusStack.style.bottom=settings.edge;
+            rightStatusStack.style.width=settings.right_width*Scale;
+            rightStatusStack.style.maxWidth=Length.Percent(40);
+            Root.Add(rightStatusStack);
+            conditionPanel=RightStatusCard("condition_panel");
             var pulse=Row(conditionPanel);
             heartbeat=new HeartbeatGraphic(accent);pulse.Add(heartbeat);
             pulseTrace=new PulseTraceGraphic(accent);pulse.Add(pulseTrace);
@@ -179,6 +185,15 @@ namespace Biathlon.Unity.Presentation
             card.style.paddingLeft=card.style.paddingRight=settings.panel_padding+2;
             card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=2;
             Root.Add(card);return card;
+        }
+        private VisualElement RightStatusCard(string name)
+        {
+            var card=Card(name,false,false,settings.right_width);
+            card.style.position=Position.Relative;
+            card.style.right=card.style.bottom=StyleKeyword.Auto;
+            card.style.width=card.style.maxWidth=Length.Percent(100);
+            rightStatusStack.Add(card);
+            return card;
         }
         private Label Text(VisualElement parent,string name,string value,int size,bool bold=false)
         {
