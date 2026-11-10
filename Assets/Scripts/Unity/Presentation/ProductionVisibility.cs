@@ -8,17 +8,18 @@ namespace Biathlon.Unity.Presentation
     {
         public int schema_version;
         public string id,mode;
-        public float forest_near_blend_m,forest_far_blend_m;
+        public float forest_near_blend_m,forest_far_blend_m,forest_far_lod_m;
         public static ProductionVisibilityDefinition FromJson(string json)
         {
             var d=JsonUtility.FromJson<ProductionVisibilityDefinition>(json);
             if(d==null||d.schema_version!=1||d.mode!="complete_fog_frustum_v1")throw new ArgumentException("Versioned complete scenery visibility required.");
             ProductionEnvironmentDefinition.Identity(d.id);
             if(!float.IsFinite(d.forest_near_blend_m)||!float.IsFinite(d.forest_far_blend_m)||d.forest_near_blend_m<0||d.forest_near_blend_m>20||d.forest_far_blend_m<0||d.forest_far_blend_m>30||
-                (d.forest_near_blend_m==0)!=(d.forest_far_blend_m==0))throw new ArgumentException("Bounded forest blend distances required.");
+                (d.forest_near_blend_m==0)!=(d.forest_far_blend_m==0)||!float.IsFinite(d.forest_far_lod_m)||d.forest_far_lod_m<0||d.forest_far_lod_m>120)
+                throw new ArgumentException("Bounded forest blend distances required.");
             return d;
         }
-        public ProductionVisibility Bind(float fogEndMeters)=>new ProductionVisibility(id,fogEndMeters,forest_near_blend_m,forest_far_blend_m);
+        public ProductionVisibility Bind(float fogEndMeters)=>new ProductionVisibility(id,fogEndMeters,forest_near_blend_m,forest_far_blend_m,forest_far_lod_m);
     }
     public sealed class ProductionVisibility
     {
@@ -26,9 +27,10 @@ namespace Biathlon.Unity.Presentation
         public float FogEndMeters{get;}
         public float ForestNearBlendMeters{get;}
         public float ForestFarBlendMeters{get;}
+        public float ForestFarLodMeters{get;}
         public bool BlendsForest=>ForestNearBlendMeters>0&&ForestFarBlendMeters>0;
-        internal ProductionVisibility(string id,float fogEndMeters,float nearBlend,float farBlend)
-        {if(!float.IsFinite(fogEndMeters)||fogEndMeters<=0)throw new ArgumentException("Finite positive visibility horizon required.");Id=id;FogEndMeters=fogEndMeters;ForestNearBlendMeters=nearBlend;ForestFarBlendMeters=farBlend;}
+        internal ProductionVisibility(string id,float fogEndMeters,float nearBlend,float farBlend,float farLod)
+        {if(!float.IsFinite(fogEndMeters)||fogEndMeters<=0)throw new ArgumentException("Finite positive visibility horizon required.");Id=id;FogEndMeters=fogEndMeters;ForestNearBlendMeters=nearBlend;ForestFarBlendMeters=farBlend;ForestFarLodMeters=farLod;}
         public ProductionVisibilityFrame Frame(Camera view)=>new ProductionVisibilityFrame(view,FogEndMeters);
     }
     /// <summary>Camera-depth support for native URP linear fog. Uncertified projections retain the full frustum.</summary>

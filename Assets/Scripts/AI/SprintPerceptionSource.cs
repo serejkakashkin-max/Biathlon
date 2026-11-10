@@ -91,6 +91,10 @@ namespace Biathlon.AI
         }
         public AiSprintPerception Capture(int athleteIndex, TrackDistance neighborRadius, ReadOnlySpan<TrackDistance> offsets,
             Span<AiRouteLookahead> lookahead, Span<AiRouteNeighbor> neighbors)
+            => Capture(athleteIndex, neighborRadius, offsets, lookahead, neighbors, true);
+
+        internal AiSprintPerception Capture(int athleteIndex, TrackDistance neighborRadius, ReadOnlySpan<TrackDistance> offsets,
+            Span<AiRouteLookahead> lookahead, Span<AiRouteNeighbor> neighbors, bool observeFieldTactics)
         {
             if (athleteIndex < 0 || athleteIndex >= field.Count || lookahead.Length < offsets.Length || neighbors.Length < field.Count - 1)
                 throw new ArgumentException("Valid athlete and worst-case caller buffer capacity required.");
@@ -112,7 +116,7 @@ namespace Biathlon.AI
                 lookahead[i] = new AiRouteLookahead(new TrackDistance(offset), sample);
             }
             int count = 0;
-            for (int i = 0; i < field.Count; i++)
+            for (int i = 0; observeFieldTactics && i < field.Count; i++)
             {
                 var other = field.GetAthlete(i);
                 if (i == athleteIndex || other.Lifecycle.Phase == CompetitionPhase.Prestart || other.HasFinished) continue;
@@ -122,7 +126,7 @@ namespace Biathlon.AI
             }
             // Stable roster order is preserved; no ranking by distance is presented as Sprint classification.
             int checkpoint = self.Checkpoints.LatestTacticalOrdinal, observed = 0; int? place = null; double? gap = null;
-            if (checkpoint >= 0)
+            if (observeFieldTactics && checkpoint >= 0)
             {
                 var own = ClockTime(self.Checkpoints.Get(checkpoint)); int ahead = 0;
                 for (int i = 0; i < field.Count; i++)

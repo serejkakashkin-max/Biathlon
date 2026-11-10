@@ -46,6 +46,15 @@ namespace Biathlon.Unity.Presentation
             if(count==0)bounds[group]=caster;else bounds[group].Encapsulate(caster);
             counts[group]++;Count++;Triangles+=triangles[group];
         }
+        public bool MayInfluence(Bounds grove)
+        {
+            if(ray.y>=-.001f)return true;
+            // Bound every possible per-caster projection inside this grove.
+            float maxDrop=grove.size.y+grove.extents.y+Mathf.Max(Mathf.Abs(eye.y-grove.min.y),Mathf.Abs(eye.y-grove.max.y));
+            var influence=grove;
+            influence.Encapsulate(new Bounds(grove.center+ray*(maxDrop/-ray.y),grove.size));
+            return influence.SqrDistance(eye)<=distanceSquared;
+        }
         public void Render(Camera camera,MaterialPropertyBlock properties,int layer)
         {
             for(int group=0;group<counts.Length;group++)if(counts[group]>0)

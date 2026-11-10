@@ -289,7 +289,10 @@ namespace Biathlon.AI
                 var actor=Field.GetAthlete(i); var id=actor.AthleteId; tacticalDue[i]=shootingDue[i]=false;
                 if(actor.HasFinished) { inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,0),1,1,0),new WeaponAimCommand(tick,id,0,0),wind:Field.WeatherTimeline==null?default:RaceWind);continue; }
                 if(i==playerIndex){inputs[i]=playerInput;lateral[i]=playerLateral;continue;}
-                var observation=raceSource.Capture(i,TrackDistance.FromMeters(physicalRadius),offsets,ahead,neighbors);
+                var window=clocks[i].Step(tick);
+                var observation=raceSource.Capture(i,TrackDistance.FromMeters(physicalRadius),
+                    window.DecisionDue?offsets:ReadOnlySpan<TrackDistance>.Empty,ahead,neighbors,
+                    observeFieldTactics:window.DecisionDue&&pursuit!=null);
                 int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(physicalRadius),placements,startTraffic?.StationaryBypassAfterSeconds.HasValue==true);
                 var point=Field.GetPhysicalPoint(i); var self=count>0?placements[0]:new SkiPlacement(id,point.LoopId,new SkiState(point.LoopLengthNanometers,actor.Motion.SpeedMetersPerSecond),Field.GetLateral(i));
                 var roster=placements.AsSpan(0,count); bool skiing=count>0 && observation.Phase==CompetitionPhase.Skiing;
@@ -317,7 +320,7 @@ namespace Biathlon.AI
                         actor.RangePath!=null&&point.LoopId!=actor.RangePath.MatAnchor.LoopId,
                         actor.CurrentRangeRequiredPenaltyLoops>0);
                 bool alignRange=rangeTrafficPlans[i].Active;
-                var window=clocks[i].Step(tick); TacticalIntentDecision? chosen=null; int adjustment=0;bool pass=false;
+                TacticalIntentDecision? chosen=null; int adjustment=0;bool pass=false;
                 if(window.DecisionDue)
                 {
                     tacticalDue[i]=true;

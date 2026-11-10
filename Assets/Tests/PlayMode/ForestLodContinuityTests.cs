@@ -31,7 +31,7 @@ namespace Biathlon.PlayModeTests
                     try
                     {
                         foreach(float boundary in new[]{d.near_lod_m,d.near_lod_m+policy.ForestNearBlendMeters*.5f,d.near_lod_m+policy.ForestNearBlendMeters,
-                            d.far_lod_m,d.far_lod_m+policy.ForestFarBlendMeters*.5f,d.far_lod_m+policy.ForestFarBlendMeters})
+                            policy.ForestFarLodMeters,policy.ForestFarLodMeters+policy.ForestFarBlendMeters*.5f,policy.ForestFarLodMeters+policy.ForestFarBlendMeters})
                         {
                             Color32[][] captures=new Color32[2][];
                             for(int side=0;side<2;side++)
@@ -71,7 +71,7 @@ namespace Biathlon.PlayModeTests
                 var camera=root.AddComponent<Camera>();camera.enabled=false;camera.fieldOfView=80;camera.farClipPlane=300;
                 var policy=ProductionVisibilityDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/venue_visibility_v1").text).Bind(250);
                 var forest=root.AddComponent<VegetationPresentation>();forest.Initialize(null,true,null,true,true,new[]{
-                    new VegetationInstance(new Vector3(0,0,30),1,0,.04f),new VegetationInstance(new Vector3(0,0,65),1,0,.04f),
+                    new VegetationInstance(new Vector3(0,0,30),1,0,.04f),new VegetationInstance(new Vector3(0,0,50),1,0,.04f),
                     new VegetationInstance(new Vector3(4,0,30),1,0,.98f),new VegetationInstance(new Vector3(0,0,90),1,0,.04f)},new byte[]{0,1,0,1},completeVisibility:policy);
                 forest.Prepare(camera,tier,12);int visible=forest.VisibleInstances,rendered=forest.RenderedInstances,transitions=forest.TransitionInstances;long triangles=forest.SubmittedTriangles;
                 Assert.That(visible,Is.EqualTo(4));Assert.That(transitions,Is.EqualTo(tier=="high"?3:2));Assert.That(rendered,Is.EqualTo(visible+transitions));
@@ -89,10 +89,38 @@ namespace Biathlon.PlayModeTests
         [Test] public void TransitionDefinitionRejectsInvalidAndOneSidedRanges()
         {
             string json=Resources.Load<TextAsset>("Biathlon/venue_visibility_v1").text;
-            foreach(string invalid in new[]{json.Replace("12","-1"),json.Replace("12","0"),json.Replace("20","31")})
+            foreach(string invalid in new[]{json.Replace("12","-1"),json.Replace("12","0"),json.Replace("16","31"),json.Replace("42","121")})
                 Assert.Throws<ArgumentException>(()=>ProductionVisibilityDefinition.FromJson(invalid));
             var d=ProductionVisibilityDefinition.FromJson(json);var bound=d.Bind(250);d.forest_near_blend_m=1;
             Assert.That(bound.ForestNearBlendMeters,Is.EqualTo(12),"The prepared policy is immutable.");
+        }
+        [Test] public void WoodlandUsesFewerMeshTrianglesWithIdenticalCoverageAndCasters()
+        {
+            var root=new GameObject("Woodland forest work comparison");
+            try
+            {
+                var camera=new GameObject("Independent forest observer",typeof(Camera)).GetComponent<Camera>();camera.transform.SetParent(root.transform);
+                camera.enabled=false;camera.fieldOfView=60;camera.farClipPlane=300;
+                var current=ProductionVisibilityDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/venue_visibility_v1").text);
+                var old=ProductionVisibilityDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/venue_visibility_v1").text);
+                old.forest_far_lod_m=0;old.forest_far_blend_m=20;
+                var positions=new[]{new VegetationInstance(new Vector3(0,0,62),1,0,0),new VegetationInstance(new Vector3(5,0,60),1,0,0)};
+                VegetationPresentation Build(ProductionVisibilityDefinition data)
+                {
+                    var tree=new GameObject("Forest comparison grove");tree.transform.SetParent(root.transform);
+                    var forest=tree.AddComponent<VegetationPresentation>();forest.Initialize(null,true,null,true,true,positions,new byte[]{0,1},completeVisibility:data.Bind(250));
+                    forest.Prepare(camera,"high",0);return forest;
+                }
+                var before=Build(old);var after=Build(current);
+                Assert.That(after.VisibleInstances,Is.EqualTo(2).And.EqualTo(before.VisibleInstances));
+                Assert.That(after.ShadowSourceTriangles,Is.EqualTo(before.ShadowSourceTriangles));
+                Assert.That(after.SubmittedTriangles,Is.LessThan(before.SubmittedTriangles));
+                var key=new GameObject("Independent sunlight",typeof(Light)).GetComponent<Light>();key.transform.SetParent(root.transform);
+                key.type=LightType.Directional;key.transform.rotation=Quaternion.Euler(60,90,0);
+                after.ShadowLight=key;camera.transform.position=new Vector3(500,0,0);after.Prepare(camera,"high",0);
+                Assert.That(after.PreparedInstances,Is.Zero,"An invisible grove with no possible shadow contribution can be skipped as a unit.");
+            }
+            finally{Object.DestroyImmediate(root);}
         }
     }
 }

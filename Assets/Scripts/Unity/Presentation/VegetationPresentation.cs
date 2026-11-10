@@ -20,7 +20,10 @@ namespace Biathlon.Unity.Presentation
         private Matrix4x4[] worldMatrices;
         private Matrix4x4 cachedWorld;
         private bool geometryCached;
+        private float farLodMeters;
+        private Bounds worldForestBounds;
         public int GeometryBuildCount {get;private set;}
+        public int PreparedInstances {get;private set;}
         private readonly Matrix4x4[][] matrices=new Matrix4x4[6][];
         private readonly Mesh[] meshes=new Mesh[6];
         private readonly int[] counts=new int[6];
@@ -70,7 +73,8 @@ namespace Biathlon.Unity.Presentation
                 foreach(byte type in authoredSpecies)if(type>1)throw new ArgumentException("Unknown authored forest species.");
             }
             var loaded=VegetationDefinition.Load();
-            if(completeVisibility?.BlendsForest==true&&loaded.near_lod_m+completeVisibility.ForestNearBlendMeters>=loaded.far_lod_m)
+            farLodMeters=completeVisibility!=null&&completeVisibility.ForestFarLodMeters>0?completeVisibility.ForestFarLodMeters:loaded.far_lod_m;
+            if(farLodMeters<=loaded.near_lod_m+(completeVisibility?.ForestNearBlendMeters??0))
                 throw new ArgumentException("Forest transitions must not overlap.");
             definition=loaded;
             if(authoredInstances!=null)
@@ -138,6 +142,7 @@ namespace Biathlon.Unity.Presentation
                 worldCanopies[index]=UsesExplicitSpecies?new Bounds(position+Vector3.up*((canopyMinY[type]+canopyMaxY[type])*.5f*tree.Scale),
                     new Vector3(radius*2,(canopyMaxY[type]-canopyMinY[type])*tree.Scale,radius*2)):
                     new Bounds(position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale);
+                if(index==0)worldForestBounds=worldCanopies[index];else worldForestBounds.Encapsulate(worldCanopies[index]);
             }
             cachedWorld=world;geometryCached=true;GeometryBuildCount++;
         }
@@ -148,7 +153,7 @@ namespace Biathlon.Unity.Presentation
             if(observedWind.HasValue&&(!float.IsFinite(observedWind.Value.x)||!float.IsFinite(observedWind.Value.y)))throw new ArgumentException("Finite visual wind required.");
             SimplifyingCurrentShadows=UsesSimplifiedShadows&&tier!="high";
             float density=definition.Density(tier);for(int i=0;i<counts.Length;i++){counts[i]=0;primaryCounts[i]=0;}
-            pinnedCounts[0]=pinnedCounts[1]=0;TransitionInstances=RenderedInstances=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
+            pinnedCounts[0]=pinnedCounts[1]=0;TransitionInstances=RenderedInstances=PreparedInstances=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
             preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
             stableShadows?.Begin(camera,tier,ShadowLight);
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
@@ -165,15 +170,20 @@ namespace Biathlon.Unity.Presentation
             // their complete frustum rather than discarding potentially unfogged trees.
             var fogFrame=fogBounded?new ProductionVisibilityFrame(camera,visibility?.FogEndMeters??productionHighFogEndMeters.Value):default;
             preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
+            bool groveVisible=GeometryUtility.TestPlanesAABB(planes,worldForestBounds)&&(!fogBounded||!fogFrame.Hidden(worldForestBounds));
+            bool groveCasts=stableShadows?.MayInfluence(worldForestBounds)==true;
+            if(!groveVisible&&!groveCasts)return;
             for(int index=0;index<instances.Length;index++)
             {
+                PreparedInstances++;
                 var tree=instances[index];
-                stableShadows?.Add(species[index],worldMatrices[index],worldCanopies[index]);
+                if(groveCasts)stableShadows.Add(species[index],worldMatrices[index],worldCanopies[index]);
+                if(!groveVisible)continue;
                 if(visibility==null&&tree.DensityRank>=density)continue;
                 var position=worldPositions[index];float distance=Vector3.Distance(position,eye);
                 if(!fogBounded&&definition.Lod(distance)<0)continue;
                 float lodDistance=distance*lodScale;
-                int lod=fogBounded?(lodDistance>=definition.far_lod_m?2:lodDistance>=definition.near_lod_m?1:0):definition.Lod(lodDistance);
+                int lod=fogBounded?(lodDistance>=farLodMeters?2:lodDistance>=definition.near_lod_m?1:0):definition.Lod(lodDistance);
                 // Lower tiers reduce detailed work rather than punching holes in the forest.
                 if(visibility!=null&&tree.DensityRank>=density)lod=2;
                 // Includes canopy, height and maximum wind excursion. Intended sector root is unit scale.
@@ -188,7 +198,7 @@ namespace Biathlon.Unity.Presentation
                 if(BlendsForest&&!pinned)
                 {
                     float near=Mathf.SmoothStep(0,1,Mathf.InverseLerp(definition.near_lod_m,definition.near_lod_m+visibility.ForestNearBlendMeters,lodDistance));
-                    float far=Mathf.SmoothStep(0,1,Mathf.InverseLerp(definition.far_lod_m,definition.far_lod_m+visibility.ForestFarBlendMeters,lodDistance));
+                    float far=Mathf.SmoothStep(0,1,Mathf.InverseLerp(farLodMeters,farLodMeters+visibility.ForestFarBlendMeters,lodDistance));
                     // Exactly two adjacent meshes at most. The shader assigns complementary
                     // screen samples, so overlapping branches cannot double their opacity.
                     int primary=near<.5f?0:far<.5f?1:2;primaryCounts[type*3+primary]++;
@@ -213,7 +223,7 @@ namespace Biathlon.Unity.Presentation
             properties.SetFloat(Snow,definition.snow_coverage);
             if(BlendsForest)
             {
-                properties.SetVector(LodRanges,new Vector4(definition.near_lod_m,visibility.ForestNearBlendMeters,definition.far_lod_m,visibility.ForestFarBlendMeters));
+                properties.SetVector(LodRanges,new Vector4(definition.near_lod_m,visibility.ForestNearBlendMeters,farLodMeters,visibility.ForestFarBlendMeters));
                 properties.SetVector(LodCamera,new Vector4(eye.x,eye.y,eye.z,lodScale));
             }
         }
