@@ -193,7 +193,7 @@ namespace Biathlon.Domain
             using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             var supplement = (CheckpointSupplement)new DataContractJsonSerializer(typeof(CheckpointSupplement)).ReadObject(stream);
             if (supplement == null || supplement.SchemaVersion != 1 || supplement.TrackId != Id ||
-                supplement.Checkpoints == null || supplement.Checkpoints.Length == 0)
+                supplement.Checkpoints == null)
                 throw new SerializationException("Broadcast checkpoints must bind the authored track.");
             TrackValidation.Id(supplement.Id);
             var ids = new HashSet<string>(StringComparer.Ordinal);

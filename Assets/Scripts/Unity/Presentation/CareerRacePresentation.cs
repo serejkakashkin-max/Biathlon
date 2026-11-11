@@ -6,6 +6,7 @@ using Biathlon.Career;
 using Biathlon.Presentation;
 using Biathlon.Domain;
 using Biathlon.Replay;
+using Biathlon.Simulation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,6 +27,9 @@ namespace Biathlon.Unity.Presentation
         private CareerPreparedRace prepared;
         private GameObject raceRoot;
         private CareerReplayCapture replayCapture;
+        private static bool movementRuntimeReady;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetMovementRuntime()=>movementRuntimeReady=false;
         public LiveRaceSpectator Spectator {get;private set;}
         private static string ReadCore(string name)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(name));
         public void Launch(FrontEndMenu owner)
@@ -49,9 +53,25 @@ namespace Biathlon.Unity.Presentation
                 var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+week.Event.VenueId+"/"+format+"_profile"));
                 int frequency=CareerRaceDefinition.FromJson(ReadCore("career_race_v1.json")).TickFrequency;
                 highlights=new RaceHighlightDetector(profile.BoutCount,frequency,replayPolicy.close_finish_seconds,replayPolicy.highlight_cooldown_seconds,week.Event.Format==CompetitionFormat.Sprint);
-                prepared=new CareerRaceProvider(ReadCore,menu.Session.Definitions,ProductionVenueHost.ReadResource)
-                    .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,highlights,
-                        broadcastCheckpointVersion:CareerRaceProvider.CurrentBroadcastCheckpointVersion);
+                var provider=new CareerRaceProvider(ReadCore,menu.Session.Definitions,ProductionVenueHost.ReadResource);
+                prepared=provider.Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,highlights,
+                    broadcastCheckpointVersion:CareerRaceProvider.CurrentBroadcastCheckpointVersion);
+                if(!movementRuntimeReady&&profile.Format==CompetitionFormat.MassStart)
+                {
+                    // Mono compiles the first movement/commit paths on first use.
+                    // Two disposable skiers cover the shared field and pair paths.
+                    // It has its own RNG and event sink, with no replay observer.
+                    var snow=RaceSnowConditions.FromJson(ReadCore("race_snow_neutral_v1.json"));
+                    var warm=ProductionVenueRaceFactory.Create(prepared.Venue,profile,RaceRoutePlan.FromJson(prepared.Runner.Field.Route.PlanSnapshotJson),
+                        prepared.Weather?.SnowConditions(snow)??snow,ReadCore,new BalanceEventAudit(5),new AiDecisionCounts(),count:2,frequency:frequency,seed:week.RaceSeed);
+                    if(prepared.Timeline!=null)warm.BindWeather(prepared.Timeline,prepared.Venue.Visual);
+                    var source=ManualProductionFieldComposition.Create(warm.Field,prepared.Venue,ReadCore,prepared.CourseReactionPolicy);
+                    warm.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(ReadCore(ManualAiSteeringDefinition.ResourceForVersion(prepared.MovingOvertakeVersion))),
+                        ManualSkiSteeringDefinition.FromJson(ReadCore("manual_ski_steering_v2.json")),
+                        PlayerCourseAssistanceDefinition.FromJson(ReadCore("player_course_assistance_v1.json")),prepared.AiSnowSearchVersion==1);
+                    warm.Step();warm.Step();
+                    movementRuntimeReady=true;
+                }
             }
             catch(Exception e){failure=e;}
             if(failure==null)
@@ -97,12 +117,13 @@ namespace Biathlon.Unity.Presentation
             }
             if(failure==null)
             {
-                // Let the completed world and its UI render behind the loader;
-                // only then hand off to the unchanged personal 3-2-1 sequence.
+                // Build text geometry and upload the actual HUD while the loading
+                // panel covers it. Keep the retained tree at the countdown handoff.
+                Host.GameplayHud.PrepareBehindLoading(menu.GetComponent<UnityEngine.UIElements.UIDocument>().panelSettings);
                 SetLoadingStage(CareerRaceLoadingStage.Ready);yield return null;yield return null;
                 try
                 {
-                    menu.Session.BeginRace();Host.ArmRaceStartCountdown();menu.SetRaceVisible(true);Host.GameplayHud.enabled=true;Host.enabled=true;
+                    menu.Session.BeginRace();Host.ArmRaceStartCountdown();Host.GameplayHud.FinishLoading();menu.SetRaceVisible(true);Host.enabled=true;
                 }
                 catch(Exception e){failure=e;}
             }

@@ -30,11 +30,10 @@ namespace Biathlon.Presentation
         {
             if (Count <= BroadcastSlots) return 0;
 
-            int pages = (Count - 1) / BroadcastSlots + 1;
+            int pages = Count - BroadcastSlots + 1;
             int distancePage = Math.Min(pages - 1, (int)(Math.Clamp(approachProgress, 0, 1) * pages));
             int page = (int)(Math.Max(elapsedPages, distancePage) % pages);
-            // Backfill the last page from the previous one if fewer than three places remain.
-            return Math.Min(page * BroadcastSlots, Count - BroadcastSlots);
+            return page;
         }
 
         public int BroadcastResultStart(int playerIndex)

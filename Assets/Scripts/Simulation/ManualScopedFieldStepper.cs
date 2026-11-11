@@ -158,6 +158,7 @@ namespace Biathlon.Simulation
                 commit.ContextJson,drive.ContextJson,work.ToJson(),matBraking?.ToJson()??"terminal_mat_braking_not_selected",
                 "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_fallback;actual_time_highwater_arrival_interpolation_then_ceiling_ordering_only;subfraction_pieces_retained;selected_finish_runout_shared_braking_and_clock;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
             if(field.WeatherTimeline!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"weather_timeline_vector_wind_v1");
+            field.PrepareManualScopedContext(world);
         }
 
         public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs)

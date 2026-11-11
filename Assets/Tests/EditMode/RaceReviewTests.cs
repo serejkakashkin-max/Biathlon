@@ -23,7 +23,7 @@ namespace Biathlon.Tests
             Assert.Throws<ArgumentException>(()=>new CheckpointStandings(new[]{early,other.Get(2)},CheckpointClock.Elapsed));
         }
         [Test]
-        public void BroadcastPagesCoverNineteenResultsAndKeepThreeVisibleUntilPlayerFinishesTwentieth()
+        public void BroadcastSlidesOneResultAtATimeThroughNineteenArrivalsAndFreezesAtTwentieth()
         {
             var layout = CheckpointTimingTests.Layout();
             long line = layout.Get(1).RouteNanometers;
@@ -36,7 +36,7 @@ namespace Biathlon.Tests
             }
 
             var approach = new CheckpointStandings(arrivals.AsSpan(0, 19), CheckpointClock.Global);
-            int[] expectedStarts = { 0, 3, 6, 9, 12, 15, 16 };
+            int[] expectedStarts = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
             var displayedRanks = new System.Collections.Generic.HashSet<int>();
             for (int page = 0; page < expectedStarts.Length; page++)
             {
@@ -47,8 +47,8 @@ namespace Biathlon.Tests
             }
 
             Assert.That(displayedRanks.Count, Is.EqualTo(19));
-            Assert.That(approach.BroadcastPageStart(7, 0), Is.Zero);
-            Assert.That(approach.BroadcastPageStart(0, .9), Is.EqualTo(16));
+            Assert.That(approach.BroadcastPageStart(17, 0), Is.Zero);
+            Assert.That(approach.BroadcastPageStart(0, .99), Is.EqualTo(16));
 
             var crossed = new CheckpointStandings(arrivals, CheckpointClock.Global, arrivals[19].GlobalTime);
             int lastGroup = crossed.BroadcastResultStart(19);

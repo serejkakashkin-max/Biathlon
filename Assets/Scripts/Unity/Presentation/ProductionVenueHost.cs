@@ -113,10 +113,10 @@ namespace Biathlon.Unity.Presentation
             var entry=review?.ForScene(gameObject.scene.path);
             if(entry!=null&&entry.field_count!=FieldCount)throw new ArgumentException("Review entry must match the scene roster.");
             var manifest=VenueManifest.FromJson(ReadResource(VenueResource));
-            var venue=new VenueAuthoringPlan(manifest,ReadResource,
-                CareerRaceProvider.BroadcastCheckpoints(manifest.Id,review==null?CareerRaceProvider.CurrentBroadcastCheckpointVersion:0,ReadResource));
-            if(review!=null&&review.venue_id!=venue.Manifest.Id)throw new ArgumentException("Review venue mismatch.");
             var profile=CompetitionProfile.FromJson(ReadResource(ProfileResource));
+            var venue=new VenueAuthoringPlan(manifest,ReadResource,
+                CareerRaceProvider.BroadcastCheckpoints(manifest.Id,review==null?CareerRaceProvider.CurrentBroadcastCheckpointVersion:0,ReadResource,profile.Format));
+            if(review!=null&&review.venue_id!=venue.Manifest.Id)throw new ArgumentException("Review venue mismatch.");
             if(entry!=null&&(entry.format_id=="sprint"?CompetitionFormat.Sprint:CompetitionFormat.MassStart)!=profile.Format)throw new ArgumentException("Review format mismatch.");
             Initialize(venue,profile,RaceRoutePlan.FromJson(ReadResource(RouteResource)),
                 RaceSnowConditions.FromJson(ReadResource(ConditionsResource)),FieldCount);

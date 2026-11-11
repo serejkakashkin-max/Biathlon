@@ -32,18 +32,30 @@ namespace Biathlon.PlayModeTests
                 using(var submit=NavigationSubmitEvent.GetPooled())start.SendEvent(submit);
                 Assert.That(menu.Race.Loading,Is.True);Assert.That(menu.Race.Host,Is.Null);Assert.That(menu.Root.Q("race_loading_screen"),Is.Not.Null);Assert.That(menu.Root.Q<Button>("start_race"),Is.Null);
                 Assert.Throws<InvalidOperationException>(()=>menu.Race.Launch(menu));menu.Back();Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));
-                var stages=new HashSet<CareerRaceLoadingStage>();var frames=new List<int>();var seenHost=false;
+                var stages=new HashSet<CareerRaceLoadingStage>();var frames=new List<int>();var seenHost=false;Label preparedClock=null;
                 for(int i=0;i<40&&menu.Race.Loading;i++)
                 {
                     stages.Add(menu.Race.LoadingStage);frames.Add(Time.frameCount);
                     Assert.That(menu.Root.Q<Label>("race_loading_status").text,Is.Not.Empty);Assert.That(store.Json,Is.EqualTo(before));
                     if(menu.Race.Host!=null){seenHost=true;Assert.That(menu.Race.Host.enabled,Is.False);Assert.That(menu.Race.Host.Runner.Field.Tick.Value,Is.Zero);Assert.That(menu.Race.Host.WaitingForPlayerStart,Is.False);
-                        Assert.That(menu.Race.Host.GameplayHud.enabled,Is.False,"No independently sorted race HUD may appear over the loader.");Assert.That(menu.Race.Host.GameplayHud.Root?.panel,Is.Null,"HUD document must not paint while loading.");}
+                        if(menu.Race.LoadingStage==CareerRaceLoadingStage.Ready)
+                        {
+                            var hud=menu.Race.Host.GameplayHud;
+                            Assert.That(hud.enabled,Is.True);
+                            var hudDocument=Array.Find(Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None),doc=>doc.rootVisualElement==hud.Root);
+                            Assert.That(hudDocument.panelSettings.sortingOrder,Is.LessThan(menu.GetComponent<UIDocument>().panelSettings.sortingOrder),"Warm the retained HUD behind the opaque loader before starting the countdown.");
+                            Assert.That(hud.Root.panel,Is.Not.Null);
+                            preparedClock=hud.Root.Q<Label>("race_clock");
+                        }
+                        else
+                        {Assert.That(menu.Race.Host.GameplayHud.enabled,Is.False);Assert.That(menu.Race.Host.GameplayHud.Root?.panel,Is.Null);}}
                     yield return null;
                 }
                 Assert.That(stages.Count,Is.EqualTo(4));Assert.That(seenHost,Is.True);Assert.That(menu.Race.Loading,Is.False);
                 Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Race));Assert.That(menu.Race.Host.enabled,Is.True);
                 Assert.That(menu.Race.Host.GameplayHud.enabled,Is.True,"The HUD appears at the handoff to the race.");
+                Assert.That(preparedClock,Is.Not.Null);
+                Assert.That(menu.Race.Host.GameplayHud.Root.Q<Label>("race_clock"),Is.SameAs(preparedClock),"The countdown uses the already rendered HUD tree.");
                 Assert.That(menu.Race.Host.WaitingForPlayerStart,Is.True);Assert.That(menu.Race.Host.Runner.Field.Tick.Value,Is.Zero);
                 Assert.That(menu.Root.style.display.value,Is.EqualTo(DisplayStyle.None));Assert.That(store.Json,Is.EqualTo(before));
                 menu.Race.Pause();yield return null;menu.Race.Abandon();Assert.That(menu.Root.Q("race_loading_screen"),Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));Assert.That(store.Json,Is.EqualTo(before));

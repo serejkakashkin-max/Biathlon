@@ -93,6 +93,33 @@ namespace Biathlon.Tests
             return (runner,stepper,events);
         }
 
+        [Test]
+        public void PreparingTheFirstPublicationKeepsTheLazyContextAndAcceptedRaceIdentical()
+        {
+            var prepared=InitialCandidate(3);
+            var lazy=InitialCandidate(3);
+            var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            typeof(PackSprintFieldSession).GetField("initialScopedContext",flags).SetValue(lazy.runner.Field,null);
+            var inner=typeof(PackSprintFieldSession).GetField("field",flags).GetValue(lazy.runner.Field);
+            typeof(SprintFieldSession).GetField("initialScopedContext",flags).SetValue(inner,null);
+            Assert.That(prepared.runner.Field.ContextJson,Is.EqualTo(lazy.runner.Field.ContextJson));
+            Assert.That(prepared.runner.Field.Tick.Value,Is.Zero);
+            Assert.That(prepared.runner.Field.HasManualScopedWorldState,Is.False);
+            Assert.That(prepared.events.Count,Is.EqualTo(lazy.events.Count));
+            for(int tick=0;tick<8;tick++)
+            {
+                prepared.runner.Step();lazy.runner.Step();
+                Assert.That(prepared.runner.Field.ContextJson,Is.EqualTo(lazy.runner.Field.ContextJson));
+                Assert.That(prepared.events.Count,Is.EqualTo(lazy.events.Count));
+                for(int i=0;i<prepared.runner.Field.Count;i++)
+                {
+                    Assert.That(prepared.stepper.World.GetActor(i).Pose,Is.EqualTo(lazy.stepper.World.GetActor(i).Pose));
+                    Assert.That(prepared.stepper.World.GetActor(i).Velocity,Is.EqualTo(lazy.stepper.World.GetActor(i).Velocity));
+                    Assert.That(prepared.runner.Field.GetAthlete(i).Motion,Is.EqualTo(lazy.runner.Field.GetAthlete(i).Motion));
+                }
+            }
+        }
+
         [Test] public void ManualAiAndPlayerUseSharedClockAndKeepStreamSelectionExplicit()
         {
             var f=InitialCandidate(3);

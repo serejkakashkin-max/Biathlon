@@ -37,6 +37,7 @@ namespace Biathlon.PlayModeTests
         }
         [UnityTest]public IEnumerator ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer()=>CheckReplay(0);
         [UnityTest]public IEnumerator ReplayKeepsTheRecordedBroadcastCheckpointVersion()=>CheckReplay(1);
+        [UnityTest]public IEnumerator ReplaySupportsTheCurrentBroadcastCheckpointVersion()=>CheckReplay(2);
         private IEnumerator CheckReplay(int checkpointVersion)
         {
             folder=Path.Combine(Path.GetTempPath(),"biathlon-viewer-"+Guid.NewGuid().ToString("N"));var library=new RaceReplayLibrary(folder);

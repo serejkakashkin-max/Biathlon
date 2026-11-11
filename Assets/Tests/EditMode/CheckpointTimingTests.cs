@@ -9,6 +9,39 @@ namespace Biathlon.Tests
     public class CheckpointTimingTests
     {
         [Test]
+        public void CurrentMassStartKeepsTheMiddleLineAndLegacyRecordingsKeepTheirOriginalSplits()
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            var manifest=VenueManifest.FromJson(Read(root+"manifest"));
+            var mass=new VenueAuthoringPlan(manifest,Read,Biathlon.AI.CareerRaceProvider.BroadcastCheckpoints(manifest.Id,2,Read,CompetitionFormat.MassStart));
+            Assert.That(mass.AuthoredTrack.CheckpointCount,Is.EqualTo(3));
+            Assert.That(mass.Track.CheckpointCount,Is.EqualTo(3));
+            var ids=new string[mass.Track.CheckpointCount];
+            for(int i=0;i<ids.Length;i++)ids[i]=mass.Track.GetCheckpoint(i).Id;
+            Assert.That(ids,Is.EquivalentTo(new[]{"climb_top","range_entry_split","range_exit_split"}));
+            for(int i=0;i<mass.Formats.Count;i++)
+            {
+                var binding=mass.Formats.Get(i);
+                if(binding.Profile.Format!=CompetitionFormat.MassStart)continue;
+                var route=new RaceRoute(mass.Track,binding.Route,binding.Profile.ToRouteRequirements(),mass.Junctions,mass.Connections);
+                var layout=new CheckpointLayout(mass.Track,route);
+                Assert.That(layout.Get(0).CheckpointId,Is.EqualTo("climb_top"));
+                Assert.That(layout.Get(0).RouteNanometers,Is.EqualTo(372323*SkiState.NanometersPerMillimeter));
+                for(int ordinal=0;ordinal<layout.Count;ordinal++)
+                    Assert.That(layout.Get(ordinal).CheckpointId,Is.Not.EqualTo("ridge_straight_split").And.Not.EqualTo("forest_straight_split"));
+            }
+            foreach(var format in new[]{CompetitionFormat.Sprint,CompetitionFormat.Pursuit,CompetitionFormat.MassStart})
+            {
+                var legacy=new VenueAuthoringPlan(manifest,Read,Biathlon.AI.CareerRaceProvider.BroadcastCheckpoints(manifest.Id,1,Read,format));
+                Assert.That(legacy.Track.CheckpointCount,Is.EqualTo(7));
+                if(format!=CompetitionFormat.MassStart)
+                    Assert.That(Biathlon.AI.CareerRaceProvider.BroadcastCheckpoints(manifest.Id,2,Read,format),Is.EqualTo(Read(root+"broadcast_checkpoints_v1")));
+            }
+
+        }
+
+        [Test]
         public void AdditionalWoodlandLinesFollowEveryLapWithoutChangingTacticalReference()
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";

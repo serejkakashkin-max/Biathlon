@@ -3,9 +3,28 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
+    // Prepared during composition. Publish only after the first accepted tick,
+    // with the same context bytes as lazy publication and a safe stale-cache check.
+    internal sealed class ManualScopedPublicationContext
+    {
+        private readonly ManualScopedWorldRoster world;
+        private readonly string source, worldSource;
+        internal string Published {get;}
+        internal ManualScopedPublicationContext(ManualScopedWorldRoster world,string source,string policy)
+        {
+            this.world=world;this.source=source;worldSource=world.ContextJson;
+            string extra=ShootingModelDefinitions.EncodeContext(policy,"world_context_sha256:"+ManualContextIdentity.Sha256(worldSource),world.InitialStateContextJson);
+            Published=source.Substring(0,source.Length-1)+","+extra.Substring(1);
+        }
+        internal bool Matches(ManualScopedWorldRoster candidate,string context)=>
+            ReferenceEquals(world,candidate)&&ReferenceEquals(source,context)&&ReferenceEquals(worldSource,candidate.ContextJson);
+    }
     public sealed partial class SprintFieldSession
     {
         private ManualScopedWorldRoster manualScopedWorld;
+        private ManualScopedPublicationContext initialScopedContext;
+        internal void PrepareManualScopedContext(ManualScopedWorldRoster world)=>
+            initialScopedContext=new ManualScopedPublicationContext(world,ContextJson,"manual_scoped_field_clock_publication_v2_context_reference");
         internal void PublishManualScopedPrepared(ReadOnlySpan<SprintAthleteInput> inputs,
             ReadOnlySpan<SprintStepPreview> prepared,ManualScopedWorldPreview proof)
         {
@@ -23,16 +42,22 @@ namespace Biathlon.Simulation
             string next=ContextJson;
             if(manualScopedWorld==null)
             {
-                string extra=ShootingModelDefinitions.EncodeContext("manual_scoped_field_clock_publication_v2_context_reference","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),world.InitialStateContextJson);
-                next=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
+                if(initialScopedContext==null||!initialScopedContext.Matches(world,ContextJson))PrepareManualScopedContext(world);
+                next=initialScopedContext.Published;
             }
-            CommitPrepared(inputs,prepared,advanceScopedFinishers:true);manualScopedWorld=world;ContextJson=next;
+            CommitPrepared(inputs,prepared,advanceScopedFinishers:true);manualScopedWorld=world;ContextJson=next;initialScopedContext=null;
         }
     }
 
     public sealed partial class PackSprintFieldSession
     {
         private ManualScopedWorldRoster manualScopedWorld;
+        private ManualScopedPublicationContext initialScopedContext;
+        internal void PrepareManualScopedContext(ManualScopedWorldRoster world)
+        {
+            initialScopedContext=new ManualScopedPublicationContext(world,ContextJson,"manual_scoped_pack_publication_v2_context_reference");
+            field.PrepareManualScopedContext(world);
+        }
         private readonly ManualRacePathActorFrame[] manualScopedFrames;
         public bool HasManualScopedWorldState=>manualScopedWorld!=null;
         public bool IsStartReleaseHeld(int index)=>manualScopedWorld!=null&&manualScopedWorld.IsStartReleaseHeld(index);
@@ -104,8 +129,8 @@ namespace Biathlon.Simulation
             string next=ContextJson;
             if(manualScopedWorld==null)
             {
-                string extra=ShootingModelDefinitions.EncodeContext("manual_scoped_pack_publication_v2_context_reference","world_context_sha256:"+ManualContextIdentity.Sha256(proof.Owner.ContextJson),proof.Owner.InitialStateContextJson);
-                next=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
+                if(initialScopedContext==null||!initialScopedContext.Matches(proof.Owner,ContextJson))PrepareManualScopedContext(proof.Owner);
+                next=initialScopedContext.Published;
             }
             field.PublishManualScopedPrepared(inputs,prepared,proof);
             for(int i=0;i<Count;i++)
@@ -118,7 +143,7 @@ namespace Biathlon.Simulation
             proof.Owner.Commit(proof);CommitManualScopedReservations(resource);
             CommitManualScopedRangeOrder(rangeOrder);
             for(int i=0;i<Count;i++)manualScopedFrames[i]=proof.Owner.GetActor(i);
-            manualScopedWorld=proof.Owner;ContextJson=next;
+            manualScopedWorld=proof.Owner;ContextJson=next;initialScopedContext=null;
         }
     }
 }

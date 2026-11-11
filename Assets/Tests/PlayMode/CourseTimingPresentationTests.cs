@@ -22,6 +22,32 @@ namespace Biathlon.PlayModeTests
             VenueManifest.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/manifest")),ProductionVenueHost.ReadResource,
             extended?ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/broadcast_checkpoints_v1"):null);
 
+        [Test]
+        public void CurrentMassStartHasOnePortalAcrossTheForestAndClimbSection()
+        {
+            const string resource="Biathlon/Venues/woodland_basin_v1/";
+            var manifest=VenueManifest.FromJson(ProductionVenueHost.ReadResource(resource+"manifest"));
+            var plan=new VenueAuthoringPlan(manifest,ProductionVenueHost.ReadResource,
+                Biathlon.AI.CareerRaceProvider.BroadcastCheckpoints(manifest.Id,2,ProductionVenueHost.ReadResource,CompetitionFormat.MassStart));
+            var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get).Single(x=>x.Profile.Format==CompetitionFormat.MassStart);
+            var root=new GameObject("Mass Start reduced timing line review");
+            try
+            {
+                var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
+                host.Initialize(plan,binding.Profile,binding.Route,
+                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:3);
+                var gates=host.GetComponent<CourseTimingPresentation>();
+                Assert.That(Enumerable.Range(0,gates.TimingLines).Select(gates.CheckpointId),
+                    Is.EquivalentTo(new[]{"climb_top","range_entry_split","range_exit_split"}));
+                int retained=Enumerable.Range(0,gates.TimingLines).Single(i=>gates.CheckpointId(i)=="climb_top");
+                var layout=new CheckpointLayout(host.Runner.Field.Track,host.Runner.Field.Route);
+                Assert.That(gates.DistanceLabel(retained),Is.EqualTo(host.DistanceView.Kilometers(layout.Get(0).RouteNanometers/(double)SkiState.NanometersPerMeter,System.Globalization.CultureInfo.InvariantCulture)+" KM"));
+                Assert.That(gates.DistanceLabel(retained),Is.EqualTo("1.16 KM"));
+                Assert.That(gates.GateTransform(retained).GetComponentsInChildren<Collider>(true),Is.Empty);
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
+
         [UnityTest]
         public IEnumerator WoodlandMiniWindowPagesThroughAllArrivalsAndFreezesThreeAtThePlayersCrossing()
         {
@@ -29,7 +55,7 @@ namespace Biathlon.PlayModeTests
             var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
                 .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
             var root=new GameObject("Live timing on Woodland Basin");
-            const string capturePath="artifacts/m16-8-split-scroll/";
+            const string capturePath="artifacts/m16-8-mass-start/";
             bool capture=File.Exists(capturePath+"capture.flag");
             try
             {
@@ -85,7 +111,7 @@ namespace Biathlon.PlayModeTests
                     }
                 }
 
-                Assert.That(shownStarts.Take(3),Is.EqualTo(new[]{1,4,5}),"Show full pages in order and fill the short final page.");
+                Assert.That(shownStarts.Take(5),Is.EqualTo(new[]{1,2,3,4,5}),"Each update advances one place while three athletes remain visible.");
                 Assert.That(shownRanks.OrderBy(rank=>rank),Is.EqualTo(Enumerable.Range(1,7)));
                 var own=field.GetAthlete(featured).Checkpoints.Get(0);
                 var atCrossing=CheckpointStandings.Capture(field,0,own.GlobalTime);

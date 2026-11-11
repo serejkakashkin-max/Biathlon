@@ -73,6 +73,11 @@ namespace Biathlon.Unity
             "До отсечки нижняя полоса листает весь протокол по три спортсмена. При пересечении она фиксирует тройку с вашим выделенным результатом.\r\n",
             "M16.8");
 
+        public static void BuildM168MassStartReview() => BuildM167Review("Builds/M16_8_Mass_Start_Review",
+            "m168_mass_start_review", null,
+            "В масс-старте убраны две близкие отсечки. В эфирной полосе три карточки сдвигаются по одному спортсмену. Подготовка первого такта перенесена в загрузку.\r\n",
+            "M16.8");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {

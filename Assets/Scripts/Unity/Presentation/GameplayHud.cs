@@ -41,6 +41,7 @@ namespace Biathlon.Unity.Presentation
         private GameplayHudSettings settings;
         private UiTextCatalog text;
         private PanelSettings panel;
+        private float panelOrderAfterLoading;
         private UIDocument document;
         private GameObject documentObject;
         private ProductionVenueHost host;
@@ -83,6 +84,13 @@ namespace Biathlon.Unity.Presentation
             if(locale!="ru"&&locale!="en"||textSizeIndex<0||textSizeIndex>2)throw new ArgumentException("Invalid HUD preferences.");
             Locale=locale;TextSizeIndex=textSizeIndex;displayName=athleteName??"";Build();rendered=null;Refresh();
         }
+        internal void PrepareBehindLoading(PanelSettings loadingPanel)
+        {
+            panelOrderAfterLoading=panel.sortingOrder;
+            panel.sortingOrder=loadingPanel.sortingOrder-1;
+            enabled=true;
+        }
+        internal void FinishLoading()=>panel.sortingOrder=panelOrderAfterLoading;
         private void Build()
         {
             Root.Clear();Root.style.flexGrow=1;

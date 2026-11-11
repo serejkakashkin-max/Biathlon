@@ -1,0 +1,670 @@
+{
+  "schema_version": 1,
+  "id": "m168_mass_start_review_20261111",
+  "date": "2026-11-11",
+  "retained_mass_gate": {
+    "id": "climb_top",
+    "route_m": 372.323,
+    "display": "1.16 KM"
+  },
+  "removed_mass_gates": [
+    "forest_straight_split",
+    "ridge_straight_split"
+  ],
+  "broadcast_checkpoint_version": 2,
+  "three_card_windows": [
+    "1-3",
+    "2-4",
+    "3-5"
+  ],
+  "build": {
+    "schema_version": 1,
+    "id": "m168_mass_start_review",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 540,
+    "bytes": 902121550,
+    "seconds": 43.5038942
+  },
+  "unity_tests": [
+    {
+      "artifact": "artifacts/m16-8-mass-start/editmode-runner.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 53,
+        "PassedTests": 53,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:07:01.4804074"
+      },
+      "tests": [
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.AdditionalWoodlandLinesFollowEveryLapWithoutChangingTacticalReference",
+          "Status": "Passed",
+          "Duration": "00:00:02.1470000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.AuthoredOccurrencesKeepColocatedLapMarkersAndExactCrossingTimes",
+          "Status": "Passed",
+          "Duration": "00:00:00.0050000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.CompleteSplitEventsReplayAndTimingHotPathDoesNotAllocate",
+          "Status": "Passed",
+          "Duration": "00:00:00.0050000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.CurrentMassStartKeepsTheMiddleLineAndLegacyRecordingsKeepTheirOriginalSplits",
+          "Status": "Passed",
+          "Duration": "00:00:03.1040000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.LaterFasterStarterUpdatesElapsedLeaderWhileGlobalLeaderAndTiesStayStable",
+          "Status": "Passed",
+          "Duration": "00:00:00.0090000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.PenaltyAndShootingStopsDoNotRepeatMainRouteSplitsAndInvalidProgressIsAtomic",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.ProductionStadiumSplitUsesRetainedGantryAfterPenaltyWithoutATimeZeroSplit",
+          "Status": "Passed",
+          "Duration": "00:00:01.3660000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Elapsed)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Global)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.CheckpointTimingTests.ThirtyAthleteRepeatedTimingQueryCpuProfile",
+          "Status": "Passed",
+          "Duration": "00:00:00.0560000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults",
+          "Status": "Passed",
+          "Duration": "00:00:22.5190000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.JournalReplaysExactlyAndRequiresItsRecordedForceLaw(PassiveCurvedV26,LegacyV25)",
+          "Status": "Passed",
+          "Duration": "00:01:21.2320000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.JournalReplaysExactlyAndRequiresItsRecordedForceLaw(IndependentCourseV27,PassiveCurvedV26)",
+          "Status": "Passed",
+          "Duration": "00:01:20.4940000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared",
+          "Status": "Passed",
+          "Duration": "00:00:57.9110000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands",
+          "Status": "Passed",
+          "Duration": "00:00:20.7520000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick",
+          "Status": "Passed",
+          "Duration": "00:00:41.7040000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.ActivePhaseWorldReceiptPublishesPackClockPositionAndDetachedPresentation(\"start\")",
+          "Status": "Passed",
+          "Duration": "00:00:06.4500000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.ActivePhaseWorldReceiptPublishesPackClockPositionAndDetachedPresentation(\"base\")",
+          "Status": "Passed",
+          "Duration": "00:00:03.6090000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.ActivePhaseWorldReceiptPublishesPackClockPositionAndDetachedPresentation(\"approach\")",
+          "Status": "Passed",
+          "Duration": "00:00:04.4420000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.ActivePhaseWorldReceiptPublishesPackClockPositionAndDetachedPresentation(\"shooting\")",
+          "Status": "Passed",
+          "Duration": "00:00:05.0290000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.ActivePhaseWorldReceiptPublishesPackClockPositionAndDetachedPresentation(\"exit\")",
+          "Status": "Passed",
+          "Duration": "00:00:04.8590000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.ActivePhaseWorldReceiptPublishesPackClockPositionAndDetachedPresentation(\"penalty\")",
+          "Status": "Passed",
+          "Duration": "00:00:04.5950000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.AScopedCrossingPublishesTheSameExactSplitToTheFieldTimingBoard",
+          "Status": "Passed",
+          "Duration": "00:00:04.5250000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.AStaleLastMassStartRowCannotPublishTheEarlierRowsOrPackSideState",
+          "Status": "Passed",
+          "Duration": "00:00:06.8090000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.IndependentFieldPublishesScopedClockAndRejectsLegacyBeforeSchedulerMutation",
+          "Status": "Passed",
+          "Duration": "00:00:03.2930000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.StalePreviewForeignBodyOrReusableMatOwnershipCannotPartiallyPublish(True,False,False)",
+          "Status": "Passed",
+          "Duration": "00:00:03.6370000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.StalePreviewForeignBodyOrReusableMatOwnershipCannotPartiallyPublish(False,True,False)",
+          "Status": "Passed",
+          "Duration": "00:00:03.6660000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.StalePreviewForeignBodyOrReusableMatOwnershipCannotPartiallyPublish(False,False,True)",
+          "Status": "Passed",
+          "Duration": "00:00:03.7050000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.WarmScopedFieldPublicationHasNoPerTickManagedAllocation(False)",
+          "Status": "Passed",
+          "Duration": "00:00:04.9010000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldPublicationTests.WarmScopedFieldPublicationHasNoPerTickManagedAllocation(True)",
+          "Status": "Passed",
+          "Duration": "00:00:03.5260000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedFieldStepperTests.PreparingTheFirstPublicationKeepsTheLazyContextAndAcceptedRaceIdentical",
+          "Status": "Passed",
+          "Duration": "00:00:43.1800000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.InvalidMetadataAndUnpairedFilesAreIgnoredAndIdsCannotEscapeLibrary",
+          "Status": "Passed",
+          "Duration": "00:00:00.0140000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.MovingOvertakeVersionIsExplicitAndMissingLegacyFieldRemainsAbsent",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.PhysicalStartReleaseVersionIsRetainedInReplayMetadata",
+          "Status": "Passed",
+          "Duration": "00:00:00",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.PublishesCompletePairsAndRejectsCorruptedCommandsAndDuplicatePublication",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.QueuedReplayPublishesVerifiedBytesInOrder",
+          "Status": "Passed",
+          "Duration": "00:00:00.0630000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.StalledReplayDestinationCannotBlockRaceProducer",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedMovingOvertakeVersionCannotBePublished(-1)",
+          "Status": "Passed",
+          "Duration": "00:00:00",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedMovingOvertakeVersionCannotBePublished(3)",
+          "Status": "Passed",
+          "Duration": "00:00:00",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedSnowSearchVersionCannotBePublished(-1)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedSnowSearchVersionCannotBePublished(2)",
+          "Status": "Passed",
+          "Duration": "00:00:00",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartContinuationVersionCannotBePublished(-1)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartContinuationVersionCannotBePublished(4)",
+          "Status": "Passed",
+          "Duration": "00:00:00",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartOrderVersionCannotBePublished(-1)",
+          "Status": "Passed",
+          "Duration": "00:00:00",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartOrderVersionCannotBePublished(3)",
+          "Status": "Passed",
+          "Duration": "00:00:00",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.BrakeIsExplicitRecordedIntentAndReleasingItDoesNotResetHeldPace",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.BroadcastSlidesOneResultAtATimeThroughNineteenArrivalsAndFreezesAtTwentieth",
+          "Status": "Passed",
+          "Duration": "00:00:00.0050000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.CalmAndHighPulseGuidanceFollowsActualBreathingFormula",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.CrossingCardKeepsRankWhenAFasterSprintAthleteArrivesLaterInTheSameTick",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.LowSpeedRecoveryTurnsNinetyDegreesWithinOneSecondWithoutTranslation",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.PhysicalPivotPaysForAngularWorkInsteadOfSnappingHeadingAtRest",
+          "Status": "Passed",
+          "Duration": "00:00:01.0220000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.RemainingFieldSimulationKeepsEveryTickAndIdenticalResult",
+          "Status": "Passed",
+          "Duration": "00:00:00.7210000",
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "Name": "Biathlon.Tests.RaceReviewTests.SplitTableUsesSameLineAndElapsedClockForIntervalStarters",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000",
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    {
+      "artifact": "artifacts/m16-8-mass-start/playmode-final.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 22,
+        "PassedTests": 22,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:03:22.6174783"
+      },
+      "tests": [
+        {
+          "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.EarlierOccurrenceRemainsSelectedAcrossNewSplitsPreferencesAndPause",
+          "Status": "Passed",
+          "Duration": "00:00:01.4540000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.KeyboardAndPadHistoryEdgesDoNotConsumeSkiCommandsOrAdvanceRace",
+          "Status": "Passed",
+          "Duration": "00:00:00.2600000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.LiveHostHidesCursorAcrossTabAndRestoresItForPauseFocusLossAndDisposal",
+          "Status": "Passed",
+          "Duration": "00:00:00.1700000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.LiveSplitUsesOnlyRecordedSameLineTimesAndHandsOffToHistory",
+          "Status": "Passed",
+          "Duration": "00:00:00.1800000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.MinutePlusGapRowsReuseClockNotationForBothLocales",
+          "Status": "Passed",
+          "Duration": "00:00:00.1280000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.CurrentMassStartHasOnePortalAcrossTheForestAndClimbSection",
+          "Status": "Passed",
+          "Duration": "00:00:23.2380000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.LegacyMeshPlacementsKeepUniformWidthAndExplicitFinishWidthSurvivesRoundTrip",
+          "Status": "Passed",
+          "Duration": "00:00:00.0100000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.StadiumSplitReusesActualNativeGantryWithOneDistanceSign",
+          "Status": "Passed",
+          "Duration": "00:00:00.6540000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.TimingFeetFollowActualSlopedSnowWithoutMovingTheAuthorityStripe",
+          "Status": "Passed",
+          "Duration": "00:00:00.0960000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.TimingStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear(False)",
+          "Status": "Passed",
+          "Duration": "00:00:00.8600000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.TimingStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear(True)",
+          "Status": "Passed",
+          "Duration": "00:00:00.8210000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.WidenedFinishGantryKeepsEveryActualLowSupportBeyondTheFinishShoulders",
+          "Status": "Passed",
+          "Duration": "00:00:00.6170000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.WoodlandMiniWindowPagesThroughAllArrivalsAndFreezesThreeAtThePlayersCrossing",
+          "Status": "Passed",
+          "Duration": "00:00:26.1560000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RaceLoadingPresentationTests.APreparationFailureRemovesLoadingAndReturnsAnActionableMenuWithoutSaving",
+          "Status": "Passed",
+          "Duration": "00:00:01.0730000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RaceLoadingPresentationTests.FrozenRealLoadingScreenFitsLocalesSizesAndReducedMotion",
+          "Status": "Passed",
+          "Duration": "00:00:01.0810000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RaceLoadingPresentationTests.RealLaunchPaintsAllStagesBeforeWorkAndThenArmsTheOriginalCountdown",
+          "Status": "Passed",
+          "Duration": "00:00:32.6680000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.ActualKeyboardRaisesHoldsAndLowersPaceAndCannotGoBelowZero",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.CountdownIsVisibleInRetainedHudWhileAuthorityRemainsFrozen",
+          "Status": "Passed",
+          "Duration": "00:00:19.9890000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.ThreeSecondPreparationFreezesRaceAndInputClocksIncludingTheGoBoundary",
+          "Status": "Passed",
+          "Duration": "00:00:19.7960000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.UntouchedPaceStartsAtZeroAndAcceptsTheSharedStopBrake",
+          "Status": "Passed",
+          "Duration": "00:00:19.4840000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RangeBroadcastHudTests.ActualCareerMassStartShowsLiveQueueFlagsMissFlashAndRetainedSeriesWithoutPaging",
+          "Status": "Passed",
+          "Duration": "00:00:53.1790000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.RangeBroadcastHudTests.DisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled",
+          "Status": "Passed",
+          "Duration": "00:00:00.1080000"
+        }
+      ]
+    },
+    {
+      "artifact": "artifacts/m16-8-mass-start/replay-mass-final.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 1,
+        "PassedTests": 1,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:01:32.0521963"
+      },
+      "tests": [
+        {
+          "Name": "Biathlon.PlayModeTests.CareerMassStartReplayTests.ReducedMassTimingJournalRetainsItsSplitsAndBackwardSeek",
+          "Status": "Passed",
+          "Duration": "00:01:31.9390000"
+        }
+      ]
+    },
+    {
+      "artifact": "artifacts/m16-8-mass-start/replay-legacy-final.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 1,
+        "PassedTests": 1,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:01:54.3448576"
+      },
+      "tests": [
+        {
+          "Name": "Biathlon.PlayModeTests.RaceReplayPlayModeTests.ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer",
+          "Status": "Passed",
+          "Duration": "00:01:54.1860000"
+        }
+      ]
+    },
+    {
+      "artifact": "artifacts/m16-8-mass-start/replay-current-final.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 1,
+        "PassedTests": 1,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:01:55.2336751"
+      },
+      "tests": [
+        {
+          "Name": "Biathlon.PlayModeTests.RaceReplayPlayModeTests.ReplaySupportsTheCurrentBroadcastCheckpointVersion",
+          "Status": "Passed",
+          "Duration": "00:01:55.0920000"
+        }
+      ]
+    }
+  ],
+  "dotnet_counters": {
+    "total": "52",
+    "executed": "52",
+    "passed": "52",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "profiles": {
+    "checked": 25,
+    "unchanged": true
+  },
+  "project_state_original_prefix_bytes": 3334358,
+  "console": {
+    "last_sequence": 451898,
+    "errors_exceptions_asserts_after_sequence": 450626,
+    "new_count": 0
+  },
+  "timing": {
+    "cpu": "AMD Ryzen 9 9950X3D",
+    "gpu": "NVIDIA RTX 5080",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "tier": "High",
+    "api": "D3D11",
+    "athletes": 30,
+    "mode": "Realtime copied career; AI owner input; UI and replay recording; offscreen camera render; no swapchain/GPU timing. Active-frame statistics exclude countdown.",
+    "before": {
+      "frames": 2814,
+      "active_frames": 2508,
+      "seconds": 30.0027804,
+      "final_tick": 533,
+      "first_active_tick": 1,
+      "first_active_frame_ms": 94.29689999999624,
+      "first_simulation_ms": 84.2701,
+      "first_physics_ms": 65.4832,
+      "first_commit_ms": 44.2423,
+      "active_frame_p95_ms": 16.14399999999705,
+      "active_frame_peak_ms": 94.29689999999624,
+      "active_frames_over_33_3_ms": 3,
+      "career_unchanged": true,
+      "errors": []
+    },
+    "after": {
+      "frames": 2836,
+      "active_frames": 2531,
+      "seconds": 30.01891470000001,
+      "final_tick": 534,
+      "first_active_tick": 1,
+      "first_active_frame_ms": 16.019900000003418,
+      "first_simulation_ms": 5.9748,
+      "first_physics_ms": 2.7008,
+      "first_commit_ms": 0.6342,
+      "active_frame_p95_ms": 16.00159999999562,
+      "active_frame_peak_ms": 36.20109999999954,
+      "active_frames_over_33_3_ms": 2,
+      "career_unchanged": true,
+      "errors": []
+    }
+  },
+  "visual_check": {
+    "image": "game-view.png",
+    "source": "Actual Unity Game View at 2560x1440; retained 1.16 KM gate, forest, crowd and three lower-third cards"
+  },
+  "transport_note": "Combined replay request and Unity EditMode request exceeded the MCP 300-second transport limit. Replays were rerun separately. All 53 completed EditMode results were retrieved read-only from the original runner after it finished."
+}

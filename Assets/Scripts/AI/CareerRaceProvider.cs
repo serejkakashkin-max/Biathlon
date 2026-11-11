@@ -29,11 +29,13 @@ namespace Biathlon.AI
         public const int CurrentStartOrderVersion=2;
         public const int CurrentEquipmentVersion=1;
         public const int CurrentWeatherTimelineVersion=2;
-        public const int CurrentBroadcastCheckpointVersion=1;
-        public static string BroadcastCheckpoints(string venueId,int version,Func<string,string> readResource)
+        public const int CurrentBroadcastCheckpointVersion=2;
+        public static string BroadcastCheckpoints(string venueId,int version,Func<string,string> readResource,CompetitionFormat format)
         {
             if(version<0||version>CurrentBroadcastCheckpointVersion)throw new ArgumentOutOfRangeException(nameof(version));
-            return version!=0&&venueId==Woodland?readResource(WoodlandRoot+"broadcast_checkpoints_v1"):null;
+            if(version==0||venueId!=Woodland)return null;
+            string resource=version>=2&&format==CompetitionFormat.MassStart?"broadcast_checkpoints_mass_start_v2":"broadcast_checkpoints_v1";
+            return readResource(WoodlandRoot+resource);
         }
         // Fixed stream identity (ASCII SPRINTDR), not a gameplay tuning value.
         private const ulong SprintStartDrawStream=0x535052494E544452UL;
@@ -131,7 +133,7 @@ namespace Biathlon.AI
             if(e.VenueId==Woodland)
             {
                 venue=new VenueAuthoringPlan(VenueManifest.FromJson(venueResource(WoodlandRoot+"manifest")),venueResource,
-                    BroadcastCheckpoints(e.VenueId,broadcastCheckpointVersion,venueResource));
+                    BroadcastCheckpoints(e.VenueId,broadcastCheckpointVersion,venueResource,e.Format));
                 string format=e.Format==CompetitionFormat.Sprint?"sprint":e.Format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
                 runner=ProductionVenueRaceFactory.Create(venue,
                     CompetitionProfile.FromJson(venueResource(WoodlandRoot+format+"_profile")),
