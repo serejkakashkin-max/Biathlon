@@ -78,6 +78,11 @@ namespace Biathlon.Unity
             "В масс-старте убраны две близкие отсечки. В эфирной полосе три карточки сдвигаются по одному спортсмену. Подготовка первого такта перенесена в загрузку.\r\n",
             "M16.8");
 
+        public static void BuildM168ContactReview() => BuildM167Review("Builds/M16_8_Compact_Timing_Contact_Review",
+            "m168_compact_timing_contact_review", null,
+            "Карточки эфирного табло отсечки стали однострочными. При контакте спортсмены теряют скорость и сохраняют управление поворотом.\r\n",
+            "M16.8", "Новое правило контакта действует в новых гонках. Старые повторы сохраняют записанную версию физики.\r\n");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {

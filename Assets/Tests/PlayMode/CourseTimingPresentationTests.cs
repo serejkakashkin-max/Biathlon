@@ -55,7 +55,7 @@ namespace Biathlon.PlayModeTests
             var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
                 .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
             var root=new GameObject("Live timing on Woodland Basin");
-            const string capturePath="artifacts/m16-8-mass-start/";
+            const string capturePath="artifacts/m16-8-compact-contact/";
             bool capture=File.Exists(capturePath+"capture.flag");
             try
             {
@@ -95,7 +95,11 @@ namespace Biathlon.PlayModeTests
                 Assert.That(strip.worldBound.width,Is.GreaterThan(strip.worldBound.height*8));
                 Assert.That(strip.worldBound.center.y,Is.GreaterThan(hud.Root.worldBound.height*.75f));
                 foreach(var row in cards)
+                {
                     Assert.That(row.worldBound.width,Is.GreaterThan(100));
+                    AssertOneLine(row);
+                }
+                Assert.That(strip.resolvedStyle.height,Is.EqualTo(50).Within(1));
 
                 bool capturedLaterPage=false;
                 for(int i=0;i<2000&&field.GetAthlete(featured).Checkpoints.Count==0;i++)
@@ -121,11 +125,34 @@ namespace Biathlon.PlayModeTests
                 Publish();
                 AssertResult();
                 yield return null;
+                foreach (var row in cards) AssertOneLine(row);
                 if(capture)yield return Capture("crossed");
                 for(int i=0;i<3*field.TickFrequency;i++)host.Runner.Step();
                 Publish();
                 AssertResult();
                 yield return null;
+                if (capture)
+                {
+                    hud.SetPreferences("en", 2);
+                    yield return Capture("crossed-large-text", 1024, 768);
+                }
+
+                void AssertOneLine(TimingAthleteRow row, bool showGap = true)
+                {
+                    var cells = new VisualElement[] { row.Q("timing_rank"), row.Q("nation_flag"),
+                        row.Q("timing_athlete"), row.Q("timing_elapsed"), row.Q("timing_gap") };
+                    Assert.That(cells[4].resolvedStyle.display, Is.EqualTo(showGap ? DisplayStyle.Flex : DisplayStyle.None));
+                    int visibleCells = showGap ? cells.Length : cells.Length - 1;
+                    float center = cells[0].worldBound.center.y;
+                    for (int i = 0; i < visibleCells; i++)
+                    {
+                        Assert.That(cells[i].worldBound.width, Is.Positive, cells[i].name);
+                        Assert.That(cells[i].worldBound.center.y, Is.EqualTo(center).Within(2), cells[i].name);
+                        if (i > 0) Assert.That(cells[i].worldBound.xMin, Is.GreaterThanOrEqualTo(cells[i - 1].worldBound.xMax - .5f));
+                    }
+                    Assert.That(cells[visibleCells - 1].worldBound.xMax, Is.LessThanOrEqualTo(row.worldBound.xMax));
+                    if (!showGap) Assert.That(cells[2].worldBound.width, Is.GreaterThan(55));
+                }
 
                 void AssertResult()
                 {
@@ -168,18 +195,20 @@ namespace Biathlon.PlayModeTests
                     host.Feed.Publish(RacePresentationSnapshot.Capture(field));
                     host.Proxies.Render(1);hud.Refresh();
                 }
-                IEnumerator Capture(string name)
+                IEnumerator Capture(string name, int width = 1600, int height = 900)
                 {
                     var panel=Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None)
                         .Single(document=>document.rootVisualElement==hud.Root).panelSettings;
                     var prior=RenderTexture.active;
-                    var target=new RenderTexture(1600,900,24);
+                    var target=new RenderTexture(width,height,24);
                     Texture2D image=null;
                     try
                     {
                         target.Create();
                         LiveShootingPlayerReview.ConfigureCapturePanel(panel,target);
                         yield return null;yield return null;yield return null;
+                        foreach (var row in hud.Root.Q("checkpoint_notice").Query<TimingAthleteRow>().ToList())
+                            AssertOneLine(row, showGap: width >= 1600);
                         RenderTexture.active=target;
                         image=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
                         image.ReadPixels(new Rect(0,0,target.width,target.height),0,0);

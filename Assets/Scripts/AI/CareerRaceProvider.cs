@@ -82,13 +82,12 @@ namespace Biathlon.AI
         }
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
-            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.IndependentCourseV27,bool legacySprintStartOrder=false,
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.StableAthleteContactV28,bool legacySprintStartOrder=false,
             string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=3,bool legacyAiSnowSearch=false,int movingOvertakeVersion=2,int broadcastCheckpointVersion=0)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             ManualAiSteeringDefinition.ResourceForVersion(movingOvertakeVersion);
-            if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26&&
-                courseReactionPolicy!=ManualCourseReactionPolicy.IndependentCourseV27)
+            if(courseReactionPolicy<ManualCourseReactionPolicy.LegacyV25||courseReactionPolicy>ManualCourseReactionPolicy.StableAthleteContactV28)
                 throw new ArgumentOutOfRangeException(nameof(courseReactionPolicy));
             if(e.VenueId!="synthetic_alpine"&&e.VenueId!=Woodland)throw new ArgumentException("No route adapter for this venue.");
             if(e.VenueId==Woodland&&venueResource==null)throw new InvalidOperationException("Woodland career needs its explicit resource reader.");

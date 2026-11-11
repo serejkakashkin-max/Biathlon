@@ -7,6 +7,25 @@ namespace Biathlon.Tests
 {
     public class ManualSkiContactGroupTests
     {
+        [TestCase(false)]
+        [TestCase(true)]
+        public void RacingContactBrakesWithoutChangingSteering(bool sideCut)
+        {
+            var bodies = sideCut
+                ? new[] { Actor("a", 0, 0, .8, 6), Actor("b", Body().LateralSeparation, .4, 0, 6) }
+                : new[] { Actor("a", .45, 0, 0, 7), Actor("b", 0, Body().LongitudinalSeparation, 0, 6) };
+            var output = new SkiContactMotion[2];
+            var json = PhysiologyContractTests.DefinitionJson("manual_ski_contact_group_gameplay_v2.json");
+            var result = Group(json).Preview(bodies, 2, output, new int[2]);
+            Assert.That(result.Status, Is.EqualTo(SkiContactGroupStatus.Resolved));
+            Assert.That(result.Impulses, Is.GreaterThan(0));
+            TestContext.WriteLine($"Yaw rates {output[0].YawRate:R}, {output[1].YawRate:R}. Forward speeds {output[0].Velocity.Z:R}, {output[1].Velocity.Z:R}.");
+            Assert.That(output[0].YawRate, Is.Zero);
+            Assert.That(output[1].YawRate, Is.Zero);
+            Assert.That(bodies[0].Velocity.Z - output[0].Velocity.Z, Is.InRange(.03, .75));
+            if (sideCut) Assert.That(bodies[1].Velocity.Z - output[1].Velocity.Z, Is.InRange(.03, .2));
+        }
+
         [Test] public void OffCenterRacingImpactProducesPhysicalSpinAndSpeedLossForBothBodies()
         {
             var bodies=new[]{Actor("a",.45,0,0,10),Actor("b",0,Body().LongitudinalSeparation,0,3)};

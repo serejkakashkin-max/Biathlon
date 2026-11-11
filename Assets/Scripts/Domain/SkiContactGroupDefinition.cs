@@ -15,6 +15,8 @@ namespace Biathlon.Domain
         [DataMember(Name="support_skin_fraction",EmitDefaultValue=false)] public double SupportSkinFraction {get;private set;}
         [DataMember(Name="support_recovery_speed_mps",EmitDefaultValue=false)] public double SupportRecoverySpeed {get;private set;}
         [DataMember(Name="minimum_force_piece_seconds",EmitDefaultValue=false)] public double MinimumForcePieceSeconds {get;private set;}
+        [DataMember(Name="preserve_steering",EmitDefaultValue=false)] public bool PreserveSteering {get;private set;}
+        [DataMember(Name="impact_braking_fraction",EmitDefaultValue=false)] public double ImpactBrakingFraction {get;private set;}
         public static SkiContactGroupDefinition FromJson(string json)
         {
             var d=RouteJson.Read<SkiContactGroupDefinition>(json);
@@ -26,6 +28,7 @@ namespace Biathlon.Domain
             TrackValidation.Finite(d.SupportSkinFraction,0,.5,nameof(SupportSkinFraction));
             TrackValidation.Finite(d.SupportRecoverySpeed,0,.01,nameof(SupportRecoverySpeed));
             TrackValidation.Finite(d.MinimumForcePieceSeconds,0,.001,nameof(MinimumForcePieceSeconds));
+            TrackValidation.Finite(d.ImpactBrakingFraction,0,.25,nameof(ImpactBrakingFraction));
             return d;
         }
         public string ToJson()=>RouteJson.Write(this);

@@ -60,7 +60,7 @@ namespace Biathlon.Replay
                 string.IsNullOrWhiteSpace(EventId)||string.IsNullOrWhiteSpace(VenueId)||string.IsNullOrWhiteSpace(PlayerId)||string.IsNullOrWhiteSpace(PlayerName)||
                 Format<0||Format>2||StartOrderVersion<0||StartOrderVersion>2||StartContinuationVersion<0||StartContinuationVersion>3||AiSnowSearchVersion<0||AiSnowSearchVersion>1||MovingOvertakeVersion<0||MovingOvertakeVersion>2||
                 BroadcastCheckpointVersion<0||BroadcastCheckpointVersion>2||
-                CourseReactionVersion!=0&&CourseReactionVersion!=25&&CourseReactionVersion!=26&&CourseReactionVersion!=27||
+                CourseReactionVersion!=0&&(CourseReactionVersion<(int)ManualCourseReactionPolicy.LegacyV25||CourseReactionVersion>(int)ManualCourseReactionPolicy.StableAthleteContactV28)||
                 TickFrequency<1||TickFrequency>120||TickCount<1||TickCount>1000000||Events==null||Highlights==null)
                 throw new SerializationException("Unsupported or incomplete replay metadata.");
             if(EquipmentVersion<0||EquipmentVersion>1||EquipmentVersion==0&&EquipmentSnapshotJson!=null||EquipmentVersion==1&&string.IsNullOrWhiteSpace(EquipmentSnapshotJson))throw new SerializationException("Unsupported equipment recording.");

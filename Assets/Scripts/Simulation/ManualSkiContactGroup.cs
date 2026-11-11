@@ -37,7 +37,7 @@ namespace Biathlon.Simulation
         public ManualSkiContactGroup(OccupancyDefinition body,SkiContactDefinition contact,SkiContactGroupDefinition definition)
         {
             if(definition==null)throw new ArgumentNullException(nameof(definition));
-            pair=new ManualSkiContactSystem(body,contact);this.definition=definition;
+            pair=new ManualSkiContactSystem(body,contact,definition);this.definition=definition;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_group_v4_explicit_convergence_grounded_mat",pair.AngularContextJson,definition.ToJson()});
         }
         public SkiContactGroupPreview Preview(ManualSkiContactBody[] bodies,int count,SkiContactMotion[] output,int[] order)

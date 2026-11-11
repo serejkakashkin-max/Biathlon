@@ -89,12 +89,19 @@ namespace Biathlon.Simulation
     {
         private readonly double halfLength,halfWidth;
         private readonly SkiContactDefinition definition;
+        private readonly bool preserveSteering;
+        private readonly double impactBrakingFraction;
         public string ContextJson {get;}
         public string AngularContextJson {get;}
         public ManualSkiContactSystem(OccupancyDefinition body,SkiContactDefinition definition)
+            : this(body, definition, null) { }
+
+        internal ManualSkiContactSystem(OccupancyDefinition body, SkiContactDefinition definition, SkiContactGroupDefinition group)
         {
             if(body==null||definition==null)throw new ArgumentNullException();
             this.definition=definition;
+            preserveSteering = group?.PreserveSteering ?? false;
+            impactBrakingFraction = group?.ImpactBrakingFraction ?? 0;
             // Preserve the current complete occupied envelope, including clearance.
             halfLength=body.LongitudinalSeparation*.5;halfWidth=body.LateralSeparation*.5;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_oriented_pair_contact_v1",body.ToJson(),definition.ToJson()});
@@ -188,8 +195,8 @@ namespace Biathlon.Simulation
             double nx=initial.NormalX,nz=initial.NormalZ,tx=-nz,tz=nx;
             double arx=px-a.Pose.X,arz=pz-a.Pose.Z,brx=px-b.Pose.X,brz=pz-b.Pose.Z;
             double an=arz*nx-arx*nz,at=arz*tx-arx*tz,bn=brz*nx-brx*nz,bt=brz*tx-brx*tz;
-            double ia=a.Grounded?double.PositiveInfinity:a.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
-            double ib=b.Grounded?double.PositiveInfinity:b.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
+            double ia=a.Grounded||preserveSteering?double.PositiveInfinity:a.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
+            double ib=b.Grounded||preserveSteering?double.PositiveInfinity:b.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
             double rx=a.Velocity.X+wa*arz-b.Velocity.X-wb*brz;
             double rz=a.Velocity.Z-wa*arx-b.Velocity.Z+wb*brx;
             double vn=rx*nx+rz*nz,vt=rx*tx+rz*tz;
@@ -208,6 +215,18 @@ namespace Biathlon.Simulation
             double ix=nx*jn+tx*jt,iz=nz*jn+tz*jt;
             var va=new SkiPlanarVelocity(a.Velocity.X+ix*a.InverseMass,a.Velocity.Z+iz*a.InverseMass);
             var vb=new SkiPlanarVelocity(b.Velocity.X-ix*b.InverseMass,b.Velocity.Z-iz*b.InverseMass);
+            if (impactBrakingFraction > 0)
+            {
+                // A brief loss of glide on contact. Scale both mobile velocities
+                // equally so braking cannot reverse their separating translation.
+                double speed = Math.Sqrt(Math.Max(va.X * va.X + va.Z * va.Z, vb.X * vb.X + vb.Z * vb.Z));
+                if (speed > 0)
+                {
+                    double retained = 1 - impactBrakingFraction * Math.Min(1, -vn / speed);
+                    if (!a.Grounded) va = new SkiPlanarVelocity(va.X * retained, va.Z * retained);
+                    if (!b.Grounded) vb = new SkiPlanarVelocity(vb.X * retained, vb.Z * retained);
+                }
+            }
             double nextWa=wa+(an*jn+at*jt)/ia,nextWb=wb-(bn*jn+bt*jt)/ib;
             PhysiologyNumbers.RequireRange(nextWa,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,"contact yaw");
             PhysiologyNumbers.RequireRange(nextWb,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,"contact yaw");

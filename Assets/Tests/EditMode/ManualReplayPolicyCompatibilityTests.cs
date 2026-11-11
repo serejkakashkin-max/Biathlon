@@ -139,6 +139,7 @@ namespace Biathlon.Tests
         }
         [TestCase(ManualCourseReactionPolicy.PassiveCurvedV26,ManualCourseReactionPolicy.LegacyV25)]
         [TestCase(ManualCourseReactionPolicy.IndependentCourseV27,ManualCourseReactionPolicy.PassiveCurvedV26)]
+        [TestCase(ManualCourseReactionPolicy.StableAthleteContactV28,ManualCourseReactionPolicy.IndependentCourseV27)]
         public void JournalReplaysExactlyAndRequiresItsRecordedForceLaw(ManualCourseReactionPolicy policy,ManualCourseReactionPolicy incompatible)
         {
             var source=Initial(policy);byte[] bytes;
@@ -179,9 +180,10 @@ namespace Biathlon.Tests
             Assert.That(RaceReplayInfo.FromJson(legacy).ToJson(),Is.EqualTo(legacy));Assert.That(RaceReplayInfo.FromJson(legacy).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.LegacyV25));
             info.CourseReactionVersion=26;Assert.That(info.ToJson(),Does.Contain("\"course_reaction_version\":26"));Assert.That(RaceReplayInfo.FromJson(info.ToJson()).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.PassiveCurvedV26));
             info.CourseReactionVersion=27;Assert.That(RaceReplayInfo.FromJson(info.ToJson()).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.IndependentCourseV27));
+            info.CourseReactionVersion=28;Assert.That(RaceReplayInfo.FromJson(info.ToJson()).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.StableAthleteContactV28));
             info.CourseReactionVersion=24;Assert.Throws<SerializationException>(()=>info.ToJson());
             var d=new CareerDefinitions(Read,"woodland_development_calendar_v1.json");var save=CareerMassStartSeedingTests.Create(d);var provider=new CareerRaceProvider(Read,d,Venue);
-            Assert.That(provider.Prepare(save,d.Calendar.Get(2),123).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.IndependentCourseV27));
+            Assert.That(provider.Prepare(save,d.Calendar.Get(2),123).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.StableAthleteContactV28));
             Assert.That(provider.Prepare(save,d.Calendar.Get(2),123,courseReactionPolicy:ManualCourseReactionPolicy.PassiveCurvedV26).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.PassiveCurvedV26));
             Assert.That(provider.Prepare(save,d.Calendar.Get(2),123,courseReactionPolicy:ManualCourseReactionPolicy.LegacyV25).CourseReactionPolicy,Is.EqualTo(ManualCourseReactionPolicy.LegacyV25));
             Assert.Throws<ArgumentOutOfRangeException>(()=>provider.Prepare(save,d.Calendar.Get(2),123,courseReactionPolicy:(ManualCourseReactionPolicy)24));

@@ -14,7 +14,9 @@ namespace Biathlon.Simulation
             var models=new SkiModelDefinitions(ProductionGameplayDefinitions.Bind(readCore));
             var contact=SkiContactDefinition.FromJson(readCore("manual_ski_contact_gameplay_v1.json"));
             var work=SkiContactSweepDefinition.FromJson(readCore("manual_ski_contact_sweep_v1.json"));
-            var group=SkiContactGroupDefinition.FromJson(readCore("manual_ski_contact_group_gameplay_v1.json"));
+            string groupResource = courseReactionPolicy == ManualCourseReactionPolicy.StableAthleteContactV28
+                ? "manual_ski_contact_group_gameplay_v2.json" : "manual_ski_contact_group_gameplay_v1.json";
+            var group = SkiContactGroupDefinition.FromJson(readCore(groupResource));
             var steering=ManualSkiSteeringDefinition.FromJson(readCore("manual_ski_steering_v2.json"));
             field.ArrangeManualPursuitStartLines(venue.Occupancy);
             var world=ManualScopedFieldStepper.CreateInitialWorld(field,venue.Track,venue.Visual,venue.Occupancy,contact,work,group,models.Physics,

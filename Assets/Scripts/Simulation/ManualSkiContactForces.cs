@@ -242,7 +242,9 @@ namespace Biathlon.Simulation
             // An opening contact carries no adhesive force. Its future recontact
             // remains the scheduler/sweep's responsibility.
             double an=arz*nx-arx*nz,at=arz*tx-arx*tz,bn=brz*nx-brx*nz,bt=brz*tx-brx*tz;
-            double ia=a.Grounded?double.PositiveInfinity:a.MassKilograms*inertiaPerMass,ib=b.Grounded?double.PositiveInfinity:b.MassKilograms*inertiaPerMass,im=a.InverseMass+b.InverseMass;
+            double ia=a.Grounded||work.PreserveSteering?double.PositiveInfinity:a.MassKilograms*inertiaPerMass;
+            double ib=b.Grounded||work.PreserveSteering?double.PositiveInfinity:b.MassKilograms*inertiaPerMass;
+            double im=a.InverseMass+b.InverseMass;
             double af=Math.Sin(a.Pose.HeadingRadians)*nx+Math.Cos(a.Pose.HeadingRadians)*nz;
             double ar=Math.Cos(a.Pose.HeadingRadians)*nx-Math.Sin(a.Pose.HeadingRadians)*nz;
             bool axisFromA=Math.Max(Math.Abs(af),Math.Abs(ar))>=1-64*2.2204460492503131e-16;
@@ -361,8 +363,10 @@ namespace Biathlon.Simulation
         {
             var a=accelerations[p.A];var b=accelerations[p.B];double ma=bodies[p.A].MassKilograms,mb=bodies[p.B].MassKilograms;
             double x=p.Nx*normal-p.Nz*tangent,z=p.Nz*normal+p.Nx*tangent;
-            if(!bodies[p.A].Grounded)accelerations[p.A]=new SkiContactAcceleration(a.X+x/ma,a.Z+z/ma,a.Yaw+(p.An*normal+p.At*tangent)/(ma*inertiaPerMass));
-            if(!bodies[p.B].Grounded)accelerations[p.B]=new SkiContactAcceleration(b.X-x/mb,b.Z-z/mb,b.Yaw-(p.Bn*normal+p.Bt*tangent)/(mb*inertiaPerMass));
+            if(!bodies[p.A].Grounded)accelerations[p.A]=new SkiContactAcceleration(a.X+x/ma,a.Z+z/ma,
+                work.PreserveSteering ? a.Yaw : a.Yaw+(p.An*normal+p.At*tangent)/(ma*inertiaPerMass));
+            if(!bodies[p.B].Grounded)accelerations[p.B]=new SkiContactAcceleration(b.X-x/mb,b.Z-z/mb,
+                work.PreserveSteering ? b.Yaw : b.Yaw-(p.Bn*normal+p.Bt*tangent)/(mb*inertiaPerMass));
         }
     }
 }

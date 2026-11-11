@@ -35,18 +35,18 @@ namespace Biathlon.Unity.Presentation
             checkpointNotice.style.width = 930 * Scale;
             checkpointNotice.style.maxWidth = Length.Percent(100);
             checkpointNotice.style.flexDirection = FlexDirection.Column;
-            checkpointNotice.style.height = 84 * Scale;
+            checkpointNotice.style.height = 50 * Scale;
             checkpointNotice.style.overflow = Overflow.Hidden;
             if (HighContrast) checkpointNotice.style.backgroundColor = Color.black;
             checkpointNotice.style.display = DisplayStyle.None;
             mount.Add(checkpointNotice);
 
             var header = Row(checkpointNotice);
-            header.style.height = 27 * Scale;
+            header.style.height = 21 * Scale;
             header.style.flexShrink = 0;
             header.style.paddingLeft = header.style.paddingRight = 12 * Scale;
             header.style.backgroundColor = HighContrast ? Color.black : FrostlineStyle.Surface;
-            liveSplitHeading = SplitLabel(header, "live_split_heading", "", settings.body_size, true);
+            liveSplitHeading = SplitLabel(header, "live_split_heading", "", settings.caption_size + 2, true);
             liveSplitStage = SplitLabel(header, "live_split_stage", "", settings.caption_size, true);
             liveSplitStage.style.marginLeft = 12 * Scale;
             liveSplitStage.style.flexGrow = 1;
@@ -55,8 +55,8 @@ namespace Biathlon.Unity.Presentation
             liveSplitClock = Row(header);
             liveSplitClock.name = "live_split_clock";
             liveSplitClock.style.flexShrink = 0;
-            liveSplitTime = SplitLabel(liveSplitClock, "live_split_time", "", settings.body_size, true);
-            liveSplitDifference = SplitLabel(liveSplitClock, "live_split_difference", "", settings.body_size, true);
+            liveSplitTime = SplitLabel(liveSplitClock, "live_split_time", "", settings.caption_size + 2, true);
+            liveSplitDifference = SplitLabel(liveSplitClock, "live_split_difference", "", settings.caption_size + 2, true);
             liveSplitDifference.style.marginLeft = 8 * Scale;
 
             var miniWindow = Row(checkpointNotice);
@@ -78,11 +78,18 @@ namespace Biathlon.Unity.Presentation
                 card.style.minWidth = 0;
                 card.style.marginBottom = 0;
                 card.style.display = DisplayStyle.None;
-                card.style.paddingLeft = card.style.paddingRight = 10 * Scale;
+                card.style.paddingLeft = card.style.paddingRight = 7 * Scale;
                 card.style.borderRightWidth = i + 1 < liveSplitCards.Length ? 1 : 0;
                 card.style.borderRightColor = new Color(accent.r, accent.g, accent.b, .2f);
                 miniWindow.Add(card);
             }
+
+            miniWindow.RegisterCallback<GeometryChangedEvent>(change =>
+            {
+                const float minimumCardWidthWithGap = 220;
+                bool showGap = change.newRect.width >= liveSplitCards.Length * minimumCardWidthWithGap * Scale;
+                foreach (var card in liveSplitCards) card.SetBroadcastGapVisible(showGap);
+            });
 
             var track = new VisualElement();
             track.style.position = Position.Absolute;

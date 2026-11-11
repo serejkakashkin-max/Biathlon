@@ -215,6 +215,27 @@ namespace Biathlon.Tests
             Assert.That(frictionPower,Is.Not.Zero);Assert.That(f.Side(output[0].MotionAt(1).Velocity),Is.LessThan(1));
             Assert.That(f.Side(output[1].MotionAt(1).Velocity),Is.GreaterThan(0));AssertConservation(f,bodies,free,output,r.DurationSeconds);
         }
+
+        [Test]
+        public void RacingSupportKeepsTheFreeSteeringAccelerationWhileTransferringTraction()
+        {
+            var fixture = new Fixture();
+            var bodies = new[] { fixture.Actor("a", 0, side: 1), fixture.Actor("b", fixture.Length, lateral: .25) };
+            var free = new[] { fixture.Drive(bodies[0]), fixture.Drive(bodies[1], 0) };
+            var work = SkiContactGroupDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_group_gameplay_v2.json"));
+            var solver = new ManualSkiContactForces(fixture.Source.Venue.Occupancy, fixture.Contact, work, 2);
+            var output = new SkiForceCoupledTrajectory[2];
+
+            var result = solver.Preview(bodies, free, 2, output);
+
+            Assert.That(result.Status, Is.EqualTo(SkiContactForceStatus.Resolved));
+            Assert.That(result.SupportPoints, Is.Positive);
+            Assert.That(fixture.Forward(output[0].MotionAt(1).Velocity),
+                Is.LessThan(fixture.Forward(free[0].MotionAt(result.DurationSeconds / free[0].DurationSeconds).Velocity)));
+            for (int i = 0; i < bodies.Length; i++)
+                Assert.That(output[i].MotionAt(1).YawRate,
+                    Is.EqualTo(free[i].MotionAt(result.DurationSeconds / free[i].DurationSeconds).YawRate).Within(1e-12));
+        }
         [Test] public void PersistentForceDoesNotUseImpactRestitution()
         {
             var zero=new Fixture(restitution:0);var bounce=new Fixture(restitution:1);

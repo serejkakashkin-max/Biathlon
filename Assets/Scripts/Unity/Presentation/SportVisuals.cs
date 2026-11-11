@@ -61,18 +61,16 @@ namespace Biathlon.Unity.Presentation
             if(broadcast)
             {
                 leader.style.display=DisplayStyle.None;
-                flag.style.width=25*scale;flag.style.height=16*scale;
-                flag.style.marginRight=6*scale;
+                flag.style.width=21*scale;flag.style.height=13*scale;
+                flag.style.marginRight=5*scale;
                 FrostlineStyle.Text(rank,true);FrostlineStyle.Text(time,true);FrostlineStyle.Text(gap,true);
-                rank.style.fontSize=time.style.fontSize=gap.style.fontSize=15*scale;
-                athlete.style.fontSize=14*scale;
-                rank.style.width=22*scale;time.style.width=0;time.style.flexGrow=1;gap.style.width=StyleKeyword.Auto;
-                var identity=new VisualElement();identity.style.flexDirection=FlexDirection.Row;identity.style.alignItems=Align.Center;
-                var result=new VisualElement();result.style.flexDirection=FlexDirection.Row;result.style.alignItems=Align.Center;
-                identity.Add(rank);identity.Add(flag);identity.Add(athlete);result.Add(time);result.Add(gap);
-                gap.style.marginLeft=7*scale;
-                style.flexDirection=FlexDirection.Column;style.alignItems=Align.Stretch;style.justifyContent=Justify.Center;
-                Add(identity);Add(result);
+                rank.style.fontSize=time.style.fontSize=gap.style.fontSize=14*scale;
+                athlete.style.fontSize=13*scale;
+                rank.style.width=19*scale;
+                rank.style.unityTextAlign=TextAnchor.MiddleLeft;
+                time.style.width=gap.style.width=StyleKeyword.Auto;
+                time.style.marginLeft=7*scale;
+                gap.style.marginLeft=6*scale;
             }
             Label Cell(float width,bool bold)
             {
@@ -83,6 +81,8 @@ namespace Biathlon.Unity.Presentation
                 if(bold)label.style.unityFontStyleAndWeight=FontStyle.Bold;Add(label);return label;
             }
         }
+        internal void SetBroadcastGapVisible(bool visible) => gap.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+
         public void Bind(string id,int place,string name,string nation,string elapsed,string interval,bool player,CareerLeaderBib leaderRole=CareerLeaderBib.None,string leaderDescription="")
         {
             AthleteId=id;rank.text=place.ToString("00");athlete.text=name;time.text=elapsed;gap.text=interval;flag.SetNation(nation);

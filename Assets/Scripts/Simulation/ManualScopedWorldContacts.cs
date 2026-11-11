@@ -62,7 +62,7 @@ namespace Biathlon.Simulation
             }
             if(!CollectOwnedContacts())return false;
             if(allowIndependentCourse&&LastOwnedContacts.Count==0&&CourseEdgeResponses>0&&
-                CourseReactionPolicy==ManualCourseReactionPolicy.IndependentCourseV27&&TryPreviewIndependentCourseMotion(drives,output))
+                CourseReactionPolicy>=ManualCourseReactionPolicy.IndependentCourseV27&&TryPreviewIndependentCourseMotion(drives,output))
                 return true;
             if(LastOwnedContacts.Count==0&&CourseEdgeResponses==0)Array.Clear(ownedFreeValid,0,Count);
             if(LastOwnedContacts.Count==0&&hasBreakpoint&&CourseEdgeResponses==0)
