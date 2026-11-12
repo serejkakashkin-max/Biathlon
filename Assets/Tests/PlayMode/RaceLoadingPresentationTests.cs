@@ -16,14 +16,28 @@ namespace Biathlon.PlayModeTests
 {
     public sealed class RaceLoadingPresentationTests
     {
-        private sealed class Store:ICareerProfileStore
-        {public string Json;public bool HasProfile=>Json!=null;public string ReadLatest()=>Json;public void WriteNew(string id,string value)=>Json=value;public void Replace(string id,string expected,string value){Assert.That(Json,Is.EqualTo(expected));Json=value;}}
+        private sealed class Store:ICareerProfileStore,ICareerProfileCheckpointStore
+        {
+            public string Json;
+            public int Checkpoints;
+            public bool RejectCheckpoint;
+            public bool HasProfile=>Json!=null;
+            public string ReadLatest()=>Json;
+            public void WriteNew(string id,string value)=>Json=value;
+            public void Replace(string id,string expected,string value){Assert.That(Json,Is.EqualTo(expected));Json=value;}
+            public void SaveBeforeRaceCheckpoint(string id, string expectedJson)
+            {
+                if (RejectCheckpoint) throw new IOException("Test checkpoint failure.");
+                Assert.That(Json, Is.EqualTo(expectedJson));
+                Checkpoints++;
+            }
+        }
         private static FrontEndMenu Create(Store store)
         {
             var menu=new GameObject("Race loading acceptance").AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(store);
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("loading_review","Алекс","NOR",11);for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();menu.RefreshFrontEnd();return menu;
         }
-        [UnityTest]public IEnumerator RealLaunchPaintsAllStagesBeforeWorkAndThenArmsTheOriginalCountdown()
+        [UnityTest]public IEnumerator LoadedStartListHoldsTheFieldUntilThePlayerConfirms()
         {
             var store=new Store();var menu=Create(store);menu.Race.LoadEnvironment=false;
             try
@@ -52,7 +66,36 @@ namespace Biathlon.PlayModeTests
                     yield return null;
                 }
                 Assert.That(stages.Count,Is.EqualTo(4));Assert.That(seenHost,Is.True);Assert.That(menu.Race.Loading,Is.False);
+                var list=menu.Race.StartList;
+                var field=menu.Race.Host.Runner.Field;
+                Assert.That(list.Count,Is.EqualTo(field.Count));
+                Assert.That(list.PlayerIndex,Is.EqualTo(menu.Race.Host.PlayerIndex));
+                Assert.That(menu.Root.Q("start_list_rows").childCount,Is.EqualTo(field.Count));
+                for(int i=0;i<field.Count;i++)
+                {
+                    var row=list.Row(i);
+                    Assert.That(row.AthleteId,Is.EqualTo(field.GetAthlete(i).AthleteId.Value));
+                    Assert.That(row.StartOffsetSeconds,Is.EqualTo((field.GetAthlete(i).ScheduledStart.Value-field.GetAthlete(0).ScheduledStart.Value)/(double)field.TickFrequency));
+                    Assert.That(menu.Root.Q("start_list_row_"+i).Q<NationFlagGraphic>().Nation,Is.EqualTo(row.Nation));
+                }
+                yield return CaptureStartList(menu,1600,900,"ru",0);
+                yield return CaptureStartList(menu,1024,768,"en",2);
+                yield return null;yield return null;
+                Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));
+                Assert.That(field.Tick.Value,Is.Zero);
+                Assert.That(menu.Race.Host.WaitingForPlayerStart,Is.False);
+                Assert.That(store.Checkpoints,Is.Zero);
+                Submit(menu,"start_list_my_bib");
+                yield return null;yield return null;
+                Assert.That(menu.Root.Q("start_list_row_"+list.PlayerIndex).resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
+                store.RejectCheckpoint=true;
+                Submit(menu,"confirm_race_start");
+                Assert.That(menu.Race.StartList,Is.SameAs(list));Assert.That(field.Tick.Value,Is.Zero);
+                Assert.That(menu.Race.Host.WaitingForPlayerStart,Is.False);Assert.That(menu.LastMessage,Is.Not.Empty);
+                store.RejectCheckpoint=false;
+                Submit(menu,"confirm_race_start");
                 Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Race));Assert.That(menu.Race.Host.enabled,Is.True);
+                Assert.That(menu.Race.StartList,Is.Null);Assert.That(store.Checkpoints,Is.EqualTo(1));
                 Assert.That(menu.Race.Host.GameplayHud.enabled,Is.True,"The HUD appears at the handoff to the race.");
                 Assert.That(preparedClock,Is.Not.Null);
                 Assert.That(menu.Race.Host.GameplayHud.Root.Q<Label>("race_clock"),Is.SameAs(preparedClock),"The countdown uses the already rendered HUD tree.");
@@ -61,6 +104,43 @@ namespace Biathlon.PlayModeTests
                 menu.Race.Pause();yield return null;menu.Race.Abandon();Assert.That(menu.Root.Q("race_loading_screen"),Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));Assert.That(store.Json,Is.EqualTo(before));
             }
             finally{Object.DestroyImmediate(menu.gameObject);}
+        }
+
+        private static void Submit(FrontEndMenu menu, string id)
+        {
+            var button=menu.Root.Q<Button>(id);
+            button.Focus();
+            using(var submit=NavigationSubmitEvent.GetPooled())button.SendEvent(submit);
+        }
+
+        private static IEnumerator CaptureStartList(FrontEndMenu menu, int width, int height, string locale, int size)
+        {
+            var panel=menu.GetComponent<UIDocument>().panelSettings;
+            var previous=RenderTexture.active;
+            var target=new RenderTexture(width,height,24);
+            Texture2D pixels=null;
+            try
+            {
+                target.Create();panel.targetTexture=target;
+                menu.ApplyPreferences(locale,size);
+                yield return new WaitForSecondsRealtime(.35f);
+                for(int frame=0;frame<4;frame++)yield return null;
+                var start=menu.Root.Q<Button>("confirm_race_start");
+                Assert.That(start.worldBound.yMax,Is.LessThan(menu.Root.worldBound.yMax));
+                Assert.That(menu.Root.Q("start_list_header").worldBound.xMax,Is.LessThan(menu.Root.worldBound.xMax));
+                RenderTexture.active=target;
+                pixels=new Texture2D(width,height,TextureFormat.RGB24,false);
+                pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
+                const string folder="artifacts/m16-9-race-protocols";
+                Directory.CreateDirectory(folder);
+                File.WriteAllBytes(Path.Combine(folder,"start-list-"+locale+".png"),pixels.EncodeToPNG());
+            }
+            finally
+            {
+                panel.targetTexture=null;RenderTexture.active=previous;
+                if(pixels!=null)Object.Destroy(pixels);
+                target.Release();Object.Destroy(target);
+            }
         }
         [UnityTest]public IEnumerator APreparationFailureRemovesLoadingAndReturnsAnActionableMenuWithoutSaving()
         {

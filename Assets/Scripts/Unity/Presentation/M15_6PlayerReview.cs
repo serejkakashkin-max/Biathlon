@@ -98,7 +98,7 @@ namespace Biathlon.Unity.Presentation
                 if(loadingReview)
                 {
                     int current=(int)menu.Race.LoadingStage;
-                    if(menu.Race.Host!=null){loadingReceipt.clock_held&=menu.Race.Host.Runner.Field.Tick.Value==0&&!menu.Race.Host.enabled;loadingReceipt.countdown_unarmed&=!menu.Race.Host.WaitingForPlayerStart;loadingReceipt.hud_hidden&=!menu.Race.Host.GameplayHud.enabled&&menu.Race.Host.GameplayHud.Root?.panel==null;}
+                    if(menu.Race.Host!=null){loadingReceipt.clock_held&=menu.Race.Host.Runner.Field.Tick.Value==0&&!menu.Race.Host.enabled;loadingReceipt.countdown_unarmed&=!menu.Race.Host.WaitingForPlayerStart;loadingReceipt.hud_hidden&=menu.Race.LoadingStage==CareerRaceLoadingStage.Ready||!menu.Race.Host.GameplayHud.enabled&&menu.Race.Host.GameplayHud.Root?.panel==null;}
                     if(current!=loadingStage){loadingStage=current;loadingFrame=Time.frameCount;}
                     else if(Time.frameCount>loadingFrame&&(loadingReceipt.painted_stages&(1<<current))==0)
                     {
@@ -121,6 +121,8 @@ namespace Biathlon.Unity.Presentation
             }
             if(loadingReview){File.WriteAllText(Path.Combine(folder,"loading-review.json"),JsonUtility.ToJson(loadingReceipt,true));Require(loadingReceipt.immediate&&loadingReceipt.clock_held&&loadingReceipt.countdown_unarmed&&loadingReceipt.hud_hidden&&loadingReceipt.painted_stages==15,"Actual loader must paint all stages before the race clock and without the race HUD.");}
             var host=menu.Race.Host;Require(host!=null&&!menu.Race.Loading,"Actual production race load failed: "+menu.LastMessage);receipt.race_loaded=true;
+            menu.Race.StartRace();
+            Require(menu.Session.Screen==FrontEndScreen.Race,"Could not confirm the start: "+menu.LastMessage);
             if(m16)
             {
                 receipt.bindings_applied=host.InputPreferences.Binding(PlayerSettingsPreferences.Catalog,"attack","keyboard")=="<Keyboard>/r";Require(receipt.bindings_applied,"Host did not bind the accepted input snapshot.");

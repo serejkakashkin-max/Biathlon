@@ -197,6 +197,18 @@ namespace Biathlon.PlayModeTests
             Submit("result_protocol_next");yield return null;yield return null;
             Assert.That(menu.Root.Q("result_row_0").resolvedStyle.display,Is.EqualTo(DisplayStyle.None));Assert.That(menu.Root.Q("result_row_10").resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
             Submit("result_protocol_prev");yield return null;yield return null;Assert.That(menu.Root.Q("result_row_7").resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
+            string savedResult=session.Career.ToJson();
+            Submit("results_overall");yield return null;
+            Assert.That(menu.Root.Q("result_overall_rows").childCount,Is.EqualTo(session.ResultsSummary.OverallStandings.Count));
+            Submit("results_discipline");yield return null;
+            Assert.That(menu.Root.Q("result_discipline_rows").childCount,Is.EqualTo(session.ResultsSummary.DisciplineStandings.Count));
+            Assert.That(menu.Root.Q<Label>("result_standings_title").text,Does.Contain("Sprint"));
+            var standing=menu.Root.Q("result_discipline_rows_7");
+            Assert.That(standing.Q<NationFlagGraphic>().Nation,Is.EqualTo("NOR"));
+            Assert.That(standing.Query<Label>().ToList()[2].text,Is.EqualTo("+"+session.ResultsSummary.Player.Points));
+            yield return CaptureResults(1600,900,"ru",0,"result_discipline_rows");
+            menu.ApplyPreferences("en",2);
+            Assert.That(session.Career.ToJson(),Is.EqualTo(savedResult));
             Submit("results_splits");yield return null;yield return null;
             Assert.That(menu.Root.Q("result_splits").childCount,Is.EqualTo(2));
             Assert.That(menu.Root.Q("result_split_1").Q<Label>().text,Is.EqualTo("Split 2"));
@@ -227,7 +239,7 @@ namespace Biathlon.PlayModeTests
             }
             finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;settings.targetTexture=null;Object.Destroy(target);}
         }
-        private IEnumerator CaptureResults(int width,int height,string locale,int size)
+        private IEnumerator CaptureResults(int width,int height,string locale,int size,string table="result_protocol")
         {
             var settings=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;
             var target=new RenderTexture(width,height,24);target.Create();settings.targetTexture=target;Texture2D pixels=null;
@@ -236,17 +248,18 @@ namespace Biathlon.PlayModeTests
                 menu.ApplyPreferences(locale,size);yield return new WaitForSecondsRealtime(.35f);for(int f=0;f<10;f++)yield return null;
                 var bounds=menu.Root.worldBound;var button=menu.Root.Q<Button>("career_return");
                 Assert.That(button.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(button.worldBound.xMax,Is.LessThan(bounds.xMax));
-                var header=menu.Root.Q("result_table_header");Assert.That(header.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
-                var pager=menu.Root.Q<Button>("result_protocol_next");
+                bool protocol=table=="result_protocol";
+                var header=menu.Root.Q(protocol?"result_table_header":"result_standings_header");Assert.That(header.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
+                var pager=menu.Root.Q<Button>(table+"_next");
                 Assert.That(pager.worldBound.yMax,Is.LessThan(pager.GetFirstAncestorOfType<ScrollView>().worldBound.yMax-8));
-                var playerRow=menu.Root.Q("result_row_7");Assert.That(playerRow.resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
-                int visibleRows=0;foreach(var row in menu.Root.Q("result_protocol").Children())if(row.resolvedStyle.display==DisplayStyle.Flex)visibleRows++;
+                var playerRow=menu.Root.Q(protocol?"result_row_7":table+"_7");Assert.That(playerRow.resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
+                int visibleRows=0;foreach(var row in menu.Root.Q(table).Children())if(row.resolvedStyle.display==DisplayStyle.Flex)visibleRows++;
                 Assert.That(visibleRows,Is.GreaterThanOrEqualTo(10),"The results protocol must show at least10 athletes per page.");
-                foreach(var row in menu.Root.Q("result_protocol").Children())if(row.resolvedStyle.display==DisplayStyle.Flex)Assert.That(row.worldBound.yMax,Is.LessThan(pager.worldBound.yMin));
+                foreach(var row in menu.Root.Q(table).Children())if(row.resolvedStyle.display==DisplayStyle.Flex)Assert.That(row.worldBound.yMax,Is.LessThan(pager.worldBound.yMin));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
                 pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
-                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/results-20261012"));Directory.CreateDirectory(folder);
-                File.WriteAllBytes(Path.Combine(folder,"results-"+locale+".png"),pixels.EncodeToPNG());
+                const string folder="artifacts/m16-9-race-protocols";Directory.CreateDirectory(folder);
+                File.WriteAllBytes(Path.Combine(folder,(protocol?"results-":"discipline-")+locale+".png"),pixels.EncodeToPNG());
             }
             finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;settings.targetTexture=null;Object.Destroy(target);}
         }
@@ -261,6 +274,8 @@ namespace Biathlon.PlayModeTests
             yield return CapturePreparation(1024,768,"en",2);
             Submit("start_race");
             for(int i=0;i<10&&menu.Race.Loading;i++)yield return null;
+            Assert.That(menu.Race.StartList,Is.Not.Null,menu.LastMessage);
+            Submit("confirm_race_start");
             Assert.That(menu.LastMessage,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Race));
             var host=menu.Race.Host;Assert.That(host,Is.Not.Null);Assert.That(host.ManualStepper,Is.Not.Null);
             Assert.That(host.Environment,Is.Not.Null);

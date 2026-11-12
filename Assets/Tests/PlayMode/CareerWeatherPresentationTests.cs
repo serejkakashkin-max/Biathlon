@@ -121,6 +121,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(menu.Root.Q<Label>("pre_race_weather").text,Does.Contain("-6°C"));
             menu.Race.Launch(menu);for(int i=0;i<60&&menu.Race.Loading;i++)yield return null;
             var host=menu.Race.Host;Assert.That(host,Is.Not.Null,menu.LastMessage);Assert.That(host.Environment.WeatherPresetId,Is.EqualTo("snowfall"));
+            menu.Race.StartRace();
             for(int i=0;i<5;i++)yield return null;
             Assert.That(host.Environment.SubmittedSnowflakes,Is.GreaterThan(0));
             Assert.That(host.Runner.RaceWind.EastMetersPerSecond,Is.EqualTo(1.8));

@@ -73,6 +73,8 @@ namespace Biathlon.Unity.Presentation
                 double deadline=Time.realtimeSinceStartupAsDouble+180;
                 while(menu.Race.Loading){if(Time.realtimeSinceStartupAsDouble>deadline)throw new TimeoutException("Career load deadline.");yield return null;}
                 var host=menu.Race.Host;if(host==null)throw new InvalidOperationException("No career race: "+menu.LastMessage);
+                menu.Race.StartRace();
+                if(menu.Session.Screen!=FrontEndScreen.Race)throw new InvalidOperationException("Could not confirm the start: "+menu.LastMessage);
                 host.DiagnosticAiDrive=true;
                 if(variant=="no-forest")host.Environment.DrawForestForReview=false;
                 else if(variant=="no-range-board")

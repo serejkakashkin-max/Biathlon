@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Biathlon.Career;
+using Biathlon.Domain;
 using Biathlon.Presentation;
 using Biathlon.Simulation;
 using NUnit.Framework;
@@ -93,7 +94,7 @@ namespace Biathlon.Tests
             var race=provider.Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed);
             Assert.That(race.Runner.Field.Tick.Value,Is.Zero);Assert.That(race.PlayerIndex,Is.GreaterThanOrEqualTo(0));
             Assert.That(race.Runner.Field.GetAthlete(race.PlayerIndex).AthleteId.Value,Is.EqualTo(ui.Career.PlayerId));
-            var movement=ManualProductionFieldComposition.Create(race.Runner.Field,race.Venue,PhysiologyContractTests.DefinitionJson);
+            var movement=ManualProductionFieldComposition.Create(race.Runner.Field,race.Venue,race.ManualRead,race.CourseReactionPolicy);
             race.Runner.BindManualScopedCandidate(movement,
                 Biathlon.Domain.ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v2.json")),
                 Biathlon.Domain.ManualSkiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_steering_v2.json")),
@@ -105,7 +106,7 @@ namespace Biathlon.Tests
             while(!race.Runner.Field.IsComplete&&race.Runner.Field.Tick.Value<200000)race.Runner.Step();
             writer.Complete();Assert.That(writer.Failure,Is.Null);
             var replay=provider.Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed);
-            var replayMovement=ManualProductionFieldComposition.Create(replay.Runner.Field,replay.Venue,PhysiologyContractTests.DefinitionJson);
+            var replayMovement=ManualProductionFieldComposition.Create(replay.Runner.Field,replay.Venue,replay.ManualRead,replay.CourseReactionPolicy);
             journal.Position=0;
             using(var reader=new Biathlon.Replay.ManualRaceJournalReader(journal,replayMovement,writer.TickCount))while(reader.HasNext)reader.Step();
             var result=race.CollectResult();
@@ -118,8 +119,20 @@ namespace Biathlon.Tests
             Assert.That(playerFinish.Details.BoutCount,Is.EqualTo(race.Runner.Field.Profile.BoutCount));
             for(int b=0;b<playerFinish.Details.BoutCount;b++)Assert.That(playerFinish.Details.ClosedMask(b),Is.EqualTo(actor.GetBoutClosedMask(b)));
             ui.FinishRace(result);Assert.That(ui.Career.RaceCount,Is.EqualTo(1));Assert.That(ui.Career.Week,Is.EqualTo(7));
+            Assert.That(ui.ResultsSummary.Count,Is.EqualTo(race.Runner.Field.Count));
+            Assert.That(ui.ResultsSummary.DisciplineStandings.Count,Is.EqualTo(result.Count));
             var restored=Session(store);restored.ContinueCareer();Assert.That(restored.Career.ToJson(),Is.EqualTo(ui.Career.ToJson()));
             Assert.That(restored.NextEvent().SourceEventId,Is.EqualTo(result.CalendarEventId));
+            restored.OpenPreRace();
+            var pursuitWeek=restored.PreparedWeek;
+            var pursuitRoster=CareerSave.FromJson(pursuitWeek.RaceSnapshotJson);
+            var pursuit=provider.Prepare(pursuitRoster,pursuitWeek.Event,pursuitWeek.RaceSeed);
+            var lineup=new RaceStartList(pursuitRoster,pursuit.Runner.Field);
+            Assert.That(lineup.Profile.StartType,Is.EqualTo(CompetitionStartType.PreviousRaceGaps));
+            Assert.That(lineup.Row(0).AthleteId,Is.EqualTo(result.Get(0).AthleteId));
+            Assert.That(lineup.Row(0).StartOffsetSeconds,Is.Zero);
+            Assert.That(lineup.Row(lineup.Count-1).StartOffsetSeconds,Is.GreaterThan(0));
+            Assert.That(pursuit.Runner.Field.Tick.Value,Is.Zero);
             TestContext.WriteLine("career_result_ticks="+race.Runner.Field.Tick.Value+" sha256="+result.AuthoritySha256);
         }
 #endif

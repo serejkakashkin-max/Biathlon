@@ -83,6 +83,11 @@ namespace Biathlon.Unity
             "Карточки эфирного табло отсечки стали однострочными. При контакте спортсмены теряют скорость и сохраняют управление поворотом.\r\n",
             "M16.8", "Новое правило контакта действует в новых гонках. Старые повторы сохраняют записанную версию физики.\r\n");
 
+        public static void BuildM169RaceProtocolsReview() => BuildM167Review("Builds/M16_9_Race_Protocols_Review",
+            "m169_race_protocols_review", null,
+            "После загрузки откроется стартовый протокол. Нажмите «Старт» для обратного отсчёта. После гонки проверьте результаты, очки, общий зачёт и зачёт дисциплины.\r\n",
+            "M16.9");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {
@@ -112,7 +117,8 @@ namespace Biathlon.Unity
                 "Проверьте лыжный ход, разгон, подъём, стрельбу лёжа/стоя и внешность соперников.\r\n"+
                 reviewNote+
                 (string.IsNullOrEmpty(comparisonFile) ? "" : "Видео сравнения: Media/"+comparisonFile+" (WATCH_COMPARISON.cmd).\r\n")+
-                (stage=="M16.8"?"М16.7 закрыт владельцем. М16.8 открыт для проверки.\r\n":"М16.6 закрыт владельцем. М16.7 открыт до вашего тестирования.\r\n")+
+                (stage=="M16.9"?"М16.8 закрыт владельцем. М16.9 открыт для проверки.\r\n":
+                    stage=="M16.8"?"М16.7 закрыт владельцем. М16.8 открыт для проверки.\r\n":"М16.6 закрыт владельцем. М16.7 открыт до вашего тестирования.\r\n")+
                 "Лицензии ассетов: THIRD_PARTY_CREDITS.txt, M167_ASSET_CREDITS.md и OFL-файлы.\r\n");
             AssetDatabase.SaveAssets();
         }

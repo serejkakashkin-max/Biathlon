@@ -1,5 +1,6 @@
 using System;
 using Biathlon.Career;
+using Biathlon.Domain;
 using Biathlon.Presentation;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,6 +10,7 @@ namespace Biathlon.Unity.Presentation
     public sealed partial class FrontEndMenu
     {
         private int historyPage,rivalryPage;
+        private CompetitionFormat? standingsFormat;
         private void RenderCareerPage(VisualElement actions,VisualElement card)
         {
             string key="page."+(int)Session.Screen;
@@ -29,7 +31,11 @@ namespace Biathlon.Unity.Presentation
         }
         private void RenderStandings(VisualElement card)
         {
-            var table=CareerStandings.Table(Session.Career,Session.Definitions.Scoring);
+            var filters = TileGrid(card, "career_standings_filters");
+            AddButton(filters, "standings_total", L("Общий зачёт", "Total score"), () => Select(null), !standingsFormat.HasValue);
+            foreach (CompetitionFormat format in new[] { CompetitionFormat.Sprint, CompetitionFormat.Pursuit, CompetitionFormat.MassStart })
+                AddButton(filters, "standings_format_" + (int)format, T("format." + (int)format), () => Select(format), standingsFormat == format);
+            var table=CareerStandings.Table(Session.Career,Session.Definitions.Scoring,standingsFormat);
             AddNationalKitLegend(card);var leaders=NextStartLeaders();
             if(Session.Career.RaceCount==0){AddLabel(card,T("history.no_races"),theme.body_size);return;}
             ResultTableRow(card,"standings_header",new[]{"#",L("Спортсмен","Athlete"),"OVR",L("Гонки","Races"),L("Победы","Wins"),L("Подиумы","Podiums"),L("Очки","Points")},true,false);
@@ -37,13 +43,22 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<table.Length;i++)
             {
                 var row=table[i];var player=FindAthlete(row.AthleteId);
-                ResultTableRow(rows,"standing_"+i,new[]{(i+1).ToString(),player.Name,BiathlonRatingEngine.Calculate(player,Session.Definitions.Ratings).Overall.ToString(),row.Races.ToString(),row.Wins.ToString(),row.Podiums.ToString(),row.Points.ToString()},false,player.Id==Session.Career.PlayerId,player.Nation,leaders?.ForAthlete(player.Id)??CareerLeaderBib.None);
+                if (row.Races == 0) continue;
+                ResultTableRow(rows,"standing_"+rows.childCount,new[]{(rows.childCount+1).ToString(),player.Name,BiathlonRatingEngine.Calculate(player,Session.Definitions.Ratings).Overall.ToString(),row.Races.ToString(),row.Wins.ToString(),row.Podiums.ToString(),row.Points.ToString()},false,player.Id==Session.Career.PlayerId,player.Nation,leaders?.ForAthlete(player.Id)??CareerLeaderBib.None);
                 var visual=rows[rows.childCount-1];visual.focusable=true;visual.tooltip=L("Открыть досье: ","Open dossier: ")+player.Name;controls.Add(visual);
                 visual.RegisterCallback<FocusInEvent>(e=>{visual.style.borderBottomColor=FrostlineStyle.Accent;visual.style.borderBottomWidth=3;});
                 visual.RegisterCallback<FocusOutEvent>(e=>{visual.style.borderBottomColor=FrostlineStyle.Surface;visual.style.borderBottomWidth=1;});
                 string athleteId=player.Id;visual.RegisterCallback<ClickEvent>(e=>OpenAthleteCard(athleteId));visual.RegisterCallback<NavigationSubmitEvent>(e=>{OpenAthleteCard(athleteId);e.StopPropagation();});
             }
-            PageRows(card,rows,standingsPage,compactLayout?5:9,value=>standingsPage=value);
+            if (rows.childCount == 0) AddLabel(card, L("В этой дисциплине ещё не было гонок.", "No races in this discipline yet."), theme.body_size);
+            else PageRows(card,rows,standingsPage,compactLayout?5:9,value=>standingsPage=value);
+
+            void Select(CompetitionFormat? format)
+            {
+                standingsFormat = format;
+                standingsPage = 0;
+                Render();
+            }
         }
 
         private void RenderHistory(VisualElement card)

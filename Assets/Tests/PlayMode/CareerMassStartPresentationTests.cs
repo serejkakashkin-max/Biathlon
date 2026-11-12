@@ -53,10 +53,15 @@ namespace Biathlon.PlayModeTests
             menu.Race.Launch(menu);for(int i=0;i<60&&menu.Race.Loading;i++)yield return null;
             var host=menu.Race.Host;Assert.That(host,Is.Not.Null,menu.LastMessage);host.enabled=false;
             Assert.That(host.PlayerIndex,Is.EqualTo(2));
+            Assert.That(menu.Race.StartList.PlayerIndex,Is.EqualTo(2));
             Assert.That(host.ManualStepper.World.ContextJson,Does.Contain("manual_course_contact_ice_v1"));
             for(int i=0;i<host.Runner.Field.Count;i++)
             {
                 var actor=host.Runner.Field.GetAthlete(i);var bib=host.Proxies.GetRig(actor.AthleteId.Value).GetComponent<AthleteBibPresentation>();
+                var start=menu.Race.StartList.Row(i);
+                Assert.That(start.Bib,Is.EqualTo(bib.Number));
+                Assert.That(start.GridRow,Is.EqualTo(host.Runner.Field.StartGrid.Get(i).Row+1));
+                Assert.That(start.StartOffsetSeconds,Is.Zero);
                 Assert.That(bib.Number,Is.EqualTo(i+1));Assert.That(actor.AssignedShootingLane.Ordinal,Is.EqualTo(i+1));
                 Assert.That(bib.LeaderRole,i==0?Is.EqualTo(CareerLeaderBib.Total):Is.EqualTo(CareerLeaderBib.None));
             }

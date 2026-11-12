@@ -128,6 +128,9 @@ namespace Biathlon.Unity.Presentation
             Submit("start_race");
             double deadline=Time.realtimeSinceStartupAsDouble+60;
             while(menu.Race.Loading&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            Require(menu.Race.StartList!=null&&menu.Race.Host.Runner.Field.Tick.Value==0,"Loaded start list must hold the race clock.");
+            yield return Capture("07e-start-list");
+            Submit("confirm_race_start");
             Require(!menu.Race.Loading&&menu.Race.Host!=null&&menu.Session.Screen==FrontEndScreen.Race,"Actual race loading failed: "+menu.LastMessage);
             var host=menu.Race.Host;evidence.real_race_loaded=host.Environment!=null;
             Require(evidence.real_race_loaded,"Production environment was not loaded.");

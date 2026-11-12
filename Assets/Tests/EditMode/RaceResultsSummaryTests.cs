@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using Biathlon.Career;
 using Biathlon.Domain;
@@ -20,6 +21,24 @@ namespace Biathlon.Tests
                 rows[i]=new CareerFinish(a.Id,300000+i*1000,format==CompetitionFormat.Pursuit?250000+i*500:300000+i*1000,1,details:details?Details(a.Id):null);
             }
             return new CareerRaceRecord(save.SeasonId+"_"+eventId,save.SeasonId,eventId,format,1,new string('a',64),rows);
+        }
+        [Test] public void FinalSeasonProjectionSeparatesOverallAndDisciplinePointsAndUsesTheRaceAward()
+        {
+            var save=CareerFoundationTests.Create();var scoring=CareerStandingsTests.Scoring();
+            CareerStandings.Register(save,Record(save,"earlier_sprint",CompetitionFormat.Sprint));
+            string original=save.ToJson();
+            var race=Record(save,"last_mass_start",CompetitionFormat.MassStart,true);
+            var model=new RaceResultsSummary(save,race,scoring);
+            var overall=model.OverallStandings.Single(row=>row.IsPlayer);
+            var discipline=model.DisciplineStandings.Single(row=>row.IsPlayer);
+            Assert.That(overall.RacePoints,Is.EqualTo(model.Player.Points));
+            Assert.That(discipline.RacePoints,Is.EqualTo(model.Player.Points));
+            Assert.That(discipline.Points,Is.EqualTo(model.Player.Points));
+            Assert.That(overall.Points,Is.EqualTo(scoring.Points(1,CompetitionFormat.Sprint)+model.Player.Points));
+            Assert.That(discipline.Rank,Is.EqualTo(30));
+            Assert.That(overall.Rank,Is.EqualTo(model.StandingAfter).And.LessThan(discipline.Rank));
+            Assert.That(model.Season,Is.EqualTo(save.Season));
+            Assert.That(save.ToJson(),Is.EqualTo(original));
         }
         [TestCase(CompetitionFormat.Sprint)] [TestCase(CompetitionFormat.Pursuit)] [TestCase(CompetitionFormat.MassStart)]
         public void ProtocolReadsImportedOrderingAndScoringWithoutChangingCareer(CompetitionFormat format)

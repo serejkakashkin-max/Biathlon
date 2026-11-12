@@ -38,9 +38,9 @@ namespace Biathlon.Unity.Presentation
             string stage=Race.LoadingStage==CareerRaceLoadingStage.Preparation?L("Готовим состав и условия гонки…","Preparing the field and race conditions…"):
                 Race.LoadingStage==CareerRaceLoadingStage.Athletes?L("Спортсмены готовятся к старту…","Athletes are getting ready…"):
                 Race.LoadingStage==CareerRaceLoadingStage.Venue?L("Готовим трассу и стрельбище…","Preparing the course and shooting range…"):
-                L("Всё готово. Выходим на старт…","Ready. Heading to the start…");
+                L("Открываем стартовый протокол…","Opening the start list…");
             var status=LoadingText(statusRow,"race_loading_status",stage,theme.body_size,FrostlineStyle.Ink);status.style.marginBottom=5;
-            var note=LoadingText(content,"race_loading_note",L("После загрузки — обратный отсчёт перед вашим стартом.","A countdown will prepare you for your start after loading."),theme.caption_size,FrostlineStyle.Muted);note.style.marginTop=14;
+            var note=LoadingText(content,"race_loading_note",L("После загрузки вы увидите стартовый состав.","The start list will appear after loading."),theme.caption_size,FrostlineStyle.Muted);note.style.marginTop=14;
             screen.pickingMode=PickingMode.Position;screen.focusable=true;screen.Focus();
             if(!ReducedMotion)
             {

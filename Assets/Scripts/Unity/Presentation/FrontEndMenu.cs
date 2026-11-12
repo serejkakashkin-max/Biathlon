@@ -86,6 +86,7 @@ namespace Biathlon.Unity.Presentation
             if(Rebinding){CancelRebind();return;}
             BiathlonAudio.Instance?.Ui(AudioCue.Back);
             if(Race.Loading)return;
+            if(Race.StartList!=null){Race.Abandon();return;}
             if(Replays.Loading)return;
             if(Replays.Active){Replays.Close();return;}
             if(Session.Screen==FrontEndScreen.Race){if(Race.Paused&&!Race.AwaitingSave)Race.Resume();return;}
@@ -200,6 +201,10 @@ namespace Biathlon.Unity.Presentation
                 left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
                 brand.style.fontSize=24*Scale;RenderCareerDashboard(actions,card);
             }
+            else if(Race.StartList!=null)
+            {
+                RenderRaceStartList(actions,card,Race.StartList);
+            }
             else if(Session.Screen==FrontEndScreen.PreRace)
             {
                 var e=Session.PreparedWeek.Event;
@@ -212,7 +217,7 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(actions,T("pre_race"),theme.section_size,true);AddLabel(actions,T("format."+(int)e.Format),theme.section_size,true);
                 AddLabel(actions,summary.Player.Name,theme.body_size);
                 AddLabel(actions,F("athlete_state",summary.Player.Form/100,summary.Player.Fatigue/100),theme.body_size);
-                AddButton(actions,"start_race",T(Race.Loading?"loading":"start_race"),()=>Race.Launch(this),true,!Race.Loading);
+                AddButton(actions,"start_race",L("Загрузить гонку","Load race"),()=>Race.Launch(this),true);
                 AddButton(actions,"back",T("back"),Back,enabled:!Race.Loading);
                 AddLabel(card,"WOODLAND BASIN",theme.caption_size).style.color=accent;
                 AddLabel(card,T("format."+(int)e.Format)+" · "+T("woodland"),theme.section_size,true);
