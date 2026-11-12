@@ -155,7 +155,7 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(row,F("results.split_times",ResultClock(split.ElapsedMilliseconds),ResultClock(split.ElapsedMilliseconds-prior)),theme.caption_size);
             }
         }
-        private void ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player,string nation=null,CareerLeaderBib leader=CareerLeaderBib.None,float[] columnWidths=null)
+        private VisualElement ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player,string nation=null,CareerLeaderBib leader=CareerLeaderBib.None,float[] columnWidths=null)
         {
             var row=new VisualElement{name=id};row.style.flexDirection=FlexDirection.Row;row.style.alignItems=Align.Center;
             bool resultProtocol=columnWidths!=null||id=="result_table_header"||id.StartsWith("result_row_",StringComparison.Ordinal);
@@ -183,6 +183,7 @@ namespace Biathlon.Unity.Presentation
                 label.tooltip=values[i];label.style.width=Length.Percent(widths[i]);label.style.paddingRight=8;label.style.minWidth=0;label.style.flexShrink=1;
                 label.style.whiteSpace=WhiteSpace.NoWrap;label.style.overflow=Overflow.Hidden;label.style.textOverflow=TextOverflow.Ellipsis;
             }
+            return row;
         }
     }
 }

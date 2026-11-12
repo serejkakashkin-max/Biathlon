@@ -70,6 +70,32 @@ namespace Biathlon.Unity.Presentation
         public int SelectedPace {get;private set;}
         /// <summary>Accepted device intent only; reserve and delivered power stay in the shared simulation.</summary>
         public bool BurstRequested {get;private set;}
+        private float raceFieldOfView;
+
+        internal void ShowStartListView()
+        {
+            var mat = Venue.MatPoint(Venue.LaneCount / 2);
+            var center = new Vector3((float)mat.X, (float)mat.Y, (float)mat.Z);
+            var direction = Venue.Manifest.Range.Forward;
+            var forward = new Vector3((float)direction.X, 0, (float)direction.Z).normalized;
+            var right = Vector3.Cross(Vector3.up, forward);
+            // Leave the left of the broadcast frame available for the start list.
+            var position = center - right * 44 - forward * 65 + Vector3.up * 36;
+            var lookAt = center - right * 22 + forward * 16;
+            raceFieldOfView = ChaseCamera.fieldOfView;
+            ChaseCamera.GetComponent<AthleteChaseCamera>().enabled = false;
+            ChaseCamera.fieldOfView = 44;
+            ChaseCamera.transform.SetPositionAndRotation(position, Quaternion.LookRotation(lookAt - position));
+            GameplayHud.Root.style.visibility = UnityEngine.UIElements.Visibility.Hidden;
+        }
+
+        internal void RestoreChaseView()
+        {
+            ChaseCamera.fieldOfView = raceFieldOfView;
+            ChaseCamera.GetComponent<AthleteChaseCamera>().enabled = true;
+            GameplayHud.Root.style.visibility = UnityEngine.UIElements.Visibility.Visible;
+        }
+
         public void ArmRaceStartCountdown()
         {
             if(Runner==null||Runner.Field.Tick.Value!=0||startPreparation!=null)throw new InvalidOperationException("Countdown requires a fresh race.");

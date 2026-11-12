@@ -2,70 +2,119 @@ using System;
 using System.Globalization;
 using Biathlon.Domain;
 using Biathlon.Presentation;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Biathlon.Unity.Presentation
 {
     public sealed partial class FrontEndMenu
     {
-        private static readonly float[] StartListColumns = { 10, 62, 28 };
+        private const int StartListPageSize = 15;
+        private static readonly float[] StartListColumns = { 13, 55, 32 };
         private RaceStartList shownStartList;
         private int startListPage;
 
-        private void RenderRaceStartList(VisualElement actions, VisualElement card, RaceStartList lineup)
+        private void RenderRaceStartList(RaceStartList lineup)
         {
             EnsureResultsLayout();
-            int pageSize = resultsLayout.rows_per_page;
+            menuCamera.enabled = false;
+            Root.style.backgroundColor = Color.clear;
+            Root.style.paddingTop = Root.style.paddingBottom = Root.style.paddingLeft = Root.style.paddingRight = theme.page_padding;
             if (!ReferenceEquals(shownStartList, lineup))
             {
                 shownStartList = lineup;
                 startListPage = 0;
+                rememberedFocus[Session.Screen] = "confirm_race_start";
             }
 
             var player = lineup.Row(lineup.PlayerIndex);
             bool simultaneous = lineup.Profile.StartType == CompetitionStartType.Simultaneous;
             string discipline = T("format." + (int)lineup.Profile.Format);
-            AddLabel(actions, L("ВАШ НОМЕР", "YOUR BIB"), theme.caption_size);
-            AddLabel(actions, player.Bib.ToString("00"), theme.title_size, true).name = "start_list_player_bib";
-            AddLabel(actions, player.Name, theme.body_size, true);
-            AddLabel(actions, StartListTiming(player, simultaneous), theme.caption_size).name = "start_list_player_time";
-            AddButton(actions, "confirm_race_start", L("Старт", "Start"), Race.StartRace, true);
-            if (lineup.Count > pageSize)
-                AddButton(actions, "start_list_my_bib", L("Найти свой номер", "Find my bib"), () =>
-                {
-                    startListPage = lineup.PlayerIndex / pageSize;
-                    Render();
-                });
-            AddButton(actions, "back", T("back"), Back);
+            var card = new VisualElement { name = "start_list_panel" };
+            card.style.width = Length.Percent(compactLayout ? 50 : 38);
+            card.style.maxWidth = 620;
+            card.style.paddingLeft = card.style.paddingRight = 16;
+            card.style.paddingTop = card.style.paddingBottom = 12;
+            card.style.borderTopWidth = 2;
+            card.style.borderTopColor = FrostlineStyle.Accent;
+            card.style.backgroundColor = HighContrast ? Color.black : new Color(.036f, .085f, .13f, .88f);
+            Root.Add(card);
 
-            var masthead = Tile(card, "start_list_masthead", true);
-            masthead.style.borderLeftWidth = 4;
-            masthead.style.borderLeftColor = FrostlineStyle.Accent;
-            masthead.style.paddingTop = masthead.style.paddingBottom = 9;
-            AddLabel(masthead, L("Стартовый протокол", "Start list"), theme.section_size, true).name = "start_list_title";
+            AddLabel(card, L("Стартовый состав", "Start list"), theme.section_size, true).name = "start_list_title";
             var culture = CultureInfo.GetCultureInfo(Locale == "ru" ? "ru-RU" : "en-US");
             string distance = (RaceDistanceBinding.Create(lineup.Profile).TotalMeters / 1000).ToString("0.##", culture);
-            AddLabel(masthead, $"{T("woodland")}  /  {discipline}  ·  {distance}{L(" км", " km")}  ·  {lineup.Count} {L("на старте", "starters")}",
-                theme.caption_size).style.marginBottom = 0;
+            var subtitle = AddLabel(card, $"{T("woodland")}  /  {discipline}  ·  {distance}{L(" км", " km")}  ·  {lineup.Count} {L("на старте", "starters")}",
+                theme.caption_size);
+            subtitle.style.color = FrostlineStyle.Muted;
             ResultTableRow(card, "start_list_header", new[] { L("Номер", "Bib"), T("results.athlete"),
-                simultaneous ? L("Ряд", "Grid row") : L("После первого старта", "After first start") }, true, false, columnWidths: StartListColumns);
+                simultaneous ? L("Ряд", "Grid row") : L("Время старта", "Start offset") }, true, false, columnWidths: StartListColumns);
             var rows = new VisualElement { name = "start_list_rows" };
+            rows.style.minHeight = Math.Min(lineup.Count, StartListPageSize) * resultsLayout.row_height;
             card.Add(rows);
-            for (int i = 0; i < lineup.Count; i++)
+            int first = startListPage * StartListPageSize;
+            int end = Math.Min(first + StartListPageSize, lineup.Count);
+            for (int i = first; i < end; i++)
             {
                 var row = lineup.Row(i);
-                ResultTableRow(rows, "start_list_row_" + i, new[] { row.Bib.ToString("00"), row.Name,
-                    simultaneous ? row.GridRow?.ToString() ?? "—" : StartListTiming(row, false) }, false, row.IsPlayer,
+                var line = ResultTableRow(rows, "start_list_row_" + i, new[] { row.Bib.ToString("00"), row.Name,
+                    simultaneous ? row.GridRow?.ToString() ?? "—" : StartListTiming(row, culture) }, false, row.IsPlayer,
                     row.Nation, columnWidths: StartListColumns);
+                line.style.paddingTop = line.style.paddingBottom = 0;
+                var bib = (Label)line[0];
+                bib.style.unityTextAlign = TextAnchor.MiddleLeft;
+                bib.style.color = row.IsPlayer ? FrostlineStyle.Accent : FrostlineStyle.Muted;
             }
-            PageRows(card, rows, startListPage, pageSize, page => startListPage = page);
+            int pages = (lineup.Count + StartListPageSize - 1) / StartListPageSize;
+            if (pages > 1)
+            {
+                var pager = new VisualElement { name = "start_list_pager" };
+                pager.style.flexDirection = FlexDirection.Row;
+                pager.style.alignItems = Align.Center;
+                pager.style.justifyContent = Justify.SpaceBetween;
+                card.Add(pager);
+                AddButton(pager, "start_list_rows_prev", "←", () => SetStartListPage(startListPage - 1), enabled: startListPage > 0);
+                var page = AddLabel(pager, $"{startListPage + 1} / {pages}", theme.caption_size, true);
+                page.style.marginBottom = 0;
+                AddButton(pager, "start_list_rows_next", "→", () => SetStartListPage(startListPage + 1), enabled: startListPage + 1 < pages);
+            }
+
+            var actions = new VisualElement { name = "start_list_actions" };
+            actions.style.flexDirection = FlexDirection.Row;
+            actions.style.alignItems = Align.Center;
+            actions.style.marginTop = 8;
+            card.Add(actions);
+            AddButton(actions, "confirm_race_start", L("СТАРТ", "START"), Race.StartRace, true);
+            var start = actions.Q<Button>("confirm_race_start");
+            start.style.flexGrow = 1;
+            start.style.unityTextAlign = TextAnchor.MiddleCenter;
+            if (pages > 1)
+                AddButton(actions, "start_list_my_bib", $"{L("Ваш №", "Your bib")} {player.Bib:00}",
+                    () => SetStartListPage(lineup.PlayerIndex / StartListPageSize));
+            AddButton(actions, "back", T("back"), Back);
+
+            message = AddLabel(card, LastMessage ?? "", theme.caption_size);
+            message.style.color = FrostlineStyle.Danger;
+            message.style.marginBottom = 0;
+            message.style.display = string.IsNullOrEmpty(LastMessage) ? DisplayStyle.None : DisplayStyle.Flex;
+            Root.schedule.Execute(() =>
+            {
+                if (start.panel == null) return;
+                if (rememberedFocus.TryGetValue(Session.Screen, out string id))
+                    foreach (var control in controls)
+                        if (control.name == id && IsShown(control)) { control.Focus(); return; }
+                start.Focus();
+            });
         }
 
-        private string StartListTiming(RaceStartRow row, bool simultaneous)
+        private void SetStartListPage(int page)
         {
-            if (simultaneous) return row.GridRow.HasValue ? L("Ряд ", "Grid row ") + row.GridRow.Value : L("Общий старт", "Simultaneous start");
+            startListPage = page;
+            Render();
+        }
+
+        private string StartListTiming(RaceStartRow row, CultureInfo culture)
+        {
             if (row.StartOffsetSeconds == 0) return L("Первый старт", "First start");
-            var culture = CultureInfo.GetCultureInfo(Locale == "ru" ? "ru-RU" : "en-US");
             return GameplayHudModel.FormatGap(row.StartOffsetSeconds, culture);
         }
     }

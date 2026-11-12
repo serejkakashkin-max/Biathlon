@@ -146,6 +146,7 @@ namespace Biathlon.Unity.Presentation
             FrostlineStyle.Apply(Root,ReducedMotion);Root.EnableInClassList("high-contrast",HighContrast);
             Root.style.flexGrow=1;Root.style.backgroundColor=FrontEndTheme.Color(theme.snow);Root.style.color=ink;
             if(Race.Loading){RenderRaceLoading();return;}
+            if(Race.StartList!=null){RenderRaceStartList(Race.StartList);return;}
             bool home=Session.Screen==FrontEndScreen.Home;
             var background=new Image{image=backdrop,scaleMode=ScaleMode.ScaleAndCrop,pickingMode=PickingMode.Ignore,name="menu_backdrop"};
             background.style.position=Position.Absolute;background.style.left=0;background.style.right=0;background.style.top=0;background.style.bottom=0;Root.Add(background);
@@ -200,10 +201,6 @@ namespace Biathlon.Unity.Presentation
             {
                 left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
                 brand.style.fontSize=24*Scale;RenderCareerDashboard(actions,card);
-            }
-            else if(Race.StartList!=null)
-            {
-                RenderRaceStartList(actions,card,Race.StartList);
             }
             else if(Session.Screen==FrontEndScreen.PreRace)
             {

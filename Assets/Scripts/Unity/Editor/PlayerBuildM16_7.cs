@@ -88,6 +88,11 @@ namespace Biathlon.Unity
             "После загрузки откроется стартовый протокол. Нажмите «Старт» для обратного отсчёта. После гонки проверьте результаты, очки, общий зачёт и зачёт дисциплины.\r\n",
             "M16.9");
 
+        public static void BuildM169TrackStartListReview() => BuildM167Review("Builds/M16_9_Track_Start_List_Review",
+            "m169_track_start_list_review", null,
+            "После загрузки проверьте стартовый протокол поверх вида трассы на стрельбище. На странице 15 спортсменов. Кнопка «Старт» под списком включает обратный отсчёт.\r\n",
+            "M16.9");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {

@@ -127,7 +127,7 @@ namespace Biathlon.Unity.Presentation
                 try
                 {
                     StartList = new RaceStartList(roster, Host.Runner.Field);
-                    Host.ChaseCamera.enabled = false;
+                    Host.ShowStartListView();
                     Host.Proxies.enabled = false;
                 }
                 catch(Exception e){failure=e;}
@@ -152,7 +152,7 @@ namespace Biathlon.Unity.Presentation
 
             try
             {
-                Host.ChaseCamera.enabled = true;
+                Host.RestoreChaseView();
                 Host.Proxies.enabled = true;
                 Host.ArmRaceStartCountdown();
                 Host.GameplayHud.FinishLoading();
