@@ -112,26 +112,50 @@ namespace Biathlon.PlayModeTests
             public void WriteNew(string id,string value)=>Json=value;
             public void Replace(string id,string before,string value){Assert.That(Json,Is.EqualTo(before));Json=value;}
         }
-        [UnityTest,Timeout(300000)] public IEnumerator ActualCareerLaunchUsesForecastAndSnowfallWithFullQuality()
+        [UnityTest,Timeout(300000)] public IEnumerator ActualCareerLaunchUsesForecastAndSnowfallWithFullQuality()=>CareerLaunch(false);
+        [UnityTest,Timeout(300000)] public IEnumerator ContinuedCareerUsesEveningFloodlightsAndSustainedSnowfall()=>CareerLaunch(true);
+        private IEnumerator CareerLaunch(bool evening)
         {
             folder=Path.Combine(Path.GetTempPath(),"biathlon-weather-"+Guid.NewGuid().ToString("N"));
             root=new GameObject("Weather live career review");var menu=root.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;
-            menu.Initialize(new Store(),new RaceReplayLibrary(folder));menu.Session.OpenNewCareer();menu.Session.CreateCareer("weather_live","Алекс","NOR",11);
-            for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();menu.RefreshFrontEnd();yield return null;
+            var calendar=CareerCalendar.FromJson(ProductionVenueHost.ReadResource("Biathlon/woodland_junior_calendar_v1"));
+            var choice=evening?new CareerEventWeather("weather_live","weather_live_season_1",calendar.Get(0).Id,"evening_snow_v1"):null;
+            var store=new Store();
+            menu.Initialize(store,new RaceReplayLibrary(folder),choice);menu.Session.OpenNewCareer();menu.Session.CreateCareer("weather_live","Алекс","NOR",11);
+            for(int i=0;i<5;i++)menu.Session.RestWeek();
+            menu.Session.Back();menu.Session.ContinueCareer();
+            string saved=store.Json;
+            menu.ApplyPreferences("ru",0);
+            menu.Session.OpenPreRace();menu.RefreshFrontEnd();yield return null;
             Assert.That(menu.Root.Q<Label>("pre_race_weather").text,Does.Contain("-6°C"));
+            if(evening)
+            {
+                Assert.That(menu.Root.Q<Label>("pre_race_weather").text,Does.Contain("Вечерняя гонка"));
+                Assert.That(menu.Root.Q<Label>("personal_start_weather").text,Does.Contain("снегопад 100%"));
+            }
             menu.Race.Launch(menu);for(int i=0;i<60&&menu.Race.Loading;i++)yield return null;
             var host=menu.Race.Host;Assert.That(host,Is.Not.Null,menu.LastMessage);Assert.That(host.Environment.WeatherPresetId,Is.EqualTo("snowfall"));
             menu.Race.StartRace();
             for(int i=0;i<5;i++)yield return null;
             Assert.That(host.Environment.SubmittedSnowflakes,Is.GreaterThan(0));
-            Assert.That(host.Runner.RaceWind.EastMetersPerSecond,Is.EqualTo(1.8));
+            Assert.That(host.Runner.RaceWind.EastMetersPerSecond,Is.EqualTo(evening?.3:1.8));
+            if(evening)
+            {
+                Assert.That(host.Environment.Floodlights.LampsOn,Is.True);
+                var timeline=host.Runner.Field.WeatherTimeline;
+                Assert.That(timeline.Initial.LightingPreset,Is.EqualTo("evening"));
+                Assert.That(timeline.Sample(1200).Snowfall,Is.EqualTo(1));
+                Assert.That(store.Json,Is.EqualTo(saved));
+            }
             var target=new RenderTexture(1280,720,24);target.Create();var camera=host.ChaseCamera;camera.targetTexture=target;
             Texture2D pixels=null;var prior=RenderTexture.active;
             try
             {
                 for(int i=0;i<3;i++)yield return null;
                 RenderTexture.active=target;pixels=new Texture2D(1280,720,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,1280,720),0,0);pixels.Apply();
-                string evidence=Path.Combine(Application.dataPath,"../docs/quality/m14/weather-20261012");Directory.CreateDirectory(evidence);File.WriteAllBytes(Path.Combine(evidence,"career-snowfall.png"),pixels.EncodeToPNG());
+                string evidence=Path.Combine(Application.dataPath,evening?"../artifacts/m16-9-evening-snow":"../docs/quality/m14/weather-20261012");
+                Directory.CreateDirectory(evidence);
+                File.WriteAllBytes(Path.Combine(evidence,"career-snowfall.png"),pixels.EncodeToPNG());
             }
             finally{camera.targetTexture=null;RenderTexture.active=prior;if(pixels!=null)Object.DestroyImmediate(pixels);target.Release();Object.DestroyImmediate(target);}
             menu.Race.Abandon();yield return null;

@@ -26,3 +26,12 @@ WeatherPresentation remains the sole lease owner for RenderSettings/sky/fog/ligh
 The environment reads accepted race time for visual changes and wind; shaders,
 particles and HUD cannot modify authoritative state. Existing TAB timing controls
 remain usable; weather details integrate into that panel.
+
+
+2026-11-15. The optional Windows player argument
+`-biathlonCareerWeather <career-id> <season-id> <event-id> <preset-id>` selects
+existing authored weather for a single career event. The forecast and prepared
+race share the stable scenario for an exact match. This keeps precipitation
+constant throughout the race. Other events use the normal season rotation and
+race-seeded fronts. The chosen preset and timeline use the existing replay
+metadata. Career saves require no schema or calendar update.

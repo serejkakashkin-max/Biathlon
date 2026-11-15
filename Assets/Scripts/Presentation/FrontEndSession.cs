@@ -20,6 +20,7 @@ namespace Biathlon.Presentation
         private readonly Func<string,string> read;
         private readonly ICareerProfileStore profiles;
         private readonly Func<ulong,IRandomSource> restoreRandom;
+        private readonly CareerEventWeather eventWeather;
         private FrontEndScreen settingsReturn;
         private readonly List<CareerTrainingKind> training=new List<CareerTrainingKind>();
         public int TrainingCount=>training.Count;
@@ -39,8 +40,8 @@ namespace Biathlon.Presentation
         {
             get { if(Career==null)return null;for(int i=0;i<Career.AthleteCount;i++)if(Career.Athlete(i).Id==Career.PlayerId)return Career.Athlete(i);throw new InvalidOperationException("Missing player."); }
         }
-        public FrontEndSession(Func<string,string> read, ICareerProfileStore profiles,Func<ulong,IRandomSource> restoreRandom)
-        { this.read=read??throw new ArgumentNullException(nameof(read));this.profiles=profiles??throw new ArgumentNullException(nameof(profiles));this.restoreRandom=restoreRandom??throw new ArgumentNullException(nameof(restoreRandom)); }
+        public FrontEndSession(Func<string,string> read, ICareerProfileStore profiles,Func<ulong,IRandomSource> restoreRandom,CareerEventWeather eventWeather=null)
+        { this.read=read??throw new ArgumentNullException(nameof(read));this.profiles=profiles??throw new ArgumentNullException(nameof(profiles));this.restoreRandom=restoreRandom??throw new ArgumentNullException(nameof(restoreRandom));this.eventWeather=eventWeather; }
         public void OpenNewCareer()
         { Require(FrontEndScreen.Home);Screen=FrontEndScreen.NewCareer; }
         public void OpenSettings()
@@ -124,7 +125,7 @@ namespace Biathlon.Presentation
         }
         public void ReturnFromResults() {Require(FrontEndScreen.Results);Screen=FrontEndScreen.Career;}
         private void PublishSaved(CareerSave candidate,string expected)
-        {profiles.Replace(candidate.Id,expected,candidate.ToJson());Career=candidate;Definitions=CareerDefinitions.ForSave(read,candidate);}
+        {profiles.Replace(candidate.Id,expected,candidate.ToJson());Career=candidate;Definitions=CareerDefinitions.ForSave(read,candidate,eventWeather);}
         public void CreateCareer(string id,string name,string nation,ulong seed,string startProfileId="junior_novice",int? age=null)
         {
             Require(FrontEndScreen.NewCareer);
@@ -161,7 +162,7 @@ namespace Biathlon.Presentation
         {
             Require(FrontEndScreen.Home);
             var decoded=CareerSave.FromJson(profiles.ReadLatest());
-            var definitions=CareerDefinitions.ForSave(read,decoded);
+            var definitions=CareerDefinitions.ForSave(read,decoded,eventWeather);
             var candidate=CareerFactory.Restore(decoded.ToJson(),definitions.Roster,definitions.Calendar,restoreRandom(decoded.RandomState));
             Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
         }

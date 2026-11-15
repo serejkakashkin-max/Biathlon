@@ -46,14 +46,26 @@ namespace Biathlon.Unity.Presentation
         private string F(string key,params object[] values)=>string.Format(CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"),T(key),values);
         private static string ReadCore(string file)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(file));
         private void Start()
-        { if(AutoStart&&Session==null)Initialize(new FileCareerProfileStore(Path.Combine(Application.persistentDataPath,"Profiles"))); }
-        public void Initialize(ICareerProfileStore profiles,RaceReplayLibrary replayLibrary=null)
+        {
+            if(!AutoStart||Session!=null)return;
+            Initialize(new FileCareerProfileStore(Path.Combine(Application.persistentDataPath,"Profiles")),
+                eventWeather:ReadEventWeatherArgument());
+        }
+        private static CareerEventWeather ReadEventWeatherArgument()
+        {
+            var args=Environment.GetCommandLineArgs();
+            int index=Array.IndexOf(args,"-biathlonCareerWeather");
+            if(index<0)return null;
+            if(index+4>=args.Length)throw new ArgumentException("Career weather requires a career, season, event and preset.");
+            return new CareerEventWeather(args[index+1],args[index+2],args[index+3],args[index+4]);
+        }
+        public void Initialize(ICareerProfileStore profiles,RaceReplayLibrary replayLibrary=null,CareerEventWeather eventWeather=null)
         {
             if(Session!=null)throw new InvalidOperationException("Initialize front end once.");
             BiathlonAudio.Ensure(PersistPreferences).SetMenu(true);
             theme=FrontEndTheme.Load();text=UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_text_v1"));
             backdrop=Resources.Load<Texture2D>("Biathlon/UI/menu_background");
-            Session=new FrontEndSession(ReadCore,profiles,s=>new SeededRandomSource(s));
+            Session=new FrontEndSession(ReadCore,profiles,s=>new SeededRandomSource(s),eventWeather);
             InitializeReliability(profiles);
             ReplayLibrary=replayLibrary??new RaceReplayLibrary(Path.Combine(Application.persistentDataPath,"Replays"));
             Replays=gameObject.AddComponent<RaceReplayPresentation>();

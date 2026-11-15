@@ -103,6 +103,11 @@ namespace Biathlon.Unity
             "Ускорен расчёт контакта с краем трассы. Проверьте масс-старт и движение вдоль левого и правого края.\r\n",
             "M16.9");
 
+        public static void BuildM169EveningSnowReview() => BuildM167Review("Builds/M16_9_Evening_Snow_Review",
+            "m169_evening_snow_review", null,
+            "Локальный запуск START_NIGHT_SNOW.cmd задаёт вечер и сильный снегопад для выбранной гонки сохранённой карьеры.\r\n",
+            "M16.9");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {

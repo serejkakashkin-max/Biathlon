@@ -3,6 +3,27 @@ using System.Collections.Generic;
 using Biathlon.Domain;
 namespace Biathlon.Career
 {
+    public sealed class CareerEventWeather
+    {
+        private readonly string careerId, seasonId, eventId;
+        public string PresetId { get; }
+
+        public CareerEventWeather(string careerId, string seasonId, string eventId, string presetId)
+        {
+            CareerUnits.Id(careerId);
+            CareerUnits.Id(seasonId);
+            CareerUnits.Id(eventId);
+            CareerUnits.Id(presetId);
+            this.careerId = careerId;
+            this.seasonId = seasonId;
+            this.eventId = eventId;
+            PresetId = presetId;
+        }
+
+        internal bool Matches(CareerSave save, CareerCalendarEvent e) =>
+            save.Id == careerId && save.SeasonId == seasonId && e.Id == eventId;
+    }
+
     public sealed class CareerDefinitions
     {
         private const string LegacyCalendarResource="career_calendar_v1.json";
@@ -33,13 +54,24 @@ namespace Biathlon.Career
         private CareerEquipmentPolicy equipmentPolicy;
         public CareerEquipmentPolicy EquipmentPolicy=>equipmentPolicy??(equipmentPolicy=CareerEquipmentPolicy.FromJson(ReadDefinition("career_equipment_policy_v1.json")));
         private RaceWeatherPolicy weatherPolicy;
+        private CareerEventWeather eventWeather;
         public RaceWeatherPolicy WeatherPolicy=>weatherPolicy??(weatherPolicy=RaceWeatherPolicy.FromJson(ReadDefinition("race_weather_policy_v1.json")));
         public RaceWeatherPreset Forecast(CareerSave save,CareerCalendarEvent e)
         {
             if(save==null||e==null)throw new ArgumentNullException();if(e.VenueId!="woodland_basin_v1")return null;
-            for(int i=0;i<Calendar.Count;i++)if(Calendar.Get(i).Id==e.Id)return RaceWeatherCatalog.FromJson(ReadDefinition("career_weather_v1.json")).Select(i,save.Season);
+            for(int i=0;i<Calendar.Count;i++)
+            {
+                if(Calendar.Get(i).Id!=e.Id)continue;
+                var catalog=RaceWeatherCatalog.FromJson(ReadDefinition("career_weather_v1.json"));
+                if(eventWeather?.Matches(save,e)!=true)return catalog.Select(i,save.Season);
+                for(int preset=0;preset<catalog.Count;preset++)
+                    if(catalog.Get(preset).Id==eventWeather.PresetId)return catalog.Get(preset);
+                throw new ArgumentException("Unknown event weather preset.");
+            }
             throw new ArgumentException("Forecast requires an event from this career calendar.");
         }
+        public RaceWeatherTimeline CreateWeatherTimeline(CareerSave save,CareerCalendarEvent e,RaceWeatherPreset initial,ulong seed) =>
+            eventWeather?.Matches(save,e)==true ? WeatherPolicy.CreateScenario(initial,"stable") : WeatherPolicy.Create(initial,seed);
         public CareerDefinitions(Func<string,string> read) : this(read,LegacyCalendarResource) { }
         /// <summary>New production careers use the approved one-venue season.
         /// Existing saves are selected from their persisted calendar ID instead.</summary>
@@ -55,7 +87,7 @@ namespace Biathlon.Career
             var p=CareerStartDefinition.FromJson(read("career_start_v1.json")).Get(startProfileId);
             return new CareerDefinitions(read,p.CalendarResource,"career_roster_v2.json");
         }
-        public static CareerDefinitions ForSave(Func<string,string> read,CareerSave save)
+        public static CareerDefinitions ForSave(Func<string,string> read,CareerSave save,CareerEventWeather eventWeather=null)
         {
             if(save==null)throw new ArgumentNullException(nameof(save));
             string resource=save.CalendarId==LegacyCalendarId?LegacyCalendarResource:
@@ -67,6 +99,7 @@ namespace Biathlon.Career
             var selected=new CareerDefinitions(read,resource,save.RulesId=="career_roster_v2"?"career_roster_v2.json":"career_roster_v1.json");
             if(selected.Calendar.Id!=save.CalendarId)
                 throw new InvalidOperationException("Saved calendar ID does not match its loaded definition.");
+            selected.eventWeather=eventWeather;
             return selected;
         }
         public CareerDefinitions(Func<string,string> read,string calendarResource):this(read,calendarResource,"career_roster_v1.json") { }

@@ -65,7 +65,7 @@ namespace Biathlon.AI
         public RaceWeatherPreset Forecast(CareerSave snapshot,CareerCalendarEvent e)
             =>career.Forecast(snapshot,e);
         public RaceWeatherTimeline ForecastTimeline(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
-        {var initial=Forecast(snapshot,e);return initial==null?null:career.WeatherPolicy.Create(initial,seed);}
+        {var initial=Forecast(snapshot,e);return initial==null?null:career.CreateWeatherTimeline(snapshot,e,initial,seed);}
         public double PlayerStartSeconds(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
         {
             double first=1.0/definition.TickFrequency;if(e.Format==CompetitionFormat.MassStart)return first;
@@ -149,7 +149,7 @@ namespace Biathlon.AI
                 var timeline=RaceWeatherTimeline.FromJson(recordedTimelineJson);
                 if(weather==null||timeline.Initial.ToJson()!=weather.ToJson())throw new ArgumentException("Recorded timeline and initial weather differ.");runner.BindWeather(timeline,legacyWeatherHeading?null:venue?.Visual);
             }
-            else if(weather!=null&&!legacyFixedWeather&&recordedWeather==null)runner.BindWeather(career.WeatherPolicy.Create(weather,seed),legacyWeatherHeading?null:venue?.Visual);
+            else if(weather!=null&&!legacyFixedWeather&&recordedWeather==null)runner.BindWeather(career.CreateWeatherTimeline(snapshot,e,weather,seed),legacyWeatherHeading?null:venue?.Visual);
             Func<string,string> manualRead=!legacyMassStartOrder&&weather?.CourseContactResource!=null?
                 n=>raceRead(n=="manual_course_contact_gameplay_v2.json"?weather.CourseContactResource:n):raceRead;
             return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead,courseReactionPolicy,equipment,legacyAiSnowSearch?0:1,movingOvertakeVersion);

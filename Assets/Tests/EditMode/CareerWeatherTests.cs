@@ -16,6 +16,34 @@ namespace Biathlon.Tests
         private static string Venue(string n)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+n+".json");
         private static RaceWeatherCatalog Catalog()=>RaceWeatherCatalog.FromJson(Read("career_weather_v1.json"));
         private static CareerSave Save(CareerDefinitions d)=>CareerFactory.Create(d.Roster,d.Calendar,"weather_test","Alex","NOR","default",new SeededRandomSource(71000));
+        [Test] public void EveningSnowOverrideAppliesOnlyToOneCareerRaceAndRoundTripsInItsTimeline()
+        {
+            var normal=new CareerDefinitions(Read,"woodland_career_calendar_v1.json");
+            var save=Save(normal);
+            string before=save.ToJson();
+            var selected=normal.Calendar.Get(3);
+            var next=normal.Calendar.Get(4);
+            var choice=new CareerEventWeather(save.Id,save.SeasonId,selected.Id,"evening_snow_v1");
+            var definitions=CareerDefinitions.ForSave(Read,save,choice);
+            var provider=new CareerRaceProvider(Read,definitions,Venue);
+            var weather=provider.Forecast(save,selected);
+            Assert.That(weather.LightingPreset,Is.EqualTo("evening"));
+            Assert.That(weather.VisualPreset,Is.EqualTo("snowfall"));
+            Assert.That(provider.Forecast(save,next).ToJson(),Is.EqualTo(normal.Forecast(save,next).ToJson()));
+            var other=CareerFactory.Create(normal.Roster,normal.Calendar,"other_weather","Alex","NOR","default",new SeededRandomSource(71000));
+            Assert.That(provider.Forecast(other,selected).ToJson(),Is.EqualTo(normal.Forecast(other,selected).ToJson()));
+            var anotherSeason=CareerDefinitions.ForSave(Read,save,
+                new CareerEventWeather(save.Id,"different_season",selected.Id,"evening_snow_v1"));
+            Assert.That(anotherSeason.Forecast(save,selected).ToJson(),Is.EqualTo(normal.Forecast(save,selected).ToJson()));
+            var timeline=provider.ForecastTimeline(save,selected,123);
+            Assert.That(timeline.FrontCount,Is.Zero);
+            var playback=RaceWeatherTimeline.FromJson(timeline.ToJson());
+            Assert.That(playback.Initial.ToJson(),Is.EqualTo(weather.ToJson()));
+            Assert.That(playback.Sample(0).Snowfall,Is.EqualTo(1));
+            Assert.That(playback.Sample(1200).Snowfall,Is.EqualTo(1));
+            Assert.That(save.ToJson(),Is.EqualTo(before));
+        }
+
         [Test] public void CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay()
         {
             var catalog=Catalog();var visuals=new HashSet<string>();var lighting=new HashSet<string>();
