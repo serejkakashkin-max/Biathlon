@@ -49,13 +49,13 @@ namespace Biathlon.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator WoodlandMiniWindowPagesThroughAllArrivalsAndFreezesThreeAtThePlayersCrossing()
+        public IEnumerator WoodlandMiniWindowFollowsThePlayersClockAndFreezesThreeAtCrossing()
         {
             var plan=Production(true);
             var binding=Enumerable.Range(0,plan.Formats.Count).Select(plan.Formats.Get)
                 .Single(x=>x.Profile.Format==CompetitionFormat.Sprint);
             var root=new GameObject("Live timing on Woodland Basin");
-            const string capturePath="artifacts/m16-8-compact-contact/";
+            const string capturePath="artifacts/m16-9-player-clock-split/";
             bool capture=File.Exists(capturePath+"capture.flag");
             try
             {
@@ -88,7 +88,6 @@ namespace Biathlon.PlayModeTests
                 var standings=CheckpointStandings.Capture(field,0);
                 Assert.That(standings.Count,Is.EqualTo(7));
                 var shownStarts=new List<int>();
-                var shownRanks=new HashSet<int>();
                 ObservePage();
                 Assert.That(hud.Root.Q<Label>("live_split_heading").text,Does.Contain(portals.DistanceLabel(gate).Replace('.',',').Replace("KM","КМ")));
                 yield return null;
@@ -108,15 +107,16 @@ namespace Biathlon.PlayModeTests
                     if(i%5!=0||field.GetAthlete(featured).Checkpoints.Count!=0)continue;
                     Publish();
                     ObservePage();
-                    if(capture&&!capturedLaterPage&&shownStarts.Last()==4)
+                    if(capture&&!capturedLaterPage&&view.RemainingMeters>=40)
                     {
                         capturedLaterPage=true;
                         yield return Capture("approach");
                     }
                 }
 
-                Assert.That(shownStarts.Take(5),Is.EqualTo(new[]{1,2,3,4,5}),"Each update advances one place while three athletes remain visible.");
-                Assert.That(shownRanks.OrderBy(rank=>rank),Is.EqualTo(Enumerable.Range(1,7)));
+                for(int i=1;i<shownStarts.Count;i++)
+                    Assert.That(shownStarts[i],Is.GreaterThan(shownStarts[i-1]),
+                        "The reference window follows the running clock without cycling back through earlier results.");
                 var own=field.GetAthlete(featured).Checkpoints.Get(0);
                 var atCrossing=CheckpointStandings.Capture(field,0,own.GlobalTime);
                 int ownIndex=Enumerable.Range(0,atCrossing.Count).Single(i=>atCrossing.Get(i).AthleteId==own.Athlete.Value);
@@ -168,12 +168,18 @@ namespace Biathlon.PlayModeTests
 
                 void ObservePage()
                 {
+                    var current=LiveSplit.Capture(field,layout,featured,host.Feed.Current.Get(featured),60,6);
                     int start=Enumerable.Range(0,standings.Count).Single(i=>standings.Get(i).AthleteId==cards[0].AthleteId);
+                    int lastFaster=-1;
+                    for(int i=0;i<standings.Count;i++)
+                        if(standings.Get(i).Seconds<=current.Seconds)lastFaster=i;
+                    Assert.That(start,Is.EqualTo(Math.Clamp(lastFaster-1,0,standings.Count-3)),
+                        "Keep the nearest faster time and its neighbours beside the player's running clock.");
+                    Assert.That(hud.Root.Q<Label>("live_split_time").text,Is.EqualTo(GameplayHudModel.FormatClock(current.Seconds)));
                     for(int i=0;i<cards.Count;i++)
                     {
                         var result=standings.Get(start+i);
                         AssertCard(cards[i],result,false);
-                        shownRanks.Add(result.Rank);
                     }
                     int rank=standings.Get(start).Rank;
                     if(shownStarts.Count==0||shownStarts.Last()!=rank)shownStarts.Add(rank);

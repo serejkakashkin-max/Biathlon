@@ -26,14 +26,17 @@ namespace Biathlon.Presentation
 
         public const int BroadcastSlots = 3;
 
-        public int BroadcastPageStart(long elapsedPages, double approachProgress)
+        public int BroadcastApproachStart(double seconds)
         {
+            if (double.IsNaN(seconds) || double.IsInfinity(seconds) || seconds < 0)
+                throw new ArgumentOutOfRangeException(nameof(seconds));
             if (Count <= BroadcastSlots) return 0;
 
-            int pages = Count - BroadcastSlots + 1;
-            int distancePage = Math.Min(pages - 1, (int)(Math.Clamp(approachProgress, 0, 1) * pages));
-            int page = (int)(Math.Max(elapsedPages, distancePage) % pages);
-            return page;
+            int next = 0;
+            while (next < Count && rows[next].Seconds <= seconds) next++;
+            // Keep the latest time passed in the middle, with its two neighbours.
+            // Both values use the same elapsed/global clock chosen for this table.
+            return Math.Clamp(next - 2, 0, Count - BroadcastSlots);
         }
 
         public int BroadcastResultStart(int playerIndex)

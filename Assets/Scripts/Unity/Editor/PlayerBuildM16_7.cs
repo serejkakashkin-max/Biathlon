@@ -93,6 +93,11 @@ namespace Biathlon.Unity
             "После загрузки проверьте стартовый протокол поверх вида трассы на стрельбище. На странице 15 спортсменов. Кнопка «Старт» под списком включает обратный отсчёт.\r\n",
             "M16.9");
 
+        public static void BuildM169PlayerClockSplitReview() => BuildM167Review("Builds/M16_9_Player_Clock_Split_Review",
+            "m169_player_clock_split_review", null,
+            "На подъезде к отсечке три карточки соперников следуют за вашим текущим временем. После пересечения фиксируются ваше место и соседние результаты.\r\n",
+            "M16.9");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {

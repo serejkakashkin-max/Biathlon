@@ -22,6 +22,49 @@ namespace Biathlon.Tests
             var other=new CheckpointTracker(layout,new AthleteId("other"),20,default,new RaceEventLog(20));other.Observe(new SimulationTick(1),0,1600000000000);
             Assert.Throws<ArgumentException>(()=>new CheckpointStandings(new[]{early,other.Get(2)},CheckpointClock.Elapsed));
         }
+        [TestCase(CheckpointClock.Elapsed)]
+        [TestCase(CheckpointClock.Global)]
+        public void BroadcastApproachDoesNotAdvancePastThePlayersRunningTime(CheckpointClock clock)
+        {
+            var layout = CheckpointTimingTests.Layout();
+            long line = layout.Get(1).RouteNanometers;
+            double[] seconds = { 183.9, 187, 192, 198, 215, 220.3, 227.1, 235.6 };
+            var arrivals = new CheckpointSplit[seconds.Length];
+            for (int i = 0; i < seconds.Length; i++)
+            {
+                long startTick = clock == CheckpointClock.Elapsed ? i * 600 : 0;
+                var tracker = new CheckpointTracker(layout, new AthleteId("bib_" + i), 20, new SimulationTick(startTick), new RaceEventLog(20));
+                long finishTick = startTick + (long)Math.Round(seconds[i] * 20);
+                for (long tick = startTick + 1; tick < finishTick; tick++)
+                    tracker.Observe(new SimulationTick(tick), 0, 0);
+                tracker.Observe(new SimulationTick(finishTick), 0, line);
+                arrivals[i] = tracker.Get(1);
+            }
+
+            var standings = new CheckpointStandings(arrivals, clock);
+            double runningSeconds = 197.2;
+            Assert.That(runningSeconds - standings.Get(0).Seconds, Is.EqualTo(13.3).Within(.001));
+            int start = standings.BroadcastApproachStart(runningSeconds);
+            Assert.That(start, Is.EqualTo(1));
+            Assert.That(standings.Get(start).Seconds, Is.LessThanOrEqualTo(runningSeconds),
+                "The strip must include the nearest faster result while the player's clock shows +13.3.");
+            Assert.That(standings.Get(start + 2).Seconds, Is.GreaterThanOrEqualTo(runningSeconds));
+            for (int refresh = 0; refresh < 100; refresh++)
+                Assert.That(standings.BroadcastApproachStart(runningSeconds), Is.EqualTo(start),
+                    "Repeated HUD refreshes at the same running time keep the same competitors.");
+            Assert.That(standings.BroadcastApproachStart(198), Is.EqualTo(start + 1));
+            Assert.That(standings.BroadcastApproachStart(0), Is.Zero);
+            Assert.That(standings.BroadcastApproachStart(1000), Is.EqualTo(standings.Count - 3));
+            for (int count = 0; count <= 3; count++)
+            {
+                var shortTable = new CheckpointStandings(arrivals.AsSpan(0, count), clock);
+                Assert.That(shortTable.BroadcastApproachStart(runningSeconds), Is.Zero);
+            }
+            Assert.Throws<ArgumentOutOfRangeException>(() => standings.BroadcastApproachStart(double.NaN));
+            Assert.Throws<ArgumentOutOfRangeException>(() => standings.BroadcastApproachStart(double.PositiveInfinity));
+            Assert.Throws<ArgumentOutOfRangeException>(() => standings.BroadcastApproachStart(-1));
+        }
+
         [Test]
         public void BroadcastSlidesOneResultAtATimeThroughNineteenArrivalsAndFreezesAtTwentieth()
         {
@@ -40,15 +83,14 @@ namespace Biathlon.Tests
             var displayedRanks = new System.Collections.Generic.HashSet<int>();
             for (int page = 0; page < expectedStarts.Length; page++)
             {
-                int start = approach.BroadcastPageStart(page, 0);
+                int start = approach.BroadcastApproachStart(approach.Get(page + 1).Seconds);
                 Assert.That(start, Is.EqualTo(expectedStarts[page]));
                 for (int i = 0; i < CheckpointStandings.BroadcastSlots; i++)
                     displayedRanks.Add(approach.Get(start + i).Rank);
             }
 
             Assert.That(displayedRanks.Count, Is.EqualTo(19));
-            Assert.That(approach.BroadcastPageStart(17, 0), Is.Zero);
-            Assert.That(approach.BroadcastPageStart(0, .99), Is.EqualTo(16));
+            Assert.That(approach.BroadcastApproachStart(approach.Get(18).Seconds + 1), Is.EqualTo(16));
 
             var crossed = new CheckpointStandings(arrivals, CheckpointClock.Global, arrivals[19].GlobalTime);
             int lastGroup = crossed.BroadcastResultStart(19);

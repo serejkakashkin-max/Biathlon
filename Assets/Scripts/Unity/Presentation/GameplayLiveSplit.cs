@@ -15,8 +15,7 @@ namespace Biathlon.Unity.Presentation
         private CheckpointStandings liveSplitStandings;
         private int liveSplitOrdinal, liveSplitShownStart;
         private bool liveSplitCrossed;
-        private long liveSplitTick, liveSplitRotationStart;
-        private double liveSplitRotationDistance;
+        private long liveSplitTick;
 
         private void BuildLiveSplit()
         {
@@ -170,18 +169,11 @@ namespace Biathlon.Unity.Presentation
             liveSplitDifference.style.color = difference > 0 && !HighContrast ? FrostlineStyle.Danger : accent;
             if (liveSplitStandings == null || liveSplitStandings.Count != split.Arrivals)
             {
-                if (liveSplitStandings == null || liveSplitStandings.Count == 0)
-                {
-                    liveSplitRotationStart = tick;
-                    liveSplitRotationDistance = split.RemainingMeters;
-                }
                 liveSplitStandings = CheckpointStandings.Capture(field, split.Ordinal);
                 liveSplitShownStart = -1;
             }
 
-            int pageTicks = Math.Max(1, Mathf.RoundToInt(reviewSettings.checkpoint_page_seconds * field.TickFrequency));
-            double progress = liveSplitRotationDistance > 0 ? 1 - split.RemainingMeters / liveSplitRotationDistance : 0;
-            int pageStart = liveSplitStandings.BroadcastPageStart((tick - liveSplitRotationStart) / pageTicks, progress);
+            int pageStart = liveSplitStandings.BroadcastApproachStart(split.Seconds);
             if (pageStart != liveSplitShownStart) BindLiveSplitPage(pageStart);
         }
 
