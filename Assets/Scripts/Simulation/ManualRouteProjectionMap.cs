@@ -99,6 +99,9 @@ namespace Biathlon.Simulation
         private readonly RaceRoute route;
         private readonly bool baseRouteGeometry;
         private readonly Edge[] edges;
+        private readonly TubeEdge[] tubeEdges;
+        private readonly TubeBounds[] tubeBlocks;
+        private const int TubeBlockSize=4;
         private readonly ManualRouteCorridorCell[] collinearCells;
         private readonly int[] firstEdges, edgeEnds;
         private int[] phaseIncomingEdges;
@@ -130,6 +133,47 @@ namespace Biathlon.Simulation
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,"owned_portal_band_m:"+meters.ToString("R",System.Globalization.CultureInfo.InvariantCulture),"round_snow_corridor:"+roundSnowCorridor,"snow_window_multiplier:"+snowWindowMultiplier.ToString("R",System.Globalization.CultureInfo.InvariantCulture)});
         }
         public string CorridorContextJson { get; }
+        private readonly struct TubeEdge
+        {
+            internal readonly double X,Z,EndX,EndZ,DX,DZ,LengthSquared,MinX,MaxX,MinZ,MaxZ,HalfWidth,TurnReserve;
+            internal TubeEdge(in Edge edge)
+            {
+                X=edge.X; Z=edge.Z; DX=edge.DX; DZ=edge.DZ;
+                EndX=edge.EndX; EndZ=edge.EndZ;
+                LengthSquared=edge.PlanarLength*edge.PlanarLength;
+                MinX=Math.Min(X,edge.EndX); MaxX=Math.Max(X,edge.EndX);
+                MinZ=Math.Min(Z,edge.EndZ); MaxZ=Math.Max(Z,edge.EndZ);
+                HalfWidth=edge.MinimumWidth*.5; TurnReserve=edge.TubeTurnReserve;
+            }
+        }
+        private readonly struct TubeBounds
+        {
+            internal readonly double MinX,MaxX,MinZ,MaxZ,RoundHalfWidth,ConservativeHalfWidth;
+            internal readonly double AxisX,AxisZ,MinAlong,MaxAlong,MinAcross,MaxAcross;
+            internal TubeBounds(TubeEdge[] edges,int first,int last)
+            {
+                var start=edges[first];var end=edges[last];
+                MinX=MinZ=MinAlong=MinAcross=double.PositiveInfinity;
+                MaxX=MaxZ=MaxAlong=MaxAcross=double.NegativeInfinity;
+                RoundHalfWidth=ConservativeHalfWidth=0;
+                double dx=end.EndX-start.X,dz=end.EndZ-start.Z;
+                double length=Math.Sqrt(dx*dx+dz*dz);
+                AxisX=length>0?dx/length:1;
+                AxisZ=length>0?dz/length:0;
+                for(int i=first;i<=last;i++)
+                {
+                    ref readonly var edge=ref edges[i];
+                    MinX=Math.Min(MinX,edge.MinX); MaxX=Math.Max(MaxX,edge.MaxX);
+                    MinZ=Math.Min(MinZ,edge.MinZ); MaxZ=Math.Max(MaxZ,edge.MaxZ);
+                    RoundHalfWidth=Math.Max(RoundHalfWidth,edge.HalfWidth);
+                    ConservativeHalfWidth=Math.Max(ConservativeHalfWidth,edge.HalfWidth-edge.TurnReserve);
+                    double alongStart=edge.X*AxisX+edge.Z*AxisZ,alongEnd=edge.EndX*AxisX+edge.EndZ*AxisZ;
+                    double acrossStart=edge.X*AxisZ-edge.Z*AxisX,acrossEnd=edge.EndX*AxisZ-edge.EndZ*AxisX;
+                    MinAlong=Math.Min(MinAlong,Math.Min(alongStart,alongEnd)); MaxAlong=Math.Max(MaxAlong,Math.Max(alongStart,alongEnd));
+                    MinAcross=Math.Min(MinAcross,Math.Min(acrossStart,acrossEnd)); MaxAcross=Math.Max(MaxAcross,Math.Max(acrossStart,acrossEnd));
+                }
+            }
+        }
         private readonly struct Edge
         {
             internal readonly int Section;
@@ -260,6 +304,14 @@ namespace Biathlon.Simulation
                 if(firstEdges[sectionIndex]==edgeEnds[sectionIndex])throw new ArgumentException("Empty projection occurrence.");
             }
             length=ends[count-1];edges=list.ToArray();
+            tubeEdges=new TubeEdge[edges.Length];
+            for(int i=0;i<edges.Length;i++)tubeEdges[i]=new TubeEdge(in edges[i]);
+            tubeBlocks=new TubeBounds[(edges.Length+TubeBlockSize-1)/TubeBlockSize];
+            for(int block=0;block<tubeBlocks.Length;block++)
+            {
+                int first=block*TubeBlockSize;
+                tubeBlocks[block]=new TubeBounds(tubeEdges,first,Math.Min(first+TubeBlockSize,edges.Length)-1);
+            }
             if(ordinaryEntries!=null)
             {
                 if(baseRouteGeometry||ordinaryEntries.Length!=count||firingDepartures==null||firingDepartures.Length!=count)
@@ -622,28 +674,67 @@ namespace Biathlon.Simulation
         // Every disk must fit in at least one of the pre-existing conservative
         // edge tubes. Their unchanged turn reserve and actual width are retained;
         // no convex hull, bridging of disconnected paths or enlarged snow domain.
-        internal double ConnectedTubeDiskClearance(double x,double z,ManualConnectedTubeWindow window,double radius)
+        internal double ConnectedTubeDiskClearance(double x,double z,ManualConnectedTubeWindow window,double radius,ref int hint,ref int edgeChecks)
         {
             double result=double.NegativeInfinity;
-            for(int i=window.First;i<=window.Last;i++)
+            bool round=UseRoundSnowCorridor;
+            int best=hint;
+            if((hint>=window.First&&hint<=window.Last)||
+                (window.IncomingFirst>=0&&hint>=window.IncomingFirst&&hint<=window.IncomingLast))
             {
-                result=Math.Max(result,Clearance(i));
+                edgeChecks++;
+                result=TubeDiskClearance(in tubeEdges[hint],x,z,radius,result,round);
             }
-            if(window.IncomingFirst>=0)for(int i=window.IncomingFirst;i<=window.IncomingLast;i++)result=Math.Max(result,Clearance(i));
+            SearchTubeBlocks(window.First,window.Last,x,z,radius,round,hint,ref best,ref result,ref edgeChecks);
+            if(window.IncomingFirst>=0)
+                SearchTubeBlocks(window.IncomingFirst,window.IncomingLast,x,z,radius,round,hint,ref best,ref result,ref edgeChecks);
+            hint=best;
             return result;
-            double Clearance(int i)
+        }
+
+        private void SearchTubeBlocks(int first,int last,double x,double z,double radius,bool round,int hint,
+            ref int best,ref double result,ref int edgeChecks)
+        {
+            for(int blockIndex=first/TubeBlockSize;blockIndex<=last/TubeBlockSize;blockIndex++)
             {
-                var edge=edges[i];double cap=edge.MinimumWidth*.5-(UseRoundSnowCorridor?0:edge.TubeTurnReserve)-radius;
-                double needed=cap-result;
-                if(needed<=0)return double.NegativeInfinity;
-                double bx=Math.Max(0,Math.Max(Math.Min(edge.X,edge.EndX)-x,x-Math.Max(edge.X,edge.EndX)));
-                double bz=Math.Max(0,Math.Max(Math.Min(edge.Z,edge.EndZ)-z,z-Math.Max(edge.Z,edge.EndZ)));
-                double box=bx*bx+bz*bz,limit=needed*needed;
-                if(box>limit+64*2.2204460492503131e-16*(1+box+limit))return double.NegativeInfinity;
-                double t=Math.Max(0,Math.Min(1,((x-edge.X)*edge.DX+(z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength)));
-                double dx=x-edge.X-t*edge.DX,dz=z-edge.Z-t*edge.DZ;
-                return cap-Math.Sqrt(dx*dx+dz*dz);
+                ref readonly var block=ref tubeBlocks[blockIndex];
+                double cap=(round?block.RoundHalfWidth:block.ConservativeHalfWidth)-radius;
+                // A larger box and the widest capsule bound every owned edge
+                // in this block, including at partial-window endpoints.
+                if(!CanImproveTubeClearance(x,z,block.MinX,block.MaxX,block.MinZ,block.MaxZ,cap-result))continue;
+                double along=x*block.AxisX+z*block.AxisZ,across=x*block.AxisZ-z*block.AxisX;
+                double encodingReserve=64*2.2204460492503131e-16*(1+Math.Abs(x)+Math.Abs(z)+
+                    Math.Abs(block.MinAlong)+Math.Abs(block.MaxAlong)+Math.Abs(block.MinAcross)+Math.Abs(block.MaxAcross));
+                if(!CanImproveTubeClearance(along,across,block.MinAlong,block.MaxAlong,block.MinAcross,block.MaxAcross,cap-result+encodingReserve))continue;
+                int blockFirst=blockIndex*TubeBlockSize;
+                int end=Math.Min(last,blockFirst+TubeBlockSize-1);
+                for(int i=Math.Max(first,blockFirst);i<=end;i++)
+                {
+                    if(i==hint)continue;
+                    edgeChecks++;
+                    double candidate=TubeDiskClearance(in tubeEdges[i],x,z,radius,result,round);
+                    if(candidate>result){result=candidate;best=i;}
+                }
             }
+        }
+
+        private static double TubeDiskClearance(in TubeEdge edge,double x,double z,double radius,double best,bool round)
+        {
+            double cap=edge.HalfWidth-(round?0:edge.TurnReserve)-radius;
+            if(!CanImproveTubeClearance(x,z,edge.MinX,edge.MaxX,edge.MinZ,edge.MaxZ,cap-best))
+                return double.NegativeInfinity;
+            double offsetX=x-edge.X,offsetZ=z-edge.Z;
+            double t=Math.Max(0,Math.Min(1,(offsetX*edge.DX+offsetZ*edge.DZ)/edge.LengthSquared));
+            double dx=offsetX-t*edge.DX,dz=offsetZ-t*edge.DZ;
+            return cap-Math.Sqrt(dx*dx+dz*dz);
+        }
+        private static bool CanImproveTubeClearance(double x,double z,double minX,double maxX,double minZ,double maxZ,double needed)
+        {
+            if(needed<=0)return false;
+            double bx=Math.Max(0,Math.Max(minX-x,x-maxX));
+            double bz=Math.Max(0,Math.Max(minZ-z,z-maxZ));
+            double box=bx*bx+bz*bz,limit=needed*needed;
+            return box<=limit+64*2.2204460492503131e-16*(1+box+limit);
         }
         // A capsule is convex. If every rectangle corner fits the same owned
         // edge capsule, the complete rectangle and its clearance fit as well.
@@ -657,16 +748,16 @@ namespace Biathlon.Simulation
             return result;
             double At(int i)
             {
-                var edge=edges[i];double maximumSquared=0;
+                ref readonly var edge=ref tubeEdges[i];double maximumSquared=0;
                 for(int corner=0;corner<4;corner++)
                 {
                     double along=corner<2?halfLength:-halfLength,side=corner==0||corner==3?halfWidth:-halfWidth;
                     double px=pose.X+fx*along+fz*side,pz=pose.Z+fz*along-fx*side;
-                    double t=Math.Max(0,Math.Min(1,((px-edge.X)*edge.DX+(pz-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength)));
+                    double t=Math.Max(0,Math.Min(1,((px-edge.X)*edge.DX+(pz-edge.Z)*edge.DZ)/edge.LengthSquared));
                     double dx=px-edge.X-t*edge.DX,dz=pz-edge.Z-t*edge.DZ;
                     maximumSquared=Math.Max(maximumSquared,dx*dx+dz*dz);
                 }
-                return edge.MinimumWidth*.5-(UseRoundSnowCorridor?0:edge.TubeTurnReserve)-clearance-Math.Sqrt(maximumSquared);
+                return edge.HalfWidth-(UseRoundSnowCorridor?0:edge.TurnReserve)-clearance-Math.Sqrt(maximumSquared);
             }
         }
         private bool Touching(Edge a,Edge b)=>a.EndX==b.X&&a.EndZ==b.Z&&a.EndY==b.Y||

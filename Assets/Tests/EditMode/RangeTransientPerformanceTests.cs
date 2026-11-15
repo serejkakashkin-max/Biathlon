@@ -9,6 +9,60 @@ namespace Biathlon.Tests
 {
     public sealed class RangeTransientPerformanceTests
     {
+        [TestCase(1,500)]
+        [TestCase(30,500)]
+        [TestCase(30,-500)]
+        [TestCase(30,0)]
+        public void HeldCourseEdgeContactHasBoundedPhysicsWork(int count,int steering)
+        {
+            var f=ManualProductionFieldTests.Initial("mass_start",count,
+                courseReactionPolicy:ManualCourseReactionPolicy.StableAthleteContactV28);
+            f.stepper.MeasureWork=true;
+            var timer=new Stopwatch();
+            int contacts=0,peakIntervals=0,peakTubeEdgeChecks=0;
+            double peakMilliseconds=0;
+            var motionTrace=new System.Text.StringBuilder();
+            for(int t=0;t<(steering==0?6500:400);t++)
+            {
+                var athlete=f.runner.Field.GetAthlete(0);
+                var tick=athlete.Tick.Next();
+                var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,athlete.AthleteId,1000),1,1,0),
+                    new WeaponAimCommand(tick,athlete.AthleteId,0,0));
+                timer.Restart();
+                if(steering==0)f.runner.Step();
+                else f.runner.StepWithManualPlayer(0,input,t<80?0:steering);
+                timer.Stop();
+                for(int i=0;i<count;i++)
+                {
+                    var state=f.stepper.World.GetActor(i);
+                    motionTrace.Append(FormattableString.Invariant(
+                        $"{state.Pose.X:R},{state.Pose.Z:R},{state.Pose.HeadingRadians:R},{state.Pose.YawRateRadiansPerSecond:R},{state.Velocity.X:R},{state.Velocity.Z:R},{state.Observation.PhysicalArcNanometers};"));
+                }
+                contacts+=f.stepper.World.CourseEdgeResponses;
+                if(t<80)continue;
+                int intervals=f.stepper.LastStep.Intervals;
+                peakIntervals=Math.Max(peakIntervals,intervals);
+                int tubeEdges=0;
+                for(int i=0;i<count;i++)
+                {
+                    tubeEdges+=f.stepper.World.GetRibbonDiagnostics(i).LastTubeEdgeChecks;
+                }
+                peakTubeEdgeChecks=Math.Max(peakTubeEdgeChecks,tubeEdges);
+                if(timer.Elapsed.TotalMilliseconds>peakMilliseconds)
+                {
+                    peakMilliseconds=timer.Elapsed.TotalMilliseconds;
+                    TestContext.WriteLine(FormattableString.Invariant(
+                        $"edge_peak actors={count} steering={steering} tick={tick.Value} ms={peakMilliseconds:F3} intervals={intervals} responses={f.stepper.World.CourseEdgeResponses} sweep_ms={f.stepper.SweepTimeTicks*1000d/Stopwatch.Frequency:F3} contacts_ms={f.stepper.ContactsTimeTicks*1000d/Stopwatch.Frequency:F3} tube_edges={tubeEdges}"));
+                }
+                Assert.That(f.stepper.World.Tick,Is.EqualTo(f.runner.Field.Tick));
+            }
+            TestContext.WriteLine(FormattableString.Invariant(
+                $"course_responses={contacts} peak_intervals={peakIntervals} peak_ms={peakMilliseconds:F3} peak_tube_edges={peakTubeEdgeChecks} trace={ManualContextIdentity.Sha256(motionTrace.ToString())}"));
+            Assert.That(contacts,Is.GreaterThan(0));
+            Assert.That(peakIntervals,Is.LessThanOrEqualTo(64),"Sustained contact at the edge must not split one field tick into hundreds of intervals.");
+            Assert.That(peakTubeEdgeChecks,Is.LessThan(100000),"Skip groups of snow segments that cannot affect the edge clearance.");
+        }
+
         [Test, Explicit("Owner penalty-edge stall diagnostic on the actual production field.")]
         public void ProductionPenaltyBotsKeepMovingAfterEdgeContact()
         {

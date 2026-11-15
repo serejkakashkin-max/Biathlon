@@ -9,7 +9,8 @@ namespace Biathlon.Tests
 {
     public sealed class ManualProductionFieldTests
     {
-        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) Initial(string format,int count,PursuitQualificationSnapshot qualification=null,string snowProfile="packed_neutral")
+        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) Initial(string format,int count,PursuitQualificationSnapshot qualification=null,string snowProfile="packed_neutral",
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ManualScopedFieldStepperTests.Read(root+"manifest")),ManualScopedFieldStepperTests.Read);
@@ -18,7 +19,7 @@ namespace Biathlon.Tests
             var runner=ProductionVenueRaceFactory.Create(venue,profile,RaceRoutePlan.FromJson(ManualScopedFieldStepperTests.Read(root+format+"_route")),
                 RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json").Replace("packed_neutral",snowProfile)),PhysiologyContractTests.DefinitionJson,
                 events,new AiDecisionCounts(),qualification,count:count);
-            var stepper=ManualProductionFieldComposition.Create(runner.Field,venue,PhysiologyContractTests.DefinitionJson);
+            var stepper=ManualProductionFieldComposition.Create(runner.Field,venue,PhysiologyContractTests.DefinitionJson,courseReactionPolicy);
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v2.json")),
                 ManualSkiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_steering_v2.json")));
             return(runner,stepper,events);

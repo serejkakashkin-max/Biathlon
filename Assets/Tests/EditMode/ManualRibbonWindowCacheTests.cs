@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Biathlon.Domain;
 using Biathlon.Simulation;
 using NUnit.Framework;
@@ -7,6 +8,40 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRibbonWindowCacheTests
     {
+        [TestCase(false)]
+        [TestCase(true)]
+        public void TubeBlockBoundsMatchEveryOwnedEdgeIncludingIncomingAndPartialBlocks(bool round)
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();
+            var map=f.Catalog.ProjectionGeometry;
+            const BindingFlags flags=BindingFlags.Instance|BindingFlags.NonPublic;
+            if(round)
+                typeof(ManualRouteProjectionMap).GetMethod("BindPortalTolerance",flags)
+                    .Invoke(map,new object[]{.005,true,4d,.2,4d});
+            var windowType=typeof(ManualRouteProjectionMap).Assembly.GetType("Biathlon.Simulation.ManualConnectedTubeWindow");
+            var constructor=windowType.GetConstructor(flags,null,new[]{typeof(int),typeof(int),typeof(int),typeof(int)},null);
+            object Window(int first,int last,int incomingFirst=-1,int incomingLast=-1)
+                =>constructor.Invoke(new object[]{first,last,incomingFirst,incomingLast});
+            var query=typeof(ManualRouteProjectionMap).GetMethod("ConnectedTubeDiskClearance",flags,null,
+                new[]{typeof(double),typeof(double),windowType,typeof(double),typeof(int).MakeByRefType(),typeof(int).MakeByRefType()},null);
+            int[] owned={5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,29,30,31,32,33};
+            var combined=Window(5,22,29,33);
+            int hint=-1,totalChecks=0;
+            for(int sample=0;sample<40;sample++)
+            {
+                var pose=f.At(0,(64+sample)*SkiState.NanometersPerMeter,sample%3-1);
+                var args=new object[]{pose.X,pose.Z,combined,.3,hint,0};
+                var actual=(double)query.Invoke(map,args);
+                hint=(int)args[4];
+                totalChecks+=(int)args[5];
+                double expected=double.NegativeInfinity;
+                foreach(int edge in owned)
+                    expected=Math.Max(expected,(double)query.Invoke(map,new object[]{pose.X,pose.Z,Window(edge,edge),.3,-1,0}));
+                Assert.That(actual,Is.EqualTo(expected));
+            }
+            Assert.That(totalChecks,Is.LessThan(40*owned.Length),"Entire segment blocks must be rejected before testing their individual capsules.");
+        }
+
         private static ManualSkiWorldTrajectory Stationary(OccupancyDefinition body,ManualSkiHeadingState pose)
         {
             var velocity=new SkiPlanarVelocity(0,0);

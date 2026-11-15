@@ -8,10 +8,11 @@ namespace Biathlon.Simulation
         public int LastVertexCount {get;}
         public int LastClearanceSamples {get;}
         public int LastDiskQueries {get;}
+        public int LastTubeEdgeChecks {get;}
         public double LastStartClearance {get;}
         public double LastMinimumSampledClearance {get;}
-        internal ManualRouteRibbonDiagnostics(int vertices,double start,double minimum,int samples,int disks)
-        {LastVertexCount=vertices;LastStartClearance=start;LastMinimumSampledClearance=minimum;LastClearanceSamples=samples;LastDiskQueries=disks;}
+        internal ManualRouteRibbonDiagnostics(int vertices,double start,double minimum,int samples,int disks,int tubeEdges)
+        {LastVertexCount=vertices;LastStartClearance=start;LastMinimumSampledClearance=minimum;LastClearanceSamples=samples;LastDiskQueries=disks;LastTubeEdgeChecks=tubeEdges;}
     }
     /// <summary>Continuous whole-body exclusion inside a local authored ribbon.
     /// A single convex capsule first certifies the complete occupied rectangle.
@@ -43,12 +44,13 @@ namespace Biathlon.Simulation
         private ManualRouteTubePreview proofResult;
         private ManualSkiHeadingState proofThreatened;
         private double proofStart,proofMinimum;
-        private int proofSamples,proofDisks;
+        private int proofSamples,proofDisks,proofTubeEdgeChecks;
         private ManualConnectedTubeWindow tubeWindow;
         private ManualRangeApronSnowRegion rangeApron;
         internal void SetRangeApron(ManualRangeApronSnowRegion region)=>rangeApron=region;
         public int LastVertexCount=>vertices;
-        private int clearanceSamples,diskQueries;
+        private int clearanceSamples,diskQueries,tubeEdgeChecks;
+        private int tubeHint=-1;
         private readonly ClearanceCacheEntry[] clearanceCache=new ClearanceCacheEntry[16];
         private int clearanceCacheCount,clearanceCacheNext;
         private ManualConnectedTubeWindow clearanceCacheWindow;
@@ -64,7 +66,7 @@ namespace Biathlon.Simulation
         public double LastStartClearance {get;private set;}
         public double LastMinimumSampledClearance {get;private set;}
         internal ManualSkiHeadingState LastThreatenedPose {get;private set;}
-        public ManualRouteRibbonDiagnostics Diagnostics=>new ManualRouteRibbonDiagnostics(vertices,LastStartClearance,LastMinimumSampledClearance,clearanceSamples,diskQueries);
+        public ManualRouteRibbonDiagnostics Diagnostics=>new ManualRouteRibbonDiagnostics(vertices,LastStartClearance,LastMinimumSampledClearance,clearanceSamples,diskQueries,tubeEdgeChecks);
         public string ContextJson {get;}
         public ManualRouteRibbonSweep(ManualRouteProjectionMap map,OccupancyDefinition body,SkiContactSweepDefinition work,
             ManualNumericalToleranceDefinition tolerance=null)
@@ -95,13 +97,13 @@ namespace Biathlon.Simulation
             if(proofCached&&trajectory.HasSameCoupledLaw(proofTrajectory)&&SameSource(source,proofSource)&&ReferenceEquals(rangeApron,proofApron))
             {
                 LastStartClearance=proofStart;LastMinimumSampledClearance=proofMinimum;LastThreatenedPose=proofThreatened;
-                clearanceSamples=proofSamples;diskQueries=proofDisks;return proofResult;
+                clearanceSamples=proofSamples;diskQueries=proofDisks;tubeEdgeChecks=proofTubeEdgeChecks;return proofResult;
             }
             proofCached=false;
             var result=PreviewCore(trajectory,source);
             proofTrajectory=trajectory;proofSource=source;proofApron=rangeApron;proofResult=result;
             proofStart=LastStartClearance;proofMinimum=LastMinimumSampledClearance;proofThreatened=LastThreatenedPose;
-            proofSamples=clearanceSamples;proofDisks=diskQueries;proofCached=trajectory.HasSameCoupledLaw(trajectory);
+            proofSamples=clearanceSamples;proofDisks=diskQueries;proofTubeEdgeChecks=tubeEdgeChecks;proofCached=trajectory.HasSameCoupledLaw(trajectory);
             return result;
         }
         private static bool SameSource(ManualRouteProjection a,ManualRouteProjection b)
@@ -112,7 +114,7 @@ namespace Biathlon.Simulation
         {
             if(!trajectory.IsValid||!source.IsValid)throw new ArgumentException("Owned source and initialized trajectory required.");
             double seconds=trajectory.DurationSeconds;
-            clearanceSamples=diskQueries=0;
+            clearanceSamples=diskQueries=tubeEdgeChecks=0;
             var velocity=trajectory.VelocityAt(0);
             // The proof uses an overlapping disk cover, whose outer envelope
             // extends beyond the occupied rectangle. Internal window caps must
@@ -280,7 +282,7 @@ namespace Biathlon.Simulation
             // supplies the same bound only when the entire centre group stays
             // inside it; otherwise use tubes alone. This avoids four-corner
             // polygon intersection work at every internal tree node.
-            double lower=map.ConnectedTubeDiskClearance(centre.X,centre.Z,tubeWindow,radius)+softSnowShoulder-extent;
+            double lower=map.ConnectedTubeDiskClearance(centre.X,centre.Z,tubeWindow,radius,ref tubeHint,ref tubeEdgeChecks)+softSnowShoulder-extent;
             if(vertices>=4&&simpleRibbon&&Inside(centre.X,centre.Z))
             {
                 double distance=PolygonBoundaryDistance(centre.X,centre.Z);
@@ -304,7 +306,7 @@ namespace Biathlon.Simulation
         private double DiskClearance(double px,double pz,double radius)
         {
                 diskQueries++;
-                double diskClearance=map.ConnectedTubeDiskClearance(px,pz,tubeWindow,radius)+softSnowShoulder;
+                double diskClearance=map.ConnectedTubeDiskClearance(px,pz,tubeWindow,radius,ref tubeHint,ref tubeEdgeChecks)+softSnowShoulder;
                 if(vertices<4||!simpleRibbon||!Inside(px,pz))return diskClearance;
                 return Math.Max(diskClearance,PolygonBoundaryDistance(px,pz)-radius);
         }

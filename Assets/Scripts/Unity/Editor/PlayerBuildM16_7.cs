@@ -98,6 +98,11 @@ namespace Biathlon.Unity
             "На подъезде к отсечке три карточки соперников следуют за вашим текущим временем. После пересечения фиксируются ваше место и соседние результаты.\r\n",
             "M16.9");
 
+        public static void BuildM169CourseEdgeReview() => BuildM167Review("Builds/M16_9_Course_Edge_Review",
+            "m169_course_edge_review", null,
+            "Ускорен расчёт контакта с краем трассы. Проверьте масс-старт и движение вдоль левого и правого края.\r\n",
+            "M16.9");
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {
