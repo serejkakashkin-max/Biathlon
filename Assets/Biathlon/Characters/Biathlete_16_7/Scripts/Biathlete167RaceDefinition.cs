@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Biathlon.Unity.Presentation
@@ -19,6 +20,25 @@ namespace Biathlon.Unity.Presentation
         public Vector2 bodySideBand = new Vector2(.13f,.26f);
         public float maximumWidthMorph = .12f, maximumDepthMorph = .1f;
         public const string ResourcePath = "Biathlon/Athletes/M167/RaceVisual";
+        private readonly Dictionary<Material,Material> illuminatedMaterials = new Dictionary<Material,Material>();
+
+        public Material IlluminatedMaterial(Material source)
+        {
+            if(source==null||source.shader.name!="Universal Render Pipeline/Lit")return source;
+            if(illuminatedMaterials.TryGetValue(source,out var material)&&material!=null)return material;
+            var template=Resources.Load<Material>("Biathlon/Weather/IlluminatedVenueLit");
+            if(template==null)throw new InvalidOperationException("Missing venue illumination material.");
+            material=new Material(source){name=source.name,shader=template.shader,hideFlags=HideFlags.DontSave};
+            illuminatedMaterials[source]=material;
+            return material;
+        }
+
+        private void OnDisable()
+        {
+            foreach(var material in illuminatedMaterials.Values)
+                if(material!=null){if(Application.isPlaying)Destroy(material);else DestroyImmediate(material);}
+            illuminatedMaterials.Clear();
+        }
 
         public void Validate()
         {

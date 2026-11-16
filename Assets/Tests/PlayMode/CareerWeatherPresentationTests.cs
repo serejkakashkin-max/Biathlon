@@ -142,6 +142,12 @@ namespace Biathlon.PlayModeTests
             if(evening)
             {
                 Assert.That(host.Environment.Floodlights.LampsOn,Is.True);
+                var visuals=host.Proxies.GetComponentsInChildren<Biathlete167RacePresentation>(true);
+                Assert.That(visuals.Length,Is.GreaterThan(1));
+                foreach(var visual in visuals)
+                    foreach(var renderer in visual.Rig.GetComponentsInChildren<Renderer>(true))
+                        foreach(var material in renderer.sharedMaterials)
+                            Assert.That(material.shader.name,Is.Not.EqualTo("Universal Render Pipeline/Lit"),material.name);
                 var timeline=host.Runner.Field.WeatherTimeline;
                 Assert.That(timeline.Initial.LightingPreset,Is.EqualTo("evening"));
                 Assert.That(timeline.Sample(1200).Snowfall,Is.EqualTo(1));

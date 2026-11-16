@@ -90,6 +90,7 @@ namespace Biathlon.Unity.Presentation
                 skiSlots[side]=slots.ToArray();
             }
             foreach(var renderer in source.GetComponentsInChildren<Renderer>(true))renderer.forceRenderingOff=true;
+            renderers=Rig.GetComponentsInChildren<Renderer>(true);
             initialized=true;
             RefreshAppearance();
             retarget=new Biathlete167MainMotion(Rig,source);
@@ -141,6 +142,17 @@ namespace Biathlon.Unity.Presentation
             bib.SetColor("_SecondaryColor",AthleteBibPresentation.FabricColor(CareerLeaderBib.Discipline));
             bib.SetFloat("_ColorSplit",LeaderRole==(CareerLeaderBib.Total|CareerLeaderBib.Discipline)?1:0);
             for(int i=0;i<skins.Length;i++)skins[i].SetPropertyBlock(bib,bibSlots[i]);
+            foreach(var renderer in renderers)
+            {
+                var materials=renderer.sharedMaterials;bool changed=false;
+                for(int slot=0;slot<materials.Length;slot++)
+                {
+                    var illuminated=definition.IlluminatedMaterial(materials[slot]);
+                    if(illuminated==materials[slot])continue;
+                    materials[slot]=illuminated;changed=true;
+                }
+                if(changed)renderer.sharedMaterials=materials;
+            }
             sport?.RefreshPreviewEyewear(Rig.PreviewEyewearRaised?1:0);
         }
 

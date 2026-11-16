@@ -83,7 +83,8 @@ namespace Biathlon.Unity
                             if(visual.SelectedSkiId!=athlete.SelectedSki||visual.Number!=i+1||visual.Rig.GetComponent<Biathlete167Outfit>().Nation!=athlete.Nation)
                                 throw new InvalidOperationException("Saved equipment/nationality changed in visual projection.");
                             source.GetComponent<AthleteBibPresentation>().SetLeader(CareerLeaderBib.Total);
-                            if(visual.SkiDeckMaterial!=Resources.Load<Biathlete167RaceDefinition>(Biathlete167RaceDefinition.ResourcePath).Ski(athlete.SelectedSki))
+                            var visualDefinition=Resources.Load<Biathlete167RaceDefinition>(Biathlete167RaceDefinition.ResourcePath);
+                            if(visual.SkiDeckMaterial!=visualDefinition.IlluminatedMaterial(visualDefinition.Ski(athlete.SelectedSki)))
                                 throw new InvalidOperationException("Appearance refresh repainted the saved skis.");
                             if(!athlete.Appearance.IsLegacy)
                             {

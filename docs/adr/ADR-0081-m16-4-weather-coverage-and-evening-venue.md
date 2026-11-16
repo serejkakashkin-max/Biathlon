@@ -76,3 +76,18 @@ certification. It does not model multiple dynamic athlete shadows from each mast
 
 M16.4 remains open pending owner test. Evidence and fullscreen candidate are
 recorded under `docs/quality/m16-4/weather-lights/` and the WP/state ledger.
+
+
+2026-11-16. M16.9 corrects lighting of the integrated M16.7 athlete. Its original
+URP Lit skins, national kits and equipment did not sample the venue field.
+RaceVisual now owns a cache of shared illuminated copies. Appearance refresh
+binds those copies after selecting the saved kit, face and equipment, across
+all body LODs and rigid props. Source names, textures, shader keywords, rendering
+state and bib property blocks retain their existing roles.
+
+Normal-map, metallic-map and alpha-cutout keywords are retained as local
+multi-compile variants in the existing illuminated Lit derivative. These three
+features are selected by runtime athlete palettes and the removed rifle harness.
+This gives compiled players the same surface and cutout paths as the Editor.
+The existing fixed course field supplies diffuse lamp lighting. The presentation
+adapter adds no race state or per-frame material allocation.

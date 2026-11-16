@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
+using Biathlon.Career;
 using Biathlon.Domain;
+using Biathlon.Simulation;
 using Biathlon.Unity.Presentation;
 using NUnit.Framework;
 using UnityEngine;
@@ -16,6 +19,98 @@ namespace Biathlon.PlayModeTests
         private static string Read(string id)=>ProductionVenueHost.ReadResource(id);
         private static ProductionEnvironmentDefinition Venue()=>ProductionEnvironmentDefinition.FromJson(Read(Prefix+"environment"));
         private static CourseFloodlightDefinition Definition()=>CourseFloodlightDefinition.FromJson(Read("Biathlon/course_floodlights_v1"));
+        [UnityTest] public IEnumerator UpgradedRaceAthleteReceivesCourseFloodlights()
+        {
+            var root=new GameObject("Upgraded athlete floodlight regression");
+            try
+            {
+                var lights=root.AddComponent<CourseFloodlightPresentation>();lights.Initialize(Definition(),Venue(),p=>0);
+                var source=AthleteRigFactory.Create(root.transform);source.transform.position=lights.Anchors[0].Focus;
+                var visual=Biathlete167RacePresentation.Attach(source);visual.RenderPreview();visual.Rig.Lods.ForceLOD(0);
+                foreach(var part in visual.Rig.GetComponentsInChildren<Transform>(true))part.gameObject.layer=26;
+                var camera=new GameObject("Athlete colour witness",typeof(Camera)).GetComponent<Camera>();camera.transform.SetParent(root.transform);
+                camera.enabled=false;camera.cullingMask=1<<26;camera.orthographic=true;camera.orthographicSize=1.15f;
+                camera.transform.position=source.transform.position+new Vector3(0,1,5);camera.transform.LookAt(source.transform.position+Vector3.up);
+                var quality=root.AddComponent<RenderQualityPresentation>();quality.Initialize(camera);quality.Apply("high");
+                var sun=new GameObject("Evening key",typeof(Light)).GetComponent<Light>();sun.transform.SetParent(root.transform);sun.type=LightType.Directional;
+                var weather=root.AddComponent<WeatherPresentation>();weather.Initialize(camera,sun);
+                var lighting=LightingVisualDefinition.FromJson(Read("Biathlon/g2_lighting_visual_v1")).Get("evening");
+                string folder=Path.GetFullPath("artifacts/m16-9-athlete-night-light");Directory.CreateDirectory(folder);
+                float[] brightness=new float[2];
+                using(var target=new BenchmarkRenderTarget(512,512))
+                    for(int on=0;on<2;on++)
+                    {
+                        for(int frame=0;frame<3;frame++)
+                        {
+                            weather.Render("clear","high",12,Vector2.zero,0,lighting);
+                            camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
+                            lights.Render(camera,on);target.Render(camera);yield return null;
+                        }
+                        string path=Path.Combine(folder,on==0?"athlete-unlit.png":"athlete-lit.png");target.SavePng(path);
+                        var pixels=new Texture2D(2,2);
+                        try
+                        {
+                            ImageConversion.LoadImage(pixels,File.ReadAllBytes(path));float sum=0;
+                            for(int y=100;y<440;y++)for(int x=160;x<352;x++)sum+=pixels.GetPixel(x,y).grayscale;
+                            brightness[on]=sum/(192*340);
+                        }
+                        finally{Object.DestroyImmediate(pixels);}
+                    }
+                File.WriteAllText(Path.Combine(folder,"athlete-brightness.json"),JsonUtility.ToJson(new LightReceipt{unlit=brightness[0],lit=brightness[1]}));
+                Assert.That(brightness[1],Is.GreaterThan(brightness[0]+.035f),"The actual upgraded athlete must receive the same lamp field as the course.");
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
+        [Serializable] private sealed class LightReceipt { public float unlit,lit; }
+        [Test] public void AthleteLightingRetainsSurfaceDetailAndSharesMaterialsAcrossCareerLooks()
+        {
+            var definition=Resources.Load<Biathlete167RaceDefinition>(Biathlete167RaceDefinition.ResourcePath);
+            foreach(var original in definition.athlete.GetComponentsInChildren<Renderer>(true).SelectMany(r=>r.sharedMaterials).Distinct())
+            {
+                if(original.shader.name!="Universal Render Pipeline/Lit")continue;
+                var originalShader=original.shader;var lit=definition.IlluminatedMaterial(original);
+                Assert.That(lit.shader.name,Is.EqualTo("Biathlon/Illuminated Venue Lit"));
+                Assert.That(lit.name,Is.EqualTo(original.name));
+                Assert.That(lit.GetColor("_BaseColor"),Is.EqualTo(original.GetColor("_BaseColor")));
+                foreach(string property in new[]{"_BaseMap","_BumpMap","_MetallicGlossMap","_OcclusionMap","_EmissionMap"})
+                    Assert.That(lit.GetTexture(property),Is.SameAs(original.GetTexture(property)),original.name+" "+property);
+                foreach(string property in new[]{"_Smoothness","_Metallic","_BumpScale","_Cull","_Surface","_AlphaClip"})
+                    Assert.That(lit.GetFloat(property),Is.EqualTo(original.GetFloat(property)),original.name+" "+property);
+                Assert.That(lit.shaderKeywords,Is.EquivalentTo(original.shaderKeywords));
+                Assert.That(lit.renderQueue,Is.EqualTo(original.renderQueue));
+                Assert.That(lit.enableInstancing,Is.EqualTo(original.enableInstancing));
+                Assert.That(definition.IlluminatedMaterial(original),Is.SameAs(lit));
+                Assert.That(original.shader,Is.SameAs(originalShader));
+            }
+            var root=new GameObject("Shared illuminated career appearances");
+            try
+            {
+                var source=AthleteRigFactory.Create(root.transform);var first=Biathlete167RacePresentation.Attach(source);
+                var other=AthleteRigFactory.Create(root.transform);var second=Biathlete167RacePresentation.Attach(other);
+                var faces=AthleteFaceCatalog.Load();var catalog=AthleteLookCatalog.Load();
+                for(int repeat=0;repeat<2;repeat++)
+                {
+                    foreach(string nation in new[]{"RUS","NOR","SWE"})
+                    {
+                        source.GetComponent<AthleteAppearancePresentation>().ApplyNation(nation);
+                        other.GetComponent<AthleteAppearancePresentation>().ApplyNation(nation);
+                        var profile=catalog.Edit(AppearanceProfile.Create(faces.profiles[1].id,faces.skin_ids[2],"natural"),headwearId:"headband",gogglesId:"raised");
+                        source.GetComponent<AthleteAppearancePresentation>().ApplyProfile(profile);
+                        other.GetComponent<AthleteAppearancePresentation>().ApplyProfile(profile);
+                        var firstSkin=first.Rig.GetComponentsInChildren<SkinnedMeshRenderer>()[0];
+                        var secondSkin=second.Rig.GetComponentsInChildren<SkinnedMeshRenderer>()[0];
+                        Assert.That(firstSkin.sharedMaterials,Is.EqualTo(secondSkin.sharedMaterials));
+                        Assert.That(first.SkiDeckMaterial,Is.SameAs(definition.IlluminatedMaterial(definition.Ski(first.SelectedSkiId))));
+                        first.RenderShootingPreview(ShootingStance.Standing,1,new WeaponAimState(0,0));
+                        second.RenderShootingPreview(ShootingStance.Standing,1,new WeaponAimState(0,0));
+                        foreach(var renderer in first.Rig.GetComponentsInChildren<Renderer>(true))
+                            foreach(var material in renderer.sharedMaterials)
+                                Assert.That(material.shader.name,Is.Not.EqualTo("Universal Render Pipeline/Lit"),material.name);
+                    }
+                }
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
         [Test] public void AllDevelopedLooksBindToCareerAndRecordedReplayWithoutMutatingSources()
         {
             var catalog=RaceWeatherCatalog.FromJson(Read("Biathlon/career_weather_v1"));var source=Venue();string before=source.ToJson();
