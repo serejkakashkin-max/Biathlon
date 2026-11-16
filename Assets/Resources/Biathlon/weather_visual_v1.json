@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "id": "winter_weather_visual_v1",
-  "max_particles": 1600,
+  "max_particles": 4096,
   "low_fraction": 0.35,
   "balanced_fraction": 0.65,
-  "volume_width_m": 36,
-  "volume_height_m": 18,
+  "volume_width_m": 24,
+  "volume_height_m": 14,
   "fall_speed_mps": 1.4,
-  "flake_size_m": 0.025,
-  "flake_opacity": 0.55,
+  "flake_size_m": 0.032,
+  "flake_opacity": 0.68,
   "presets": [
     {
       "id": "clear",

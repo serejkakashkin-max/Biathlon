@@ -119,10 +119,14 @@ namespace Biathlon.PlayModeTests
             folder=Path.Combine(Path.GetTempPath(),"biathlon-weather-"+Guid.NewGuid().ToString("N"));
             root=new GameObject("Weather live career review");var menu=root.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;
             var calendar=CareerCalendar.FromJson(ProductionVenueHost.ReadResource("Biathlon/woodland_junior_calendar_v1"));
-            var choice=evening?new CareerEventWeather("weather_live","weather_live_season_1",calendar.Get(0).Id,"evening_snow_v1"):null;
             var store=new Store();
-            menu.Initialize(store,new RaceReplayLibrary(folder),choice);menu.Session.OpenNewCareer();menu.Session.CreateCareer("weather_live","Алекс","NOR",11);
+            menu.Initialize(store,new RaceReplayLibrary(folder));menu.Session.OpenNewCareer();menu.Session.CreateCareer("weather_live","Алекс","NOR",11);
             for(int i=0;i<5;i++)menu.Session.RestWeek();
+            if(evening)
+            {
+                var savedCareer=CareerSave.FromJson(store.Json);savedCareer.ScheduleWeather(calendar.Get(0),"evening_snow_v1");
+                store.Json=savedCareer.ToJson();
+            }
             menu.Session.Back();menu.Session.ContinueCareer();
             string saved=store.Json;
             menu.ApplyPreferences("ru",0);
@@ -142,6 +146,7 @@ namespace Biathlon.PlayModeTests
             if(evening)
             {
                 Assert.That(host.Environment.Floodlights.LampsOn,Is.True);
+                Assert.That(host.Environment.SubmittedSnowflakes,Is.GreaterThan(1500));
                 var visuals=host.Proxies.GetComponentsInChildren<Biathlete167RacePresentation>(true);
                 Assert.That(visuals.Length,Is.GreaterThan(1));
                 foreach(var visual in visuals)

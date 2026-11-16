@@ -16,6 +16,22 @@ namespace Biathlon.Tests
         private static string Venue(string n)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+n+".json");
         private static RaceWeatherCatalog Catalog()=>RaceWeatherCatalog.FromJson(Read("career_weather_v1.json"));
         private static CareerSave Save(CareerDefinitions d)=>CareerFactory.Create(d.Roster,d.Calendar,"weather_test","Alex","NOR","default",new SeededRandomSource(71000));
+        [Test] public void PersistedEventWeatherSurvivesAnOrdinaryCareerReload()
+        {
+            var definitions=new CareerDefinitions(Read,"woodland_career_calendar_v1.json");
+            var save=Save(definitions);var race=definitions.Calendar.Get(0);
+            string scheduled="{\"schema_version\":1,\"id\":\"career_event_weather_v1\",\"career_id\":\""+save.Id+"\",\"season_id\":\""+save.SeasonId+"\",\"event_id\":\""+race.Id+"\",\"preset_id\":\"evening_snow_v1\"}";
+            string json=save.ToJson().Insert(1,"\"scheduled_weather\":"+scheduled+",");
+            var reloaded=CareerSave.FromJson(json);
+            var ordinary=CareerDefinitions.ForSave(Read,reloaded);
+            Assert.That(ordinary.Forecast(reloaded,race).LightingPreset,Is.EqualTo("evening"));
+            var timeline=ordinary.CreateWeatherTimeline(reloaded,race,ordinary.Forecast(reloaded,race),123);
+            Assert.That(timeline.FrontCount,Is.Zero);
+            Assert.That(timeline.Sample(1200).Snowfall,Is.EqualTo(1));
+            var twice=CareerSave.FromJson(reloaded.ToJson());
+            Assert.That(CareerDefinitions.ForSave(Read,twice).Forecast(twice,race).LightingPreset,Is.EqualTo("evening"));
+            Assert.That(reloaded.RandomState,Is.EqualTo(save.RandomState));
+        }
         [Test] public void EveningSnowOverrideAppliesOnlyToOneCareerRaceAndRoundTripsInItsTimeline()
         {
             var normal=new CareerDefinitions(Read,"woodland_career_calendar_v1.json");
@@ -42,6 +58,36 @@ namespace Biathlon.Tests
             Assert.That(playback.Sample(0).Snowfall,Is.EqualTo(1));
             Assert.That(playback.Sample(1200).Snowfall,Is.EqualTo(1));
             Assert.That(save.ToJson(),Is.EqualTo(before));
+        }
+
+        [Test] public void ScheduledWeatherPersistsUntilItsRaceAndClearsAfterCompletion()
+        {
+            var definitions=new CareerDefinitions(Read,"woodland_career_calendar_v1.json");
+            var save=Save(definitions);var race=definitions.Calendar.Get(0);
+            save.ScheduleWeather(race,"evening_snow_v1");
+            while(save.Week<race.Week)
+            {
+                var rest=CareerSeasonEngine.PrepareWeek(save,definitions,Array.Empty<CareerTrainingKind>(),s=>new SeededRandomSource(s));
+                save=CareerSeasonEngine.CompleteWeek(rest,definitions,null,s=>new SeededRandomSource(s));
+            }
+            string source=save.ToJson();
+            var prepared=CareerSeasonEngine.PrepareWeek(save,definitions,Array.Empty<CareerTrainingKind>(),s=>new SeededRandomSource(s));
+            var snapshot=CareerSave.FromJson(prepared.RaceSnapshotJson);
+            Assert.That(snapshot.ScheduledWeather.PresetId,Is.EqualTo("evening_snow_v1"));
+            var first=CareerDefinitions.ForSave(Read,snapshot).Forecast(snapshot,race);
+            var again=CareerDefinitions.ForSave(Read,CareerSave.FromJson(snapshot.ToJson())).Forecast(snapshot,race);
+            Assert.That(first.ToJson(),Is.EqualTo(again.ToJson()));
+            Assert.That(first.LightingPreset,Is.EqualTo("evening"));
+            var finishes=new List<CareerFinish>();
+            for(int i=0;i<snapshot.AthleteCount;i++)if(race.Eligible(snapshot.Athlete(i)))
+                finishes.Add(new CareerFinish(snapshot.Athlete(i).Id,300000+i*1000,300000+i*1000));
+            var record=new CareerRaceRecord(snapshot.SeasonId+"_"+race.Id,snapshot.SeasonId,race.Id,race.Format,prepared.RaceSeed,new string('a',64),finishes.ToArray());
+            var completed=CareerSeasonEngine.CompleteWeek(prepared,definitions,record,s=>new SeededRandomSource(s));
+            Assert.That(completed.ScheduledWeather,Is.Null);
+            Assert.That(save.ToJson(),Is.EqualTo(source));
+            Assert.Throws<ArgumentException>(()=>completed.ScheduleWeather(race,"evening_snow_v1"));
+            var next=definitions.Calendar.Get(1);
+            Assert.That(CareerDefinitions.ForSave(Read,completed).Forecast(completed,next).ToJson(),Is.EqualTo(definitions.Forecast(completed,next).ToJson()));
         }
 
         [Test] public void CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay()

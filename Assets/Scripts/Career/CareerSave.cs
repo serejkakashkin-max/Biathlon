@@ -24,6 +24,15 @@ namespace Biathlon.Career
         [DataMember(Name="next_athlete_ordinal",IsRequired=true)] public long NextAthleteOrdinal { get; internal set; }
         [DataMember(Name="player_id",IsRequired=true)] public string PlayerId { get; private set; }
         [DataMember(Name="creation",EmitDefaultValue=false)] public CareerCreationRecord Creation {get;internal set;}
+        [DataMember(Name="scheduled_weather",EmitDefaultValue=false)] public CareerEventWeather ScheduledWeather {get;private set;}
+        public void ScheduleWeather(CareerCalendarEvent race,string presetId)
+        {
+            if(race==null||race.Week<Week)throw new ArgumentException("An upcoming career event is required.");
+            for(int i=0;i<RaceCount;i++)if(Race(i).CalendarEventId==race.Id)throw new ArgumentException("The event is already complete.");
+            ScheduledWeather=new CareerEventWeather(Id,SeasonId,race.Id,presetId);
+        }
+        internal void CompleteScheduledWeather(CareerCalendarEvent race)
+        {if(ScheduledWeather?.Matches(this,race)==true)ScheduledWeather=null;}
         [DataMember(Name="athletes",IsRequired=true)] private CareerAthlete[] athletes { get; set; }
         [DataMember(Name="season_results",EmitDefaultValue=false)] private CareerRaceRecord[] seasonResults { get; set; }
         [DataMember(Name="past_seasons",EmitDefaultValue=false)] private CareerSeasonHistory[] pastSeasons { get; set; }
@@ -89,6 +98,9 @@ namespace Biathlon.Career
         }
         internal void Validate()
         {
+            ScheduledWeather?.Validate();
+            if(ScheduledWeather!=null&&(ScheduledWeather.CareerId!=Id||ScheduledWeather.SeasonId!=SeasonId))
+                throw new SerializationException("Scheduled weather belongs to another career or season.");
             if(StartProfileId!=null)CareerUnits.Id(StartProfileId);
             Creation?.Validate();if(Creation!=null&&Creation.StartProfileId!=StartProfileId)throw new SerializationException("Creation/start identity mismatch.");
             if(FirstSeasonYear!=0)CareerUnits.Range(FirstSeasonYear,2020,2200,"first season year");

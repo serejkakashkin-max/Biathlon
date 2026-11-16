@@ -1,27 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Biathlon.Domain;
 namespace Biathlon.Career
 {
-    public sealed class CareerEventWeather
+    [DataContract] public sealed class CareerEventWeather
     {
-        private readonly string careerId, seasonId, eventId;
-        public string PresetId { get; }
+        [DataMember(Name="schema_version",IsRequired=true)] public int SchemaVersion {get;private set;}
+        [DataMember(Name="id",IsRequired=true)] public string Id {get;private set;}
+        [DataMember(Name="career_id",IsRequired=true)] public string CareerId {get;private set;}
+        [DataMember(Name="season_id",IsRequired=true)] public string SeasonId {get;private set;}
+        [DataMember(Name="event_id",IsRequired=true)] public string EventId {get;private set;}
+        [DataMember(Name="preset_id",IsRequired=true)] public string PresetId {get;private set;}
 
         public CareerEventWeather(string careerId, string seasonId, string eventId, string presetId)
         {
-            CareerUnits.Id(careerId);
-            CareerUnits.Id(seasonId);
-            CareerUnits.Id(eventId);
-            CareerUnits.Id(presetId);
-            this.careerId = careerId;
-            this.seasonId = seasonId;
-            this.eventId = eventId;
-            PresetId = presetId;
+            SchemaVersion=1;Id="career_event_weather_v1";
+            CareerId=careerId;SeasonId=seasonId;EventId=eventId;PresetId=presetId;
+            Validate();
+        }
+
+        internal void Validate()
+        {
+            if(SchemaVersion!=1||Id!="career_event_weather_v1")throw new SerializationException("Invalid scheduled weather schema.");
+            foreach(string value in new[]{CareerId,SeasonId,EventId,PresetId})CareerUnits.Id(value);
         }
 
         internal bool Matches(CareerSave save, CareerCalendarEvent e) =>
-            save.Id == careerId && save.SeasonId == seasonId && e.Id == eventId;
+            e!=null && save.Id==CareerId && save.SeasonId==SeasonId && e.Id==EventId;
     }
 
     public sealed class CareerDefinitions
@@ -63,15 +69,19 @@ namespace Biathlon.Career
             {
                 if(Calendar.Get(i).Id!=e.Id)continue;
                 var catalog=RaceWeatherCatalog.FromJson(ReadDefinition("career_weather_v1.json"));
-                if(eventWeather?.Matches(save,e)!=true)return catalog.Select(i,save.Season);
+                var choice=save.ScheduledWeather??eventWeather;
+                if(choice?.Matches(save,e)!=true)return catalog.Select(i,save.Season);
                 for(int preset=0;preset<catalog.Count;preset++)
-                    if(catalog.Get(preset).Id==eventWeather.PresetId)return catalog.Get(preset);
+                    if(catalog.Get(preset).Id==choice.PresetId)return catalog.Get(preset);
                 throw new ArgumentException("Unknown event weather preset.");
             }
             throw new ArgumentException("Forecast requires an event from this career calendar.");
         }
-        public RaceWeatherTimeline CreateWeatherTimeline(CareerSave save,CareerCalendarEvent e,RaceWeatherPreset initial,ulong seed) =>
-            eventWeather?.Matches(save,e)==true ? WeatherPolicy.CreateScenario(initial,"stable") : WeatherPolicy.Create(initial,seed);
+        public RaceWeatherTimeline CreateWeatherTimeline(CareerSave save,CareerCalendarEvent e,RaceWeatherPreset initial,ulong seed)
+        {
+            var choice=save.ScheduledWeather??eventWeather;
+            return choice?.Matches(save,e)==true?WeatherPolicy.CreateScenario(initial,"stable"):WeatherPolicy.Create(initial,seed);
+        }
         public CareerDefinitions(Func<string,string> read) : this(read,LegacyCalendarResource) { }
         /// <summary>New production careers use the approved one-venue season.
         /// Existing saves are selected from their persisted calendar ID instead.</summary>
@@ -211,6 +221,7 @@ namespace Biathlon.Career
                 }
             }
             for(int i=0;i<save.AthleteCount;i++){CareerFatigue.Rest(save.Athlete(i),d.Fatigue,d.Calendar.TrainingSlots(save.Week)-prepared.UsedSlots(i));CareerMental.Rest(save.Athlete(i),d.Mental);}
+            save.CompleteScheduledWeather(e);
             save.RandomState=prepared.CompletionRandomState;
             if(save.Week==d.Calendar.WeeksPerSeason)
             {

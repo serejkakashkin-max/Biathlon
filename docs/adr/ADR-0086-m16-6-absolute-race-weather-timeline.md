@@ -35,3 +35,20 @@ race share the stable scenario for an exact match. This keeps precipitation
 constant throughout the race. Other events use the normal season rotation and
 race-seeded fronts. The chosen preset and timeline use the existing replay
 metadata. Career saves require no schema or calendar update.
+
+
+2026-11-16. Owner correction. The selected night race must survive an ordinary
+Biathlon.exe launch and career continuation. CareerSave v4 now accepts an optional
+scheduled_weather value with its own schema_version, stable id, career, season,
+event and preset IDs. Absence preserves existing canonical saves and migrations.
+The stored choice has priority over a runtime launch option. Forecast and race
+preparation share its stable timeline, including in replay metadata. Preparing,
+cancelling, changing equipment or reloading retains the choice. Completing that
+event clears it within the existing detached career transaction. Normal event
+rotation continues after completion.
+
+Full snowfall now uses the existing bounded mesh with 4096 maximum particles,
+a 24 m wide and 14 m high camera volume, and stronger visible flakes. The shared
+snow-particle shader samples the same static venue light field as the course and
+athletes. Authoritative precipitation, snow physics and wind retain their recorded
+preset/timeline values.

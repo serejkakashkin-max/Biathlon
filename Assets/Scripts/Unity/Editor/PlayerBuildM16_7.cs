@@ -110,7 +110,7 @@ namespace Biathlon.Unity
 
         public static void BuildM169NightLightingReview() => BuildM167Review("Builds/M16_9_Night_Lighting_Review",
             "m169_night_lighting_review", null,
-            "Спортсмены и экипировка получают свет прожекторов трассы. Локальный START_TEST.cmd включает тёмный вечер со снегопадом для ближайшего спринта текущей карьеры.\r\n",
+            "Выбранная погода хранится в карьере. Откройте Biathlon.exe и продолжите карьеру. Сильный снегопад освещается прожекторами трассы.\r\n",
             "M16.9");
 
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",

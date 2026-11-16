@@ -8,6 +8,19 @@ namespace Biathlon.PlayModeTests
 {
     public class WeatherTests
     {
+        [Test] public void HeavySnowfallFillsTheRaceCameraVolume()
+        {
+            var root=new GameObject("Heavy snowfall density regression");
+            try
+            {
+                var camera=root.AddComponent<Camera>();camera.enabled=false;camera.transform.position=Vector3.up*2;
+                var sun=new GameObject("Snowfall light",typeof(Light)).GetComponent<Light>();sun.transform.SetParent(root.transform);sun.type=LightType.Directional;
+                var weather=root.AddComponent<WeatherPresentation>();weather.Initialize(camera,sun);
+                weather.Render("snowfall","high",0,Vector2.zero,0);
+                Assert.That(weather.SubmittedFlakes,Is.GreaterThan(1500),"Full snowfall must populate the visible near-camera snow volume.");
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
         [Test] public void SnowSamplingIsBoundedRewindableAndUsesExplicitWind()
         {
             var d=WeatherVisualDefinition.Load();var center=new Vector3(123,3,-81);var wind=new Vector2(2,-1);
@@ -19,7 +32,7 @@ namespace Biathlon.PlayModeTests
         {
             var d=WeatherVisualDefinition.Load();Assert.That(d.Count("high",1),Is.EqualTo(d.max_particles));Assert.That(d.Count("low",1),Is.LessThan(d.Count("balanced",1)));Assert.That(d.Count("balanced",d.Get("clear").snowfall),Is.Zero);
             Assert.Throws<ArgumentException>(()=>d.Sample(0,double.NaN,Vector3.zero,Vector2.zero));Assert.Throws<ArgumentException>(()=>d.Sample(0,0,Vector3.zero,new Vector2(float.NaN,0)));Assert.Throws<ArgumentException>(()=>d.Get("unknown"));
-            var json=Resources.Load<TextAsset>("Biathlon/weather_visual_v1").text;Assert.Throws<ArgumentException>(()=>WeatherVisualDefinition.FromJson(json.Replace("1600","10000")));
+            var json=Resources.Load<TextAsset>("Biathlon/weather_visual_v1").text;Assert.Throws<ArgumentException>(()=>WeatherVisualDefinition.FromJson(json.Replace("\"max_particles\": "+d.max_particles,"\"max_particles\": 10000")));
         }
         [Test] public void WeatherLeaseRestoresSceneCameraLightAndRejectsConcurrentOwnership()
         {
@@ -30,7 +43,7 @@ namespace Biathlon.PlayModeTests
                 var cam=camGo.AddComponent<Camera>();cam.enabled=false;cam.transform.position=new Vector3(0,2,-10);cam.fieldOfView=53;cam.clearFlags=CameraClearFlags.SolidColor;var background=cam.backgroundColor;
                 var light=lightGo.AddComponent<Light>();light.type=LightType.Directional;light.intensity=1.23f;light.shadowStrength=.77f;var lightColor=light.color;
                 var weather=go.AddComponent<WeatherPresentation>();weather.Initialize(cam,light);var second=other.AddComponent<WeatherPresentation>();Assert.Throws<InvalidOperationException>(()=>second.Initialize(cam,light));
-                weather.Render("snowfall","high",12,new Vector2(2,1),0);Assert.That(weather.SubmittedFlakes,Is.InRange(100,1600));Assert.That(cam.fieldOfView,Is.EqualTo(53));Assert.That(cam.transform.position,Is.EqualTo(new Vector3(0,2,-10)));Assert.That(RenderSettings.skybox,Is.Not.SameAs(oldSky));
+                weather.Render("snowfall","high",12,new Vector2(2,1),0);Assert.That(weather.SubmittedFlakes,Is.InRange(100,WeatherVisualDefinition.Load().max_particles));Assert.That(cam.fieldOfView,Is.EqualTo(53));Assert.That(cam.transform.position,Is.EqualTo(new Vector3(0,2,-10)));Assert.That(RenderSettings.skybox,Is.Not.SameAs(oldSky));
                 var fog=RenderSettings.fogEndDistance;Assert.Throws<ArgumentException>(()=>weather.Render("clear","high",double.NaN,Vector2.zero,0));Assert.That(RenderSettings.fogEndDistance,Is.EqualTo(fog));
                 weather.Render("clear","low",12,Vector2.zero,0);Assert.That(weather.SubmittedFlakes,Is.Zero);
                 weather.enabled=false;Assert.That(RenderSettings.skybox,Is.SameAs(oldSky));Assert.That(RenderSettings.fog,Is.EqualTo(oldFog));Assert.That(RenderSettings.fogMode,Is.EqualTo(oldMode));Assert.That(RenderSettings.fogStartDistance,Is.EqualTo(oldStart));Assert.That(RenderSettings.fogEndDistance,Is.EqualTo(oldEnd));Assert.That(RenderSettings.ambientSkyColor,Is.EqualTo(oldAmbient));Assert.That(light.intensity,Is.EqualTo(1.23f));Assert.That(light.color,Is.EqualTo(lightColor));Assert.That(light.shadowStrength,Is.EqualTo(.77f));Assert.That(cam.clearFlags,Is.EqualTo(CameraClearFlags.SolidColor));Assert.That(cam.backgroundColor,Is.EqualTo(background));
