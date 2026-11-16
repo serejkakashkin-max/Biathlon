@@ -42,6 +42,8 @@ namespace Biathlon.Unity.Presentation
         /// <summary>Explicit capture hosts may submit one controlled frame themselves.</summary>
         public bool AutomaticRendering {get;set;}=true;
         public bool DrawForestForReview {get;set;}=true;
+        public int ServiceSiteCount {get;private set;}
+        public int ServiceClearanceExcludedTrees {get;private set;}
         public ProductionForestDressing Dressing=>dressing;
         private LightingVisualPreset lighting;
         private LightingVisualPreset reviewLighting;
@@ -64,6 +66,7 @@ namespace Biathlon.Unity.Presentation
         public int TerrainTileCount=>tileMeshes?.Length??0;
         public int ForestGroupCount=>forests?.Length??0;
         public int TreeCount {get;private set;}
+        public int AuthoredTreeCount=>TreeCount+FlagClearanceExcludedTrees+CoachClearanceExcludedTrees+ServiceClearanceExcludedTrees;
         public int BankCount=>banks?.Length??0;
         public int CrowdCount=>crowds?.Length??0;
         public float TerrainGridSpacing=>recipe?.terrain.grid_spacing_m??0;
@@ -143,6 +146,7 @@ namespace Biathlon.Unity.Presentation
                     Floodlights.Initialize(CourseFloodlightDefinition.FromJson(Read(read,data.floodlights_resource)),data,SampleGround,point=>
                     {
                         if(Coaches!=null&&Coaches.Layout.DistanceToFootprint(point)<2)return false;
+                        if(prepared.Services?.Clears(point,1)==false)return false;
                         foreach(var group in prepared.Trees)foreach(var tree in group.instances)
                             if(new Vector2(tree.position.x-point.x,tree.position.z-point.z).sqrMagnitude<4)return false;
                         return true;
@@ -152,13 +156,14 @@ namespace Biathlon.Unity.Presentation
                 for(int i=0;i<data.forest.groups.Length;i++)
                 {
                     var group=data.forest.groups[i];var trees=prepared.Trees[i].instances;
-                    if(flagAnchors!=null||Coaches!=null)
+                    if(flagAnchors!=null||Coaches!=null||prepared.Services!=null)
                     {
                         var retained=new List<ProductionTree>();
                         foreach(var tree in trees)
                         {
                             if(flagClearance!=null&&!flagClearance.Clears(tree)){FlagClearanceExcludedTrees++;continue;}
                             if(Coaches!=null&&!Coaches.ClearsTree(tree)){CoachClearanceExcludedTrees++;continue;}
+                            if(prepared.Services?.Clears(tree.position,2*tree.scale)==false){ServiceClearanceExcludedTrees++;continue;}
                             retained.Add(tree);
                         }
                         trees=retained.ToArray();
@@ -172,6 +177,22 @@ namespace Biathlon.Unity.Presentation
                 forests=forestList.ToArray();
                 var crowdList=new List<SpectatorCrowd>();
                 var staticRenderers=new List<MeshRenderer>();
+                if(prepared.Services!=null)
+                {
+                    var sites=prepared.Services.sites;
+                    for(int i=0;i<sites.Length;i++)
+                    {
+                        var site=sites[i];
+                        var point=site.position;
+                        point.y=SampleGround(point);
+                        var scenery=Instantiate(prepared.ServicePrefabs[i],generated.transform,false);
+                        scenery.name=site.id;
+                        scenery.transform.SetPositionAndRotation(point,Quaternion.Euler(0,site.yaw_deg,0));
+                        RemoveColliders(scenery);
+                        staticRenderers.AddRange(scenery.GetComponentsInChildren<MeshRenderer>());
+                    }
+                    ServiceSiteCount=sites.Length;
+                }
                 for(int i=0;i<data.assets.Length;i++)
                 {
                     var asset=data.assets[i];var go=Instantiate(prepared.Prefabs[i],generated.transform,false);go.name=asset.id;go.transform.SetPositionAndRotation(asset.position,Quaternion.Euler(0,asset.yaw_deg,0));
@@ -240,10 +261,16 @@ namespace Biathlon.Unity.Presentation
                 generated.AddComponent<StaticSceneryBatches>().Initialize(staticRenderers);
                 var composition=G2ForestComposition.Load();
                 if(data.venue_id=="woodland_basin_v1"&&!string.IsNullOrEmpty(composition.dressing_resource))
-                {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround,(point,radius)=>Coaches==null||Coaches.Layout.DistanceToFootprint(point)>radius+3,prepared.Visibility);}
+                {
+                    dressing=generated.AddComponent<ProductionForestDressing>();
+                    dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround,
+                        (point,radius)=>(Coaches==null||Coaches.Layout.DistanceToFootprint(point)>radius+3)&&
+                            prepared.Services?.Clears(point,radius)!=false,prepared.Visibility);
+                }
                 var keyObject=Child("Production directional light",Vector3.zero,Quaternion.identity);var key=keyObject.AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;
                 foreach(var forest in forests)forest.ShadowLight=key;foreach(var crowd in crowds)crowd.ShadowLight=key;if(dressing!=null)dressing.ShadowLight=key;
-                weather=generated.AddComponent<WeatherPresentation>();weather.Initialize(chase,key,prepared.Sky);
+                weather=generated.AddComponent<WeatherPresentation>();
+                weather.Initialize(chase,key,prepared.Sky,prepared.Services?.mountain_backdrop??0);
                 Impacts=gameObject.AddComponent<ShotImpactPresentation>();Impacts.Initialize(feed,geometry,banks);
                 RefreshBanks();
             }
@@ -257,6 +284,8 @@ namespace Biathlon.Unity.Presentation
             internal float? HighForestFogEndMeters;
             internal ProductionVisibility Visibility;
             internal Material Snow,Sky,Backstop;internal TargetBankArt Bank;internal GameObject[] Prefabs;internal Mesh[] Meshes;internal Material[] Materials;
+            internal WoodlandServicesDefinition Services;
+            internal GameObject[] ServicePrefabs;
         }
         private static Prepared Prepare(VenueAuthoringPlan plan,ProductionEnvironmentDefinition data,Func<string,string> read)
         {
@@ -272,6 +301,17 @@ namespace Biathlon.Unity.Presentation
             if(data.forest.max_instances_per_group>vegetation.max_instances)throw new ArgumentException("Forest exceeds the native instance capacity.");
             for(int i=0;i<p.Heights.Length;i++)p.Heights[i]=ProductionTerrainHeights.Read(Read(read,data.terrain.tiles[i].height_resource),data.terrain.tiles[i],data.venue_id);
             ValidateTiles(data,p.Heights);
+            if(!string.IsNullOrEmpty(data.services_resource))
+            {
+                p.Services=WoodlandServicesDefinition.FromJson(Read(read,data.services_resource),data);
+                p.ServicePrefabs=new GameObject[p.Services.sites.Length];
+                for(int i=0;i<p.ServicePrefabs.Length;i++)
+                {
+                    var site=p.Services.sites[i];
+                    if(!InsideTerrain(data.terrain,site.position))throw new ArgumentException("Service site outside venue terrain.");
+                    p.ServicePrefabs[i]=Require<GameObject>(site.resource);
+                }
+            }
             if(data.route_corridors.Length!=plan.Visual.Count)throw new ArgumentException("Every physical visual loop needs its own corridor.");var loopIds=new HashSet<string>(StringComparer.Ordinal);
             for(int i=0;i<p.Corridors.Length;i++)
             {
@@ -418,6 +458,7 @@ namespace Biathlon.Unity.Presentation
             RangeFlags?.Shutdown();RangeFlags=null;FlagClearanceExcludedTrees=0;reviewLighting=null;
             Coaches?.Shutdown();Coaches=null;CoachClearanceExcludedTrees=0;
             Floodlights?.Shutdown();Floodlights=null;
+            ServiceSiteCount=ServiceClearanceExcludedTrees=0;
             if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);foreach(var material in ownedMaterials)DestroyOwned(material);ownedMeshes.Clear();ownedMaterials.Clear();

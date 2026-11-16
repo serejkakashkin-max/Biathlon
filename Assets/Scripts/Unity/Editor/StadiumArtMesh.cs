@@ -28,6 +28,14 @@ namespace Biathlon.Unity
             }
         }
         public void Beam(Vector3 from,Vector3 to,float width){var d=to-from;Box((from+to)*.5f,new Vector3(width,width,d.magnitude),width*.16f,Quaternion.LookRotation(d));}
+        public void Triangle(Vector3 a, Vector3 b, Vector3 c)
+        {
+            int start=vertices.Count;
+            Vector3 normal=Vector3.Cross(b-a,c-a).normalized;
+            vertices.Add(a);vertices.Add(b);vertices.Add(c);
+            normals.Add(normal);normals.Add(normal);normals.Add(normal);
+            triangles.Add(start);triangles.Add(start+1);triangles.Add(start+2);
+        }
         public Mesh Build(string name){var m=new Mesh{name=name,indexFormat=vertices.Count>65535?IndexFormat.UInt32:IndexFormat.UInt16};m.SetVertices(vertices);m.SetNormals(normals);m.SetTriangles(triangles,0);m.RecalculateBounds();return m;}
         public static Mesh Disk()
         {

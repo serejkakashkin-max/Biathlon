@@ -6,6 +6,7 @@ Shader "Biathlon/BenchmarkSky"
   _SkyColor("Sky",Color)=(.2,.36,.56,1) _HorizonColor("Horizon",Color)=(.57,.67,.76,1)
   _CloudCover("Cloud cover",Range(0,1))=.5 _Drift("Wind and explicit time",Vector)=(0,0,0,0)
   _SunDirection("Observed directional light",Vector)=(0,1,0,0)
+  _MountainBackdrop("Venue skyline",Range(0,1))=0
  }
  SubShader
  {
@@ -19,7 +20,7 @@ Shader "Biathlon/BenchmarkSky"
    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
    TEXTURE2D(_Panorama);SAMPLER(sampler_Panorama);
    CBUFFER_START(UnityPerMaterial)
-   float4 _SkyColor,_HorizonColor,_Drift,_SunDirection;float _CloudCover,_PanoramaExposure;
+   float4 _SkyColor,_HorizonColor,_Drift,_SunDirection;float _CloudCover,_PanoramaExposure,_MountainBackdrop;
    CBUFFER_END
    struct A{float4 positionOS:POSITION;};struct V{float4 positionCS:SV_POSITION;float3 direction:TEXCOORD0;};
    V Vert(A v){V o;o.positionCS=TransformObjectToHClip(v.positionOS.xyz);o.direction=v.positionOS.xyz;return o;}
@@ -40,7 +41,29 @@ Shader "Biathlon/BenchmarkSky"
     float3 sky=lerp(clearSky,overcast,saturate(_CloudCover*.7+clouds));
     float alignment=saturate(dot(d,normalize(_SunDirection.xyz)));float visibility=(1-_CloudCover)*(1-_CloudCover)*smoothstep(0,.06,d.y);
     float sunDisc=smoothstep(.99994,.99998,alignment);float halo=pow(alignment,250)*.07;
-    return half4(sky+(sunDisc*2+halo)*visibility*float3(1,.95,.86),1);
+    sky+=(sunDisc*2+halo)*visibility*float3(1,.95,.86);
+    // Map distant relief onto the world azimuth, behind all terrain and fogged scenery.
+    [branch] if (_MountainBackdrop>0 && d.y<.32)
+    {
+     float2 heading=normalize(d.xz+float2(.00001,0));
+     float broad=Noise(heading*2.1+float2(9,13));
+     float peaks=1-abs(2*Noise(heading*8.1+float2(17,6))-1);
+     float detail=Noise(heading*27+float2(8,2));
+     float farRidge=.064+.125*broad+.047*peaks+.018*detail;
+     float nearRidge=.023+.067*Noise(heading*3.7+15)+.027*peaks;
+     float edge=max(.001,fwidth(d.y)*1.5);
+     float farMask=1-smoothstep(farRidge-edge,farRidge+edge,d.y);
+     float nearMask=1-smoothstep(nearRidge-edge,nearRidge+edge,d.y);
+     float ridgeCuts=Noise(heading*72+float2(d.y*47,d.y*-28));
+     float facing=smoothstep(.26,.78,ridgeCuts);
+     float cap=smoothstep(farRidge*.43,farRidge*.96,d.y+ridgeCuts*.023);
+     float3 distant=_HorizonColor.rgb*lerp(float3(.59,.69,.83),float3(.86,.91,.97),cap*(.58+.42*facing));
+     float3 foothills=_HorizonColor.rgb*float3(.48,.60,.72)*(.87+.13*facing);
+     float haze=lerp(.47,.82,smoothstep(-.035,.15,d.y));
+     sky=lerp(sky,distant,farMask*_MountainBackdrop*haze);
+     sky=lerp(sky,foothills,nearMask*_MountainBackdrop*haze);
+    }
+    return half4(sky,1);
    }
    ENDHLSL
   }

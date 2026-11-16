@@ -70,7 +70,7 @@ namespace Biathlon.Unity.Presentation
             if(!host.Course.GroundJoined||host.Course.PresentationRouteSnapshotJson!=host.Runner.Field.Route.PlanSnapshotJson||
                 host.Course.PresentationRequirementsSnapshotJson!=host.Runner.Field.Route.RequirementsSnapshotJson||host.Course.LoopCount!=host.Venue.Visual.Count||
                 host.Course.VisibleLoopCount<=0||host.Environment.VenueId!=host.Venue.Manifest.Id||host.Environment.RecipeId!=environment.id||
-                host.Environment.TerrainTileCount!=environment.terrain.tiles.Length||host.Environment.ForestGroupCount!=environment.forest.groups.Length||host.Environment.TreeCount!=trees||
+                host.Environment.TerrainTileCount!=environment.terrain.tiles.Length||host.Environment.ForestGroupCount!=environment.forest.groups.Length||host.Environment.AuthoredTreeCount!=trees||
                 host.Mats.Count!=host.Venue.LaneCount||host.Environment.BankCount!=host.Venue.LaneCount||host.Proxies.Count!=entry.field_count)
                 throw new InvalidOperationException("Production terrain, route-selected course, forest, mats, targets or roster is incomplete.");
             foreach(var collider in host.GetComponentsInChildren<Collider>(true))if(collider.enabled)throw new InvalidOperationException("Presentation must not introduce an active gameplay collider.");

@@ -108,7 +108,7 @@ namespace Biathlon.PlayModeTests
                 }
                 Assert.That(environment.TerrainTileCount, Is.EqualTo(recipe.terrain.tiles.Length));
                 Assert.That(environment.ForestGroupCount, Is.EqualTo(recipe.forest.groups.Length));
-                Assert.That(environment.TreeCount, Is.EqualTo(authoredTrees));
+                Assert.That(environment.TreeCount+environment.ServiceClearanceExcludedTrees, Is.EqualTo(authoredTrees));
                 Assert.That(environment.CrowdCount, Is.EqualTo(authoredCrowds));
                 Assert.That(feed.Current, Is.Null, "This fixture owns detached scenery, never authoritative race state.");
 
@@ -334,11 +334,13 @@ namespace Biathlon.PlayModeTests
             var actualRenderers = found.GetComponentsInChildren<MeshRenderer>(true);
             var sourceRenderers = source.GetComponentsInChildren<MeshRenderer>(true);
             Assert.That(actualRenderers.Length, Is.EqualTo(sourceRenderers.Length), placement.id);
-            var sourceMaterials = new List<Material>();
-            foreach (var renderer in sourceRenderers) sourceMaterials.AddRange(renderer.sharedMaterials);
-            var actualMaterials = new List<Material>();
-            foreach (var renderer in actualRenderers) actualMaterials.AddRange(renderer.sharedMaterials);
-            CollectionAssert.AreEquivalent(sourceMaterials, actualMaterials, placement.id + ": every native renderer must use the imported materials.");
+            for(int i=0;i<sourceRenderers.Length;i++)
+            {
+                var sourceMaterials=sourceRenderers[i].sharedMaterials;
+                var actualMaterials=actualRenderers[i].sharedMaterials;
+                Assert.That(actualMaterials.Length,Is.EqualTo(sourceMaterials.Length),placement.id);
+                for(int j=0;j<sourceMaterials.Length;j++)AssertNativeMaterial(sourceMaterials[j],actualMaterials[j],placement.id);
+            }
             return found;
         }
         private static Bounds StandingBounds(Transform frame, SpectatorSeating seating)
@@ -376,7 +378,7 @@ namespace Biathlon.PlayModeTests
                     Assert.That(parent.localScale,Is.EqualTo(Vector3.one));
                 Assert.That((found.transform.lossyScale-expectedScale).sqrMagnitude,Is.LessThanOrEqualTo(1e-12f));
                 Assert.That(Quaternion.Angle(found.transform.rotation, Quaternion.Euler(0, part.yaw_deg, 0)), Is.LessThan(.001f));
-                Assert.That(found.GetComponent<MeshRenderer>().sharedMaterial, Is.SameAs(material));
+                AssertNativeMaterial(material,found.GetComponent<MeshRenderer>().sharedMaterial,part.id);
                 if (frame == null) frame = found.transform;
                 else Assert.That(found.transform.localToWorldMatrix, Is.EqualTo(frame.localToWorldMatrix), "Paired landmark meshes require exactly one rigid pose.");
                 native.Add(found);
@@ -384,6 +386,16 @@ namespace Biathlon.PlayModeTests
             var bounds = LocalBounds(frame, native.ToArray());
             bottom = frame.TransformPoint(new Vector3(bounds.min.x, bounds.min.y, bounds.min.z)).y;
             return Footprint(bounds, frame.localToWorldMatrix);
+        }
+        private static void AssertNativeMaterial(Material source,Material actual,string id)
+        {
+            if(source==actual)return;
+            Assert.That(source.shader.name,Is.EqualTo("Universal Render Pipeline/Lit"),id);
+            Assert.That(actual.shader.name,Is.EqualTo("Biathlon/Illuminated Venue Lit"),id);
+            Assert.That(actual.name,Is.EqualTo(source.name+" (venue illumination)"),id);
+            Assert.That(actual.GetColor("_BaseColor"),Is.EqualTo(source.GetColor("_BaseColor")),id);
+            Assert.That(actual.GetTexture("_BaseMap"),Is.SameAs(source.GetTexture("_BaseMap")),id);
+            Assert.That(actual.GetFloat("_Smoothness"),Is.EqualTo(source.GetFloat("_Smoothness")),id);
         }
         private static void RequireUnitHierarchy(Transform frame)
         {

@@ -72,6 +72,100 @@ namespace Biathlon.PlayModeTests
     }
     public class ProductionEnvironmentTests
     {
+        [UnityTest,Timeout(180000)] public IEnumerator WoodlandServiceSitesAndMountainsAppearInProductionViews()
+        {
+            const string venue="Biathlon/Venues/woodland_basin_v1/";
+            string Read(string id)=>ProductionVenueHost.ReadResource(id);
+            var plan=new VenueAuthoringPlan(VenueManifest.FromJson(Read(venue+"manifest")),Read);
+            var recipe=ProductionEnvironmentDefinition.FromJson(Read(venue+"environment"));
+            var sites=WoodlandServicesDefinition.FromJson(Read(recipe.services_resource),recipe);
+            string track=plan.Track.ToJson(),paths=plan.Paths.ToJson();
+            var root=new GameObject("Woodland venue art acceptance");
+            try
+            {
+                var camera=Camera(root,new Vector3(35,10,9));
+                camera.farClipPlane=700;
+                var quality=root.AddComponent<RenderQualityPresentation>();
+                quality.Initialize(camera);
+                quality.Apply("high");
+                var environment=root.AddComponent<ProductionVenueEnvironment>();
+                environment.Initialize(plan,recipe,Read,root.AddComponent<RacePresentationFeed>(),camera);
+                environment.AutomaticRendering=false;
+                Assert.That(environment.ServiceSiteCount,Is.EqualTo(11));
+                Assert.That(environment.ServiceClearanceExcludedTrees,Is.GreaterThan(0));
+                int authoredTrees=0;
+                foreach(var group in recipe.forest.groups)authoredTrees+=group.count;
+                Assert.That(environment.AuthoredTreeCount,Is.EqualTo(authoredTrees));
+                int triangles=0;
+                foreach(var site in sites.sites)
+                {
+                    Transform element=null;
+                    foreach(Transform child in environment.transform)
+                    {
+                        element=child.Find(site.id);
+                        if(element!=null)break;
+                    }
+                    Assert.That(element,Is.Not.Null,site.id);
+                    Assert.That(element.position.y,Is.EqualTo(environment.SampleGround(element.position)).Within(.001f));
+                    Assert.That(element.GetComponentsInChildren<Collider>(true),Is.Empty);
+                    foreach(var filter in element.GetComponentsInChildren<MeshFilter>())
+                        triangles+=(int)filter.sharedMesh.GetIndexCount(0)/3;
+                }
+                Assert.That(triangles,Is.InRange(10000,130000));
+                Assert.That(root.GetComponentInChildren<StaticSceneryBatches>().SourceRendererCount,Is.GreaterThan(40));
+                Assert.That(plan.Track.ToJson(),Is.EqualTo(track));
+                Assert.That(plan.Paths.ToJson(),Is.EqualTo(paths));
+                string folder=Path.GetFullPath("artifacts/m16-9-woodland-services");
+                Directory.CreateDirectory(folder);
+                var crowd=Resources.Load<Mesh>("Biathlon/Crowd/StandingSpectatorLOD0");
+                Assert.That(crowd.GetIndexCount(0)/3,Is.LessThanOrEqualTo(3500));
+                File.WriteAllText(Path.Combine(folder,"geometry.txt"),$"sites={environment.ServiceSiteCount} triangles={triangles} excluded_trees={environment.ServiceClearanceExcludedTrees} crowd_near_triangles={crowd.GetIndexCount(0)/3}");
+                using(var target=new BenchmarkRenderTarget(1440,810))
+                {
+                    environment.SetAtmosphereForReview("clear");
+                    environment.SetLightingForReview("clear_cold");
+                    camera.transform.LookAt(new Vector3(0,2,-39));
+                    camera.fieldOfView=57;
+                    yield return Capture("stadium-day");
+                    Assert.That(RenderSettings.skybox.GetFloat("_MountainBackdrop"),Is.EqualTo(1));
+                    environment.SetLightingForReview("evening");
+                    environment.SetAtmosphereForReview("snowfall");
+                    yield return Capture("stadium-evening");
+                    Assert.That(environment.Floodlights.LampsOn,Is.True);
+                    Assert.That(environment.SubmittedSnowflakes,Is.GreaterThan(0));
+
+                    environment.SetLightingForReview("clear_cold");
+                    environment.SetAtmosphereForReview("clear");
+                    var foot=new Vector3(116,0,-153);
+                    camera.transform.position=new Vector3(101,environment.SampleGround(new Vector3(101,0,-167))+3,-167);
+                    camera.transform.LookAt(new Vector3(116,environment.SampleGround(foot)+1.7f,-153));
+                    camera.fieldOfView=52;
+                    yield return Capture("forest-lodge");
+
+                    var spectators=environment.Crowd(environment.CrowdCount-1);
+                    var seat=spectators.GetComponentInChildren<SpectatorSeating>();
+                    Vector3 anchor=seat.transform.TransformPoint(seat.CopyAnchors()[seat.Count/2]);
+                    camera.transform.position=anchor-seat.transform.forward*4+Vector3.up*1.45f;
+                    camera.transform.LookAt(anchor+Vector3.up*1.18f);
+                    camera.fieldOfView=40;
+                    yield return Capture("spectators");
+
+                    IEnumerator Capture(string name)
+                    {
+                        for(int i=0;i<3;i++)
+                        {
+                            environment.Render(camera,"high",12);
+                            target.Render(camera);
+                            yield return null;
+                        }
+                        target.SavePng(Path.Combine(folder,name+".png"));
+                    }
+                }
+                environment.Shutdown();
+                Assert.That(environment.ServiceSiteCount,Is.Zero);
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
         private static Camera Camera(GameObject root,Vector3 position)
         {var go=new GameObject("Explicit environment test camera");go.transform.SetParent(root.transform,false);var camera=go.AddComponent<Camera>();camera.enabled=false;camera.transform.position=position;camera.farClipPlane=300;return camera;}
         [Test] public void SeparateCorridorsKeepLooseGapVariableWidthsAndContinuousTiledNormals()

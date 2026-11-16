@@ -113,6 +113,15 @@ namespace Biathlon.Unity
             "Выбранная погода хранится в карьере. Откройте Biathlon.exe и продолжите карьеру. Сильный снегопад освещается прожекторами трассы.\r\n",
             "M16.9");
 
+        public static void BuildM169WoodlandServicesReview()
+        {
+            const string folder="Builds/M16_9_Woodland_Services_Review";
+            BuildM167Review(folder, "m169_woodland_services_review", null,
+                "В Лесной долине появились сервисные палатки и павильоны, горный фон и новые зимние модели зрителей.\r\n",
+                "M16.9");
+            File.Copy("docs/quality/m16-9-woodland-services/ASSET_CREDITS.md",Path.Combine(folder,"WOODLAND_ASSET_CREDITS.md"),true);
+        }
+
         private static void BuildM167Review(string folder, string id, string comparisonFile, string reviewNote, string stage="M16.7",
             string simulationNote="Физика гонки, баланс, геометрия попаданий и формат сохранений не изменены.\r\n")
         {

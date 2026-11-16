@@ -219,6 +219,7 @@ namespace Biathlon.PlayModeTests
             // Keep certifying the original optional High-only policy separately.
             // The new complete all-tier venue policy has its own native regressions.
             recipe.visibility_resource=null;
+            recipe.services_resource=null;
             recipe.forest.high_visibility=Policy();string track=plan.Track.ToJson(),visual=plan.Visual.ToJson(),paths=plan.Paths.ToJson();var root=new GameObject("Actual forest horizon proof");
             try
             {

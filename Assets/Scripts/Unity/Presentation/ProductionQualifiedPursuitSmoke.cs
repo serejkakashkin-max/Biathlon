@@ -107,7 +107,7 @@ namespace Biathlon.Unity.Presentation
                 !host.Course.GroundJoined||host.Course.PresentationRouteSnapshotJson!=host.Runner.Field.Route.PlanSnapshotJson||
                 host.Course.PresentationRequirementsSnapshotJson!=host.Runner.Field.Route.RequirementsSnapshotJson||host.Course.VisibleLoopCount<=0||
                 host.Environment.VenueId!=host.Venue.Manifest.Id||host.Environment.RecipeId!=environment.id||
-                host.Environment.TerrainTileCount!=environment.terrain.tiles.Length||host.Environment.ForestGroupCount!=environment.forest.groups.Length||host.Environment.TreeCount!=trees||
+                host.Environment.TerrainTileCount!=environment.terrain.tiles.Length||host.Environment.ForestGroupCount!=environment.forest.groups.Length||host.Environment.AuthoredTreeCount!=trees||
                 host.Mats.Count!=30||host.Environment.BankCount!=30||host.ChaseCamera==null||!host.ChaseCamera.isActiveAndEnabled||host.ChaseCamera.targetTexture!=null)
                 throw new InvalidOperationException("Pursuit30 production environment, route, window camera, mats, targets or roster failed initialization.");
             foreach(var collider in host.GetComponentsInChildren<Collider>(true))if(collider.enabled)throw new InvalidOperationException("Presentation introduced an active gameplay collider.");

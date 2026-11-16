@@ -100,11 +100,11 @@ namespace Biathlon.PlayModeTests
                     var group = definition.forest.groups[i];
                     var source = JsonUtility.FromJson<ProductionForestInstances>(Read(group.instances_resource));
                     Assert.That(source.instances.Length, Is.EqualTo(group.count));
-                    Assert.That(environment.Forest(i).TotalInstances, Is.EqualTo(source.instances.Length));
+                    Assert.That(environment.Forest(i).TotalInstances, Is.LessThanOrEqualTo(source.instances.Length));
                     declaredTrees += group.count;
                     Assert.That(environment.Forest(i).ProductionHighFogEndMeters, Is.EqualTo(expectedForestHorizon));
                 }
-                Assert.That(environment.TreeCount, Is.EqualTo(declaredTrees));
+                Assert.That(environment.TreeCount+environment.ServiceClearanceExcludedTrees, Is.EqualTo(declaredTrees));
                 var firstTree = environment.Forest(0).InstanceWorldPosition(0);
 
                 // These edits are intentionally only to the caller DTO, after the cold

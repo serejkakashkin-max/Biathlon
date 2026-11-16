@@ -20,7 +20,7 @@ namespace Biathlon.Unity.Presentation
         public string VisualAtmosphereId {get;private set;}
         private readonly WeatherVisualPreset atmosphericBlend=new WeatherVisualPreset();
         public Biathlon.Domain.RaceWeatherFrame? RaceObservation {get;set;}
-        public void Initialize(Camera camera,Light directional,Material skyOverride=null)
+        public void Initialize(Camera camera,Light directional,Material skyOverride=null,float mountainBackdrop=0)
         {
             if(definition!=null||camera==null||directional==null||directional.type!=LightType.Directional||!isActiveAndEnabled)throw new ArgumentException("Enabled weather component, explicit camera and directional light required.");
             if(owner!=null)throw new InvalidOperationException("Release previous weather owner first.");
@@ -28,6 +28,7 @@ namespace Biathlon.Unity.Presentation
             var skyTemplate=skyOverride!=null?skyOverride:Resources.Load<Material>("Biathlon/Weather/WinterSky");flakes=Resources.Load<Material>("Biathlon/Snow/Spray");
             if(skyTemplate==null||flakes==null)throw new InvalidOperationException("Generate weather assets.");
             sky=new Material(skyTemplate);mesh=new Mesh{name="Bounded snowfall"};mesh.MarkDynamic();
+            if(sky.HasProperty("_MountainBackdrop"))sky.SetFloat("_MountainBackdrop",mountainBackdrop);
             vertices=new Vector3[definition.max_particles*4];uv=new Vector2[vertices.Length];colors=new Color[vertices.Length];indices=new int[definition.max_particles*6];
             for(int i=0;i<definition.max_particles;i++){int v=i*4,t=i*6;uv[v]=Vector2.zero;uv[v+1]=Vector2.right;uv[v+2]=Vector2.up;uv[v+3]=Vector2.one;indices[t]=v;indices[t+1]=v+2;indices[t+2]=v+1;indices[t+3]=v+1;indices[t+4]=v+2;indices[t+5]=v+3;}
             Acquire();
